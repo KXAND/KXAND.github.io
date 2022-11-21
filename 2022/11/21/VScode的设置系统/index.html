@@ -20,20 +20,22 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="Pre:试图调整 VS Code 的 C&#x2F;C++ 编译默认设置，结果却……  我需要一个默认的编译设置！众所周知，VSCode 的推荐或者说设计使用方法是对不同代码建立不同的工作区。这确实是对不同项目、不同语言的代码进行管理的优良方法。但是在学习的过程之中，不是所有情况都是非常理想的“我可以将所有的代码都井井有条的打在一个文件夹（工作区）中”的。学习中，QQ上接收测试别人的代码、想临时测试某个功能">
+  <meta name="description" content="Pre:试图调整 VS Code 的 C&#x2F;C++ 编译默认设置，结果却……  我需要一个默认的编译设置！众所周知，VSCode 的推荐或者说设计使用方法是对不同代码建立不同的工作区。这确实是对不同项目、不同语言的代码进行管理的优良方法。但是在学习的过程之中，不是所有情况都是非常理想的“我可以将所有的代码都井井有条的打在一个文件夹（工作区）中”的。学习中，QQ 上接收测试别人的代码、想临时测试某个功">
 <meta property="og:type" content="article">
-<meta property="og:title" content="VS Code 的设置系统的粗浅理解">
+<meta property="og:title" content="VSCode 的设置系统的粗浅理解">
 <meta property="og:url" content="http://example.com/2022/11/21/VScode%E7%9A%84%E8%AE%BE%E7%BD%AE%E7%B3%BB%E7%BB%9F/index.html">
 <meta property="og:site_name" content="LeeKa 的酒馆">
-<meta property="og:description" content="Pre:试图调整 VS Code 的 C&#x2F;C++ 编译默认设置，结果却……  我需要一个默认的编译设置！众所周知，VSCode 的推荐或者说设计使用方法是对不同代码建立不同的工作区。这确实是对不同项目、不同语言的代码进行管理的优良方法。但是在学习的过程之中，不是所有情况都是非常理想的“我可以将所有的代码都井井有条的打在一个文件夹（工作区）中”的。学习中，QQ上接收测试别人的代码、想临时测试某个功能">
+<meta property="og:description" content="Pre:试图调整 VS Code 的 C&#x2F;C++ 编译默认设置，结果却……  我需要一个默认的编译设置！众所周知，VSCode 的推荐或者说设计使用方法是对不同代码建立不同的工作区。这确实是对不同项目、不同语言的代码进行管理的优良方法。但是在学习的过程之中，不是所有情况都是非常理想的“我可以将所有的代码都井井有条的打在一个文件夹（工作区）中”的。学习中，QQ 上接收测试别人的代码、想临时测试某个功">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2022/11/20/knv2UMLYr9pOjTl.png">
 <meta property="og:image" content="https://s2.loli.net/2022/11/20/HcI8KUk3mhNDWlC.png">
 <meta property="og:image" content="https://s2.loli.net/2022/11/20/bgIrGtDM9KQ5CoX.png">
 <meta property="article:published_time" content="2022-11-21T05:20:25.000Z">
-<meta property="article:modified_time" content="2022-11-21T05:20:25.534Z">
+<meta property="article:modified_time" content="2022-11-21T05:30:16.939Z">
 <meta property="article:author" content="LeeKa">
-<meta property="article:tag" content="sample keywaord">
+<meta property="article:tag" content="Code">
+<meta property="article:tag" content="VSCode">
+<meta property="article:tag" content="软件使用技巧">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://s2.loli.net/2022/11/20/knv2UMLYr9pOjTl.png">
 
@@ -50,7 +52,7 @@
   };
 </script>
 
-  <title>VS Code 的设置系统的粗浅理解 | LeeKa 的酒馆</title>
+  <title>VSCode 的设置系统的粗浅理解 | LeeKa 的酒馆</title>
   
 
 
@@ -190,7 +192,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          VS Code 的设置系统的粗浅理解
+          VSCode 的设置系统的粗浅理解
         </h1>
 
         <div class="post-meta">
@@ -199,8 +201,18 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2022-11-21 13:20:25" itemprop="dateCreated datePublished" datetime="2022-11-21T13:20:25+08:00">2022-11-21</time>
+              <time title="创建时间：2022-11-21 13:20:25 / 修改时间：13:30:16" itemprop="dateCreated datePublished" datetime="2022-11-21T13:20:25+08:00">2022-11-21</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/VSCode-%E8%AF%B4%E6%98%8E%E4%B9%A6/" itemprop="url" rel="index"><span itemprop="name">VSCode 说明书</span></a>
+                </span>
             </span>
 
           
@@ -216,10 +228,10 @@
       
         <p>Pre:试图调整 VS Code 的 C/C++ 编译默认设置，结果却……</p>
 <!---more---->
-<h1 id="我需要一个默认的编译设置！"><a href="#我需要一个默认的编译设置！" class="headerlink" title="我需要一个默认的编译设置！"></a>我需要一个默认的编译设置！</h1><p>众所周知，VSCode 的推荐或者说设计使用方法是对不同代码建立不同的工作区。这确实是对不同项目、不同语言的代码进行管理的优良方法。但是在学习的过程之中，不是所有情况都是非常理想的“我可以将所有的代码都井井有条的打在一个文件夹（工作区）中”的。学习中，QQ上接收测试别人的代码、想临时测试某个功能是否如记忆一样等等情况，这样的代码，具有临时性或者独立性，我不希望将其和我固有的代码文件混淆在一起，又不希望记一个层层目录之下的草稿工作区分门别类。因此最理想的情况就是能在<strong>不打开特定工作区或文件夹</strong>的情况下对单个文件进行编译和调试。也就是一个全局的，或者说更通用的设置。<br>之前种种原因，对 VSCode 的设置理解停留在了一种一知半解的程度，借此机会，我希望能对此加深理解。</p>
+<h1 id="我需要一个默认的编译设置！"><a href="#我需要一个默认的编译设置！" class="headerlink" title="我需要一个默认的编译设置！"></a>我需要一个默认的编译设置！</h1><p>众所周知，VSCode 的推荐或者说设计使用方法是对不同代码建立不同的工作区。这确实是对不同项目、不同语言的代码进行管理的优良方法。但是在学习的过程之中，不是所有情况都是非常理想的“我可以将所有的代码都井井有条的打在一个文件夹（工作区）中”的。学习中，QQ 上接收测试别人的代码、想临时测试某个功能是否如记忆一样等等情况，这样的代码，具有临时性或者独立性，我不希望将其和我固有的代码文件混淆在一起，又不希望记一个层层目录之下的草稿工作区分门别类。因此最理想的情况就是能在<strong>不打开特定工作区或文件夹</strong>的情况下对单个文件进行编译和调试。也就是一个全局的，或者说更通用的设置。<br>之前种种原因，对 VSCode 的设置理解停留在了一种一知半解的程度，借此机会，我希望能对此加深理解。</p>
 <h1 id="VSCode-中的设置的基本结构"><a href="#VSCode-中的设置的基本结构" class="headerlink" title="VSCode 中的设置的基本结构"></a>VSCode 中的设置的基本结构</h1><h2 id="优先级和工作区、文件夹"><a href="#优先级和工作区、文件夹" class="headerlink" title="优先级和工作区、文件夹"></a>优先级和工作区、文件夹</h2><p>VSCode 的设置结构优先级由低到高是 “默认设置（不能更改）→ 用户设置 → 工作区设置 → 文件夹设置”。VSCode 会优先使用优先级高的设置，如果没有，就用优先级次高的设置。<br><del>知道写到这里我才注意到的一个事实是</del>工作区（workspace）和文件夹（folder）是不一样的存在。我们可以认为一个“文件夹”是一个项目，一个工作区则是同类项目的集合点。例如所有的 Python 项目为一个工作区，而对其中的任意一个项目设置为单独的一个文件夹。Python 项目的共通性设置放于“工作区设置”中，而项目如果有特殊设置则放在“文件夹设置”里。<br>需要注意的是，如果只有一个文件夹，那么这个文件夹本身就是一个工作区。VSCode 会把这个文件夹设置显示为工作区设置，这也是为什么我会一开始没有发现这俩是不同概念的原因。<br>下面是工作区和文件夹在 VSCode 资源管理侧栏界面的对比，工作区会额外注明工作区二字。<br><img src="https://s2.loli.net/2022/11/20/knv2UMLYr9pOjTl.png"  style = 'zoom:1.1'/></p>
 <h2 id="设置文件的存储格式"><a href="#设置文件的存储格式" class="headerlink" title="设置文件的存储格式"></a>设置文件的存储格式</h2><p>所有这些设置，都是以 JSON 文件存储在电脑上的文件中的（尽管工作区文件不以<code>.JSON</code>结尾）。JSON（JavaScript Object Notation） 是一种独立于 语言的轻量级数据交换格式，采用键和值的格式存储数据。 而VSCode 的每一项设置都是一对键和值。<br>其中，用户设置位于 VSCode 的数据目录下( C 盘 appData 文件夹下)；工作区设置会是一个名为<code>&#123;名字.code-workspace</code>的文件（此文件不一定位于工作区文件夹内）；如果是文件夹，则会存储于文件夹下自动生成的<code>.vscode</code>文件夹下。</p>
-<h2 id="插件的设置"><a href="#插件的设置" class="headerlink" title="插件的设置"></a>插件的设置</h2><p>使用 VSCode 的时候，我们还会添加许多的插件，例如本文的初衷：在非工作区 / 文件夹环境下编译 C / C++ 程序就需要 MS 官方的 C/C++ 插件。这些插件的设置也会被写入到 Uersettings 文件中。因此，所有的插件和软件设置都是对同一个文件的内容的修改。既然目的是更改默认的编译软件，那么我们就是需要修改 Usersettings 文件即可.事情到这一步似乎离解决已经不远了。可是真的是这样吗？</p>
+<h2 id="插件的设置"><a href="#插件的设置" class="headerlink" title="插件的设置"></a>插件的设置</h2><p>使用 VSCode 的时候，我们还会添加许多的插件，例如本文的初衷：在非工作区 / 文件夹环境下编译 C/C++ 程序就需要 MS 官方的 C/C++ 插件。这些插件的设置也会被写入到 Uersettings 文件中。因此，所有的插件和软件设置都是对同一个文件的内容的修改。既然目的是更改默认的编译软件，那么我们就是需要修改 Usersettings 文件即可.事情到这一步似乎离解决已经不远了。可是真的是这样吗？</p>
 <h1 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h1><p>在设置中，我们找到了下面两个设置。第一个的设置具体还不是很懂，第二个则没有发挥作用（图中值为自己填的）。<br><img src="https://s2.loli.net/2022/11/20/HcI8KUk3mhNDWlC.png" ><br>所以很遗憾，事情没有以完美解决落幕。依然要选择编译和调试器如图：<br><img src="https://s2.loli.net/2022/11/20/bgIrGtDM9KQ5CoX.png" ><br>不过，至少我搞清楚了为什么这里会有三个选项，在<a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/cpp/config-mingw">官方文档</a>中提到，</p>
 <blockquote>
 <p>The compilerPath search order is:</p>
@@ -241,6 +253,11 @@
     
 
       <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Code/" rel="tag"># Code</a>
+              <a href="/tags/VSCode/" rel="tag"># VSCode</a>
+              <a href="/tags/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/" rel="tag"># 软件使用技巧</a>
+          </div>
 
         
 
