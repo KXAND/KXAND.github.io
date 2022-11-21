@@ -20,23 +20,24 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="Heavenly Side 是收录于ILLENIUM的第四张专辑的一首歌。">
+  <meta name="description" content="Pre:试图调整 VS Code 的 C&#x2F;C++ 编译默认设置，结果却……  我需要一个默认的编译设置！众所周知，VSCode 的推荐或者说设计使用方法是对不同代码建立不同的工作区。这确实是对不同项目、不同语言的代码进行管理的优良方法。但是在学习的过程之中，不是所有情况都是非常理想的“我可以将所有的代码都井井有条的打在一个文件夹（工作区）中”的。学习中，QQ上接收测试别人的代码、想临时测试某个功能">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Heavenly Side ---我愿与你逃向天国">
-<meta property="og:url" content="http://example.com/2022/02/14/Heavenly%20Side%E4%B8%AA%E4%BA%BA%E7%BF%BB%E8%AF%91/index.html">
+<meta property="og:title" content="VS Code 的设置系统的粗浅理解">
+<meta property="og:url" content="http://example.com/2022/11/21/VScode%E7%9A%84%E8%AE%BE%E7%BD%AE%E7%B3%BB%E7%BB%9F/index.html">
 <meta property="og:site_name" content="LeeKa 的酒馆">
-<meta property="og:description" content="Heavenly Side 是收录于ILLENIUM的第四张专辑的一首歌。">
+<meta property="og:description" content="Pre:试图调整 VS Code 的 C&#x2F;C++ 编译默认设置，结果却……  我需要一个默认的编译设置！众所周知，VSCode 的推荐或者说设计使用方法是对不同代码建立不同的工作区。这确实是对不同项目、不同语言的代码进行管理的优良方法。但是在学习的过程之中，不是所有情况都是非常理想的“我可以将所有的代码都井井有条的打在一个文件夹（工作区）中”的。学习中，QQ上接收测试别人的代码、想临时测试某个功能">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-02-14T15:59:59.000Z">
-<meta property="article:modified_time" content="2022-02-22T12:25:10.578Z">
+<meta property="og:image" content="https://s2.loli.net/2022/11/20/knv2UMLYr9pOjTl.png">
+<meta property="og:image" content="https://s2.loli.net/2022/11/20/HcI8KUk3mhNDWlC.png">
+<meta property="og:image" content="https://s2.loli.net/2022/11/20/bgIrGtDM9KQ5CoX.png">
+<meta property="article:published_time" content="2022-11-21T05:20:25.000Z">
+<meta property="article:modified_time" content="2022-11-21T05:20:25.534Z">
 <meta property="article:author" content="LeeKa">
-<meta property="article:tag" content="Music">
-<meta property="article:tag" content="ILLENIUM">
-<meta property="article:tag" content="翻译">
-<meta property="article:tag" content="歌词">
+<meta property="article:tag" content="sample keywaord">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/11/20/knv2UMLYr9pOjTl.png">
 
-<link rel="canonical" href="http://example.com/2022/02/14/Heavenly%20Side%E4%B8%AA%E4%BA%BA%E7%BF%BB%E8%AF%91/">
+<link rel="canonical" href="http://example.com/2022/11/21/VScode%E7%9A%84%E8%AE%BE%E7%BD%AE%E7%B3%BB%E7%BB%9F/">
 
 
 <script id="page-configurations">
@@ -49,7 +50,7 @@
   };
 </script>
 
-  <title>Heavenly Side ---我愿与你逃向天国 | LeeKa 的酒馆</title>
+  <title>VS Code 的设置系统的粗浅理解 | LeeKa 的酒馆</title>
   
 
 
@@ -176,7 +177,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/02/14/Heavenly%20Side%E4%B8%AA%E4%BA%BA%E7%BF%BB%E8%AF%91/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/21/VScode%E7%9A%84%E8%AE%BE%E7%BD%AE%E7%B3%BB%E7%BB%9F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://s2.loli.net/2022/03/24/zcq6l9KENbRJtDi.jpg">
@@ -189,7 +190,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Heavenly Side ---我愿与你逃向天国
+          VS Code 的设置系统的粗浅理解
         </h1>
 
         <div class="post-meta">
@@ -199,23 +200,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2022-02-14 23:59:59" itemprop="dateCreated datePublished" datetime="2022-02-14T23:59:59+08:00">2022-02-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-02-22 20:25:10" itemprop="dateModified" datetime="2022-02-22T20:25:10+08:00">2022-02-22</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%AD%8C%E8%AF%8D%E7%BF%BB%E8%AF%91/" itemprop="url" rel="index"><span itemprop="name">歌词翻译</span></a>
-                </span>
+              <time title="创建时间：2022-11-21 13:20:25" itemprop="dateCreated datePublished" datetime="2022-11-21T13:20:25+08:00">2022-11-21</time>
             </span>
 
           
@@ -229,161 +214,25 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>Heavenly Side 是收录于ILLENIUM的第四张专辑的一首歌。<a id="more"></a>虽然之前吐槽水啊水之类的，但是没想到这首歌比feat Nurko的Sideways让我上头多了。虽然网易云音乐的翻译也未必没有可取之处，但是个人感觉还是略显谜语人和机翻，在“没有人比我更懂歌词内涵”的思想知道下（并不是），于是就写了这个翻译。由于个人文学素养有限、写的时候又考虑到能否唱出来而硬拗了一些词，不足之处欢迎指正。</p>
-<h2 id="《Heavenly-Side》-ILLENIUM-《Fallen-Embers》"><a href="#《Heavenly-Side》-ILLENIUM-《Fallen-Embers》" class="headerlink" title="《Heavenly Side》 -ILLENIUM -《Fallen Embers》"></a>《Heavenly Side》 -ILLENIUM -《Fallen Embers》</h2><hr>
-<p>I’ve got an anger problem</p>
+        <p>Pre:试图调整 VS Code 的 C/C++ 编译默认设置，结果却……</p>
+<!---more---->
+<h1 id="我需要一个默认的编译设置！"><a href="#我需要一个默认的编译设置！" class="headerlink" title="我需要一个默认的编译设置！"></a>我需要一个默认的编译设置！</h1><p>众所周知，VSCode 的推荐或者说设计使用方法是对不同代码建立不同的工作区。这确实是对不同项目、不同语言的代码进行管理的优良方法。但是在学习的过程之中，不是所有情况都是非常理想的“我可以将所有的代码都井井有条的打在一个文件夹（工作区）中”的。学习中，QQ上接收测试别人的代码、想临时测试某个功能是否如记忆一样等等情况，这样的代码，具有临时性或者独立性，我不希望将其和我固有的代码文件混淆在一起，又不希望记一个层层目录之下的草稿工作区分门别类。因此最理想的情况就是能在<strong>不打开特定工作区或文件夹</strong>的情况下对单个文件进行编译和调试。也就是一个全局的，或者说更通用的设置。<br>之前种种原因，对 VSCode 的设置理解停留在了一种一知半解的程度，借此机会，我希望能对此加深理解。</p>
+<h1 id="VSCode-中的设置的基本结构"><a href="#VSCode-中的设置的基本结构" class="headerlink" title="VSCode 中的设置的基本结构"></a>VSCode 中的设置的基本结构</h1><h2 id="优先级和工作区、文件夹"><a href="#优先级和工作区、文件夹" class="headerlink" title="优先级和工作区、文件夹"></a>优先级和工作区、文件夹</h2><p>VSCode 的设置结构优先级由低到高是 “默认设置（不能更改）→ 用户设置 → 工作区设置 → 文件夹设置”。VSCode 会优先使用优先级高的设置，如果没有，就用优先级次高的设置。<br><del>知道写到这里我才注意到的一个事实是</del>工作区（workspace）和文件夹（folder）是不一样的存在。我们可以认为一个“文件夹”是一个项目，一个工作区则是同类项目的集合点。例如所有的 Python 项目为一个工作区，而对其中的任意一个项目设置为单独的一个文件夹。Python 项目的共通性设置放于“工作区设置”中，而项目如果有特殊设置则放在“文件夹设置”里。<br>需要注意的是，如果只有一个文件夹，那么这个文件夹本身就是一个工作区。VSCode 会把这个文件夹设置显示为工作区设置，这也是为什么我会一开始没有发现这俩是不同概念的原因。<br>下面是工作区和文件夹在 VSCode 资源管理侧栏界面的对比，工作区会额外注明工作区二字。<br><img src="https://s2.loli.net/2022/11/20/knv2UMLYr9pOjTl.png"  style = 'zoom:1.1'/></p>
+<h2 id="设置文件的存储格式"><a href="#设置文件的存储格式" class="headerlink" title="设置文件的存储格式"></a>设置文件的存储格式</h2><p>所有这些设置，都是以 JSON 文件存储在电脑上的文件中的（尽管工作区文件不以<code>.JSON</code>结尾）。JSON（JavaScript Object Notation） 是一种独立于 语言的轻量级数据交换格式，采用键和值的格式存储数据。 而VSCode 的每一项设置都是一对键和值。<br>其中，用户设置位于 VSCode 的数据目录下( C 盘 appData 文件夹下)；工作区设置会是一个名为<code>&#123;名字.code-workspace</code>的文件（此文件不一定位于工作区文件夹内）；如果是文件夹，则会存储于文件夹下自动生成的<code>.vscode</code>文件夹下。</p>
+<h2 id="插件的设置"><a href="#插件的设置" class="headerlink" title="插件的设置"></a>插件的设置</h2><p>使用 VSCode 的时候，我们还会添加许多的插件，例如本文的初衷：在非工作区 / 文件夹环境下编译 C / C++ 程序就需要 MS 官方的 C/C++ 插件。这些插件的设置也会被写入到 Uersettings 文件中。因此，所有的插件和软件设置都是对同一个文件的内容的修改。既然目的是更改默认的编译软件，那么我们就是需要修改 Usersettings 文件即可.事情到这一步似乎离解决已经不远了。可是真的是这样吗？</p>
+<h1 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h1><p>在设置中，我们找到了下面两个设置。第一个的设置具体还不是很懂，第二个则没有发挥作用（图中值为自己填的）。<br><img src="https://s2.loli.net/2022/11/20/HcI8KUk3mhNDWlC.png" ><br>所以很遗憾，事情没有以完美解决落幕。依然要选择编译和调试器如图：<br><img src="https://s2.loli.net/2022/11/20/bgIrGtDM9KQ5CoX.png" ><br>不过，至少我搞清楚了为什么这里会有三个选项，在<a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/cpp/config-mingw">官方文档</a>中提到，</p>
 <blockquote>
-<p>我总是喜怒无常</p>
+<p>The compilerPath search order is:</p>
+<ul>
+<li>First check for the Microsoft Visual C++ compiler</li>
+<li>Then look for g++ on Windows Subsystem for Linux (WSL)</li>
+<li>Then g++ for Mingw-w64.</li>
+</ul>
 </blockquote>
-<p>I’ve got a selfish need</p>
-<blockquote>
-<p>还变得自私自利</p>
-</blockquote>
-<p>I like to burn my focus</p>
-<blockquote>
-<p>我在琐事中忙碌</p>
-</blockquote>
-<p>Just to watch my true colors bleed</p>
-<blockquote>
-<p>只为将真我遗弃</p>
-</blockquote>
-<p>I’ve got a taste for failure</p>
-<blockquote>
-<p>我已饱尝失败的滋味</p>
-</blockquote>
-<p>I find it in everything</p>
-<blockquote>
-<p>生活中处处碰壁</p>
-</blockquote>
-<p>But I hear the voice inside you</p>
-<blockquote>
-<p>但我却听到你内心的声音</p>
-</blockquote>
-<p>Say I could be more than need</p>
-<blockquote>
-<p>告诉我存在的意义</p>
-</blockquote>
-<hr>
-<p>You can’t let go if you want to</p>
-<blockquote>
-<p>若愿意你可永不放手</p>
-</blockquote>
-<p>‘Cause I love you all the same</p>
-<blockquote>
-<p>只因我的爱永不改变</p>
-</blockquote>
-<hr>
-<p>It’s a long way down from here（Oh, Oh, Oh, Oh ）</p>
-<blockquote>
-<p>此后还有漫漫长路要走</p>
-</blockquote>
-<p>My heavenly side is comin’ alive if you want me（Oh, Oh, Oh, Oh ）</p>
-<blockquote>
-<p>只要你愿意我美好的一面随时为你展现</p>
-</blockquote>
-<p>And I killed myself last year(Oh, oh, oh, oh)</p>
-<blockquote>
-<p>与过去的我一刀两断</p>
-</blockquote>
-<p>My heavenly side is comin’ alive if you want me（Oh, Oh, Oh, Oh ）</p>
-<blockquote>
-<p>只要你愿意我温柔的一面随时为你展现</p>
-</blockquote>
-<p>If you want me</p>
-<blockquote>
-<p>只要你愿意</p>
-</blockquote>
-<hr>
-<p>I know that I’m the problem </p>
-<blockquote>
-<p>我知道我就是麻烦所在</p>
-</blockquote>
-<p>I know that I’m to blame</p>
-<blockquote>
-<p>我知道我应该饱受谴责</p>
-</blockquote>
-<p>But I hear the heart inside you</p>
-<blockquote>
-<p>但我也听到你内心的声音</p>
-</blockquote>
-<p>And it’s calling out my name</p>
-<blockquote>
-<p>正呼唤着我的名字</p>
-</blockquote>
-<hr>
-<p>You can’t let go if you want to</p>
-<blockquote>
-<p>若愿意你可永不放手</p>
-</blockquote>
-<p>‘Cause I love you all the same</p>
-<blockquote>
-<p>因为我的爱永不改变</p>
-</blockquote>
-<hr>
-<p>It’s a long way down from here</p>
-<blockquote>
-<p>此后还有漫漫长路要走</p>
-</blockquote>
-<p>My heavenly side is comin’ alive if you want me</p>
-<blockquote>
-<p>若你愿意我美好的一面随时为你展现</p>
-</blockquote>
-<p>And I killed myself last year</p>
-<blockquote>
-<p>与过去的我一刀两断</p>
-</blockquote>
-<p>My heavenly side is comin’ alive if you want me</p>
-<blockquote>
-<p>只要你愿意我美好的一面随时为你展现</p>
-</blockquote>
-<p>If you want me</p>
-<blockquote>
-<p>只要你愿意</p>
-</blockquote>
-<hr>
-<p>It’s a long way down from here</p>
-<blockquote>
-<p>此后还有漫漫长路要走</p>
-</blockquote>
-<p>My heavenly side is comin’ alive if you want me</p>
-<blockquote>
-<p>只要你愿意我天使的一面随时为你展现</p>
-</blockquote>
-<p>And I killed myself last year</p>
-<blockquote>
-<p>与过去的我一刀两断</p>
-</blockquote>
-<p>My heavenly side is comin’ alive if you want me</p>
-<blockquote>
-<p>只要你愿意我恶魔的一面将会永埋心中</p>
-</blockquote>
-<hr>
-<p>Don’t you let go</p>
-<blockquote>
-<p>不要放手</p>
-</blockquote>
-<p>I found my soul</p>
-<blockquote>
-<p>是你将我挽救</p>
-</blockquote>
-<p>Don’t you let go</p>
-<blockquote>
-<p>不要放手</p>
-</blockquote>
-<p>I found my soul</p>
-<blockquote>
-<p>灵魂怎可弄丢</p>
-</blockquote>
-<hr>
-<p>My heavenly side is comin’ alive if you want me</p>
-<blockquote>
-<p>只要你愿意我美好的一面随时为你展现</p>
-</blockquote>
-<p>If you want me</p>
-<blockquote>
-<p>只要你愿意</p>
-</blockquote>
-<hr>
+<p>因此，VSCode 会扫描到 mingw-w64 中的 cpp 和 g++ 两个程序，以及 VS 中带有的的 cl ，因此 VSCode 会有不知道用什么的疑问。但是 cl 被限制为只能在 VS 中使用，这也就导致了此选项实际上不能正常运行。目前的解决办法还得是选一遍，然后 VSCode 会在这一窗口中记住你的选择。<br>这一选项的原因可能是 VSCode 中的并没有选项能存储此默认设置，它会优先去寻找 <code>launch.json</code>,找不到时，则会发出此疑问。</p>
+<h1 id="还没有理解的问题"><a href="#还没有理解的问题" class="headerlink" title="还没有理解的问题"></a>还没有理解的问题</h1><ol>
+<li>Q：既然 JSON 文件支持注释，那 JSON 和 JSONC（JSON with comments）有什么区别，为什么要创造 JSONC？VS Code 采用的是 JSON 还是 JSON with comments？</li>
+</ol>
 
     </div>
 
@@ -392,12 +241,6 @@
     
 
       <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/Music/" rel="tag"># Music</a>
-              <a href="/tags/ILLENIUM/" rel="tag"># ILLENIUM</a>
-              <a href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag"># 翻译</a>
-              <a href="/tags/%E6%AD%8C%E8%AF%8D/" rel="tag"># 歌词</a>
-          </div>
 
         
 
@@ -405,13 +248,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2022/01/15/%E5%A4%A9%E5%9B%BD%E7%8E%8B%E6%9C%9D/" rel="prev" title="天国王朝语摘">
-      <i class="fa fa-chevron-left"></i> 天国王朝语摘
+    <a href="/2022/11/15/%E5%A6%82%E4%BD%95%E7%AE%A1%E7%90%86%E6%88%91%E7%9A%84%E6%96%87%E7%AB%A0%E3%80%81%E7%AC%94%E8%AE%B0/" rel="prev" title="如何管理我的文章、笔记">
+      <i class="fa fa-chevron-left"></i> 如何管理我的文章、笔记
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2022/03/24/%E7%94%A8%E6%89%B9%E5%A4%84%E7%90%86%E7%AE%80%E5%8C%96hexo%E5%91%BD%E4%BB%A4%E6%93%8D%E4%BD%9C/" rel="next" title="用批处理简化hexo命令操作">
-      用批处理简化hexo命令操作 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -470,7 +310,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E3%80%8AHeavenly-Side%E3%80%8B-ILLENIUM-%E3%80%8AFallen-Embers%E3%80%8B"><span class="nav-number">1.</span> <span class="nav-text">《Heavenly Side》 -ILLENIUM -《Fallen Embers》</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%88%91%E9%9C%80%E8%A6%81%E4%B8%80%E4%B8%AA%E9%BB%98%E8%AE%A4%E7%9A%84%E7%BC%96%E8%AF%91%E8%AE%BE%E7%BD%AE%EF%BC%81"><span class="nav-number">1.</span> <span class="nav-text">我需要一个默认的编译设置！</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#VSCode-%E4%B8%AD%E7%9A%84%E8%AE%BE%E7%BD%AE%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84"><span class="nav-number">2.</span> <span class="nav-text">VSCode 中的设置的基本结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%98%E5%85%88%E7%BA%A7%E5%92%8C%E5%B7%A5%E4%BD%9C%E5%8C%BA%E3%80%81%E6%96%87%E4%BB%B6%E5%A4%B9"><span class="nav-number">2.1.</span> <span class="nav-text">优先级和工作区、文件夹</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E6%96%87%E4%BB%B6%E7%9A%84%E5%AD%98%E5%82%A8%E6%A0%BC%E5%BC%8F"><span class="nav-number">2.2.</span> <span class="nav-text">设置文件的存储格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%92%E4%BB%B6%E7%9A%84%E8%AE%BE%E7%BD%AE"><span class="nav-number">2.3.</span> <span class="nav-text">插件的设置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA"><span class="nav-number">3.</span> <span class="nav-text">结论</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%98%E6%B2%A1%E6%9C%89%E7%90%86%E8%A7%A3%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">4.</span> <span class="nav-text">还没有理解的问题</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
