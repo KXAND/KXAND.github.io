@@ -258,7 +258,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-03-15 20:28:50" itemprop="dateModified" datetime="2023-03-15T20:28:50+08:00">2023-03-15</time>
+                <time title="修改时间：2023-03-15 21:41:53" itemprop="dateModified" datetime="2023-03-15T21:41:53+08:00">2023-03-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -281,7 +281,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="变换"><a href="#变换" class="headerlink" title="变换"></a>变换</h2><p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1X7411F744?p=4">GAMES101-P3</a>用矩阵表示变换，旋转、缩放和
+          <h2 id="变换"><a href="#变换" class="headerlink" title="变换"></a>变换</h2><p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1X7411F744?p=3">GAMES101-P3</a>用矩阵表示变换，旋转、缩放和
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2023/03/10/GAMES101-3/#more" rel="contents">
@@ -339,7 +339,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-03-15 21:25:22" itemprop="dateModified" datetime="2023-03-15T21:25:22+08:00">2023-03-15</time>
+                <time title="修改时间：2023-03-15 21:42:13" itemprop="dateModified" datetime="2023-03-15T21:42:13+08:00">2023-03-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -362,7 +362,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>本节要点：回顾线代，包括向量和矩阵。
+          <p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1X7411F744?p=2">GAMES101-P2</a>本节要点：回顾线代，包括向量和矩阵。
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2023/03/09/GAMES101-2/#more" rel="contents">
@@ -420,7 +420,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-03-15 21:26:06" itemprop="dateModified" datetime="2023-03-15T21:26:06+08:00">2023-03-15</time>
+                <time title="修改时间：2023-03-15 21:41:09" itemprop="dateModified" datetime="2023-03-15T21:41:09+08:00">2023-03-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -443,27 +443,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>试图调整 VS Code 的 C/C++ 编译默认设置，结果却……<!-- more  --></p>
-<h1 id="我需要一个默认的编译设置"><a href="#我需要一个默认的编译设置" class="headerlink" title="我需要一个默认的编译设置"></a>我需要一个默认的编译设置</h1><p>众所周知，VSCode 的推荐或者说设计使用方法是对不同代码建立不同的工作区。这确实是对不同项目、不同语言的代码进行管理的优良方法。但是在学习的过程之中，不是所有情况都是非常理想的“我可以将所有的代码都井井有条的打在一个文件夹（工作区）中”的。学习中，QQ 上接收测试别人的代码、想临时测试某个功能是否如记忆一样等等情况，这样的代码，具有临时性或者独立性，我不希望将其和我固有的代码文件混淆在一起，又不希望记一个层层目录之下的草稿工作区分门别类。因此最理想的情况就是能在<strong>不打开特定工作区或文件夹</strong>的情况下对单个文件进行编译和调试。也就是一个全局的，或者说更通用的设置。<br>之前种种原因，对 VSCode 的设置理解停留在了一种一知半解的程度，借此机会，我希望能对此加深理解。</p>
-<h1 id="VSCode-中的设置的基本结构"><a href="#VSCode-中的设置的基本结构" class="headerlink" title="VSCode 中的设置的基本结构"></a>VSCode 中的设置的基本结构</h1><h2 id="优先级和工作区、文件夹"><a href="#优先级和工作区、文件夹" class="headerlink" title="优先级和工作区、文件夹"></a>优先级和工作区、文件夹</h2><p>VSCode 的设置结构优先级由低到高是 “默认设置（不能更改）→ 用户设置 → 工作区设置 → 文件夹设置”。VSCode 会优先使用优先级高的设置，如果没有，就用优先级次高的设置。<br><del>知道写到这里我才注意到的一个事实是</del>工作区（workspace）和文件夹（folder）是不一样的存在。我们可以认为一个“文件夹”是一个项目，一个工作区则是同类项目的集合点。例如所有的 Python 项目为一个工作区，而对其中的任意一个项目设置为单独的一个文件夹。Python 项目的共通性设置放于“工作区设置”中，而项目如果有特殊设置则放在“文件夹设置”里。<br>需要注意的是，如果只有一个文件夹，那么这个文件夹本身就是一个工作区。VSCode 会把这个文件夹设置显示为工作区设置，这也是为什么我会一开始没有发现这俩是不同概念的原因。<br>下面是工作区和文件夹在 VSCode 资源管理侧栏界面的对比，工作区会额外注明工作区二字。</p>
-<img src="https://s2.loli.net/2022/11/20/knv2UMLYr9pOjTl.png"  style = 'zoom:1.1'/>
-
-<h2 id="设置文件的存储格式"><a href="#设置文件的存储格式" class="headerlink" title="设置文件的存储格式"></a>设置文件的存储格式</h2><p>所有这些设置，都是以 JSON 文件存储在电脑上的文件中的（尽管工作区文件不以<code>.JSON</code>结尾）。JSON（JavaScript Object Notation） 是一种独立于 语言的轻量级数据交换格式，采用键和值的格式存储数据。 而VSCode 的每一项设置都是一对键和值。<br>其中，用户设置位于 VSCode 的数据目录下( C 盘 appData 文件夹下)；工作区设置会是一个名为<code>&#123;名字.code-workspace</code>的文件（此文件不一定位于工作区文件夹内）；如果是文件夹，则会存储于文件夹下自动生成的<code>.vscode</code>文件夹下。</p>
-<h2 id="插件的设置"><a href="#插件的设置" class="headerlink" title="插件的设置"></a>插件的设置</h2><p>使用 VSCode 的时候，我们还会添加许多的插件，例如本文的初衷：在非工作区 / 文件夹环境下编译 C/C++ 程序就需要 MS 官方的 C/C++ 插件。这些插件的设置也会被写入到 Uersettings 文件中。因此，所有的插件和软件设置都是对同一个文件的内容的修改。既然目的是更改默认的编译软件，那么我们就是需要修改 Usersettings 文件即可.事情到这一步似乎离解决已经不远了。可是真的是这样吗？</p>
-<h1 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h1><p>在设置中，我们找到了下面两个设置。第一个的设置具体还不是很懂，第二个则没有发挥作用（图中值为自己填的）。<br><img src="https://s2.loli.net/2022/11/20/HcI8KUk3mhNDWlC.png" ><br>所以很遗憾，事情没有以完美解决落幕。依然要选择编译和调试器如图：<br><img src="https://s2.loli.net/2022/11/20/bgIrGtDM9KQ5CoX.png" ><br>不过，至少我搞清楚了为什么这里会有三个选项，在<a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/cpp/config-mingw">官方文档</a>中提到，</p>
-<blockquote>
-<p>The compilerPath search order is:</p>
-<ul>
-<li>First check for the Microsoft Visual C++ compiler</li>
-<li>Then look for g++ on Windows Subsystem for Linux (WSL)</li>
-<li>Then g++ for Mingw-w64.</li>
-</ul>
-</blockquote>
-<p>因此，VSCode 会扫描到 mingw-w64 中的 cpp 和 g++ 两个程序，以及 VS 中带有的的 cl ，因此 VSCode 会有不知道用什么的疑问。但是 cl 被限制为只能在 VS 中使用，这也就导致了此选项实际上不能正常运行。目前的解决办法还得是选一遍，然后 VSCode 会在这一窗口中记住你的选择。<br>这一选项的原因可能是 VSCode 中的并没有选项能存储此默认设置，它会优先去寻找 <code>launch.json</code>,找不到时，则会发出此疑问。</p>
-<h1 id="还没有理解的问题"><a href="#还没有理解的问题" class="headerlink" title="还没有理解的问题"></a>还没有理解的问题</h1><ol>
-<li>Q：既然 JSON 文件支持注释，那 JSON 和 JSONC（JSON with comments）有什么区别，为什么要创造 JSONC？VS Code 采用的是 JSON 还是 JSON with comments？</li>
-</ol>
-
+          <p>试图调整 VS Code 的 C/C++ 编译默认设置，结果却……
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/11/21/VScode%E7%9A%84%E8%AE%BE%E7%BD%AE%E7%B3%BB%E7%BB%9F/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -756,7 +744,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-03-15 21:22:01" itemprop="dateModified" datetime="2023-03-15T21:22:01+08:00">2023-03-15</time>
+                <time title="修改时间：2023-03-15 21:37:08" itemprop="dateModified" datetime="2023-03-15T21:37:08+08:00">2023-03-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -837,7 +825,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-03-15 20:28:54" itemprop="dateModified" datetime="2023-03-15T20:28:54+08:00">2023-03-15</time>
+                <time title="修改时间：2023-03-15 21:47:12" itemprop="dateModified" datetime="2023-03-15T21:47:12+08:00">2023-03-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -860,16 +848,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <blockquote>
-<p>What man is a man who does not make the world better ?</p>
-</blockquote>
-<p>trans：大丈夫生于世当造福苍生</p>
-<blockquote>
-<p>Be without fear in the face of your enemies;<br>Be brave and upright that God may love thee;<br>Speak the truth always, even if it leads to your death;<br>Safeguard the helpless and no wrong;<br>that is your oath.</p>
-</blockquote>
-<p>trans（LEEKA）：<br>临敌不惧<br>神佑勇义<br>护良扶弱<br>纵死不诳<br>这就是你的册封誓言</p>
-<p>trans：<br>强敌当前 无畏不惧<br>果敢忠义 无愧上帝<br>耿直正言 宁死不诳<br>保护弱者 无怪天理<br>这是你的誓词</p>
-
+          <p>天国王朝语摘，自翻与所看版本的翻译
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/01/15/%E5%A4%A9%E5%9B%BD%E7%8E%8B%E6%9C%9D/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
