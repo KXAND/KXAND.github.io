@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="GAMES101-P4视图变换和投影变换（正交投影、透视投影）.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GAMES101-4：视图和投影变换">
+<meta property="og:url" content="http://example.com/2023/03/18/GAMES101-4/index.html">
+<meta property="og:site_name" content="LeeKa 的酒馆">
+<meta property="og:description" content="GAMES101-P4视图变换和投影变换（正交投影、透视投影）.">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2023/03/18/assets/101-projection.jpg">
+<meta property="og:image" content="http://example.com/2023/03/18/assets/101-persp2ortho.jpg">
+<meta property="og:image" content="http://example.com/2023/03/18/assets/101-persp2ortho2.jpg">
+<meta property="article:published_time" content="2023-03-18T09:14:50.000Z">
+<meta property="article:modified_time" content="2023-03-24T14:39:10.302Z">
+<meta property="article:author" content="LeeKa">
+<meta property="article:tag" content="图形学">
+<meta property="article:tag" content="GAMES，笔记">
+<meta property="article:tag" content="存在困难">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2023/03/18/assets/101-projection.jpg">
+
+<link rel="canonical" href="http://example.com/2023/03/18/GAMES101-4/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>GAMES101-4：视图和投影变换 | LeeKa 的酒馆</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">LeeKa 的酒馆</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">欢迎，旅人！坐下来享受一下暖烘烘的炉火吧。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/03/18/GAMES101-4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://s2.loli.net/2022/03/24/zcq6l9KENbRJtDi.jpg">
+      <meta itemprop="name" content="LeeKa">
+      <meta itemprop="description" content="代码、音乐和游戏，一起来聊聊吧">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LeeKa 的酒馆">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          GAMES101-4：视图和投影变换
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-03-18 17:14:50" itemprop="dateCreated datePublished" datetime="2023-03-18T17:14:50+08:00">2023-03-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-03-24 22:39:10" itemprop="dateModified" datetime="2023-03-24T22:39:10+08:00">2023-03-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/GAMES101/" itemprop="url" rel="index"><span itemprop="name">GAMES101</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1X7411F744?p=4">GAMES101-P4</a>视图变换和投影变换（正交投影、透视投影）.<a id="more"></a></p>
+<blockquote>
+<p>如何拍一张照片：MVP变换<br>Model Transformation:摆好位置<br>View Transformation：找好拍照角度<br>Projection Transformation：拍照。</p>
+</blockquote>
+<h2 id="视图变换：View"><a href="#视图变换：View" class="headerlink" title="视图变换：View"></a>视图变换：View</h2><p>思考：任何情况下进行拍照，照片都只和物体相对于相机的坐标有关。</p>
+<p>所以建立一个新的坐标系（相机坐标系）规定</p>
+<ul>
+<li>相机处于原点；</li>
+<li>相机的向上方向是 Y （up at Y）；</li>
+<li>相机看向 -Z 方向。</li>
+</ul>
+<p>将坐标转换：</p>
+<ul>
+<li>平移相机至原点</li>
+<li>旋转使向上方向为 Y，旋转使相机看向的方向为 -Z。</li>
+</ul>
+<p>求此处旋转矩阵，可以求坐标轴旋转为相机轴的旋转矩阵，然后转置。</p>
+<h2 id="投影变换：Projection"><a href="#投影变换：Projection" class="headerlink" title="投影变换：Projection"></a>投影变换：Projection</h2><ul>
+<li>Orthographic Projection：正交投影</li>
+<li>Perspective Projection：透视投影</li>
+</ul>
+<p>透视投影更接近人眼成像，会有“近大远小”、“平行线相交于一点”等效果。<br>在如下图所示的模型中，透视事实上就是拍下了锥形视野内的 [n,f] 内的一段区间内的物体，正交则是相机处于无限远处的一个特例。<br><img src="./../assets/101-projection.jpg" alt="正交和透视"></p>
+<h3 id="正交投影"><a href="#正交投影" class="headerlink" title="正交投影"></a>正交投影</h3><ul>
+<li>构建相机坐标系</li>
+<li>构建一个包含所有物体的空间立方体，描述它为 $[l,r]×[b,t]\times [f,n]$ 的一个立方体（左右下上远近）。是由远及近是由于右手坐标系且看向 -Z 方向导致远处 Z 坐标更小。</li>
+<li>将结果规范化在一个 $[\pm1,\pm1, \pm1]$  的方块内</li>
+</ul>
+<p>矩阵形式:中心移至原点，再缩放<br>$$<br>M_z=\begin{bmatrix}<br>  \frac{2}{r-l} &amp; 0             &amp; 0             &amp; 0 \<br>  0             &amp; \frac{2}{t-b} &amp; 0             &amp; 0\<br>  0             &amp;  0            &amp; \frac{2}{n-f} &amp; 0 \<br>  0             &amp; 0             &amp; 0             &amp; 1<br>\end{bmatrix}  \times<br>\begin{bmatrix}<br>  1 &amp; 0 &amp; 0 &amp; -\frac{r+l}{2} \<br>  0 &amp; 1 &amp; 0 &amp; -\frac{b+t}{2}\<br>  0 &amp; 0 &amp; 1 &amp; -\frac{n+f}{2} \<br>  0 &amp; 0 &amp; 0 &amp; 1<br>\end{bmatrix}<br>$$</p>
+<h3 id="透视投影"><a href="#透视投影" class="headerlink" title="透视投影"></a>透视投影</h3><p><img src="./../assets/101-persp2ortho.jpg" alt="正交和透视"><br>对如上图的透视，定义近平面 n 和远平面 f，有：</p>
+<ul>
+<li>近平面保持不变，其余地方进行“挤压”使得其与近平面一样大。使上图左侧变成右侧形状。</li>
+<li>进行正交投影</li>
+</ul>
+<p>这里有一个需要注意的地方是，挤压以后，<strong>坐标的 Z 轴值“可能”会发生变化。</strong>。对此我们规定：</p>
+<ul>
+<li>n 平面上的坐标不变</li>
+<li>f 平面上的坐标 Z 轴不变，且平面中点坐标不变</li>
+</ul>
+<p><img src="./../assets/101-persp2ortho2.jpg" alt="正交和透视"></p>
+<p>对于任意的点 $(x,y,z)$ ，对应到一个有一个 n 平面上的点 $(x’,y’,z’)$。相似三角形有</p>
+<p>$$\begin{align}<br>     y’ =\frac{n}{z}y\<br>x’=\frac{n}{z}x<br>\end{align}$$</p>
+<p>接下来求解 Z 轴的变换方程，即矩阵的第三行。</p>
+<p>假设变换矩阵为 M，有：$M(x,y,z,1)^T=(\frac{n}{z}x,\frac{n}{z}y,z_1,1)^T=(nx,ny,z_2,z)^T$<br>其中 $z_1,z_2$ 未知。<br>$z_1$ 的值的变换向量是 M 矩阵中的第三行，所以可以只关心第三行。又因为 Z 坐标值显然和 XY 没有关系，所以此行可以写为 $(0,0,A,B)$ 其中 A、B 未知。</p>
+<p>n 平面上的点满足变换矩阵且 Z 坐标不变。所以 n 平面上的坐标可以写成 $(x,y,n,1)^T$ 。同时乘以坐标 n，代表的点依然不变：$(nx,ny,n^2,n)^T$。<br>所以有 $(0,0,A,B)(x,y,n,1)^T=n^2$<br>f 平面同样中点 $(0,0,f,1)$ 满足变换矩阵且 Z 坐标不变。于是<br>$(0,0,A,B)(0,0,f,1)^T=f^2$<br>于是可以联解<br>$$\begin{align}<br>    An+B =n^2\<br>    Af+B =f^2<br>\end{align}$$<br>得<br>$$\begin{align}<br>    A = n+f\<br>    B = -nf<br>\end{align}$$<br>所以解出 Z 轴变换方程值， M 矩阵<br>$$\begin{bmatrix}<br>    n &amp; 0 &amp; 0   &amp; 0 \<br>    0 &amp; n &amp; 0   &amp; 0 \<br>    0 &amp; 0 &amp; n+f &amp; -nf \<br>    0 &amp; 0 &amp; 1   &amp; 0<br>\end{bmatrix}$$</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%9B%BE%E5%BD%A2%E5%AD%A6/" rel="tag"># 图形学</a>
+              <a href="/tags/GAMES%EF%BC%8C%E7%AC%94%E8%AE%B0/" rel="tag"># GAMES，笔记</a>
+              <a href="/tags/%E5%AD%98%E5%9C%A8%E5%9B%B0%E9%9A%BE/" rel="tag"># 存在困难</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/03/10/GAMES101-3/" rel="prev" title="GAMES101-3：变换">
+      <i class="fa fa-chevron-left"></i> GAMES101-3：变换
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/03/24/Seed%E8%AE%AD%E7%BB%83%E8%90%A5%E7%AC%94%E8%AE%B0%E6%94%B6%E7%BA%B3/" rel="next" title="2022 Seed 训练营笔记收录">
+      2022 Seed 训练营笔记收录 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%86%E5%9B%BE%E5%8F%98%E6%8D%A2%EF%BC%9AView"><span class="nav-number">1.</span> <span class="nav-text">视图变换：View</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%95%E5%BD%B1%E5%8F%98%E6%8D%A2%EF%BC%9AProjection"><span class="nav-number">2.</span> <span class="nav-text">投影变换：Projection</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A3%E4%BA%A4%E6%8A%95%E5%BD%B1"><span class="nav-number">2.1.</span> <span class="nav-text">正交投影</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%8F%E8%A7%86%E6%8A%95%E5%BD%B1"><span class="nav-number">2.2.</span> <span class="nav-text">透视投影</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="LeeKa"
+      src="https://s2.loli.net/2022/03/24/zcq6l9KENbRJtDi.jpg">
+  <p class="site-author-name" itemprop="name">LeeKa</p>
+  <div class="site-description" itemprop="description">代码、音乐和游戏，一起来聊聊吧</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/melodicleeka" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;melodicleeka" rel="noopener" target="_blank">GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:leeka.Pub@gmail.com" title="E-Mail → mailto:leeka.Pub@gmail.com" rel="noopener" target="_blank">E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/cenearly" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;cenearly" rel="noopener" target="_blank">Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/95928219" title="Bilili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;95928219" rel="noopener" target="_blank">Bilili</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://hawa130.com/" title="https:&#x2F;&#x2F;hawa130.com" rel="noopener" target="_blank">Hanwan Space</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LeeKa</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='255,55,55' opacity='1' zIndex='-1' count='399' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -170,7 +170,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/03/13/GAMES101-4/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/03/29/C++%E7%AE%80%E8%AE%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://s2.loli.net/2022/03/24/zcq6l9KENbRJtDi.jpg">
@@ -184,7 +184,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2023/03/13/GAMES101-4/" class="post-title-link" itemprop="url">未命名</a>
+            <a href="/2023/03/29/C++%E7%AE%80%E8%AE%B0/" class="post-title-link" itemprop="url">未命名</a>
         </h2>
 
         <div class="post-meta">
@@ -193,8 +193,9 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2023-03-13 20:59:59" itemprop="dateCreated datePublished" datetime="2023-03-13T20:59:59+08:00">2023-03-13</time>
+              <time title="创建时间：2023-03-29 15:09:43 / 修改时间：15:18:45" itemprop="dateCreated datePublished" datetime="2023-03-29T15:09:43+08:00">2023-03-29</time>
             </span>
 
           
@@ -208,7 +209,181 @@
     <div class="post-body" itemprop="articleBody">
 
       
+          <h1 id="前提占位符"><a href="#前提占位符" class="headerlink" title="前提占位符"></a>前提占位符</h1><p>Note:这是个人向的 C++ 笔记，主要针对在 LeetCode.cn 刷题中遇到的问题，特别是面向对象的问题的将要记录。</p>
+<h2 id="主体"><a href="#主体" class="headerlink" title="主体"></a>主体</h2><h3 id="构造函数和析构函数"><a href="#构造函数和析构函数" class="headerlink" title="构造函数和析构函数"></a>构造函数和析构函数</h3><p>[菜鸟]<a target="_blank" rel="noopener" href="https://www.runoob.com/cplusplus/cpp-constructor-destructor.html">https://www.runoob.com/cplusplus/cpp-constructor-destructor.html</a><br>初始化表（默认参数值）</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Line::Line( <span class="keyword">double</span> len): length(len)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;Object is being created, length = &quot;</span> &lt;&lt; len &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>等价</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Line::Line( <span class="keyword">double</span> len)</span><br><span class="line">&#123;</span><br><span class="line">    length = len;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;Object is being created, length = &quot;</span> &lt;&lt; len &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>类的析构函数是类的一种特殊的成员函数，它会在每次删除所创建的对象时执行。</p>
+<p>析构函数的名称与类的名称是完全相同的，只是在前面加了个波浪号（~）作为前缀，它不会返回任何值，也不能带有任何参数。析构函数有助于在跳出程序（比如关闭文件、释放内存等）前释放资源。</p>
+<h3 id="嵌套类"><a href="#嵌套类" class="headerlink" title="嵌套类"></a>嵌套类</h3><p>[CSDN]<a target="_blank" rel="noopener" href="https://blog.csdn.net/liyuanbhu/article/details/43897979">https://blog.csdn.net/liyuanbhu/article/details/43897979</a><br><strong>嵌套类</strong>就是可以在一个类中定义另一个类。这个被嵌套的类的作用域就只在它的上一级类中。<br>我们可以在一个类中嵌套另外一个匿名类。不过，匿名类的成员函数只能在类的声明中同时定义，因为这个类没有名称，我们没法在外部指代它。</p>
+<p>所谓<strong>局部类</strong>，就是定义在一个函数内部的类，这个类只能在这个函数内部使用。</p>
+<p>函数是不能嵌套的。但是可以通过重载一个类的operator () 方法来模拟一个函数调用。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/03/24/Seed%E8%AE%AD%E7%BB%83%E8%90%A5%E7%AC%94%E8%AE%B0%E6%94%B6%E7%BA%B3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://s2.loli.net/2022/03/24/zcq6l9KENbRJtDi.jpg">
+      <meta itemprop="name" content="LeeKa">
+      <meta itemprop="description" content="代码、音乐和游戏，一起来聊聊吧">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LeeKa 的酒馆">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
           
+            <a href="/2023/03/24/Seed%E8%AE%AD%E7%BB%83%E8%90%A5%E7%AC%94%E8%AE%B0%E6%94%B6%E7%BA%B3/" class="post-title-link" itemprop="url">2022 Seed 训练营笔记收录</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-03-24 22:47:43" itemprop="dateCreated datePublished" datetime="2023-03-24T22:47:43+08:00">2023-03-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-03-27 23:12:21" itemprop="dateModified" datetime="2023-03-27T23:12:21+08:00">2023-03-27</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E5%81%9A%E5%90%88%E6%A0%BC%E7%9A%84%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">学做合格的开发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这是去年参加 Seed 训练营的笔记。一直没有整理，如今实习压力当前，借机整理。另附 Seed 训练营感想。
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/03/24/Seed%E8%AE%AD%E7%BB%83%E8%90%A5%E7%AC%94%E8%AE%B0%E6%94%B6%E7%BA%B3/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/03/18/GAMES101-4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://s2.loli.net/2022/03/24/zcq6l9KENbRJtDi.jpg">
+      <meta itemprop="name" content="LeeKa">
+      <meta itemprop="description" content="代码、音乐和游戏，一起来聊聊吧">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LeeKa 的酒馆">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/03/18/GAMES101-4/" class="post-title-link" itemprop="url">GAMES101-4：视图和投影变换</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-03-18 17:14:50" itemprop="dateCreated datePublished" datetime="2023-03-18T17:14:50+08:00">2023-03-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-03-24 22:39:10" itemprop="dateModified" datetime="2023-03-24T22:39:10+08:00">2023-03-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/GAMES101/" itemprop="url" rel="index"><span itemprop="name">GAMES101</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1X7411F744?p=4">GAMES101-P4</a>视图变换和投影变换（正交投影、透视投影）.
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/03/18/GAMES101-4/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -258,7 +433,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-03-15 21:41:53" itemprop="dateModified" datetime="2023-03-15T21:41:53+08:00">2023-03-15</time>
+                <time title="修改时间：2023-03-17 17:01:32" itemprop="dateModified" datetime="2023-03-17T17:01:32+08:00">2023-03-17</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -281,7 +456,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="变换"><a href="#变换" class="headerlink" title="变换"></a>变换</h2><p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1X7411F744?p=3">GAMES101-P3</a>用矩阵表示变换，旋转、缩放和
+          <p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1X7411F744?p=3">GAMES101-P3</a>基本线性变换（旋转、缩放、切变）和平移、仿射变换矩阵、齐次坐标、三维变换中的旋转问题。
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2023/03/10/GAMES101-3/#more" rel="contents">
@@ -582,7 +757,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-03-15 20:31:27" itemprop="dateModified" datetime="2023-03-15T20:31:27+08:00">2023-03-15</time>
+                <time title="修改时间：2023-03-16 20:33:26" itemprop="dateModified" datetime="2023-03-16T20:33:26+08:00">2023-03-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -744,7 +919,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-03-15 21:37:08" itemprop="dateModified" datetime="2023-03-15T21:37:08+08:00">2023-03-15</time>
+                <time title="修改时间：2023-03-24 22:39:51" itemprop="dateModified" datetime="2023-03-24T22:39:51+08:00">2023-03-24</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -771,168 +946,6 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2022/02/14/Heavenly%20Side%E4%B8%AA%E4%BA%BA%E7%BF%BB%E8%AF%91/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/15/%E5%A4%A9%E5%9B%BD%E7%8E%8B%E6%9C%9D/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://s2.loli.net/2022/03/24/zcq6l9KENbRJtDi.jpg">
-      <meta itemprop="name" content="LeeKa">
-      <meta itemprop="description" content="代码、音乐和游戏，一起来聊聊吧">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LeeKa 的酒馆">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/01/15/%E5%A4%A9%E5%9B%BD%E7%8E%8B%E6%9C%9D/" class="post-title-link" itemprop="url">天国王朝语摘</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-01-15 14:13:35" itemprop="dateCreated datePublished" datetime="2022-01-15T14:13:35+08:00">2022-01-15</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-03-15 21:47:12" itemprop="dateModified" datetime="2023-03-15T21:47:12+08:00">2023-03-15</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AF%AD%E6%91%98/" itemprop="url" rel="index"><span itemprop="name">语摘</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>天国王朝语摘，自翻与所看版本的翻译
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/01/15/%E5%A4%A9%E5%9B%BD%E7%8E%8B%E6%9C%9D/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/05/VS%20code%E4%B8%AD%E5%BB%BA%E7%AB%8B%E4%BB%A3%E7%A0%81%E6%A8%A1%E6%9D%BF/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://s2.loli.net/2022/03/24/zcq6l9KENbRJtDi.jpg">
-      <meta itemprop="name" content="LeeKa">
-      <meta itemprop="description" content="代码、音乐和游戏，一起来聊聊吧">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LeeKa 的酒馆">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/01/05/VS%20code%E4%B8%AD%E5%BB%BA%E7%AB%8B%E4%BB%A3%E7%A0%81%E6%A8%A1%E6%9D%BF/" class="post-title-link" itemprop="url">VSCode 中自定义代码模板（snippet）</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-01-05 22:01:55" itemprop="dateCreated datePublished" datetime="2022-01-05T22:01:55+08:00">2022-01-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-03-15 21:22:13" itemprop="dateModified" datetime="2023-03-15T21:22:13+08:00">2023-03-15</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/VSCode-%E8%AF%B4%E6%98%8E%E4%B9%A6/" itemprop="url" rel="index"><span itemprop="name">VSCode 说明书</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>这个功能在VS code 中被叫做片段（snippet），其功能是在输入用户定义好的触发词后，可以像代码补全一样补出一段代码。
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/01/05/VS%20code%E4%B8%AD%E5%BB%BA%E7%AB%8B%E4%BB%A3%E7%A0%81%E6%A8%A1%E6%9D%BF/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1023,20 +1036,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">16</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
