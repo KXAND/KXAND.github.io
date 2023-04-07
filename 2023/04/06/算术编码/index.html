@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="算术编码是一种编码算法，它比哈夫曼编码更高效。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算术编码的 python 实现">
+<meta property="og:url" content="http://example.com/2023/04/06/%E7%AE%97%E6%9C%AF%E7%BC%96%E7%A0%81/index.html">
+<meta property="og:site_name" content="LeeKa 的酒馆">
+<meta property="og:description" content="算术编码是一种编码算法，它比哈夫曼编码更高效。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2023/04/06/assets/course-HuffmanCoding.jpg">
+<meta property="article:published_time" content="2023-04-06T14:59:08.000Z">
+<meta property="article:modified_time" content="2023-04-07T14:03:28.326Z">
+<meta property="article:author" content="LeeKa">
+<meta property="article:tag" content="课程">
+<meta property="article:tag" content="多媒体数据处理">
+<meta property="article:tag" content="实验报告">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2023/04/06/assets/course-HuffmanCoding.jpg">
+
+<link rel="canonical" href="http://example.com/2023/04/06/%E7%AE%97%E6%9C%AF%E7%BC%96%E7%A0%81/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>算术编码的 python 实现 | LeeKa 的酒馆</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">LeeKa 的酒馆</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">欢迎，旅人！坐下来享受一下暖烘烘的炉火吧。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/04/06/%E7%AE%97%E6%9C%AF%E7%BC%96%E7%A0%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://s2.loli.net/2022/03/24/zcq6l9KENbRJtDi.jpg">
+      <meta itemprop="name" content="LeeKa">
+      <meta itemprop="description" content="代码、音乐和游戏，一起来聊聊吧">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LeeKa 的酒馆">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          算术编码的 python 实现
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-04-06 22:59:08" itemprop="dateCreated datePublished" datetime="2023-04-06T22:59:08+08:00">2023-04-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-04-07 22:03:28" itemprop="dateModified" datetime="2023-04-07T22:03:28+08:00">2023-04-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%A4%9A%E5%AA%92%E4%BD%93%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E5%AE%9E%E9%AA%8C/" itemprop="url" rel="index"><span itemprop="name">多媒体数据处理实验</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>算术编码是一种编码算法，它比哈夫曼编码更高效。<br> <a id="more"></a></p>
+<h2 id="由哈夫曼编码说起"><a href="#由哈夫曼编码说起" class="headerlink" title="由哈夫曼编码说起"></a>由哈夫曼编码说起</h2><p>哈夫曼编码对于更高频的符号，使用更短的编码。由于编码的前缀是不一致的（短编码不是长编码的前缀），所以我们可以保证唯一确定一个编码的长度不发生混淆。可以通过构造一个特殊的二叉树的方式求哈夫曼编码，这个树就是哈夫曼树。下面是一个哈夫曼树示例。<br><img src="./../assets/course-HuffmanCoding.jpg" alt="alt" title="哈夫曼树"></p>
+<p>$$H(x)=-\Sigma P(x)log_{2}[P(x)]$$</p>
+<h2 id="算术编码的实现方法"><a href="#算术编码的实现方法" class="headerlink" title="算术编码的实现方法"></a>算术编码的实现方法</h2><h2 id="源代码"><a href="#源代码" class="headerlink" title="源代码"></a>源代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> decimal</span><br><span class="line"><span class="comment"># use Decimal for high precision</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bin</span>(<span class="params">value, valueRange</span>):</span></span><br><span class="line">    result = list()</span><br><span class="line">    valueUp = D(value+valueRange)</span><br><span class="line">    value = D(value)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> <span class="number">1</span>:</span><br><span class="line">        value *= D(<span class="string">&quot;2&quot;</span>)</span><br><span class="line">        valueUp *= D(<span class="string">&quot;2&quot;</span>)</span><br><span class="line">        <span class="comment"># 均大于</span></span><br><span class="line">        <span class="keyword">if</span> value &gt;= <span class="number">1</span>:</span><br><span class="line">            value -= D(<span class="string">&#x27;1&#x27;</span>)</span><br><span class="line">            valueUp -= D(<span class="string">&#x27;1&#x27;</span>)</span><br><span class="line">            result.append(<span class="number">1</span>)</span><br><span class="line">        <span class="comment"># 均小于</span></span><br><span class="line">        <span class="keyword">elif</span> valueUp &lt; <span class="number">1</span>:</span><br><span class="line">            result.append(<span class="number">0</span>)</span><br><span class="line">        <span class="comment"># low0up1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">if</span> valueUp == D(<span class="string">&#x27;1&#x27;</span>):</span><br><span class="line">                result.append(<span class="number">0</span>)</span><br><span class="line">            result.append(<span class="number">1</span>)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">while</span> <span class="number">1</span>:</span><br><span class="line">        i = result.pop()</span><br><span class="line">        <span class="keyword">if</span> i:</span><br><span class="line">            result.append(i)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">dec</span>(<span class="params">value: list</span>) -&gt; decimal.Decimal:</span></span><br><span class="line">    w = D(<span class="string">&#x27;1&#x27;</span>)</span><br><span class="line">    result = D(<span class="string">&#x27;0&#x27;</span>)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, len(value)):</span><br><span class="line">        w *= D(<span class="string">&#x27;0.5&#x27;</span>)</span><br><span class="line">        result += w*value[i]</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">encode</span>():</span></span><br><span class="line">    encode_str = input()</span><br><span class="line">    low = [D(<span class="string">&#x27;0&#x27;</span>)]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, len(distribute)):</span><br><span class="line">        low.append(D(distribute[i])+D(low[i]))</span><br><span class="line">    nowRange = D(<span class="string">&#x27;1&#x27;</span>)</span><br><span class="line">    l = D(<span class="string">&#x27;0&#x27;</span>)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> encode_str:</span><br><span class="line">        index = chars.index(i)</span><br><span class="line">        l = l+nowRange*low[index]</span><br><span class="line">        nowRange = nowRange*(low[index+<span class="number">1</span>]-low[index])</span><br><span class="line">    <span class="keyword">return</span> bin(l, nowRange)</span><br><span class="line">    <span class="comment"># h = thedict.get(encode_str[i])</span></span><br><span class="line">    <span class="comment"># print(h)</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">decode</span>(<span class="params">codebin: list, codelenth</span>):</span></span><br><span class="line">    codedec = dec(codebin)</span><br><span class="line">    result = str()</span><br><span class="line">    low = [D(<span class="string">&#x27;0&#x27;</span>)]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, len(distribute)):</span><br><span class="line">        low.append(D(distribute[i])+D(low[i]))</span><br><span class="line">    nowRange = D(<span class="string">&#x27;1&#x27;</span>)</span><br><span class="line">    l = D(<span class="string">&#x27;0&#x27;</span>)</span><br><span class="line">    st = D(<span class="string">&#x27;0&#x27;</span>)</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">0</span>, codelenth):</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, len(low)):</span><br><span class="line">            st = (low[i])*nowRange+l</span><br><span class="line">            <span class="comment"># ed = st + nowRange</span></span><br><span class="line">            <span class="keyword">if</span> codedec &lt; st:</span><br><span class="line">                index = i<span class="number">-1</span></span><br><span class="line">                <span class="comment"># index = chars.index(i)</span></span><br><span class="line">                l = l+nowRange*low[index]</span><br><span class="line">                nowRange = nowRange*(low[index+<span class="number">1</span>]-low[index])</span><br><span class="line">                result += chars[index]</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    D = decimal.Decimal</span><br><span class="line">    decimal.getcontext().prec = <span class="number">32</span></span><br><span class="line"></span><br><span class="line">    chars = input(<span class="string">&quot;Dict:&quot;</span>).split(<span class="string">&#x27;,&#x27;</span>)</span><br><span class="line">    <span class="comment"># if default</span></span><br><span class="line">    <span class="keyword">if</span> chars[<span class="number">0</span>] == <span class="string">&quot;0&quot;</span>:</span><br><span class="line">        chars = [<span class="string">&quot;A&quot;</span>, <span class="string">&quot;B&quot;</span>, <span class="string">&quot;C&quot;</span>, <span class="string">&quot;D&quot;</span>]</span><br><span class="line">        distribute = [D(<span class="string">&#x27;0.1&#x27;</span>), D(<span class="string">&#x27;0.4&#x27;</span>), D(<span class="string">&#x27;0.2&#x27;</span>), D(<span class="string">&#x27;0.3&#x27;</span>)]</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        distribute = input(<span class="string">&quot;Distribute:&quot;</span>).split(<span class="string">&quot;,&quot;</span>)</span><br><span class="line">    ans = encode()</span><br><span class="line"></span><br><span class="line">    print(str(ans))</span><br><span class="line"></span><br><span class="line">    ans = decode(ans, <span class="number">7</span>)</span><br><span class="line"></span><br><span class="line">    print(ans)</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/390684936">什么是算术编码 - 知乎</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%AF%BE%E7%A8%8B/" rel="tag"># 课程</a>
+              <a href="/tags/%E5%A4%9A%E5%AA%92%E4%BD%93%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/" rel="tag"># 多媒体数据处理</a>
+              <a href="/tags/%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/" rel="tag"># 实验报告</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/03/24/Seed%E8%AE%AD%E7%BB%83%E8%90%A5%E7%AC%94%E8%AE%B0%E6%94%B6%E7%BA%B3/" rel="prev" title="2022 Seed 训练营笔记收录">
+      <i class="fa fa-chevron-left"></i> 2022 Seed 训练营笔记收录
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/04/06/C++%E7%AE%80%E8%AE%B0/" rel="next" title="LeetCode cpp 刷题笔记">
+      LeetCode cpp 刷题笔记 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%B1%E5%93%88%E5%A4%AB%E6%9B%BC%E7%BC%96%E7%A0%81%E8%AF%B4%E8%B5%B7"><span class="nav-number">1.</span> <span class="nav-text">由哈夫曼编码说起</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%97%E6%9C%AF%E7%BC%96%E7%A0%81%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">算术编码的实现方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BA%90%E4%BB%A3%E7%A0%81"><span class="nav-number">3.</span> <span class="nav-text">源代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">4.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="LeeKa"
+      src="https://s2.loli.net/2022/03/24/zcq6l9KENbRJtDi.jpg">
+  <p class="site-author-name" itemprop="name">LeeKa</p>
+  <div class="site-description" itemprop="description">代码、音乐和游戏，一起来聊聊吧</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/melodicleeka" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;melodicleeka" rel="noopener" target="_blank">GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:leeka.Pub@gmail.com" title="E-Mail → mailto:leeka.Pub@gmail.com" rel="noopener" target="_blank">E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/cenearly" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;cenearly" rel="noopener" target="_blank">Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/95928219" title="Bilili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;95928219" rel="noopener" target="_blank">Bilili</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://hawa130.com/" title="https:&#x2F;&#x2F;hawa130.com" rel="noopener" target="_blank">Hanwan Space</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LeeKa</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='255,55,55' opacity='1' zIndex='-1' count='399' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
