@@ -28,10 +28,10 @@
 <meta property="og:description" content="GAMES101-P4视图变换和投影变换（正交投影、透视投影）.">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/assets/101-projection.jpg">
-<meta property="og:image" content="http://example.com/2023/03/18/assets/101-persp2ortho.jpg">
-<meta property="og:image" content="http://example.com/2023/03/18/assets/101-persp2ortho2.jpg">
+<meta property="og:image" content="http://example.com/assets/101-persp2ortho.jpg">
+<meta property="og:image" content="http://example.com/assets/101-persp2ortho2.jpg">
 <meta property="article:published_time" content="2023-03-18T09:14:50.000Z">
-<meta property="article:modified_time" content="2023-04-07T14:12:20.298Z">
+<meta property="article:modified_time" content="2023-04-07T14:19:03.599Z">
 <meta property="article:author" content="LeeKa">
 <meta property="article:tag" content="图形学">
 <meta property="article:tag" content="GAMES，笔记">
@@ -209,7 +209,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-04-07 22:12:20" itemprop="dateModified" datetime="2023-04-07T22:12:20+08:00">2023-04-07</time>
+                <time title="修改时间：2023-04-07 22:19:03" itemprop="dateModified" datetime="2023-04-07T22:19:03+08:00">2023-04-07</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -260,7 +260,7 @@
 <li>将结果规范化在一个 $[\pm1,\pm1, \pm1]$  的方块内</li>
 </ul>
 <p>矩阵形式:中心移至原点，再缩放<br>$$<br>M_z=\begin{bmatrix}<br>  \frac{2}{r-l} &amp; 0             &amp; 0             &amp; 0 \<br>  0             &amp; \frac{2}{t-b} &amp; 0             &amp; 0\<br>  0             &amp;  0            &amp; \frac{2}{n-f} &amp; 0 \<br>  0             &amp; 0             &amp; 0             &amp; 1<br>\end{bmatrix}  \times<br>\begin{bmatrix}<br>  1 &amp; 0 &amp; 0 &amp; -\frac{r+l}{2} \<br>  0 &amp; 1 &amp; 0 &amp; -\frac{b+t}{2}\<br>  0 &amp; 0 &amp; 1 &amp; -\frac{n+f}{2} \<br>  0 &amp; 0 &amp; 0 &amp; 1<br>\end{bmatrix}<br>$$</p>
-<h3 id="透视投影"><a href="#透视投影" class="headerlink" title="透视投影"></a>透视投影</h3><p><img src="./../assets/101-persp2ortho.jpg" alt="正交和透视"><br>对如上图的透视，定义近平面 n 和远平面 f，有：</p>
+<h3 id="透视投影"><a href="#透视投影" class="headerlink" title="透视投影"></a>透视投影</h3><p><img src="/assets/101-persp2ortho.jpg" alt="正交和透视"><br>对如上图的透视，定义近平面 n 和远平面 f，有：</p>
 <ul>
 <li>近平面保持不变，其余地方进行“挤压”使得其与近平面一样大。使上图左侧变成右侧形状。</li>
 <li>进行正交投影</li>
@@ -270,7 +270,7 @@
 <li>n 平面上的坐标不变</li>
 <li>f 平面上的坐标 Z 轴不变，且平面中点坐标不变</li>
 </ul>
-<p><img src="./../assets/101-persp2ortho2.jpg" alt="正交和透视"></p>
+<p><img src="/assets/101-persp2ortho2.jpg" alt="正交和透视"></p>
 <p>对于任意的点 $(x,y,z)$ ，对应到一个有一个 n 平面上的点 $(x’,y’,z’)$。相似三角形有</p>
 <p>$$\begin{align}<br>     y’ =\frac{n}{z}y\<br>x’=\frac{n}{z}x<br>\end{align}$$</p>
 <p>接下来求解 Z 轴的变换方程，即矩阵的第三行。</p>
