@@ -28,7 +28,7 @@
 <meta property="og:description" content="PCA（Principal Component Analysis）是一种常用的数据分析方法。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-04-10T14:47:38.000Z">
-<meta property="article:modified_time" content="2023-04-11T07:47:00.380Z">
+<meta property="article:modified_time" content="2023-04-19T10:00:48.180Z">
 <meta property="article:author" content="LeeKa">
 <meta property="article:tag" content="课程">
 <meta property="article:tag" content="多媒体数据处理">
@@ -208,7 +208,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-04-11 15:47:00" itemprop="dateModified" datetime="2023-04-11T15:47:00+08:00">2023-04-11</time>
+                <time title="修改时间：2023-04-19 18:00:48" itemprop="dateModified" datetime="2023-04-19T18:00:48+08:00">2023-04-19</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -258,7 +258,7 @@
 <p>$$Var(a)=\frac{1}{m}\sum_{i=1}^m{a_i^2}$$</p>
 <p>多个维度中，我们希望尽可能多的表示原始信息，所以维度之间不应该存在相关性，否则它们的信息就会有重复。我们使用<strong>协方差</strong>衡量相关性。</p>
 <p>$$Cov(a,b)=\frac{1}{m}\sum_{i=1}^m{a_ib_i}$$</p>
-<p>相互之间协方差为 0 时，相关性最弱。所以我们需要选择相互之间协方差为 0 且字段方差尽可能大的一组向量作为基底。</p>
+<p>相互之间协方差为 0 时，相关性最弱。所以我们需要<strong>选择相互之间协方差为 0 且字段方差尽可能大的一组向量作为基底</strong>。</p>
 <p>在数学上，有：设 m 个 n 维数据记录排列成 $n\times m$ 的矩阵X，而</p>
 <p>$$C=\frac{1}{m}XX^\mathsf{T}$$</p>
 <p>则 C 是一个对称矩阵。其对角线分别个各个字段的方差，而第 i 行 j 列和 j 行 i 列元素相同，表示 i 和 j 两个字段的协方差。</p>
@@ -268,6 +268,10 @@
 <p>$$<br>E^\mathsf{T}CE<br>=\Lambda<br>=\begin{pmatrix}<br>   \lambda_1 &amp; &amp; &amp; \<br>    &amp; \lambda_2 &amp; &amp; \<br>    &amp; &amp; \ddots &amp; \<br>    &amp; &amp; &amp; \lambda_n \end{pmatrix}<br>$$<br>进而我们需要的矩阵 P 有：</p>
 <p>$$P=E^\mathsf{T}$$</p>
 <p>P 是协方差矩阵的特征向量单位化后按行排列出的矩阵，其中每一行都是 C 的一个特征向量。如果设P按照 $\Lambda$ 中特征值的从大到小，将特征向量从上到下排列，则用 P 的前 K 行组成的矩阵乘以原始数据矩阵 X ，就得到了我们需要的降维后的数据矩阵 Y 。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>总结 PCA 的思路。</p>
+<p>我们将 M 维数据投影到 K 维空间上，达到数据降维的目标。在这个过程中，我们尽可能的使投影值分散，而非聚集。这是因为越聚集就代表投影以后（该方向）丢失的信息越多，得到的数据的信息越趋同，贡献新信息不多。</p>
+<p>我们使用方差来衡量一个方向的数据分散程度，使用协方差来保证每个方向都是正交（相关性低）的。</p>
+<p>我们使用特征值向量矩阵选取协方差矩阵中方差最大的 K 个正交方向（主成分），再把原始数据变换刚刚求出的 K 维空间中去即可。</p>
 <h2 id="PCA的具体步骤"><a href="#PCA的具体步骤" class="headerlink" title="PCA的具体步骤"></a>PCA的具体步骤</h2><p>我们可以把上述过程总结为下述步骤：</p>
 <p>设有 m 条 n 维数据，我们将其排成 n 行 m 列（ n*m ）的矩阵 X，按一下步骤对齐进行 PCA：</p>
 <ol>
@@ -313,7 +317,10 @@
     <a href="/2023/04/06/%E5%A4%9A%E5%AA%92%E4%BD%93%E5%AE%9E%E9%AA%8C1%E7%AE%97%E6%9C%AF%E7%BC%96%E7%A0%81/" rel="prev" title="算术编码的 python 实现">
       <i class="fa fa-chevron-left"></i> 算术编码的 python 实现
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2023/04/20/%E6%95%B0%E7%BB%84%E5%90%8D%E4%B8%8E%E6%8C%87%E9%92%88%E4%B8%8E%E5%8F%B3%E5%80%BC/" rel="next" title="从 &a+1 说起————数组变量、&和+运算符">
+      从 &a+1 说起————数组变量、&和+运算符 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -372,7 +379,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8E%E6%95%B0%E6%8D%AE%E5%8E%8B%E7%BC%A9%E8%AF%B4%E8%B5%B7"><span class="nav-number">1.</span> <span class="nav-text">从数据压缩说起</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PCA%E7%9A%84%E6%80%9D%E8%B7%AF%E2%80%94%E2%80%94%E2%80%94%E2%80%94%E9%87%8D%E6%96%B0%E5%8F%91%E7%8E%B0"><span class="nav-number">2.</span> <span class="nav-text">PCA的思路————重新发现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A9%BA%E9%97%B4%E5%8F%98%E6%8D%A2"><span class="nav-number">2.1.</span> <span class="nav-text">空间变换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E5%B7%AE%E4%B8%8E%E5%8D%8F%E6%96%B9%E5%B7%AE"><span class="nav-number">2.2.</span> <span class="nav-text">方差与协方差</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%B9%E5%BE%81%E5%80%BC"><span class="nav-number">2.3.</span> <span class="nav-text">特征值</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PCA%E7%9A%84%E5%85%B7%E4%BD%93%E6%AD%A5%E9%AA%A4"><span class="nav-number">3.</span> <span class="nav-text">PCA的具体步骤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PCA%E7%9A%84python%E5%AE%9E%E7%8E%B0"><span class="nav-number">4.</span> <span class="nav-text">PCA的python实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BA%90%E4%BB%A3%E7%A0%81"><span class="nav-number">5.</span> <span class="nav-text">源代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">6.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8E%E6%95%B0%E6%8D%AE%E5%8E%8B%E7%BC%A9%E8%AF%B4%E8%B5%B7"><span class="nav-number">1.</span> <span class="nav-text">从数据压缩说起</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PCA%E7%9A%84%E6%80%9D%E8%B7%AF%E2%80%94%E2%80%94%E2%80%94%E2%80%94%E9%87%8D%E6%96%B0%E5%8F%91%E7%8E%B0"><span class="nav-number">2.</span> <span class="nav-text">PCA的思路————重新发现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A9%BA%E9%97%B4%E5%8F%98%E6%8D%A2"><span class="nav-number">2.1.</span> <span class="nav-text">空间变换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E5%B7%AE%E4%B8%8E%E5%8D%8F%E6%96%B9%E5%B7%AE"><span class="nav-number">2.2.</span> <span class="nav-text">方差与协方差</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%B9%E5%BE%81%E5%80%BC"><span class="nav-number">2.3.</span> <span class="nav-text">特征值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">2.4.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PCA%E7%9A%84%E5%85%B7%E4%BD%93%E6%AD%A5%E9%AA%A4"><span class="nav-number">3.</span> <span class="nav-text">PCA的具体步骤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PCA%E7%9A%84python%E5%AE%9E%E7%8E%B0"><span class="nav-number">4.</span> <span class="nav-text">PCA的python实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BA%90%E4%BB%A3%E7%A0%81"><span class="nav-number">5.</span> <span class="nav-text">源代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">6.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -388,20 +395,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-count">18</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-count">34</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
