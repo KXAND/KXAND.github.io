@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.2.0">
+<meta name="generator" content="Hexo 5.4.2">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -78,7 +78,11 @@
   </style>
 </noscript>
 
-</head>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
   <div class="container use-motion">
@@ -229,32 +233,40 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>对搭建博客的过程的一个复习、深入了解<del>和小白教程</del>。<a id="more"></a></p>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>基于这个<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Yb411a7ty">视频</a>，感谢 Codesheep dalao 和评论区的各位同学者。依照up主的视频使用了 hexo + Github ，不过，我是<strong>基于 Windows 10 进行操作</strong>的。</p>
-<p>也是对搭建博客的过程的一个复习和深入了解吧，<del>也可以给小白做参考</del>。虽然提到个人博客感觉是我会去做的事情，但是，如果不是 hawa130的帮助以及 XDMSC 的面试，大概会在很久很久以后才会想到去搭一个博客。感谢dalao们的帮助吧。</p>
+        <p>对搭建博客的过程的一个复习、深入了解<s>和小白教程</s>。<span id="more"></span></p>
+<h2 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h2>
+<p>基于这个<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Yb411a7ty">视频</a>，感谢 Codesheep dalao 和评论区的各位同学者。依照up主的视频使用了 hexo + Github ，不过，我是<strong>基于 Windows 10 进行操作</strong>的。</p>
+<p>也是对搭建博客的过程的一个复习和深入了解吧，<s>也可以给小白做参考</s>。虽然提到个人博客感觉是我会去做的事情，但是，如果不是 hawa130的帮助以及 XDMSC 的面试，大概会在很久很久以后才会想到去搭一个博客。感谢dalao们的帮助吧。</p>
 <p>那么，正式开始吧！</p>
-<h2 id="准备前置工具"><a href="#准备前置工具" class="headerlink" title="准备前置工具"></a>准备前置工具</h2><p>安装：</p>
+<h2 id="准备前置工具"><a class="markdownIt-Anchor" href="#准备前置工具"></a> 准备前置工具</h2>
+<p>安装：</p>
 <ol>
-<li><p>Node.js （及 npm )</p>
+<li>
+<p>Node.js （及 npm )</p>
 <p>在官网下载安装即可。node.js 是 hexo 前置软件，npm 则是 node.js 其中附带的包管理器。如果一切顺利，那么，在控制台（ cmd 和 PowerShell ）运行<code>node -v</code>和<code>npm -v</code>应当可以看到 node.js 和 npm 的版本号。</p>
 </li>
-<li><p>Git</p>
+<li>
+<p>Git</p>
 <p>官网下载安装即可。安装完成后，可以启用Git Bash。</p>
 </li>
-<li><p>cnpm 和 hexo 部署插件</p>
+<li>
+<p>cnpm 和 hexo 部署插件</p>
 <p>hexo 是基于 node.js 的博客框架，本来应该是使用 npm 进行安装，不过，考虑到连接外网速度的问题，我们先换一个下载源。</p>
 <p>在命令行界面下，键入<code>npm install -g cnpm --registry=https://registry.npm.taobao.org</code>，即可安装 cnpm 。（可以理解成下了一个高速下载器来下文件）。</p>
 <p>cnpm 安装完成，于是键入<code> cnpm install -g hexo-cli</code> 即可安装 hexo 了（注意格式上和上一个命令的相似性)。如果一切顺利，应该可以运行<code>hexo -v </code>校验版本安装成功与否和校验版本。</p>
 </li>
 </ol>
-<h2 id="正式的步骤"><a href="#正式的步骤" class="headerlink" title="正式的步骤"></a>正式的步骤</h2><h3 id="初始化一个博客"><a href="#初始化一个博客" class="headerlink" title="初始化一个博客"></a>初始化一个博客</h3><p>在喜欢的地方新建文件夹1并命名成喜欢且易记忆的名字 ，这个文件夹会在本地存储博客的所有内容 。可以使用命令行新建文件夹（参考 codesheep 的视频），也可以用我们更常见的那种方法新建。</p>
+<h2 id="正式的步骤"><a class="markdownIt-Anchor" href="#正式的步骤"></a> 正式的步骤</h2>
+<h3 id="初始化一个博客"><a class="markdownIt-Anchor" href="#初始化一个博客"></a> 初始化一个博客</h3>
+<p>在喜欢的地方新建文件夹1并命名成喜欢且易记忆的名字 ，这个文件夹会在本地存储博客的所有内容 。可以使用命令行新建文件夹（参考 codesheep 的视频），也可以用我们更常见的那种方法新建。</p>
 <p>然后在文件夹内右键选择 Git Bash Here，又或者在任何地方调出 Git Bash 之后跳转到我们新建的文件夹（参考百度和前文提及的<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Yb411a7ty">视频</a>） 。也无论如何，在该目录下，Git Bash 中输入<code>hexo init</code>即可（可加上<code>sudo</code>以使用管理员权限）。（init：initialize）</p>
 <!---->
-
-<h3 id="启用博客"><a href="#启用博客" class="headerlink" title="启用博客"></a>启用博客</h3><p>在上述的博客文件夹下运行 Git Bash 。输入<code>hexo s</code>（ s：server ）即可开始编译，并在 <a target="_blank" rel="noopener" href="http://localhost:4000/">localhost:4000</a> 这个内部地址上展示。如果一切正常，那么就应该看到一篇名为 Hello World 的博文在博客网页上欢迎我们的到来。</p>
-<h3 id="推送到远端（GitHub）"><a href="#推送到远端（GitHub）" class="headerlink" title="推送到远端（GitHub）"></a>推送到远端（GitHub）</h3><p>用别的其实也ok，比如说 Coding 。<del>因为GitHub是真的慢</del>，不过，此处我们选用的依然是GitHub，二者其实差别并不太大。</p>
+<h3 id="启用博客"><a class="markdownIt-Anchor" href="#启用博客"></a> 启用博客</h3>
+<p>在上述的博客文件夹下运行 Git Bash 。输入<code>hexo s</code>（ s：server ）即可开始编译，并在 <a target="_blank" rel="noopener" href="http://localhost:4000/">localhost:4000</a> 这个内部地址上展示。如果一切正常，那么就应该看到一篇名为 Hello World 的博文在博客网页上欢迎我们的到来。</p>
+<h3 id="推送到远端github"><a class="markdownIt-Anchor" href="#推送到远端github"></a> 推送到远端（GitHub）</h3>
+<p>用别的其实也ok，比如说 Coding 。<s>因为GitHub是真的慢</s>，不过，此处我们选用的依然是GitHub，二者其实差别并不太大。</p>
 <p>首先需要一个 GitHub 账号。</p>
-<p>然后，点选 Repository 边的 New 新建一个库。记住 <strong>repository name 只能填写为 “ GitHub 用户名.github.io”</strong> 的形式。</p>
+<p>然后，点选 Repository 边的 New 新建一个库。记住 <strong>repository name 只能填写为 “ GitHub <a target="_blank" rel="noopener" href="http://xn--eqr924avxo.github.io">用户名.github.io</a>”</strong> 的形式。</p>
 <p>安装 Git 部署插件：回到 Git Bash 界面，在博客目录下输入<code>cnmp install --save hexo-deployer-git</code>安装 Git 部署插件以把博客部署到 Github 上（ 注意 Git 和 GitHub 不是一回事 ）。</p>
 <p>修改配置文件：在博客目录下找到 _config.yml 用编辑器打开（记事本也行，我选用的是） 。滑到最低端找到 deploy 。把 type 后面引号中写入 git 。然后换行写上：<code>repo： ……</code>省略号指我们在 GitHub 建立的库的网址。再换行写上<code>branch: master</code> 。</p>
 <p>部署：用<code>hexo g</code>来生成（generate）HTML网页文件，键入<code>git config --global user.email &quot;xxx&quot;</code>和<code>git config --global user.name &quot;xxx&quot;</code>配置 GitＨub 账号的邮件地址和用户名（替换 xxx ）。然后键入<code> hexo d</code> 来部署（deploy）到远端。第一次部署应当会出现弹出窗口要求输入密码。</p>
@@ -262,9 +274,11 @@
 <p>首先GitHub网页点击头像 -&gt; Settings -&gt; Developer Settings -&gt;Personal access tokens -&gt;Generate new token。创建一个新的 token ，设定其权限和名字（ 保险起见，建议给予所有权限 ），随后 GitHub 会分配给它一个 password 。这里的名字和密码才是第二次所需输入的。需要注意的是，你只有<strong>一次</strong>看到密码的机会，所以一定要保存好。以防日后用到。</p>
 <p>然后，打开浏览器，网址栏输入建立库的地址．就能看到个人博客了。All Done !</p>
 <p>P.S.  如果发现修改没有带来应有的变化，记得清除浏览器缓存。不过以上步骤应该用不到这个 P.S. 。</p>
-<h3 id="曾经觉得还会有的内容："><a href="#曾经觉得还会有的内容：" class="headerlink" title="曾经觉得还会有的内容："></a>曾经<del>觉得还会有的内容：</del></h3><p><del>给这篇博文查缺补漏，添加图片、如何推一篇博文到博客上、如何换博客主题、整合补充用到的命令行指令、把个人网站解析到个人博客上，原理问题（为什么要下这么多东西啊？！） 有的内容可能会写在新的博文里面。</del></p>
-<p><del>考虑到还要挣扎一下软件组的题目的时间问题和还不太懂的能力问题以及我懒的问题，这次还是就此暂停吧。让写博文督促我查缺补漏，深入学习！</del></p>
-<h3 id="后言"><a href="#后言" class="headerlink" title="后言"></a>后言</h3><p>本人咕咕咕的能力又一次得到了体现啊哈哈。这一切都怪学校安排的作业太多了！真的哦？真的真的！！真是的，都和你说了是真的啊！！！</p>
+<h3 id="曾经觉得还会有的内容"><a class="markdownIt-Anchor" href="#曾经觉得还会有的内容"></a> 曾经<s>觉得还会有的内容：</s></h3>
+<p><s>给这篇博文查缺补漏，添加图片、如何推一篇博文到博客上、如何换博客主题、整合补充用到的命令行指令、把个人网站解析到个人博客上，原理问题（为什么要下这么多东西啊？！） 有的内容可能会写在新的博文里面。</s></p>
+<p><s>考虑到还要挣扎一下软件组的题目的时间问题和还不太懂的能力问题以及我懒的问题，这次还是就此暂停吧。让写博文督促我查缺补漏，深入学习！</s></p>
+<h3 id="后言"><a class="markdownIt-Anchor" href="#后言"></a> 后言</h3>
+<p>本人咕咕咕的能力又一次得到了体现啊哈哈。这一切都怪学校安排的作业太多了！真的哦？真的真的！！真是的，都和你说了是真的啊！！！</p>
 <p>好吧，抛去玩笑话，其实是想把域名从腾讯云转去阿里云的时候出了岔子。必须要等注册满14天才能删号重新来过,就先放着了，结果放下后就再也没有拿起来过（捂脸）……</p>
 <p>如果你照着我的、或者别人的教程搭好了这样一个小小的静态博客。首先，相信和我 一样是充满成就感的，Hello World 两个单词仿佛是一个广阔的新世界你面前缓缓展开。其次，你也一定会注意到它是简单的，流程并不复杂，而且我们不曾敲过一行代码，那些真正麻烦的工作，hexo 给我们静静地办好了。无论如何，博客是我们的，我们可以自由的享用它了。</p>
 <p>处于篇幅上的考虑，我最后还是决定把它写成一个搭建静态博客系列教程。做个预告吧：</p>
@@ -350,7 +364,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E5%89%8D%E7%BD%AE%E5%B7%A5%E5%85%B7"><span class="nav-number">2.</span> <span class="nav-text">准备前置工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AD%A3%E5%BC%8F%E7%9A%84%E6%AD%A5%E9%AA%A4"><span class="nav-number">3.</span> <span class="nav-text">正式的步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%80%E4%B8%AA%E5%8D%9A%E5%AE%A2"><span class="nav-number">3.1.</span> <span class="nav-text">初始化一个博客</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%AF%E7%94%A8%E5%8D%9A%E5%AE%A2"><span class="nav-number">3.2.</span> <span class="nav-text">启用博客</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A8%E9%80%81%E5%88%B0%E8%BF%9C%E7%AB%AF%EF%BC%88GitHub%EF%BC%89"><span class="nav-number">3.3.</span> <span class="nav-text">推送到远端（GitHub）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%BE%E7%BB%8F%E8%A7%89%E5%BE%97%E8%BF%98%E4%BC%9A%E6%9C%89%E7%9A%84%E5%86%85%E5%AE%B9%EF%BC%9A"><span class="nav-number">3.4.</span> <span class="nav-text">曾经觉得还会有的内容：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%8E%E8%A8%80"><span class="nav-number">3.5.</span> <span class="nav-text">后言</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text"> 前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E5%89%8D%E7%BD%AE%E5%B7%A5%E5%85%B7"><span class="nav-number">2.</span> <span class="nav-text"> 准备前置工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AD%A3%E5%BC%8F%E7%9A%84%E6%AD%A5%E9%AA%A4"><span class="nav-number">3.</span> <span class="nav-text"> 正式的步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%80%E4%B8%AA%E5%8D%9A%E5%AE%A2"><span class="nav-number">3.1.</span> <span class="nav-text"> 初始化一个博客</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%AF%E7%94%A8%E5%8D%9A%E5%AE%A2"><span class="nav-number">3.2.</span> <span class="nav-text"> 启用博客</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A8%E9%80%81%E5%88%B0%E8%BF%9C%E7%AB%AFgithub"><span class="nav-number">3.3.</span> <span class="nav-text"> 推送到远端（GitHub）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%BE%E7%BB%8F%E8%A7%89%E5%BE%97%E8%BF%98%E4%BC%9A%E6%9C%89%E7%9A%84%E5%86%85%E5%AE%B9"><span class="nav-number">3.4.</span> <span class="nav-text"> 曾经觉得还会有的内容：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%8E%E8%A8%80"><span class="nav-number">3.5.</span> <span class="nav-text"> 后言</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

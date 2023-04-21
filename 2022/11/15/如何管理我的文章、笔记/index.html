@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.2.0">
+<meta name="generator" content="Hexo 5.4.2">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -79,7 +79,11 @@
   </style>
 </noscript>
 
-</head>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
   <div class="container use-motion">
@@ -230,20 +234,36 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>Pre：生活中总是免不了和各类文章、笔记、心得产生交到。有被动地学习，也有主动的思考产出。各类文字（下统称日志）的质量、功能、隐私性等等不一而足。这里，通过反思和整理，我将给出我的答案。<a id="more"></a></p>
-<h2 id="0-我的笔记环境"><a href="#0-我的笔记环境" class="headerlink" title="0.我的笔记环境"></a>0.我的笔记环境</h2><p>各类记笔记的软件繁多冗杂、不一而足，由上述两段可见一斑。而在经过两年多的跌打过后，我目前得出的教训是：<strong>有的就是好的，没有的就坏的</strong>。手上的工具再差，其<strong>已经配好了</strong>这一特点就胜出许多，因为这一点意味着当拥有想法的时候，你不会工具没有配好没发写而难受。</p>
-<p>因此，做事的正确的顺序应该是先写起来，先用起来，习惯起来然后再酌情学习更换。否则就是配这个，踩一遍坑、配那个，踩一遍坑……到头来时间耽误不少，工具用了挺多，产出是一个没有，精通的也一个都没有……或者哪怕找到了趁手的武器，写文章的心境也早没了，只能任由心绪烂在心里。<br>下面简要介绍我的情况：</p>
+        <p>Pre：生活中总是免不了和各类文章、笔记、心得产生交到。有被动地学习，也有主动的思考产出。各类文字（下统称日志）的质量、功能、隐私性等等不一而足。这里，通过反思和整理，我将给出我的答案。<span id="more"></span></p>
+<h2 id="0我的笔记环境"><a class="markdownIt-Anchor" href="#0我的笔记环境"></a> 0.我的笔记环境</h2>
+<p>各类记笔记的软件繁多冗杂、不一而足，由上述两段可见一斑。而在经过两年多的跌打过后，我目前得出的教训是：<strong>有的就是好的，没有的就坏的</strong>。手上的工具再差，其<strong>已经配好了</strong>这一特点就胜出许多，因为这一点意味着当拥有想法的时候，你不会工具没有配好没发写而难受。</p>
+<p>因此，做事的正确的顺序应该是先写起来，先用起来，习惯起来然后再酌情学习更换。否则就是配这个，踩一遍坑、配那个，踩一遍坑……到头来时间耽误不少，工具用了挺多，产出是一个没有，精通的也一个都没有……或者哪怕找到了趁手的武器，写文章的心境也早没了，只能任由心绪烂在心里。
+下面简要介绍我的情况：</p>
 <ul>
 <li>我是计算机类大学生，存在记笔记的需要，偶有写文章的冲动，但是依据过去进行判断的话，没有做日记或笔耕不辍的习惯。习惯于使用Markdown。</li>
 <li>我目前使用的记录软件包括：小米笔记、Notion、VSC+MPE（就是这个博客）、Goodnotes、Notbility、Obsidian、备忘录（苹果）。</li>
-<li>其他有所耳闻的应用还有各类在线博客平台（如CSDN、知乎专栏、掘金）、logseq、OneNote、typora等。<br>下面依次对我使用的工具的职责和功能进行介绍和明晰。</li>
+<li>其他有所耳闻的应用还有各类在线博客平台（如CSDN、知乎专栏、掘金）、logseq、OneNote、typora等。
+下面依次对我使用的工具的职责和功能进行介绍和明晰。</li>
 </ul>
-<h2 id="1-小米笔记：便捷的文字集散地"><a href="#1-小米笔记：便捷的文字集散地" class="headerlink" title="1.小米笔记：便捷的文字集散地"></a>1.小米笔记：便捷的文字集散地</h2><p>小米笔记用于我的 MIUI 手机上。其实功能不少，界面也很美观。既可以添加待办，也可以很方便的写一些短文字，还有思维笔记的功能。格式相似于 Markdown ，主要是荧光笔、触屏涂鸦和中/左对齐等功能，不过不支持 Markdown 语法。<br>显然这个就是主打轻量化的软件。由于手机一般就在身边，因此想到什么就马上开记，不要了就删掉是其最大的好处。<br>此外，小米笔记还有<strong>摘录功能</strong>，即复制后在侧滑功能栏里可以直接添加到笔记。或者也可以先侧滑打开摘录功能，然后接下来复制的多段文字均会在结束的时候被添加到同一个笔记中。<br>目前我对他的定位是做一个简单的快速记录软件、日记软件。将其分为了“垃圾话”、“灵感”和未分类三个部分。<br>“垃圾话”存储的是一些突然涌现的思绪，例如突然涌上心头的后悔、思念、思考、感悟……“灵感”则存一些更有价值的创造，比如说现在里面有的一篇小故事。我深知我无法将其扩写成一篇完美而精致的小说。但是我依然可以在小米笔记里把梗概存下来。至于未分类则就更是乱七八糟了，临时记录的东西。例如预备购买的手机的优缺点、给别人发一大段话前组织语言……这是笔记的默认分类。<br>至于隐私空间，则是一个简单的生活秘密空间。例如某个密码锁的密码，可以存在这里以防万一。从而使得应用本身并不需要上锁。</p>
-<h2 id="2-Notion：基于云端的长文字集散地"><a href="#2-Notion：基于云端的长文字集散地" class="headerlink" title="2.Notion：基于云端的长文字集散地"></a>2.Notion：基于云端的长文字集散地</h2><p>Notion 的好处很多，不过展开了说就有些长了，<del>再说了我也没有完全摸透</del>，大体上看是可以简单担任日历、待办、笔记、备忘录等等功能……（我甚至在拿它记账！）。总的来说，Notion 是极富有野心也极强大的的网络云笔记平台。支持类 Markdown 语法、按段落拖动等都是他的的优势。尽管如此，它也不是十全十美的。<br>其基于云端本身就意味着访问不稳定和隐私风险的等问题的存在。而且在国内特定的网络环境下，直接后果就是你需要开启代理，否则从一开始就不能登录，即使登录了，丢字、光标移动不稳定等问题依然会不时的困扰着人，这也是我尝试 Obsidian 和转移到 iPad 的原因之一。（另一原因是手写笔记的排版自由）。<br>尽管如此，一些具有多端阅读需求和多端编辑需求的文章还是可以放在 Notion 上。例如读书笔记或者单纯的笔记之类的。我曾经使用 Notion 作为课堂笔记过相当长一段时间。</p>
-<h2 id="3-Obsidian：移动端的-Markdown"><a href="#3-Obsidian：移动端的-Markdown" class="headerlink" title="3.Obsidian：移动端的 Markdown"></a>3.Obsidian：移动端的 Markdown</h2><p>基于移动端的 Markdown 写作平台，很可惜的是需要付费才能解锁多端同步的问题。因此，Obsidian 主要是作为小米笔记的 MarkDown 补全品出现。（文本迁移到 Notion 有格式转化的一大堆问题，不能作为 Notion 的补全品。但是可以作为　Notion　的替代品。具体来说就是一个小说的写作地。</p>
-<h2 id="4-Leeka的酒馆（VS-Code）：成熟文章的集合"><a href="#4-Leeka的酒馆（VS-Code）：成熟文章的集合" class="headerlink" title="4.Leeka的酒馆（VS Code）：成熟文章的集合"></a>4.Leeka的酒馆（VS Code）：成熟文章的集合</h2><p>通过VS Code + MPE，可以进行较长篇幅的文章写作。同时，虽然没有人看，但是公开网站的性质也使得这里不适合放一些强隐私性的东西。这里主要堆积的是完成度高、成体系、长的文章。通过 Markdown 进行编辑可以使得我专注于内容本身。至于缺点则是虽然发布内容可以全平台浏览，但只能在电脑上进行编辑，而且会想折腾各种写作环境。目前来说，新建文章的方式也不够优雅。</p>
-<h2 id="5-Goodnotes-amp-Notebility：上课笔记、下课草稿（iPad）"><a href="#5-Goodnotes-amp-Notebility：上课笔记、下课草稿（iPad）" class="headerlink" title="5.Goodnotes &amp; Notebility：上课笔记、下课草稿（iPad）"></a>5.Goodnotes &amp; Notebility：上课笔记、下课草稿（iPad）</h2><p>目前的分工是 Goodnotes 记录课堂笔记，Notebility 负责一些更不正式、预备稿、涂鸦、灵感一类的东西。这里的一大原因是 Notebility采取了昂贵的订阅制，虽然可以白嫖朋友的 classic 版，但是说到底还是不适合与之深度绑定。 Goodnotes 等的缺点在于，除非导出为 PDF，否则不能在 iPad 以外的设备上进行查看，而且本身是手写用的。</p>
-<h2 id="6-备忘录（iPad）"><a href="#6-备忘录（iPad）" class="headerlink" title="6.备忘录（iPad）"></a>6.备忘录（iPad）</h2><p>备忘录的优势在于双击启动，虽然写起来不如 G 或者 N 爽，但是用来写一些用后即焚的东西（例如打草稿）还是有一定优势的。</p>
+<h2 id="1小米笔记便捷的文字集散地"><a class="markdownIt-Anchor" href="#1小米笔记便捷的文字集散地"></a> 1.小米笔记：便捷的文字集散地</h2>
+<p>小米笔记用于我的 MIUI 手机上。其实功能不少，界面也很美观。既可以添加待办，也可以很方便的写一些短文字，还有思维笔记的功能。格式相似于 Markdown ，主要是荧光笔、触屏涂鸦和中/左对齐等功能，不过不支持 Markdown 语法。
+显然这个就是主打轻量化的软件。由于手机一般就在身边，因此想到什么就马上开记，不要了就删掉是其最大的好处。
+此外，小米笔记还有<strong>摘录功能</strong>，即复制后在侧滑功能栏里可以直接添加到笔记。或者也可以先侧滑打开摘录功能，然后接下来复制的多段文字均会在结束的时候被添加到同一个笔记中。
+目前我对他的定位是做一个简单的快速记录软件、日记软件。将其分为了“垃圾话”、“灵感”和未分类三个部分。
+“垃圾话”存储的是一些突然涌现的思绪，例如突然涌上心头的后悔、思念、思考、感悟……“灵感”则存一些更有价值的创造，比如说现在里面有的一篇小故事。我深知我无法将其扩写成一篇完美而精致的小说。但是我依然可以在小米笔记里把梗概存下来。至于未分类则就更是乱七八糟了，临时记录的东西。例如预备购买的手机的优缺点、给别人发一大段话前组织语言……这是笔记的默认分类。
+至于隐私空间，则是一个简单的生活秘密空间。例如某个密码锁的密码，可以存在这里以防万一。从而使得应用本身并不需要上锁。</p>
+<h2 id="2notion基于云端的长文字集散地"><a class="markdownIt-Anchor" href="#2notion基于云端的长文字集散地"></a> 2.Notion：基于云端的长文字集散地</h2>
+<p>Notion 的好处很多，不过展开了说就有些长了，<s>再说了我也没有完全摸透</s>，大体上看是可以简单担任日历、待办、笔记、备忘录等等功能……（我甚至在拿它记账！）。总的来说，Notion 是极富有野心也极强大的的网络云笔记平台。支持类 Markdown 语法、按段落拖动等都是他的的优势。尽管如此，它也不是十全十美的。
+其基于云端本身就意味着访问不稳定和隐私风险的等问题的存在。而且在国内特定的网络环境下，直接后果就是你需要开启代理，否则从一开始就不能登录，即使登录了，丢字、光标移动不稳定等问题依然会不时的困扰着人，这也是我尝试 Obsidian 和转移到 iPad 的原因之一。（另一原因是手写笔记的排版自由）。
+尽管如此，一些具有多端阅读需求和多端编辑需求的文章还是可以放在 Notion 上。例如读书笔记或者单纯的笔记之类的。我曾经使用 Notion 作为课堂笔记过相当长一段时间。</p>
+<h2 id="3obsidian移动端的-markdown"><a class="markdownIt-Anchor" href="#3obsidian移动端的-markdown"></a> 3.Obsidian：移动端的 Markdown</h2>
+<p>基于移动端的 Markdown 写作平台，很可惜的是需要付费才能解锁多端同步的问题。因此，Obsidian 主要是作为小米笔记的 MarkDown 补全品出现。（文本迁移到 Notion 有格式转化的一大堆问题，不能作为 Notion 的补全品。但是可以作为　Notion　的替代品。具体来说就是一个小说的写作地。</p>
+<h2 id="4leeka的酒馆vs-code成熟文章的集合"><a class="markdownIt-Anchor" href="#4leeka的酒馆vs-code成熟文章的集合"></a> 4.Leeka的酒馆（VS Code）：成熟文章的集合</h2>
+<p>通过VS Code + MPE，可以进行较长篇幅的文章写作。同时，虽然没有人看，但是公开网站的性质也使得这里不适合放一些强隐私性的东西。这里主要堆积的是完成度高、成体系、长的文章。通过 Markdown 进行编辑可以使得我专注于内容本身。至于缺点则是虽然发布内容可以全平台浏览，但只能在电脑上进行编辑，而且会想折腾各种写作环境。目前来说，新建文章的方式也不够优雅。</p>
+<h2 id="5goodnotes-notebility上课笔记-下课草稿ipad"><a class="markdownIt-Anchor" href="#5goodnotes-notebility上课笔记-下课草稿ipad"></a> 5.Goodnotes &amp; Notebility：上课笔记、下课草稿（iPad）</h2>
+<p>目前的分工是 Goodnotes 记录课堂笔记，Notebility 负责一些更不正式、预备稿、涂鸦、灵感一类的东西。这里的一大原因是 Notebility采取了昂贵的订阅制，虽然可以白嫖朋友的 classic 版，但是说到底还是不适合与之深度绑定。 Goodnotes 等的缺点在于，除非导出为 PDF，否则不能在 iPad 以外的设备上进行查看，而且本身是手写用的。</p>
+<h2 id="6备忘录ipad"><a class="markdownIt-Anchor" href="#6备忘录ipad"></a> 6.备忘录（iPad）</h2>
+<p>备忘录的优势在于双击启动，虽然写起来不如 G 或者 N 爽，但是用来写一些用后即焚的东西（例如打草稿）还是有一定优势的。</p>
 
     </div>
 
@@ -329,7 +349,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0-%E6%88%91%E7%9A%84%E7%AC%94%E8%AE%B0%E7%8E%AF%E5%A2%83"><span class="nav-number">1.</span> <span class="nav-text">0.我的笔记环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%B0%8F%E7%B1%B3%E7%AC%94%E8%AE%B0%EF%BC%9A%E4%BE%BF%E6%8D%B7%E7%9A%84%E6%96%87%E5%AD%97%E9%9B%86%E6%95%A3%E5%9C%B0"><span class="nav-number">2.</span> <span class="nav-text">1.小米笔记：便捷的文字集散地</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Notion%EF%BC%9A%E5%9F%BA%E4%BA%8E%E4%BA%91%E7%AB%AF%E7%9A%84%E9%95%BF%E6%96%87%E5%AD%97%E9%9B%86%E6%95%A3%E5%9C%B0"><span class="nav-number">3.</span> <span class="nav-text">2.Notion：基于云端的长文字集散地</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Obsidian%EF%BC%9A%E7%A7%BB%E5%8A%A8%E7%AB%AF%E7%9A%84-Markdown"><span class="nav-number">4.</span> <span class="nav-text">3.Obsidian：移动端的 Markdown</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Leeka%E7%9A%84%E9%85%92%E9%A6%86%EF%BC%88VS-Code%EF%BC%89%EF%BC%9A%E6%88%90%E7%86%9F%E6%96%87%E7%AB%A0%E7%9A%84%E9%9B%86%E5%90%88"><span class="nav-number">5.</span> <span class="nav-text">4.Leeka的酒馆（VS Code）：成熟文章的集合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Goodnotes-amp-Notebility%EF%BC%9A%E4%B8%8A%E8%AF%BE%E7%AC%94%E8%AE%B0%E3%80%81%E4%B8%8B%E8%AF%BE%E8%8D%89%E7%A8%BF%EF%BC%88iPad%EF%BC%89"><span class="nav-number">6.</span> <span class="nav-text">5.Goodnotes &amp; Notebility：上课笔记、下课草稿（iPad）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-%E5%A4%87%E5%BF%98%E5%BD%95%EF%BC%88iPad%EF%BC%89"><span class="nav-number">7.</span> <span class="nav-text">6.备忘录（iPad）</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0%E6%88%91%E7%9A%84%E7%AC%94%E8%AE%B0%E7%8E%AF%E5%A2%83"><span class="nav-number">1.</span> <span class="nav-text"> 0.我的笔记环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E5%B0%8F%E7%B1%B3%E7%AC%94%E8%AE%B0%E4%BE%BF%E6%8D%B7%E7%9A%84%E6%96%87%E5%AD%97%E9%9B%86%E6%95%A3%E5%9C%B0"><span class="nav-number">2.</span> <span class="nav-text"> 1.小米笔记：便捷的文字集散地</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2notion%E5%9F%BA%E4%BA%8E%E4%BA%91%E7%AB%AF%E7%9A%84%E9%95%BF%E6%96%87%E5%AD%97%E9%9B%86%E6%95%A3%E5%9C%B0"><span class="nav-number">3.</span> <span class="nav-text"> 2.Notion：基于云端的长文字集散地</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3obsidian%E7%A7%BB%E5%8A%A8%E7%AB%AF%E7%9A%84-markdown"><span class="nav-number">4.</span> <span class="nav-text"> 3.Obsidian：移动端的 Markdown</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4leeka%E7%9A%84%E9%85%92%E9%A6%86vs-code%E6%88%90%E7%86%9F%E6%96%87%E7%AB%A0%E7%9A%84%E9%9B%86%E5%90%88"><span class="nav-number">5.</span> <span class="nav-text"> 4.Leeka的酒馆（VS Code）：成熟文章的集合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5goodnotes-notebility%E4%B8%8A%E8%AF%BE%E7%AC%94%E8%AE%B0-%E4%B8%8B%E8%AF%BE%E8%8D%89%E7%A8%BFipad"><span class="nav-number">6.</span> <span class="nav-text"> 5.Goodnotes &amp; Notebility：上课笔记、下课草稿（iPad）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6%E5%A4%87%E5%BF%98%E5%BD%95ipad"><span class="nav-number">7.</span> <span class="nav-text"> 6.备忘录（iPad）</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.2.0">
+<meta name="generator" content="Hexo 5.4.2">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -82,7 +82,11 @@
   </style>
 </noscript>
 
-</head>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
   <div class="container use-motion">
@@ -233,33 +237,31 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>这个功能在VS code 中被叫做片段（snippet），其功能是在输入用户定义好的触发词后，可以像代码补全一样补出一段代码。<a id="more"></a></p>
+        <p>这个功能在VS code 中被叫做片段（snippet），其功能是在输入用户定义好的触发词后，可以像代码补全一样补出一段代码。<span id="more"></span></p>
 <p>具体操作倒也不难，如下：</p>
-<h4 id="1-打开VS-code，选择文件-gt-首选项-gt-用户片段-gt-选择对应的语言"><a href="#1-打开VS-code，选择文件-gt-首选项-gt-用户片段-gt-选择对应的语言" class="headerlink" title="1.打开VS code，选择文件 =&gt; 首选项 =&gt; 用户片段 =&gt;选择对应的语言"></a>1.打开VS code，选择文件 =&gt; 首选项 =&gt; 用户片段 =&gt;选择对应的语言</h4><img src="https://s2.loli.net/2022/01/09/JxzTLfFiyMuKVhl.jpg" style="zoom:60%;" />
-
+<h4 id="1打开vs-code选择文件-首选项-用户片段-选择对应的语言"><a class="markdownIt-Anchor" href="#1打开vs-code选择文件-首选项-用户片段-选择对应的语言"></a> 1.打开VS code，选择文件 =&gt; 首选项 =&gt; 用户片段 =&gt;选择对应的语言</h4>
+<img src="https://s2.loli.net/2022/01/09/JxzTLfFiyMuKVhl.jpg" style="zoom:60%;" />
 <p>在弹出的以下窗口中选择对应的语言、文件夹或全局，则，仅会在该语言环境、该文件夹抑或全局触发补全该代码片段。此处我以C++为例了。</p>
-<p><img src="https://s2.loli.net/2022/01/09/3OkiXdHyJB5l9cn.jpg" alt="如何在 VS code 中自定义代码模板（snippet）-2"></p>
-<h4 id="2-输入代码"><a href="#2-输入代码" class="headerlink" title="2.输入代码"></a>2.输入代码</h4><p>在弹出的窗口中，你能看到已经有数行注释如下</p>
+<p><img src="https://s2.loli.net/2022/01/09/3OkiXdHyJB5l9cn.jpg" alt="如何在 VS code 中自定义代码模板（snippet）-2" /></p>
+<h4 id="2输入代码"><a class="markdownIt-Anchor" href="#2输入代码"></a> 2.输入代码</h4>
+<p>在弹出的窗口中，你能看到已经有数行注释如下</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Place your snippets for cpp here. Each snippet is defined under a snippet name and has a prefix, body and </span></span><br><span class="line"><span class="comment">// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:</span></span><br><span class="line"><span class="comment">// $1, $2 for tab stops, $0 for the final cursor position, and $&#123;1:label&#125;, $&#123;2:another&#125; for placeholders. Placeholders with the </span></span><br><span class="line"><span class="comment">// same ids are connected.</span></span><br><span class="line"><span class="comment">// Example:</span></span><br><span class="line"><span class="comment">// &quot;Print to console&quot;: &#123;</span></span><br><span class="line"><span class="comment">//  &quot;prefix&quot;: &quot;log&quot;,</span></span><br><span class="line"><span class="comment">//  &quot;body&quot;: [</span></span><br><span class="line"><span class="comment">//   &quot;console.log(&#x27;$1&#x27;);&quot;,</span></span><br><span class="line"><span class="comment">//   &quot;$2&quot;</span></span><br><span class="line"><span class="comment">//  ],</span></span><br><span class="line"><span class="comment">//  &quot;description&quot;: &quot;Log output to console&quot;</span></span><br><span class="line"><span class="comment">// &#125;</span></span><br></pre></td></tr></table></figure>
-
 <p>事实上这段英语教程已经说得比较清楚，但是作为英语苦手，还是有一定的理解苦难，这就是这篇博文诞生的原因。下做翻译补充：</p>
 <p>每一个“代码片段”都应该由如下三部分构成，前缀（prefix）、主干和描述。</p>
 <p>前缀是代码片段的触发器，当你在编辑代码时输入前缀（的部分），VS code 就会联想到你的对应代码片段；</p>
 <p>主干是被补全的内容，也就是“模板”部分。你应该把代码分行写在 body 的中括号内，并把它们用双引号包括起来，同时在引号外别忘了添加逗号。即</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;your code here;&quot;,</span><br></pre></td></tr></table></figure>
-
 <p>描述被用来描述代码片段的作用，当你有多个相近名字的代码片段时，这无疑有助于你区分它们。此外，这部分也允许你输入中文，或干脆不写（尽管不建议）。</p>
 <p>需要额外注意的是最后提到的由 $ 开头的这个小功能。</p>
 <p>它的写法是 $加一个数字或在 $ 后的大括号内依次写入”数字”“冒号”和“占位字符串”。如</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$0</span><br><span class="line">$&#123;1&#125;</span><br><span class="line">$&#123;1:spaceholder&#125;</span><br></pre></td></tr></table></figure>
-
 <p>在补全代码后，你的光标会首先停在数值最小的一个 $ 字符处，随后每次按 Tab 依次停在次小的 $ 处，最后停在代码片段的末尾或你指定的 $0 处。（尽管测试下来允许数字不连贯，但是我建议还是使用连贯的从1开始的数字比较好）。如果有多个相同数字的地方，那么光标会同时存在于这些地方。</p>
 <p>在上方 spaceholder 部分，你可以填入默认的代码，它们在会光标（按 Tab 转移到此处时被选中以备替换）。</p>
-<h4 id="3-实例"><a href="#3-实例" class="headerlink" title="3. 实例"></a>3. 实例</h4><p>接下啦，仿照给出的 Example 在下方输入你的代码即可。</p>
+<h4 id="3-实例"><a class="markdownIt-Anchor" href="#3-实例"></a> 3. 实例</h4>
+<p>接下啦，仿照给出的 Example 在下方输入你的代码即可。</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="comment">//这个括号是默认生成的</span></span><br><span class="line"> <span class="attr">&quot;Print to sample&quot;</span>:<span class="comment">//sample字段可被替换，还没找到其意义</span></span><br><span class="line"> &#123;</span><br><span class="line">  <span class="attr">&quot;prefix&quot;</span>: <span class="string">&quot;test&quot;</span>,<span class="comment">//触发词</span></span><br><span class="line">  <span class="attr">&quot;body&quot;</span>: [</span><br><span class="line">   <span class="string">&quot;#include &lt;iostream&gt;&quot;</span>,</span><br><span class="line">   <span class="string">&quot;#include &lt;cstdio&gt;&quot;</span>,</span><br><span class="line">   <span class="string">&quot;&quot;</span>,<span class="comment">//这是一个空行</span></span><br><span class="line">   <span class="string">&quot;using namespace std;&quot;</span>,</span><br><span class="line"></span><br><span class="line">   <span class="string">&quot;int $&#123;1:i&#125;;&quot;</span>,</span><br><span class="line">   <span class="string">&quot;$0&quot;</span>,</span><br><span class="line">   <span class="string">&quot;&quot;</span>,</span><br><span class="line">   <span class="string">&quot;int main()&quot;</span>,</span><br><span class="line">   <span class="string">&quot;&#123;&quot;</span>,</span><br><span class="line">   <span class="string">&quot;    scanf(\&quot;%d\&quot;, &amp;$1);&quot;</span>,<span class="comment">//在上方写了占位符后，这里可以只写一个数字</span></span><br><span class="line">   <span class="string">&quot;    return 0;&quot;</span>,</span><br><span class="line">   <span class="string">&quot;&#125;&quot;</span>,</span><br><span class="line">  ],</span><br><span class="line">  <span class="attr">&quot;description&quot;</span>: <span class="string">&quot;一般性简单cpp模板&quot;</span></span><br><span class="line"> &#125;,<span class="comment">//逗号在有多个片段的时候有意义</span></span><br><span class="line">    </span><br><span class="line">    <span class="attr">&quot;Print to another_sample&quot;</span>:</span><br><span class="line">    &#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<p>@import “D:\Users\uftx\Documents\hexo\source_posts\avatar.jpg”</p>
+<hr />
+<p>@import &quot;D:\Users\uftx\Documents\hexo\source_posts\avatar.jpg&quot;</p>
 
     </div>
 
@@ -345,7 +347,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E6%89%93%E5%BC%80VS-code%EF%BC%8C%E9%80%89%E6%8B%A9%E6%96%87%E4%BB%B6-gt-%E9%A6%96%E9%80%89%E9%A1%B9-gt-%E7%94%A8%E6%88%B7%E7%89%87%E6%AE%B5-gt-%E9%80%89%E6%8B%A9%E5%AF%B9%E5%BA%94%E7%9A%84%E8%AF%AD%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">1.打开VS code，选择文件 &#x3D;&gt; 首选项 &#x3D;&gt; 用户片段 &#x3D;&gt;选择对应的语言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E8%BE%93%E5%85%A5%E4%BB%A3%E7%A0%81"><span class="nav-number">2.</span> <span class="nav-text">2.输入代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E5%AE%9E%E4%BE%8B"><span class="nav-number">3.</span> <span class="nav-text">3. 实例</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E6%89%93%E5%BC%80vs-code%E9%80%89%E6%8B%A9%E6%96%87%E4%BB%B6-%E9%A6%96%E9%80%89%E9%A1%B9-%E7%94%A8%E6%88%B7%E7%89%87%E6%AE%B5-%E9%80%89%E6%8B%A9%E5%AF%B9%E5%BA%94%E7%9A%84%E8%AF%AD%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text"> 1.打开VS code，选择文件 &#x3D;&gt; 首选项 &#x3D;&gt; 用户片段 &#x3D;&gt;选择对应的语言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E8%BE%93%E5%85%A5%E4%BB%A3%E7%A0%81"><span class="nav-number">2.</span> <span class="nav-text"> 2.输入代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E5%AE%9E%E4%BE%8B"><span class="nav-number">3.</span> <span class="nav-text"> 3. 实例</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
