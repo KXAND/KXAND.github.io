@@ -207,7 +207,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-05-25 22:44:33" itemprop="dateModified" datetime="2023-05-25T22:44:33+08:00">2023-05-25</time>
+                <time title="修改时间：2023-06-09 08:08:03" itemprop="dateModified" datetime="2023-06-09T08:08:03+08:00">2023-06-09</time>
               </span>
 
           
@@ -221,63 +221,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-           <span id="more"></span>
-<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>Hadoop 有三种运行模式：本地、伪分布、完全分布。由于这只是一次实验，我选择的是在本机搭建运行 Hadoop 的伪分布模式。此模式下，Hadoop 守护进程运行在本地机器上，模拟一个小规模的集群，形式上与完全分布相同，使用不同端口代表不同的机器。<br>我选择的平台与版本如下：</p>
-<ul>
-<li>Windows 11</li>
-<li>Java 16.0.1</li>
-<li>winutils 3.3.1</li>
-<li>Hadoop 3.3.5</li>
-</ul>
-<h2 id="实验过程"><a href="#实验过程" class="headerlink" title="实验过程"></a>实验过程</h2><h3 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h3><p>在 Apache 官网下载 Hadoop 的已编译版本，解压至指定目录（此处是 C:/Hadoop）中。</p>
-<p>由于我已经装了 Java，所以本次实验我省略安装 Java 的步骤。</p>
-<p>由于 Windows 不是 Hadoop 的最初开发和运行平台，目前支持还较为有限。为此，需要额外下载工具 winutils。此工具最初由官方社区开发者维护，但是较新版本来自开发者 github/kontext-tech。下载后放入 C:\hadoop\bin 文件夹内并复制一份hadoop.dll放到C:\Windows\System32下。yarn 已内置于此工具内。</p>
-<h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><p>新建环境变量 HADOOP_HOME 指向 Hadoop 文件夹。Path添加 Hadoop 文件夹下 \bin 和 \sbin 文件夹的地址。完成后可以在终端内通过<code>hadoop version</code>检查是否能被正常识别且无错。</p>
-<p>在 \Hadoop 文件夹下新建文件夹如下：</p>
-<ul>
-<li>\tmp</li>
-<li>\data\datanode</li>
-<li>\data\namenode</li>
-</ul>
-<p>在 \Hadoop\etc\hadoop 文件夹下,修改 core-site.xml 文件如下：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">name</span>&gt;</span>hadoop.tmp.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">value</span>&gt;</span>/C:/hadoop/hadoop-3.1.3/data<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">name</span>&gt;</span>fs.defaultFS<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">value</span>&gt;</span>hdfs://your_host_name_or_localhost:9123<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>同文件夹下，，修改 hadoop-env.cmd 中的 Java_home 项的值为环境变量中 JAVA_HOME 的值，即指定 JDK 地址。</p>
-<p>修改 hdfs-site.xml 文件如下，指定节点数量和实际存储地址。</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.replication<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>1<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.namenode.name.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>/C:/hadoop/data/namenode<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.datanode.data.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>/C:/hadoopdata/datanode<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>修改mapred-site.xml</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">name</span>&gt;</span>mapreduce.framework.name<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">value</span>&gt;</span>yarn<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>修改yarn-site.xml</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.nodemanager.aux-services<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>mapreduce_shuffle<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.nodemanager.aux-services.mapreduce.shuffle.class<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>org.apache.hahoop.mapred.ShuffleHandler<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>特别地，在完成上述步骤后我遇到了端口冲突的问题，为了解决此问题，在  hdfs-site.xml 文件中继续添加参数如下:</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.namenode.http-address<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">value</span>&gt;</span>hdfs://localhost:9856<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.datanode.http.address<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">value</span>&gt;</span>hdfs://localhost:9857<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.datanode.address<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">value</span>&gt;</span>hdfs://localhost:9858<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="格式化与启动"><a href="#格式化与启动" class="headerlink" title="格式化与启动"></a>格式化与启动</h3><p>在终端中输入</p>
-<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs namenode -<span class="built_in">format</span></span><br></pre></td></tr></table></figure>
-
-<p>进行节点格式化。观察到输出末尾有<code>namenode has been successfully formatted</code> 字样即格式化成功。</p>
-<p>随后启动 \hadoop\sbin 目录下的 start-all.cmd。如果一切正常，那么将会弹出四个终端窗口且无报错。此时即已正常运行 Hadoop。</p>
-<h3 id="检查"><a href="#检查" class="headerlink" title="检查"></a>检查</h3><p>在浏览器输入 localhost:9857 和 localhost:9856，访问 datanode 和 namenode。</p>
-<p>使用 <code>hadoop fs -put &lt;local_file&gt; &lt;hdfs_destination&gt;</code> 命令上传文件、<code>hadoop fs -get &lt;hdfs_file&gt; &lt;local_destination&gt;</code>下载文件。创建文件夹（-mkdir）、列出文件（-ls）、删除文件（-rm）等命令与 Linux 系统相似。可以<br>在namenode中可以观察到上传成功，也可以使用 -ls 命令检查。</p>
-<h2 id="遇到的各种问题"><a href="#遇到的各种问题" class="headerlink" title="遇到的各种问题"></a>遇到的各种问题</h2><ol>
-<li>winutils 的版本问题<br> 最早的 Wintils 是由 <a target="_blank" rel="noopener" href="https://github.com/steveloughran/winutils">Stevelougran开发的</a>，他是 Hadoop 的提交者（committer）之一。由于忙碌，此仓库停留在了 3.0.0 版本，而后<a target="_blank" rel="noopener" href="https://github.com/cdarlint/winutils">cdarlint继续开发</a>并停留在了 3.2.2 版本，而<a target="_blank" rel="noopener" href="https://github.com/kontext-tech/winutils/tree/master">kontext-tech继续</a>在Fork cdarlint 后开发。<br> 与本次作业的 Hadoop 版本（3.3.5）最接近的是 kontext-tech 的 3.3.1 版本，本次使用的就是此版本。经验证，能正常工作。</li>
-<li><code>yarn --version</code> 无结果<br>winutils 中包含了运行 Hadoop所需的 yarn，但是这一过程中我们没有给 yarn 配置环境变量，运行上述命令不成功。不过 yarn 实际上已经可以正常运行了。我们可以使用 <code>where yarn</code>（cmd）或<code>where.exe yarn</code>(powershell)来检查 yarn 存在的位置。</li>
-<li>JAVA_HOME 的配置细节<br>需要注意的是，在 cmd 文件中 JAVA_HOME 指向使用的 Java 的地址。此地址不应该包含空格也<strong>不能</strong>通过打双引号的方式规避空格问题。二者的报错不一样但是均会有影响。前者为“Error JAVA_HOME is incorrectly set.”,后者为“The filename, directory name, or volume label syntax is incorrect hadoop”<br>针对空格源自 <code>Progame files</code> 的情况，可以通过改写为 <code>PROGRA~1</code> 来表达含义同时规避空格问题。（这是由于早期文件夹名不能包含空格引起的）<br>此外，电脑上还可能含有多个 Java 版本。通过如问题2所述 <code>where</code> 语句，我们可以检查到底有几个 Java 版本，在环境变量中调整顺序，使得需要的版本最前，即可保证 <code>Java --version</code>的检查结果和后续使用的是同一个版本。</li>
-<li>格式化时结尾为“SHUTDOWN_MSG: Shutting down NameNode at xxxx”<br>这是正常现象，只要在其上可以找到<code>namenode has been successfully formatted</code>即可。</li>
-<li>start-all.cmd 时出现“error Couldn‘t find a package.json file in \hadoop-2.7.7\sbin”错误<br>这一错误是由于有多个 yarn 引起的。例如 winutils 中包含了 yarn 而自己随后又通过 npm 安装了yarn。我选择了暂时卸载后者即可解决问题。</li>
-<li>端口被占用<br>正常来说，我们可以通过杀死对应端口进程来结束占用。检查端口被进程占用的方法是终端中输入<code>netstat -aon|findstr [端口号]</code> 。然后结束对应进程（如果无返回结果则说明此端口无占用）。<br>但是奇怪的是我一开始并没有发现有什么进程占用了端口。不过通过上述第二部分改端口配置，可以成功解决 namenode 的端口占用问题。而 datanode 则还加了一次重启的步骤。<br>运行 start-all.cmd 后，可以通过使用 <code>netstat -aon|findstr [端口号]</code> node 对应端口号的方式确定程序在正常工作：各端口均有一个进程。</li>
-<li>一个建议：在配置过程中，不免频繁输入各类命令：例如不断运行 start-all.cmd 同时检查进程。这个过程中可以善用 Windows 终端的多窗口功能，将命令进行分类，使得窗口更加美观。不过，更改了环境变量以后，需要重新打开终端（而非shell）来使其生效。+</li>
-</ol>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
-<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/111844817">WIN10安装配置Hadoop-知乎</a></li>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43627314/article/details/109245056">如何在windows系统下安装hadoop-CSDN</a></li>
-<li><a target="_blank" rel="noopener" href="https://kontext.tech/article/447/install-hadoop-330-on-windows-10-step-by-step-guide">Install Hadoop 3.3.0 on Windows 10 Step by Step Guide</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/youran-he/p/8250040.html">hadoop中修改端口号-李悠然-博客园</a></li>
-</ul>
-
+          <h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/05/23/Hadoop%E6%9E%84%E5%BB%BA/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
