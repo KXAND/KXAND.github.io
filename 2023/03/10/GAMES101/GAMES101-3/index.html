@@ -20,26 +20,23 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="试图调整 VS Code 的 C&#x2F;C++ 编译默认设置，结果却……">
+  <meta name="description" content="GAMES101-P3基本线性变换（旋转、缩放、切变）和平移、仿射变换矩阵、齐次坐标、三维变换中的旋转问题。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="VSCode 的设置系统的粗浅理解">
-<meta property="og:url" content="http://example.com/2022/11/21/VScode%E7%9A%84%E8%AE%BE%E7%BD%AE%E7%B3%BB%E7%BB%9F/index.html">
+<meta property="og:title" content="GAMES101-3：变换">
+<meta property="og:url" content="http://example.com/2023/03/10/GAMES101/GAMES101-3/index.html">
 <meta property="og:site_name" content="LeeKa 的酒馆">
-<meta property="og:description" content="试图调整 VS Code 的 C&#x2F;C++ 编译默认设置，结果却……">
+<meta property="og:description" content="GAMES101-P3基本线性变换（旋转、缩放、切变）和平移、仿射变换矩阵、齐次坐标、三维变换中的旋转问题。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s2.loli.net/2022/11/20/knv2UMLYr9pOjTl.png">
-<meta property="og:image" content="https://s2.loli.net/2022/11/20/HcI8KUk3mhNDWlC.png">
-<meta property="og:image" content="https://s2.loli.net/2022/11/20/bgIrGtDM9KQ5CoX.png">
-<meta property="article:published_time" content="2022-11-21T05:20:25.000Z">
-<meta property="article:modified_time" content="2023-03-15T13:41:09.380Z">
+<meta property="og:image" content="http://example.com/assets/101-shear.jpg">
+<meta property="article:published_time" content="2023-03-10T05:28:27.000Z">
+<meta property="article:modified_time" content="2023-06-09T01:22:46.370Z">
 <meta property="article:author" content="LeeKa">
-<meta property="article:tag" content="Code">
-<meta property="article:tag" content="VSCode">
-<meta property="article:tag" content="软件使用技巧">
+<meta property="article:tag" content="图形学">
+<meta property="article:tag" content="GAMES，笔记">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://s2.loli.net/2022/11/20/knv2UMLYr9pOjTl.png">
+<meta name="twitter:image" content="http://example.com/assets/101-shear.jpg">
 
-<link rel="canonical" href="http://example.com/2022/11/21/VScode%E7%9A%84%E8%AE%BE%E7%BD%AE%E7%B3%BB%E7%BB%9F/">
+<link rel="canonical" href="http://example.com/2023/03/10/GAMES101/GAMES101-3/">
 
 
 <script id="page-configurations">
@@ -52,7 +49,7 @@
   };
 </script>
 
-  <title>VSCode 的设置系统的粗浅理解 | LeeKa 的酒馆</title>
+  <title>GAMES101-3：变换 | LeeKa 的酒馆</title>
   
 
 
@@ -185,7 +182,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/21/VScode%E7%9A%84%E8%AE%BE%E7%BD%AE%E7%B3%BB%E7%BB%9F/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/03/10/GAMES101/GAMES101-3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://s2.loli.net/2022/03/24/zcq6l9KENbRJtDi.jpg">
@@ -198,7 +195,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          VSCode 的设置系统的粗浅理解
+          GAMES101-3：变换
         </h1>
 
         <div class="post-meta">
@@ -208,14 +205,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2022-11-21 13:20:25" itemprop="dateCreated datePublished" datetime="2022-11-21T13:20:25+08:00">2022-11-21</time>
+              <time title="创建时间：2023-03-10 13:28:27" itemprop="dateCreated datePublished" datetime="2023-03-10T13:28:27+08:00">2023-03-10</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-03-15 21:41:09" itemprop="dateModified" datetime="2023-03-15T21:41:09+08:00">2023-03-15</time>
+                <time title="修改时间：2023-06-09 09:22:46" itemprop="dateModified" datetime="2023-06-09T09:22:46+08:00">2023-06-09</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -223,7 +220,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/VSCode-%E8%AF%B4%E6%98%8E%E4%B9%A6/" itemprop="url" rel="index"><span itemprop="name">VSCode 说明书</span></a>
+                  <a href="/categories/GAMES101/" itemprop="url" rel="index"><span itemprop="name">GAMES101</span></a>
                 </span>
             </span>
 
@@ -238,42 +235,39 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>试图调整 VS Code 的 C/C++ 编译默认设置，结果却……  <span id="more"></span></p>
-<h1 id="我需要一个默认的编译设置"><a class="markdownIt-Anchor" href="#我需要一个默认的编译设置"></a> 我需要一个默认的编译设置</h1>
-<p>众所周知，VSCode 的推荐或者说设计使用方法是对不同代码建立不同的工作区。这确实是对不同项目、不同语言的代码进行管理的优良方法。但是在学习的过程之中，不是所有情况都是非常理想的“我可以将所有的代码都井井有条的打在一个文件夹（工作区）中”的。学习中，QQ 上接收测试别人的代码、想临时测试某个功能是否如记忆一样等等情况，这样的代码，具有临时性或者独立性，我不希望将其和我固有的代码文件混淆在一起，又不希望记一个层层目录之下的草稿工作区分门别类。因此最理想的情况就是能在<strong>不打开特定工作区或文件夹</strong>的情况下对单个文件进行编译和调试。也就是一个全局的，或者说更通用的设置。
-之前种种原因，对 VSCode 的设置理解停留在了一种一知半解的程度，借此机会，我希望能对此加深理解。</p>
-<h1 id="vscode-中的设置的基本结构"><a class="markdownIt-Anchor" href="#vscode-中的设置的基本结构"></a> VSCode 中的设置的基本结构</h1>
-<h2 id="优先级和工作区-文件夹"><a class="markdownIt-Anchor" href="#优先级和工作区-文件夹"></a> 优先级和工作区、文件夹</h2>
-<p>VSCode 的设置结构优先级由低到高是 “默认设置（不能更改）→ 用户设置 → 工作区设置 → 文件夹设置”。VSCode 会优先使用优先级高的设置，如果没有，就用优先级次高的设置。
-<s>知道写到这里我才注意到的一个事实是</s>工作区（workspace）和文件夹（folder）是不一样的存在。我们可以认为一个“文件夹”是一个项目，一个工作区则是同类项目的集合点。例如所有的 Python 项目为一个工作区，而对其中的任意一个项目设置为单独的一个文件夹。Python 项目的共通性设置放于“工作区设置”中，而项目如果有特殊设置则放在“文件夹设置”里。
-需要注意的是，如果只有一个文件夹，那么这个文件夹本身就是一个工作区。VSCode 会把这个文件夹设置显示为工作区设置，这也是为什么我会一开始没有发现这俩是不同概念的原因。
-下面是工作区和文件夹在 VSCode 资源管理侧栏界面的对比，工作区会额外注明工作区二字。</p>
-<img src="https://s2.loli.net/2022/11/20/knv2UMLYr9pOjTl.png"  style = 'zoom:1.1'/>
-<h2 id="设置文件的存储格式"><a class="markdownIt-Anchor" href="#设置文件的存储格式"></a> 设置文件的存储格式</h2>
-<p>所有这些设置，都是以 JSON 文件存储在电脑上的文件中的（尽管工作区文件不以<code>.JSON</code>结尾）。JSON（JavaScript Object Notation） 是一种独立于 语言的轻量级数据交换格式，采用键和值的格式存储数据。 而VSCode 的每一项设置都是一对键和值。
-其中，用户设置位于 VSCode 的数据目录下( C 盘 appData 文件夹下)；工作区设置会是一个名为<code>&#123;名字.code-workspace</code>的文件（此文件不一定位于工作区文件夹内）；如果是文件夹，则会存储于文件夹下自动生成的<code>.vscode</code>文件夹下。</p>
-<h2 id="插件的设置"><a class="markdownIt-Anchor" href="#插件的设置"></a> 插件的设置</h2>
-<p>使用 VSCode 的时候，我们还会添加许多的插件，例如本文的初衷：在非工作区 / 文件夹环境下编译 C/C++ 程序就需要 MS 官方的 C/C++ 插件。这些插件的设置也会被写入到 Uersettings 文件中。因此，所有的插件和软件设置都是对同一个文件的内容的修改。既然目的是更改默认的编译软件，那么我们就是需要修改 Usersettings 文件即可.事情到这一步似乎离解决已经不远了。可是真的是这样吗？</p>
-<h1 id="结论"><a class="markdownIt-Anchor" href="#结论"></a> 结论</h1>
-<p>在设置中，我们找到了下面两个设置。第一个的设置具体还不是很懂，第二个则没有发挥作用（图中值为自己填的）。
-<img src="https://s2.loli.net/2022/11/20/HcI8KUk3mhNDWlC.png" >
-所以很遗憾，事情没有以完美解决落幕。依然要选择编译和调试器如图：
-<img src="https://s2.loli.net/2022/11/20/bgIrGtDM9KQ5CoX.png" >
-不过，至少我搞清楚了为什么这里会有三个选项，在<a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/cpp/config-mingw">官方文档</a>中提到，</p>
+        <p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1X7411F744?p=3">GAMES101-P3</a>基本线性变换（旋转、缩放、切变）和平移、仿射变换矩阵、齐次坐标、三维变换中的旋转问题。 <span id="more"></span></p>
+<p>对图形进行各种变换，可以相当于对其左乘对应矩阵。</p>
+<h2 id="基本线性变换"><a href="#基本线性变换" class="headerlink" title="基本线性变换"></a>基本线性变换</h2><ol>
+<li><p>缩放矩阵 $\begin{bmatrix}<br> s_x &amp; 0\<br> 0 &amp; s_y<br> \end{bmatrix}$</p>
+</li>
+<li><p>切变 （Shear） 矩阵:$\begin{bmatrix}<br>1 &amp; a\<br>0 &amp; 1<br>\end{bmatrix}$<br>切变的本质就是将矩形变成平行四边形。坐标不变的一条边称之为<strong>依赖轴</strong>，变换称之为<strong>方向轴</strong>。下图为一个 y 为依赖轴的例子：<br><img src="/assets/101-shear.jpg" alt="101-shear"></p>
+</li>
+<li><p>旋转：旋转点通常是原点。$\begin{bmatrix}<br>cos\theta &amp; -sin\theta \<br>sin\theta &amp; cos\theta<br>\end{bmatrix}$<br>对旋转矩阵，其反方向旋转的对应矩阵为其逆矩阵同时也是转置矩阵。</p>
+</li>
+</ol>
+<h2 id="齐次坐标和仿射变换"><a href="#齐次坐标和仿射变换" class="headerlink" title="齐次坐标和仿射变换"></a>齐次坐标和仿射变换</h2><p>使用 $n+1$ 维坐标表示 $n$ 维坐标。其中，对于<strong>点</strong>，记为 $(x,y,1)^T$，对于<strong>向量</strong>，记为 $(x,y,0)^T$<br>由于平移，不能写成左乘形式进而与其余变换统一。所以我们引入齐次坐标，使得平移矩阵为 $\begin{bmatrix}<br>  1 &amp; 0 &amp; t_x \<br>  0 &amp; 1 &amp; t_y \<br>  0 &amp; 0 &amp; 1<br>\end{bmatrix}$</p>
 <blockquote>
-<p>The compilerPath search order is:</p>
+<p>思考：为什么向量和点的第三维不一样？</p>
+<p>对于向量，具有平移不变性，我们不希望其左乘平移矩阵得到的结果是新的向量，对于点的想法则相反。因此向量的最后一维应为 0 使得其不受平移矩阵影响。<br>进一步地，有：</p>
 <ul>
-<li>First check for the Microsoft Visual C++ compiler</li>
-<li>Then look for g++ on Windows Subsystem for Linux (WSL)</li>
-<li>Then g++ for Mingw-w64.</li>
+<li>向量 + 向量 = 向量</li>
+<li>向量 + 点   = 点</li>
+<li>点   - 点   = 向量</li>
+<li>点   + 点   = 二者中点</li>
+<li>……<br>可以发现向量为 0 而点为 1 的情况对于上述现象也可以解释得很好。</li>
 </ul>
 </blockquote>
-<p>因此，VSCode 会扫描到 mingw-w64 中的 cpp 和 g++ 两个程序，以及 VS 中带有的的 cl ，因此 VSCode 会有不知道用什么的疑问。但是 cl 被限制为只能在 VS 中使用，这也就导致了此选项实际上不能正常运行。目前的解决办法还得是选一遍，然后 VSCode 会在这一窗口中记住你的选择。
-这一选项的原因可能是 VSCode 中的并没有选项能存储此默认设置，它会优先去寻找 <code>launch.json</code>,找不到时，则会发出此疑问。</p>
-<h1 id="还没有理解的问题"><a class="markdownIt-Anchor" href="#还没有理解的问题"></a> 还没有理解的问题</h1>
-<ol>
-<li>Q：既然 JSON 文件支持注释，那 JSON 和 JSONC（JSON with comments）有什么区别，为什么要创造 JSONC？VS Code 采用的是 JSON 还是 JSON with comments？</li>
-</ol>
+<h3 id="仿射变换"><a href="#仿射变换" class="headerlink" title="仿射变换"></a>仿射变换</h3><p>定义<strong>仿射变换</strong>：仿射变换 = 线性变换 + 平移。<br>使用齐次坐标可以表示仿射变换。齐次坐标等于多个线性变换矩阵、平移变换矩阵左乘后的结果。<br>$$M=\begin{bmatrix}<br>  a &amp; b &amp; t_x \<br>  c &amp; d &amp; t_y \<br>  0 &amp; 0 &amp; 1<br>\end{bmatrix}$$</p>
+<p>其中 $a,b,c,d$ 表示旋转、缩放、切变，$t_x,t_y$ 表示平移。</p>
+<h3 id="逆矩阵"><a href="#逆矩阵" class="headerlink" title="逆矩阵"></a>逆矩阵</h3><p>对于仿射变换矩阵 M，定义逆矩阵：<br>$$MM^{-1} = E$$<br>其中 E 为单位矩阵。<br>M 的逆矩阵恰好对应原来仿射变换的逆变换。<br>特别的，对于旋转变换，其逆矩阵和转置矩阵相同，使得求其逆变换变得方便。逆矩阵等于转置矩阵的矩阵被称为<strong>正交矩阵</strong>。</p>
+<blockquote>
+<p>矩阵不满足交换律，变换也不满足交换律。变换的顺序很重要。</p>
+</blockquote>
+<h2 id="绕任意点的旋转"><a href="#绕任意点的旋转" class="headerlink" title="绕任意点的旋转"></a>绕任意点的旋转</h2><p>设任意点为 P，将旋转分解为：把 P 平移回原点、旋转 α 度、平移 P 回 P 点。<br>于是有变换矩阵：<br>$$T = T(P)T(\alpha)T(-P)$$</p>
+<p>(注意顺序是由右到左表示的)</p>
+<h2 id="三维变换"><a href="#三维变换" class="headerlink" title="三维变换"></a>三维变换</h2><p>对于三维变换，可以简单地写出缩放和平移，重点关注旋转。</p>
+<h3 id="绕轴旋转"><a href="#绕轴旋转" class="headerlink" title="绕轴旋转"></a>绕轴旋转</h3><p>考虑简单的旋转：绕一个轴在一个平面内旋转。<br>$$<br>R_x=\begin{bmatrix}<br>  1 &amp; 0         &amp; 0          &amp; 0 \<br>  0 &amp; \cos\alpha &amp; -\sin\alpha &amp; 0 \<br>  0 &amp; \sin\alpha &amp; \cos\alpha  &amp; 0 \<br>  0 &amp; 0         &amp; 0          &amp; 1<br>\end{bmatrix}<br>$$$$<br>R_y=\begin{bmatrix}<br>  \cos\alpha  &amp; 0 &amp; \sin\alpha  &amp; 0 \<br>  0          &amp; 1 &amp; 0          &amp; 0 \<br>  -\sin\alpha &amp; 0 &amp; \cos\alpha  &amp; 0 \<br>  0          &amp; 0 &amp; 0          &amp; 1<br>\end{bmatrix}<br>$$$$<br>R_z=\begin{bmatrix}<br>  \sin\alpha &amp; \cos\alpha  &amp; 0 &amp; 0 \<br>  \cos\alpha &amp; -\sin\alpha &amp; 0 &amp; 0\<br>  0         &amp;  0         &amp; 0 &amp; 0 \<br>  0         &amp; 0          &amp; 0 &amp; 1<br>\end{bmatrix}<br>$$<br><strong>请注意 y 轴中 $sin\alpha$ 的正负号与其他情况不同</strong><br>这是因为旋转矩阵的循环对称性。即 xyzxyz 的矩阵循环中，一个的值等于前面两个的值相乘。所以对 R_y 有<br>$R_z \times R_z = R_y$ 而非相反。</p>
+<h3 id="绕任意轴旋转"><a href="#绕任意轴旋转" class="headerlink" title="绕任意轴旋转"></a>绕任意轴旋转</h3><p>对于任意角度的过原点轴，可以把它分解为三个轴上的角度（<strong>欧拉角</strong>）。变成三个轴的变换矩阵的乘积。<br>对绕任意轴 $n$ 旋转 $\alpha$ 角，有 Rodrigues’ Rotation Formula 如下：<br>$$<br>\bold{R}(\bold{n},\alpha) = \cos(\alpha)\bold{I}+(1-\cos(\alpha))\bold{n}\bold{n^T}+\sin(\alpha)\bold{N}<br>$$其中<br>$$<br>\bold{N}=\begin{bmatrix}<br>  0 &amp; -n_z &amp; n_y \<br>  n_z &amp; 0 &amp; -n_x \<br>  -n_y &amp; n_x &amp; 0<br>\end{bmatrix}<br>$$<br>其中，称 $\bold{N}$ 为 n 的反对称矩阵，也就是向量 n 的叉积（$\vec{n}\times\bold{\vec{a}}$ ）的矩阵形式。<br>对于<strong>任意不过原点的旋转</strong>，把其分解为平移原点、旋转、平移回去的过程。<br>引入四元数是为了更好地对旋转进行插值，关于四元数，另行参考。</p>
 
     </div>
 
@@ -283,9 +277,8 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Code/" rel="tag"># Code</a>
-              <a href="/tags/VSCode/" rel="tag"># VSCode</a>
-              <a href="/tags/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/" rel="tag"># 软件使用技巧</a>
+              <a href="/tags/%E5%9B%BE%E5%BD%A2%E5%AD%A6/" rel="tag"># 图形学</a>
+              <a href="/tags/GAMES%EF%BC%8C%E7%AC%94%E8%AE%B0/" rel="tag"># GAMES，笔记</a>
           </div>
 
         
@@ -294,12 +287,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2022/11/15/%E5%A6%82%E4%BD%95%E7%AE%A1%E7%90%86%E6%88%91%E7%9A%84%E6%96%87%E7%AB%A0%E3%80%81%E7%AC%94%E8%AE%B0/" rel="prev" title="如何管理我的文章、笔记">
-      <i class="fa fa-chevron-left"></i> 如何管理我的文章、笔记
+    <a href="/2023/03/09/GAMES101/GAMES101-2/" rel="prev" title="GAMES101-3：回顾线代">
+      <i class="fa fa-chevron-left"></i> GAMES101-3：回顾线代
     </a></div>
       <div class="post-nav-item">
-    <a href="/2023/03/09/GAMES101/GAMES101-2/" rel="next" title="GAMES101-3：回顾线代">
-      GAMES101-3：回顾线代 <i class="fa fa-chevron-right"></i>
+    <a href="/2023/03/18/GAMES101/GAMES101-4/" rel="next" title="GAMES101-4：视图和投影变换">
+      GAMES101-4：视图和投影变换 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -359,7 +352,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%88%91%E9%9C%80%E8%A6%81%E4%B8%80%E4%B8%AA%E9%BB%98%E8%AE%A4%E7%9A%84%E7%BC%96%E8%AF%91%E8%AE%BE%E7%BD%AE"><span class="nav-number">1.</span> <span class="nav-text"> 我需要一个默认的编译设置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vscode-%E4%B8%AD%E7%9A%84%E8%AE%BE%E7%BD%AE%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84"><span class="nav-number">2.</span> <span class="nav-text"> VSCode 中的设置的基本结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%98%E5%85%88%E7%BA%A7%E5%92%8C%E5%B7%A5%E4%BD%9C%E5%8C%BA-%E6%96%87%E4%BB%B6%E5%A4%B9"><span class="nav-number">2.1.</span> <span class="nav-text"> 优先级和工作区、文件夹</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E6%96%87%E4%BB%B6%E7%9A%84%E5%AD%98%E5%82%A8%E6%A0%BC%E5%BC%8F"><span class="nav-number">2.2.</span> <span class="nav-text"> 设置文件的存储格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%92%E4%BB%B6%E7%9A%84%E8%AE%BE%E7%BD%AE"><span class="nav-number">2.3.</span> <span class="nav-text"> 插件的设置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA"><span class="nav-number">3.</span> <span class="nav-text"> 结论</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%98%E6%B2%A1%E6%9C%89%E7%90%86%E8%A7%A3%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">4.</span> <span class="nav-text"> 还没有理解的问题</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E7%BA%BF%E6%80%A7%E5%8F%98%E6%8D%A2"><span class="nav-number">1.</span> <span class="nav-text">基本线性变换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%BD%90%E6%AC%A1%E5%9D%90%E6%A0%87%E5%92%8C%E4%BB%BF%E5%B0%84%E5%8F%98%E6%8D%A2"><span class="nav-number">2.</span> <span class="nav-text">齐次坐标和仿射变换</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%BF%E5%B0%84%E5%8F%98%E6%8D%A2"><span class="nav-number">2.1.</span> <span class="nav-text">仿射变换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%86%E7%9F%A9%E9%98%B5"><span class="nav-number">2.2.</span> <span class="nav-text">逆矩阵</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%95%E4%BB%BB%E6%84%8F%E7%82%B9%E7%9A%84%E6%97%8B%E8%BD%AC"><span class="nav-number">3.</span> <span class="nav-text">绕任意点的旋转</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E7%BB%B4%E5%8F%98%E6%8D%A2"><span class="nav-number">4.</span> <span class="nav-text">三维变换</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%95%E8%BD%B4%E6%97%8B%E8%BD%AC"><span class="nav-number">4.1.</span> <span class="nav-text">绕轴旋转</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%95%E4%BB%BB%E6%84%8F%E8%BD%B4%E6%97%8B%E8%BD%AC"><span class="nav-number">4.2.</span> <span class="nav-text">绕任意轴旋转</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
