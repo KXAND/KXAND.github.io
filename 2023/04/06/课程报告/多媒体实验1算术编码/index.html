@@ -29,7 +29,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/assets/course-HuffmanCoding.jpg">
 <meta property="article:published_time" content="2023-04-06T14:59:08.000Z">
-<meta property="article:modified_time" content="2023-06-09T01:22:46.378Z">
+<meta property="article:modified_time" content="2023-06-12T21:09:28.748Z">
 <meta property="article:author" content="LeeKa">
 <meta property="article:tag" content="课程">
 <meta property="article:tag" content="多媒体数据处理">
@@ -214,7 +214,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-06-09 09:22:46" itemprop="dateModified" datetime="2023-06-09T09:22:46+08:00">2023-06-09</time>
+                <time title="修改时间：2023-06-13 05:09:28" itemprop="dateModified" datetime="2023-06-13T05:09:28+08:00">2023-06-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -237,28 +237,26 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>算术编码是一种编码算法，它比哈夫曼编码更高效。<br> <span id="more"></span></p>
-<h2 id="由哈夫曼编码说起"><a href="#由哈夫曼编码说起" class="headerlink" title="由哈夫曼编码说起"></a>由哈夫曼编码说起</h2><p>哈夫曼编码对于更高频的符号，使用更短的编码。由于编码的前缀是不一致的（短编码不是长编码的前缀），所以我们可以保证唯一确定一个编码的长度不发生混淆。可以通过构造一个特殊的二叉树的方式求哈夫曼编码，这个树就是哈夫曼树。下面是一个哈夫曼树示例。</p>
+        <p>算术编码是一种编码算法，它比哈夫曼编码更高效。 <span id="more"></span></p>
+<h2 id="由哈夫曼编码说起"><a href="#由哈夫曼编码说起" class="headerlink" title="由哈夫曼编码说起"></a>由哈夫曼编码说起</h2><p>哈夫曼编码对于更高频的符号，使用更短的编码。由于编码的前缀是不一致的（短编码不是长编码的前缀），所以我们可以保证唯一确定一个编码的长度不发生混淆。 可以通过构造一个特殊的二叉树的方式求哈夫曼编码，这个树就是哈夫曼树。下面是一个哈夫曼树示例。</p>
 <p><img src="/assets/course-HuffmanCoding.jpg" alt="哈夫曼树"></p>
-<center>哈夫曼树</center>
-
-<p>香农的信息熵公式指出<br>$$H(x)=-\sum\limits_{x} P(x)log_{2}[P(x)]$$</p>
+<p>香农的信息熵公式指出 $$H(x)=-\sum\limits_{x} P(x)log_{2}[P(x)]$$</p>
 <p>其中 $H(x)$ 为信息熵， $P(x)$ 为每个符号出现的频次（概率）。</p>
-<p>哈夫曼采用整数进行符号编码的，使得其不能更好的逼近信息熵极限。<br>例如，如果 A 的出现频次是 0.5，B 的出现频次是 0.4，C 的出现频次是 0.1。那么我们应该期待 B 的编码长度接近于 A，而不是 C，但是事实上 B 的编码长度和 C 一样长，是 A 的编码的两倍长。因此，其达不到最佳的编码长度。</p>
+<p>哈夫曼采用整数进行符号编码的，使得其不能更好的逼近信息熵极限。 例如，如果 A 的出现频次是 0.5，B 的出现频次是 0.4，C 的出现频次是 0.1。那么我们应该期待 B 的编码长度接近于 A，而不是 C，但是事实上 B 的编码长度和 C 一样长，是 A 的编码的两倍长。因此，其达不到最佳的编码长度。</p>
 <p>一个更好的办法是：改用算术编码。</p>
 <h2 id="算术编码的原理"><a href="#算术编码的原理" class="headerlink" title="算术编码的原理"></a>算术编码的原理</h2><p>算术编码的本质思想，也是对于高频的字符进行短编码。但是具体实现并不相同。</p>
-<p>设想一个区间被划分若干段。任给一个数字，通过比较我们就不难判断出其属于哪一个段。现在我们统计每个字符的频次，并将其依次对应到  $[0,1)$ 区间内同样长度的一段内。编码一个字符，我们就找出对应的区间，并把区间内的一个数字作为编码值，就能唯一确定这个编码。</p>
+<p>设想一个区间被划分若干段。任给一个数字，通过比较我们就不难判断出其属于哪一个段。现在我们统计每个字符的频次，并将其依次对应到 $[0,1)$ 区间内同样长度的一段内。编码一个字符，我们就找出对应的区间，并把区间内的一个数字作为编码值，就能唯一确定这个编码。</p>
 <blockquote>
-<p>例如:<br>假设对字符 A、B、C，有</p>
+<p>例如: 假设对字符 A、B、C，有</p>
 <ul>
 <li>P(A) = 0.5</li>
 <li>P(B) = 0.4</li>
 <li>P(C) = 0.1</li>
 </ul>
-<p>则对应到区间如下<br>$A:[0, 0.5)\  B:[0.5, 0.9)\ C:[0.9, 1)$</p>
+<p>则对应到区间如下 $A:[0, 0.5)\ B:[0.5, 0.9)\ C:[0.9, 1)$</p>
 <p>假设有编码值 E = 0.75，由于 0.75 在区间 $[0.5, 0.9)$ 之间，所以对 E 进行解码就有解码值 D = “B”</p>
 </blockquote>
-<p>在一个字符串内，我们重复这个过程，每次都在之前的编码区间内继续按比例进行划分。这样，我们就得到了为一确定了一个区间可以代表原来的文本。在区间里，按“取二进制值最短的数作为编码值”的原则取编码，就能得到算术编码的编码值。</p>
+<p>在一个字符串内，我们重复这个过程，每次都在之前的编码区间内继续按比例进行划分。这样，我们就得到了为一确定了一个区间可以代表原来的文本。在区间里，按”取二进制值最短的数作为编码值”的原则取编码，就能得到算术编码的编码值。</p>
 <p>解码的时候，我们进行上述操作的逆操作即可：不断划分区间，看编码在那个区间内，就继续对齐划分区间。</p>
 <p>特别需要注意的是，在取编码值的时候，我们只考虑其编码值最短，这会引起一个解码时的问题，即我们不知道能解码多少位。因为所有以 MSG 为前缀的信息 MSG’ 都处在 MSG 的编码区间内，我们难以确定是否 E 是 E(MSG),还是 E(MSGA) 或者 E(MSGB)。（吗）</p>
 <h2 id="算术编码的实现"><a href="#算术编码的实现" class="headerlink" title="算术编码的实现"></a>算术编码的实现</h2><p>下面给出我的算术编码代码思路。</p>
@@ -376,7 +374,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-count">21</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -389,7 +387,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-count">41</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
