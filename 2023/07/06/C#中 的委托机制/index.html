@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="前言简单了解了 C# 中的 Delegate、Func、Event、Action。粗略理解：委托是一个规定了参数的函数待执行队列；Func 是只有一参一返的 Delegate；Action 是一参无返的 Delegate；Event 是">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C# 中 的委托机制(delegate、action、func)">
+<meta property="og:url" content="http://example.com/2023/07/06/C#%E4%B8%AD%20%E7%9A%84%E5%A7%94%E6%89%98%E6%9C%BA%E5%88%B6/index.html">
+<meta property="og:site_name" content="LeeKa 的酒馆">
+<meta property="og:description" content="前言简单了解了 C# 中的 Delegate、Func、Event、Action。粗略理解：委托是一个规定了参数的函数待执行队列；Func 是只有一参一返的 Delegate；Action 是一参无返的 Delegate；Event 是">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-07-06T13:40:05.000Z">
+<meta property="article:modified_time" content="2023-07-06T13:41:48.681Z">
+<meta property="article:author" content="LeeKa">
+<meta property="article:tag" content="delegate">
+<meta property="article:tag" content="C#">
+<meta property="article:tag" content="视频笔记">
+<meta property="article:tag" content="Event">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2023/07/06/C#%E4%B8%AD%20%E7%9A%84%E5%A7%94%E6%89%98%E6%9C%BA%E5%88%B6/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>C# 中 的委托机制(delegate、action、func) | LeeKa 的酒馆</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">LeeKa 的酒馆</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">欢迎，旅人！坐下来享受一下暖烘烘的炉火吧。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/KXAND" class="github-corner" title="me on GitHub" aria-label="me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/07/06/C#%E4%B8%AD%20%E7%9A%84%E5%A7%94%E6%89%98%E6%9C%BA%E5%88%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://s2.loli.net/2022/03/24/zcq6l9KENbRJtDi.jpg">
+      <meta itemprop="name" content="LeeKa">
+      <meta itemprop="description" content="代码、音乐和游戏，一起来聊聊吧">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LeeKa 的酒馆">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          C# 中 的委托机制(delegate、action、func)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-07-06 21:40:05 / 修改时间：21:41:48" itemprop="dateCreated datePublished" datetime="2023-07-06T21:40:05+08:00">2023-07-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Unity-%E4%B8%8E-C/" itemprop="url" rel="index"><span itemprop="name">Unity 与 C#</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>简单了解了 C# 中的 Delegate、Func、Event、Action。粗略理解：委托是一个规定了参数的函数待执行队列；Func 是只有一参一返的 Delegate；Action 是一参无返的 Delegate；Event 是</p>
+<span id="more"></span>
+
+<p>主要参考了<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV163411S7QG/">C# 的委托与事件大致是怎么一回事_哔哩哔哩_bilibili</a>，一个很好的视频。</p>
+<h2 id="委托-Delegate"><a href="#委托-Delegate" class="headerlink" title="委托 Delegate"></a>委托 Delegate</h2><p>委托的底层是一种函数指针。顾名思义委托的作用就是，当一个函数“不方便做某事”的时候，“拜托”另一个函数去做。可以用于实现<strong>事件</strong>与<strong>回调</strong>。</p>
+<p>所有的委托都派生自 System.Delegate 类。</p>
+<h3 id="声明一个委托"><a href="#声明一个委托" class="headerlink" title="声明一个委托"></a>声明一个委托</h3><p>委托的声明</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">delegate</span> &lt;<span class="keyword">return</span> type&gt; &lt;<span class="keyword">delegate</span>-name&gt; &lt;parameter list&gt;</span><br></pre></td></tr></table></figure>
+
+<p>委托经过<strong>声明</strong>以后决定其可以引用的<strong>方法</strong>。方法与声明有相同的<strong>参数</strong>、<strong>返回类型</strong>、<strong>标签</strong>（<a target="_blank" rel="noopener" href="https://blog.csdn.net/yiyelanxin/article/details/79087971">关于标签参考此 CSDN 博客</a>）。换句话说，委托的声明决定了它能调用什么样的方法，委托是被调用方法的模板。</p>
+<h3 id="实例化委托"><a href="#实例化委托" class="headerlink" title="实例化委托"></a>实例化委托</h3><p>声明完成后，可以用 new 实例化一个委托实例，并且在参数中指定实例调用的方法。如下</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">delegate</span> <span class="keyword">void</span> <span class="title">printString</span>(<span class="params"><span class="keyword">string</span> s</span>)</span>;</span><br><span class="line">...</span><br><span class="line">printString ps1 = <span class="keyword">new</span> printString(WriteToScreen);</span><br><span class="line">printString ps2 = <span class="keyword">new</span> printString(WriteToFile);</span><br></pre></td></tr></table></figure>
+
+<p>最后向委托中传递参数即可。如下是一个完整的例子（From：runnoob）</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">delegate</span> <span class="keyword">int</span> <span class="title">NumberChanger</span>(<span class="params"><span class="keyword">int</span> n</span>)</span>;</span><br><span class="line"><span class="keyword">namespace</span> <span class="title">DelegateAppl</span></span><br><span class="line">&#123;</span><br><span class="line">   <span class="keyword">class</span> <span class="title">TestDelegate</span></span><br><span class="line">   &#123;</span><br><span class="line">      <span class="keyword">static</span> <span class="keyword">int</span> num = <span class="number">10</span>;</span><br><span class="line">      <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">AddNum</span>(<span class="params"><span class="keyword">int</span> p</span>)</span></span><br><span class="line"><span class="function"></span>      &#123;</span><br><span class="line">         num += p;</span><br><span class="line">         <span class="keyword">return</span> num;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">MultNum</span>(<span class="params"><span class="keyword">int</span> q</span>)</span></span><br><span class="line"><span class="function"></span>      &#123;</span><br><span class="line">         num *= q;</span><br><span class="line">         <span class="keyword">return</span> num;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">getNum</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>      &#123;</span><br><span class="line">         <span class="keyword">return</span> num;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>      &#123;</span><br><span class="line">         <span class="comment">// 创建委托实例</span></span><br><span class="line">         NumberChanger nc1 = <span class="keyword">new</span> NumberChanger(AddNum);</span><br><span class="line">         NumberChanger nc2 = <span class="keyword">new</span> NumberChanger(MultNum);</span><br><span class="line">         <span class="comment">// 使用委托对象调用方法</span></span><br><span class="line">         nc1(<span class="number">25</span>);</span><br><span class="line">         Console.WriteLine(<span class="string">&quot;Value of Num: &#123;0&#125;&quot;</span>, getNum());</span><br><span class="line">         nc2(<span class="number">5</span>);</span><br><span class="line">         Console.WriteLine(<span class="string">&quot;Value of Num: &#123;0&#125;&quot;</span>, getNum());</span><br><span class="line">         Console.ReadKey();</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="委托的多播"><a href="#委托的多播" class="headerlink" title="委托的多播"></a>委托的多播</h3><p>如果委托对象（即实例）的类型相同，则可以合并、分离委托（使用 <code>+</code> 和 <code>-</code> 运算符），这被称之为委托的<strong>多播</strong>或组播。如下是一个例子（From：runnoob）</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>      &#123;</span><br><span class="line">         <span class="comment">// 创建委托实例</span></span><br><span class="line">         NumberChanger nc;</span><br><span class="line">         NumberChanger nc1 = <span class="keyword">new</span> NumberChanger(AddNum);</span><br><span class="line">         NumberChanger nc2 = <span class="keyword">new</span> NumberChanger(MultNum);</span><br><span class="line">         nc = nc1;</span><br><span class="line">         nc += nc2;</span><br><span class="line">         <span class="comment">// 调用多播</span></span><br><span class="line">         nc(<span class="number">5</span>);</span><br><span class="line">         Console.WriteLine(<span class="string">&quot;Value of Num: &#123;0&#125;&quot;</span>, getNum());</span><br><span class="line">         Console.ReadKey();</span><br><span class="line">      &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Func"><a href="#Func" class="headerlink" title="Func"></a>Func</h2><p><strong>Func 是委托的一种，它固定具有一个参数和一个返回值。</strong><br>格式如下：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Func &lt;parameter_type,return_type&gt; expression;</span><br></pre></td></tr></table></figure>
+
+<p>expression 可以是一个 lambda 表达式，也可以是一个方法。是方法的时候，这个方法和 Func 一样必须有一个传入值和一个返回值。这样，就<strong>可以把方法作为参数进行传递</strong>，同时不必像委托一样显式的进行定义声明。</p>
+<p>lambda 表达式的举例：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Func&lt;<span class="keyword">string</span>, <span class="keyword">string</span>&gt; convert = s =&gt; s.ToUpper();</span><br><span class="line"></span><br><span class="line"><span class="keyword">string</span> name = <span class="string">&quot;Dakota&quot;</span>;</span><br><span class="line">Console.WriteLine(convert(name));</span><br></pre></td></tr></table></figure>
+
+<p>实例化委托方法的举例：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Func&lt;<span class="keyword">string</span>, <span class="keyword">string</span>&gt; convertMethod = UppercaseString;</span><br><span class="line"><span class="keyword">string</span> name = <span class="string">&quot;Dakota&quot;</span>;</span><br><span class="line"></span><br><span class="line">Console.WriteLine(convertMethod(name));</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">string</span> <span class="title">UppercaseString</span>(<span class="params"><span class="keyword">string</span> inputString</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">   <span class="keyword">return</span> inputString.ToUpper();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Action"><a href="#Action" class="headerlink" title="Action"></a>Action</h2><p><strong>Action 也是委托的一种，它一定具有一个参数，并且没有返回值。</strong></p>
+<p>即： <code>Action &lt;T&gt; name</code></p>
+<p>总的来说，和 Func 差别不大。同样可以给它赋值为 lambda 表达式或方法。只要这个方法有一个参数并且没有返回值。</p>
+<h2 id="Event"><a href="#Event" class="headerlink" title="Event"></a>Event</h2><p>Event 是一种特殊的委托，但是其复制的权限为delegate。使用 Delegate 的时候，我们不一定想立刻为其赋值。这种情况下，我们可以考虑使用 Event。</p>
+<p>事件的声明：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> <span class="function"><span class="keyword">delegate</span> <span class="keyword">void</span> <span class="title">MyDelegate</span>(<span class="params"></span>)</span>;</span><br><span class="line"> <span class="keyword">event</span> MyDelegate myEvent;</span><br><span class="line"><span class="comment">//  or</span></span><br><span class="line"><span class="keyword">event</span> Action myEvent <span class="comment">//Action 的本质是 Delegate</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>事件声明完成后就是一个实例了（类似变量）。</p>
+<p>当作为类成员的时候， event  只能在类中被调用。</p>
+<p>Event 的一种用处：让类外成员可以观测到类的私有成员发生了变化。</p>
+<blockquote>
+<p>在类中定义私有成员的 public {get;set;} 变量，set 时，invoke 类中的event；<br>类外事物需要观测时，在 event 中注册函数就会收到通知。</p>
+</blockquote>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV163411S7QG/">C# 的委托与事件大致是怎么一回事_哔哩哔哩_bilibili</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.runoob.com/csharp/csharp-delegate.html">C# 委托（Delegate） | 菜鸟教程</a></li>
+<li><a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/dotnet/api/system.func-2?view=net-7.0">Func&lt;T,TResult&gt; 委托 (System) | Microsoft Learn</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1LT411L7yv/">三分钟彻底搞懂委托，事件，Action，Func的作用和区别_哔哩哔哩_bilibili</a></li>
+</ol>
+<h2 id="延申"><a href="#延申" class="headerlink" title="延申"></a>延申</h2><ol>
+<li>逆变与协变类型请参考：<a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/dotnet/standard/generics/covariance-and-contravariance">Covariance and Contravariance in Generics | Microsoft Learn</a></li>
+<li>lambda 表达式部分参考：<ol>
+<li><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/Lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/4585794">Lambda表达式_百度百科</a></li>
+<li><a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/cpp/cpp/lambda-expressions-in-cpp?view=msvc-170#constexpr-lambda-expressions">C++ 中的 Lambda 表达式 | Microsoft Learn</a></li>
+</ol>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/delegate/" rel="tag"># delegate</a>
+              <a href="/tags/C/" rel="tag"># C#</a>
+              <a href="/tags/%E8%A7%86%E9%A2%91%E7%AC%94%E8%AE%B0/" rel="tag"># 视频笔记</a>
+              <a href="/tags/Event/" rel="tag"># Event</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/07/01/%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93%E6%8A%80%E6%9C%AF%E9%89%B4%E8%B5%8F%E8%A7%82%E7%9C%8B%E7%AC%94%E8%AE%B0/" rel="prev" title="向量数据库技术鉴赏观看记录">
+      <i class="fa fa-chevron-left"></i> 向量数据库技术鉴赏观看记录
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/07/11/%E6%AD%8C%E8%AF%8D%E7%BF%BB%E8%AF%91/Beautiful%20Times%E7%BF%BB%E8%AF%91/" rel="next" title="Beautiful Times个人翻译">
+      Beautiful Times个人翻译 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A7%94%E6%89%98-Delegate"><span class="nav-number">2.</span> <span class="nav-text">委托 Delegate</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A3%B0%E6%98%8E%E4%B8%80%E4%B8%AA%E5%A7%94%E6%89%98"><span class="nav-number">2.1.</span> <span class="nav-text">声明一个委托</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%A7%94%E6%89%98"><span class="nav-number">2.2.</span> <span class="nav-text">实例化委托</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A7%94%E6%89%98%E7%9A%84%E5%A4%9A%E6%92%AD"><span class="nav-number">2.3.</span> <span class="nav-text">委托的多播</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Func"><span class="nav-number">3.</span> <span class="nav-text">Func</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Action"><span class="nav-number">4.</span> <span class="nav-text">Action</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Event"><span class="nav-number">5.</span> <span class="nav-text">Event</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">6.</span> <span class="nav-text">参考</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BB%B6%E7%94%B3"><span class="nav-number">7.</span> <span class="nav-text">延申</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="LeeKa"
+      src="https://s2.loli.net/2022/03/24/zcq6l9KENbRJtDi.jpg">
+  <p class="site-author-name" itemprop="name">LeeKa</p>
+  <div class="site-description" itemprop="description">代码、音乐和游戏，一起来聊聊吧</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">54</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/KXAND" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;KXAND" rel="noopener" target="_blank">GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:leeka.Pub@outlook.com" title="E-Mail → mailto:leeka.Pub@outlook.com" rel="noopener" target="_blank">E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/QuiXand" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;QuiXand" rel="noopener" target="_blank">Twitter</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://hawa130.com/" title="https:&#x2F;&#x2F;hawa130.com" rel="noopener" target="_blank">Hanwan Space</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LeeKa</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='255,55,55' opacity='1' zIndex='-1' count='399' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
