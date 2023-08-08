@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="前言GAMES101-14:辐射度量学的意义、能量，功率与辐射强度（intensity）的定义。 GAMES101-15:辐射度量学的基本概念：辐照强度、辐射通量，BRDF，渲染方程，全局光照">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GAMES101-14&amp;15：辐射度量学">
+<meta property="og:url" content="http://example.com/2023/08/04/GAMES101/GAMES101-13/index.html">
+<meta property="og:site_name" content="LeeKa 的酒馆">
+<meta property="og:description" content="前言GAMES101-14:辐射度量学的意义、能量，功率与辐射强度（intensity）的定义。 GAMES101-15:辐射度量学的基本概念：辐照强度、辐射通量，BRDF，渲染方程，全局光照">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2023/08/04/assets/101-solidangel.png">
+<meta property="og:image" content="http://example.com/2023/08/04/assets/101-directillumin.png">
+<meta property="og:image" content="http://example.com/2023/08/04/assets/101-onebcillumin.png">
+<meta property="og:image" content="http://example.com/2023/08/04/assets/101-twobcillumin.png">
+<meta property="og:image" content="http://example.com/2023/08/04/assets/101-fourbcillumin.png">
+<meta property="article:published_time" content="2023-08-04T15:18:19.000Z">
+<meta property="article:modified_time" content="2023-08-05T13:09:42.786Z">
+<meta property="article:author" content="LeeKa">
+<meta property="article:tag" content="GAMES">
+<meta property="article:tag" content="笔记">
+<meta property="article:tag" content="GAMES101">
+<meta property="article:tag" content="计算机图形学">
+<meta property="article:tag" content="辐射度量学">
+<meta property="article:tag" content="BRDF">
+<meta property="article:tag" content="渲染方程">
+<meta property="article:tag" content="全局光照">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2023/08/04/assets/101-solidangel.png">
+
+<link rel="canonical" href="http://example.com/2023/08/04/GAMES101/GAMES101-13/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>GAMES101-14&15：辐射度量学 | LeeKa 的酒馆</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">LeeKa 的酒馆</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">欢迎，旅人！坐下来享受一下暖烘烘的炉火吧。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/KXAND" class="github-corner" title="me on GitHub" aria-label="me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/08/04/GAMES101/GAMES101-13/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://s2.loli.net/2022/03/24/zcq6l9KENbRJtDi.jpg">
+      <meta itemprop="name" content="LeeKa">
+      <meta itemprop="description" content="代码、音乐和游戏，一起来聊聊吧">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LeeKa 的酒馆">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          GAMES101-14&15：辐射度量学
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-08-04 23:18:19" itemprop="dateCreated datePublished" datetime="2023-08-04T23:18:19+08:00">2023-08-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-08-05 21:09:42" itemprop="dateModified" datetime="2023-08-05T21:09:42+08:00">2023-08-05</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/GAMES101/" itemprop="url" rel="index"><span itemprop="name">GAMES101</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1X7411F744/?p=14">GAMES101-14</a>:辐射度量学的意义、能量，功率与辐射强度（intensity）的定义。</p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1X7411F744/?p=15">GAMES101-15</a>:辐射度量学的基本概念：辐照强度、辐射通量，BRDF，渲染方程，全局光照 <span id="more"></span></p>
+<h2 id="辐射度量学"><a href="#辐射度量学" class="headerlink" title="辐射度量学"></a>辐射度量学</h2><p>为什么要研究辐射度量学：Whitted-Style 光线追踪尽管可以在一些场景表现不错，但是其建立完全是基于经验值和表现的效果的，而不是实际的物理规律，因此其值不可能完全真实准确。这就是为什么我们需要辐射度量学。</p>
+<p>要进行严谨度量，我们就要先定义单位（中文均为个人翻译，课程中没有中文名）：</p>
+<ul>
+<li><p>辐射能 Radiant Energy：辐射出的能量 Q $(J)$。</p>
+</li>
+<li><p>辐射速率/功率 Radiant flux（power）：单位时间内辐射/吸收/反射的能量。对于光源即“有多亮” .$\Phi=\frac{\mathrm{d}Q}{\mathrm{d}t}$ ，单位 $\mathrm{W(Watt)/lm(lumen)}$</p>
+<blockquote>
+<p><strong>注意</strong>：下文和图形学中说到的能量往往是指 flux 而非 energy，因为我们总是在关心眼下发生的情况（实时）而非累计的结果。</p>
+</blockquote>
+</li>
+<li><p>辐射强度 Radiant Intensity：一个单位立体角的功率。 $I(\omega)=\frac{\mathrm{d}\Phi}{\mathrm{d}\omega}$，单位 $\mathrm{cd(candela)=\frac{lm}{sr}or\frac{W}{sr}}$。</p>
+<p>类比弧度，立体角（Solid angel）是指 $\Omega=\frac{S}{r^2}$，其中 S 是对应的表面积，一个球的立体角是 $4\pi$。将面积表示成半径 r、和 y 轴（竖直轴）的夹角 $\theta$、和水平面 x 轴的夹角 $\phi$ 的组合，就有：</p>
+<p>$$\Omega=\frac{S}{r^2}=\sin\theta\mathrm{d}\theta \mathrm{d}\phi$$</p>
+<p><img src="./../../assets/101-solidangel.png" alt="Intensity"></p>
+<p>如果一个点光源均匀地向所有方向辐射光，那么 Intensity 就简单的有</p>
+<p>$$I=\frac{\Phi}{4\pi}$$</p>
+</li>
+<li><p>辐照强度 Irradiance：单位面积接收到的(投影后的)能量（flux）。</p>
+<p>$$E(x)=\frac{\mathrm{d}\Phi (x)}{\mathrm{d}S}=\frac{\Phi}{S}\cos \theta$$</p>
+<p>单位 $\mathrm{lux}=\frac{lm}{m^2}$。此处要求的能量与面积是垂直的，如果不垂直则需要投影。这正是 Blinn-Phong 模型中应用的“物体接收到的光取决于与法线的余弦”（Lambert’s Cosine Law）的物理意义。</p>
+<blockquote>
+<p>随着距离的增加，辐射强度 Intensity 不会发生改变，但是辐照度 Irradiance 会衰减。</p>
+</blockquote>
+</li>
+<li><p>辐射通量 Radiance：单位立体角且单位面积内的辐射能量。换句话说，通量就是单位立体角中的辐照度（理解吸收）或单位面积的辐射强度（理解发出）。通量是一个有方向的量。</p>
+<p>$$L(p,\omega)=\frac{\mathrm{d^2}\Phi(p,\omega)}{\mathrm{d}\omega\mathrm{d}S\cos\theta}$$</p>
+<p>单位$nit=\frac{\mathrm{cd}}{\mathrm{m^2}}$。</p>
+<blockquote>
+<p>对来自单位面积来自所有方向的辐射积分，就有该面积的所有能量。再对面积积分，则有物体的所有接收能量。</p>
+</blockquote>
+</li>
+</ul>
+<p>这些概念中单位相对而言并不重要，请注意理解概念本身。</p>
+<h2 id="BRDF：双向反射分布函数"><a href="#BRDF：双向反射分布函数" class="headerlink" title="BRDF：双向反射分布函数"></a>BRDF：双向反射分布函数</h2><p>BRDF 的作用在于，将物体吸收的能量（Irradiance）和指定角度发出（反射）的能量（Radiance）联系了起来。对于一个极小区域 $\mathrm{d}A$，一束从 $\omega _i$ 入射的辐射是：</p>
+<p>$$\mathrm{d}E(\omega_i)=L(\omega_i)\cos\theta_i\mathrm{d}\omega_i$$</p>
+<p>物体吸收后发射（或者说物体反射）辐射到不同的方向，对于一个指定的方向 $\omega_r$，反射的能量记为 $\mathrm{d}L_r(\omega_r)$。</p>
+<p>此时，可以记 BRDF 为：</p>
+<p>$$f_r(\omega_i\rarr \omega_r)=\frac{\mathrm{d}L_r(\omega_r)}{\mathrm{d}E_i(\omega_i)}=\frac{\mathrm{d}L_r(\omega_r)}{L(\omega_i)\cos\theta_i\mathrm{d}\omega_i}$$</p>
+<p>BRDF 的图像描述了辐射会被反射到哪个方向，例如如果是镜面反射，那么图像就是仅在镜面反射方向有值，其他方向没有多少值。</p>
+<h2 id="反射方程与渲染方程"><a href="#反射方程与渲染方程" class="headerlink" title="反射方程与渲染方程"></a>反射方程与渲染方程</h2><p>把该点的所有入射光的 BRDF 累加起来，就可以算出该点反射了多少光，即该点的<strong>反射方程</strong>：</p>
+<p>$$L_r(p,\omega_r)=\int_{H^2}f_r(p,\omega_i\rarr \omega_r)L(p,\omega_i)\cos\theta_i\mathrm{d}\omega_i$$</p>
+<p>添加自发光项使得公式对光源也适用：</p>
+<p>$$<br> L_r(p,\omega_o)=L_e(p,\omega_o)+\int_{H^2}L_i(p,\omega_i) f_r(p,\omega_i\rarr \omega_o) (\vec{n}\cdot\vec{\omega_i}) \mathrm{d}\omega_i<br>$$</p>
+<p>此时方程就是<strong>渲染方程</strong>。需要指出的是涉及的向量的方向都是从 p 点指向外的，而且通过积分域的限制，我们排除了下半球内的积分，因为这个方向肯定不会对渲染起作用。（相当于 Blinn-Phong 模型中的那个 max() ）。而且通过积分，我们不仅可以处理多个点光源，也可以处理面光源。</p>
+<h2 id="全局光照"><a href="#全局光照" class="headerlink" title="全局光照"></a>全局光照</h2><p>把上面的式子简单分析一下，其实就是：反射光=自发光+入射光<em>BRDF</em>余弦角。其中未知量只有入射光和反射光。于是我们经过一系列的简化就可以有：</p>
+<p>$$L=E+KL$$</p>
+<p>其中 I 是单位矩阵，因为反射的和入射能量没有改变所以两侧 L 相等可以直接合并。</p>
+<p>考虑到入射的 L 也可以是其他物体反射的 L，所以类似泰勒展开有</p>
+<p>$$<br>L=E+KL\<br>\rArr L=(I-K)^{-1}E<br>\rArr L=E+KE+K^2E+K^3E+\dots<br>$$</p>
+<p>其中， E 即直接进入摄像机的光，KE 即直接打在物体表面的光，二次即一次物体反射的间接光照，三次即在物体上反射了两次才打到渲染物体上的光……依此类推。</p>
+<p>光栅化可以较容易的处理前两项，但是很难处理后面的项。这也是为什么我们需要光线追踪。</p>
+<p>将所有的光进行考虑得出的结果就是<strong>全局光照</strong>。下面给一些计算了不同次数反射的全局光照结果对比。</p>
+<p>仅直接光（效果类似相机）：<br><img src="./../../assets/101-directillumin.png" alt="仅直接光"></p>
+<p>一次弹射，直接光+间接光（E+KE+K^2E）:<br><img src="./../../assets/101-onebcillumin.png" alt="一次弹射"></p>
+<p>两次弹射:<br><img src="./../../assets/101-twobcillumin.png" alt="两次弹射"></p>
+<p>四次弹射(效果愈发接近人眼):<br><img src="./../../assets/101-fourbcillumin.png" alt="四次弹射"></p>
+<p>随着次数的增加，弹射对效果的影响愈发的小，也愈发的接近人眼的效果。</p>
+<p>需要注意的是，一次和二次光照的时候，屋顶的灯光反而变黑了，这是因为这里光两次折射还没有折出灯管，因此造成了错误。</p>
+<p>最后说了一些概率论基础，没有特别需要记的必要。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/GAMES/" rel="tag"># GAMES</a>
+              <a href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag"># 笔记</a>
+              <a href="/tags/GAMES101/" rel="tag"># GAMES101</a>
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/" rel="tag"># 计算机图形学</a>
+              <a href="/tags/%E8%BE%90%E5%B0%84%E5%BA%A6%E9%87%8F%E5%AD%A6/" rel="tag"># 辐射度量学</a>
+              <a href="/tags/BRDF/" rel="tag"># BRDF</a>
+              <a href="/tags/%E6%B8%B2%E6%9F%93%E6%96%B9%E7%A8%8B/" rel="tag"># 渲染方程</a>
+              <a href="/tags/%E5%85%A8%E5%B1%80%E5%85%89%E7%85%A7/" rel="tag"># 全局光照</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/08/02/GAMES101/GAMES101-12/" rel="prev" title="GAMES101-14：Whitted-Style 光线追踪(2) 包围盒求交的速度优化">
+      <i class="fa fa-chevron-left"></i> GAMES101-14：Whitted-Style 光线追踪(2) 包围盒求交的速度优化
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/08/06/GAMES101/GAMES101-14/" rel="next" title="GAMES101-16：辐射度量学与路径追踪">
+      GAMES101-16：辐射度量学与路径追踪 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BE%90%E5%B0%84%E5%BA%A6%E9%87%8F%E5%AD%A6"><span class="nav-number">2.</span> <span class="nav-text">辐射度量学</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BRDF%EF%BC%9A%E5%8F%8C%E5%90%91%E5%8F%8D%E5%B0%84%E5%88%86%E5%B8%83%E5%87%BD%E6%95%B0"><span class="nav-number">3.</span> <span class="nav-text">BRDF：双向反射分布函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8D%E5%B0%84%E6%96%B9%E7%A8%8B%E4%B8%8E%E6%B8%B2%E6%9F%93%E6%96%B9%E7%A8%8B"><span class="nav-number">4.</span> <span class="nav-text">反射方程与渲染方程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%A8%E5%B1%80%E5%85%89%E7%85%A7"><span class="nav-number">5.</span> <span class="nav-text">全局光照</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="LeeKa"
+      src="https://s2.loli.net/2022/03/24/zcq6l9KENbRJtDi.jpg">
+  <p class="site-author-name" itemprop="name">LeeKa</p>
+  <div class="site-description" itemprop="description">代码、音乐和游戏，一起来聊聊吧</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">40</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">110</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/KXAND" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;KXAND" rel="noopener" target="_blank">GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:leeka.Pub@outlook.com" title="E-Mail → mailto:leeka.Pub@outlook.com" rel="noopener" target="_blank">E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/QuiXand" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;QuiXand" rel="noopener" target="_blank">Twitter</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://hawa130.com/" title="https:&#x2F;&#x2F;hawa130.com" rel="noopener" target="_blank">Hanwan Space</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LeeKa</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='255,55,55' opacity='1' zIndex='-1' count='399' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

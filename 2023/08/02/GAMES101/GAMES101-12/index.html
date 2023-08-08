@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="前言GAMES101-14:  AABB 包围盒的加速方法：均匀网格、KD-Tree 划分、BVH 划分">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GAMES101-14：Whitted-Style 光线追踪(2) 包围盒求交的速度优化">
+<meta property="og:url" content="http://example.com/2023/08/02/GAMES101/GAMES101-12/index.html">
+<meta property="og:site_name" content="LeeKa 的酒馆">
+<meta property="og:description" content="前言GAMES101-14:  AABB 包围盒的加速方法：均匀网格、KD-Tree 划分、BVH 划分">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2023/08/02/assets/101-spatialpartition.png">
+<meta property="article:published_time" content="2023-08-01T16:56:18.000Z">
+<meta property="article:modified_time" content="2023-08-04T15:19:55.033Z">
+<meta property="article:author" content="LeeKa">
+<meta property="article:tag" content="GAMES">
+<meta property="article:tag" content="笔记">
+<meta property="article:tag" content="GAMES101">
+<meta property="article:tag" content="计算机图形学">
+<meta property="article:tag" content="光线追踪">
+<meta property="article:tag" content="AABB 包围盒">
+<meta property="article:tag" content="均匀网格">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2023/08/02/assets/101-spatialpartition.png">
+
+<link rel="canonical" href="http://example.com/2023/08/02/GAMES101/GAMES101-12/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>GAMES101-14：Whitted-Style 光线追踪(2) 包围盒求交的速度优化 | LeeKa 的酒馆</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">LeeKa 的酒馆</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">欢迎，旅人！坐下来享受一下暖烘烘的炉火吧。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/KXAND" class="github-corner" title="me on GitHub" aria-label="me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/08/02/GAMES101/GAMES101-12/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://s2.loli.net/2022/03/24/zcq6l9KENbRJtDi.jpg">
+      <meta itemprop="name" content="LeeKa">
+      <meta itemprop="description" content="代码、音乐和游戏，一起来聊聊吧">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LeeKa 的酒馆">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          GAMES101-14：Whitted-Style 光线追踪(2) 包围盒求交的速度优化
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-08-02 00:56:18" itemprop="dateCreated datePublished" datetime="2023-08-02T00:56:18+08:00">2023-08-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-08-04 23:19:55" itemprop="dateModified" datetime="2023-08-04T23:19:55+08:00">2023-08-04</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/GAMES101/" itemprop="url" rel="index"><span itemprop="name">GAMES101</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1X7411F744/?p=14">GAMES101-14</a>:  AABB 包围盒的加速方法：均匀网格、KD-Tree 划分、BVH 划分 <span id="more"></span></p>
+<h2 id="均匀网格（Uniform-Grid）-均匀空间划分"><a href="#均匀网格（Uniform-Grid）-均匀空间划分" class="headerlink" title="均匀网格（Uniform Grid）/均匀空间划分"></a>均匀网格（Uniform Grid）/均匀空间划分</h2><p>思想/步骤：</p>
+<ol>
+<li><p>建立一个大的 AABB 包围盒包围对空间中的所有物体，包围盒划分成均匀的若干立方网格；</p>
+</li>
+<li><p>每个网格判断与物体（的表面）是否相交并记录；</p>
+</li>
+<li><p>光线穿过空间中的若干网格，如果穿过的网格是一个与物体有交点的网格，那么光线与物体就有可能有交点。此时，对物体进行求交操作；否则，不进行求交。</p>
+<blockquote>
+<p>光线穿过网格的算法和光栅化中的扫描线算法是类似的</p>
+</blockquote>
+</li>
+</ol>
+<p>网格划分的疏密问题</p>
+<ul>
+<li>太稀疏：加速效果不明显；</li>
+<li>太密：引入太多无效的网格判断，效率降低；</li>
+<li>（三维空间）合适的格子数：约等于 27 * 物体数。</li>
+</ul>
+<p>网格划分思想<strong>适用于</strong>大量尺度接近的物体均匀分布在空间中的情况，不适用于空间分布很不均匀的情况（局部引起太稀疏的问题）</p>
+<h2 id="空间划分（Spatial-Partition）"><a href="#空间划分（Spatial-Partition）" class="headerlink" title="空间划分（Spatial Partition）"></a>空间划分（Spatial Partition）</h2><p>均匀空间划分的明显问题在于：如果空间分布疏密不一，在大块空的地方做了许多没有必要的划分。如果对空间进行不均匀的划分那么性能就会更好。</p>
+<p>下面例举三种划分结构：</p>
+<p><img src="./../../assets/101-spatialpartition.png" alt="空间划分图"></p>
+<ul>
+<li>Oct-Tree（八叉树）：把三维空间划分为八份（二维则是四份），如果一块中有物体，则尝试划分得更小，否则就停下这一块的继续划分。<blockquote>
+<p>这种划分方式的问题在于，划分数量与空间维度有关，不同维度的空间会形成了不同的数据结构。</p>
+</blockquote>
+</li>
+<li>BSP-Tree：从不同方向用线/平面/超平面二分空间。这种方式高维难以计算且破坏 AABB 的简单性。</li>
+<li>KD-Tree：每次沿一个维度切一刀，例如三维空间就可以依次沿 x，y，z 轴切，二维则沿 x，y 轴切，从而使划分与空间维度无关。最后会形成一个二叉树。</li>
+</ul>
+<blockquote>
+<p>这一部分与多媒体数据课在向量空间归类的思想很相似</p>
+</blockquote>
+<h3 id="KD-Tree"><a href="#KD-Tree" class="headerlink" title="KD-Tree"></a>KD-Tree</h3><p>为树设计的数据结构应该：</p>
+<ul>
+<li>在内部节点上：<ul>
+<li>划分轴：此结点应该被哪个轴划分</li>
+<li>划分位置：轴在哪个位置坐标划分</li>
+<li>子结点指针</li>
+<li><em>不</em>存储内部有哪些物体</li>
+</ul>
+</li>
+<li>叶子结点：存储内部有哪些物体</li>
+</ul>
+<p>当光线进入一个空间划分区：</p>
+<ul>
+<li>如果该区域有交点，那么检查是否是叶子结点<ul>
+<li>是：检查是否与内部物体有交点</li>
+<li>否：检查与哪个子划分有交点</li>
+</ul>
+</li>
+<li>和该区域无交点：什么都不用做</li>
+</ul>
+<p>不过，KD-Tree 也有自己的问题，如</p>
+<ul>
+<li>难以判断三角形与空间盒的相交情况：例如一个小盒子，三个顶点都在盒子外但是面与盒子有交集的情况。</li>
+<li>一个物体可能会被划分到多个盒子里，多次检测。</li>
+</ul>
+<h2 id="物体划分：BVH（Bounding-Volume-Hierarchy）"><a href="#物体划分：BVH（Bounding-Volume-Hierarchy）" class="headerlink" title="物体划分：BVH（Bounding Volume Hierarchy）"></a>物体划分：BVH（Bounding Volume Hierarchy）</h2><p>BVH 的特点在于是按物体而非空间进行划分，对于一个包围盒，递归地将其划分为子空间并计算子空间的子包围盒的边界。重复这个过程，直到盒子足够小（例如大致都有 x 个 物体）即可。数据结构上，同样是叶子结点存物体的树。</p>
+<p>划分维度上可以有许多技巧，例如类似 KD-Tree 的依次轮换维度，或者每次从盒子最长的维度划分；抑或着每次从中间物体的位置划分。总之，应该尽量让空间划分均匀。</p>
+<blockquote>
+<p>存在O（N）算法找到中位数，快速选择算法。</p>
+</blockquote>
+<p>需要注意，由于是按物体进行划分，从空间上来说，包围盒之间可以相交。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/GAMES/" rel="tag"># GAMES</a>
+              <a href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag"># 笔记</a>
+              <a href="/tags/GAMES101/" rel="tag"># GAMES101</a>
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/" rel="tag"># 计算机图形学</a>
+              <a href="/tags/%E5%85%89%E7%BA%BF%E8%BF%BD%E8%B8%AA/" rel="tag"># 光线追踪</a>
+              <a href="/tags/AABB-%E5%8C%85%E5%9B%B4%E7%9B%92/" rel="tag"># AABB 包围盒</a>
+              <a href="/tags/%E5%9D%87%E5%8C%80%E7%BD%91%E6%A0%BC/" rel="tag"># 均匀网格</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/08/01/GAMES101/GAMES101-11/" rel="prev" title="GAMES101-12&13：Whitted-Style 光线追踪（1）">
+      <i class="fa fa-chevron-left"></i> GAMES101-12&13：Whitted-Style 光线追踪（1）
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/08/04/GAMES101/GAMES101-13/" rel="next" title="GAMES101-14&15：辐射度量学">
+      GAMES101-14&15：辐射度量学 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9D%87%E5%8C%80%E7%BD%91%E6%A0%BC%EF%BC%88Uniform-Grid%EF%BC%89-%E5%9D%87%E5%8C%80%E7%A9%BA%E9%97%B4%E5%88%92%E5%88%86"><span class="nav-number">2.</span> <span class="nav-text">均匀网格（Uniform Grid）&#x2F;均匀空间划分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A9%BA%E9%97%B4%E5%88%92%E5%88%86%EF%BC%88Spatial-Partition%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">空间划分（Spatial Partition）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#KD-Tree"><span class="nav-number">3.1.</span> <span class="nav-text">KD-Tree</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%A9%E4%BD%93%E5%88%92%E5%88%86%EF%BC%9ABVH%EF%BC%88Bounding-Volume-Hierarchy%EF%BC%89"><span class="nav-number">4.</span> <span class="nav-text">物体划分：BVH（Bounding Volume Hierarchy）</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="LeeKa"
+      src="https://s2.loli.net/2022/03/24/zcq6l9KENbRJtDi.jpg">
+  <p class="site-author-name" itemprop="name">LeeKa</p>
+  <div class="site-description" itemprop="description">代码、音乐和游戏，一起来聊聊吧</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">40</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">110</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/KXAND" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;KXAND" rel="noopener" target="_blank">GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:leeka.Pub@outlook.com" title="E-Mail → mailto:leeka.Pub@outlook.com" rel="noopener" target="_blank">E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/QuiXand" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;QuiXand" rel="noopener" target="_blank">Twitter</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://hawa130.com/" title="https:&#x2F;&#x2F;hawa130.com" rel="noopener" target="_blank">Hanwan Space</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LeeKa</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='255,55,55' opacity='1' zIndex='-1' count='399' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
