@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="前言GAMES101-18:渲染中的高级内容（仅作了解，不涉及细节）：光线传播计算、外观材质、程序化生成">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GAMES101-18：渲染中的高级板块">
+<meta property="og:url" content="http://example.com/2023/08/11/GAMES101/GAMES101-16/index.html">
+<meta property="og:site_name" content="LeeKa 的酒馆">
+<meta property="og:description" content="前言GAMES101-18:渲染中的高级内容（仅作了解，不涉及细节）：光线传播计算、外观材质、程序化生成">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-08-11T14:29:04.000Z">
+<meta property="article:modified_time" content="2023-08-11T17:24:49.053Z">
+<meta property="article:author" content="LeeKa">
+<meta property="article:tag" content="GAMES">
+<meta property="article:tag" content="笔记">
+<meta property="article:tag" content="GAMES101">
+<meta property="article:tag" content="计算机图形学">
+<meta property="article:tag" content="材质">
+<meta property="article:tag" content="渲染">
+<meta property="article:tag" content="光线传播">
+<meta property="article:tag" content="程序化生成">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2023/08/11/GAMES101/GAMES101-16/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>GAMES101-18：渲染中的高级板块 | LeeKa 的酒馆</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">LeeKa 的酒馆</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">欢迎，旅人！坐下来享受一下暖烘烘的炉火吧。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/KXAND" class="github-corner" title="me on GitHub" aria-label="me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/08/11/GAMES101/GAMES101-16/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://s2.loli.net/2022/03/24/zcq6l9KENbRJtDi.jpg">
+      <meta itemprop="name" content="LeeKa">
+      <meta itemprop="description" content="代码、音乐和游戏，一起来聊聊吧">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LeeKa 的酒馆">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          GAMES101-18：渲染中的高级板块
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-08-11 22:29:04" itemprop="dateCreated datePublished" datetime="2023-08-11T22:29:04+08:00">2023-08-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-08-12 01:24:49" itemprop="dateModified" datetime="2023-08-12T01:24:49+08:00">2023-08-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/GAMES101/" itemprop="url" rel="index"><span itemprop="name">GAMES101</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1X7411F744/?p=18">GAMES101-18</a>:渲染中的高级内容（仅作了解，不涉及细节）：光线传播计算、外观材质、程序化生成 <span id="more"></span></p>
+<h2 id="高级光线传播"><a href="#高级光线传播" class="headerlink" title="高级光线传播"></a>高级光线传播</h2><ul>
+<li>有偏光线传播<ul>
+<li>双向路径追踪 BDPT</li>
+<li>MLT</li>
+</ul>
+</li>
+<li>无偏光线传播<ul>
+<li>光子映射 Photo Mapping</li>
+<li>VCM</li>
+</ul>
+</li>
+<li>IR</li>
+</ul>
+<p>无偏：蒙特卡洛积分不会引起系统误差，无论样本多少，期望都是正确的。反之则是有偏的。</p>
+<h3 id="双向路径追踪-BDPT"><a href="#双向路径追踪-BDPT" class="headerlink" title="双向路径追踪 BDPT"></a>双向路径追踪 BDPT</h3><p>路径追踪：从相机打射线追踪到光源。双向路径追踪会先从相机和光源打出一些“半路径”，然后再连接这些半路径。</p>
+<p>BDPT 在有的情况下表现比路径追踪好很多（例如光源是对着天花板打的灯，场景全是间接光）。但是相对的速度很慢，写对很难。</p>
+<h3 id="Metropolis-光线传播，Metropolis-Light-Transport，MLT"><a href="#Metropolis-光线传播，Metropolis-Light-Transport，MLT" class="headerlink" title="Metropolis 光线传播，Metropolis Light Transport，MLT"></a>Metropolis 光线传播，Metropolis Light Transport，MLT</h3><p>Metropolis 是人名，姑且不译。</p>
+<p>应用马尔科夫链蒙特卡洛积分（MCMC），马尔科夫链是一种采样方法，它可以根据当前样本生成靠近的新样本。这样，对于困难的光路，它也可以在局部不断进行探索最后得到新的路径，最后得到最佳概率密度函数（f（x）形状p（x）时）。</p>
+<p>MLT 对于复杂光路处理非常好（例如游泳池波浪在水底聚焦的波纹，caustics 现象），因为只要有一个随便的函数就可以得到更多的形状。</p>
+<p>缺点则有：难以估计收敛速度；像素之间没有关系，收敛速度不一；因此而得到脏结果；也因为像素不一定会每一帧都收敛，导致一般不用于动画渲染，会导致画面抖动。</p>
+<h3 id="光子映射"><a href="#光子映射" class="headerlink" title="光子映射"></a>光子映射</h3><p>有多种方法。</p>
+<p>步骤1：光子不断反射折射，直到打到漫反射的表面停下。记录下表面的光子数。</p>
+<p>步骤2：摄像机打出射线不断反射折射，直到遇见漫反射表面停下。</p>
+<p>然后进行计算，计算局部密度估计（local density estimation） ：找到射线附近最近的 N 个光子，计算它们占据的面积大小（密度）。因为我们知道，光子越多越密就应该越亮。</p>
+<p>如果 N 过小，则结果噪声大；如果 N 过大，则结果会变糊。</p>
+<p>光子映射是有偏的，因为光子数量有限，我们是用不无限小的面积 ΔA 去替代了无限小的面积 dA（数量 N 也是同理）。但是它是“一致的”，也就是极限（光子无穷多）的情况下结果是正确的。</p>
+<blockquote>
+<p>为什么我们是找 N 个光子占的面积而不是找 A 面积内的光子数量？</p>
+<p>因为后者是有偏且不一致的：随着光子数量的增加，结果不会收敛的正确结果。</p>
+</blockquote>
+<h3 id="VCM（顶点连接与扩展）"><a href="#VCM（顶点连接与扩展）" class="headerlink" title="VCM（顶点连接与扩展）"></a>VCM（顶点连接与扩展）</h3><p>结合 BDPT 和光子映射。</p>
+<p>BDPT 打出的两边的半路径非常接近但是没有连接，就用光子映射的办法去它们作为光子收集起来发挥作用。</p>
+<h3 id="实时辐射度-Instant-Radiosity"><a href="#实时辐射度-Instant-Radiosity" class="headerlink" title="实时辐射度 Instant Radiosity"></a>实时辐射度 Instant Radiosity</h3><p>把反射光的平面看成新的光源。</p>
+<p>缺点则有有的时候会有异常亮点，不能处理抛光面等。</p>
+<h2 id="高级外观（Appearance）模型"><a href="#高级外观（Appearance）模型" class="headerlink" title="高级外观（Appearance）模型"></a>高级外观（Appearance）模型</h2><ul>
+<li>非表面模型<ul>
+<li>散射介质/参与介质:云雾</li>
+<li>毛发、纤维</li>
+<li>颗粒材质</li>
+</ul>
+</li>
+<li>表面模型<ul>
+<li>透光材质</li>
+<li>布料（cloth）</li>
+</ul>
+</li>
+<li>程序化生成模型</li>
+</ul>
+<h3 id="散射介质"><a href="#散射介质" class="headerlink" title="散射介质"></a>散射介质</h3><p>云雾会在传播过程中会被吸收也会被散射（往各个方向随机打）。</p>
+<p>相位函数类似于 BRDF 决定了光怎样散射（均匀？主要前向？主要后散？）。</p>
+<p>渲染：随机选一个弹射方向随机走一段距离，最后连到摄像机。</p>
+<blockquote>
+<p>不是只有云雾才是散射介质，例如手电筒的光照亮捂在上面的手，这里光进入了手一定距离，这里手就是散射介质。</p>
+</blockquote>
+<h3 id="毛发外观"><a href="#毛发外观" class="headerlink" title="毛发外观"></a>毛发外观</h3><h4 id="人头发"><a href="#人头发" class="headerlink" title="人头发"></a>人头发</h4><p>头发表面会有两种高光，无色的（漫画上的白光带）与有色的。</p>
+<p>Kajiya-Kay 模型：效果不好。</p>
+<p>Marshner Model：把头发局部视为玻璃圆柱，分为 cortex（表面） 和 cuticle（内部），并且表面会吸收光，内部会有色素。综合考虑 R（反射）、TT（两次折射）、TRT（折射反射折射）。</p>
+<p>光会真的在一根根的头发中和头发间折射反射，计算量巨大。</p>
+<h4 id="动物毛发"><a href="#动物毛发" class="headerlink" title="动物毛发"></a>动物毛发</h4><p>人头发模型运用于动物毛发得到的结果是不对的。</p>
+<p>因为毛发的最内层是 Medulla(（毛）髓质)，毛髓会发生散射现象，类似散射介质。而动物毛发的毛髓比人头发大得多。</p>
+<p>因此，我们需要模拟毛髓。</p>
+<p>进一步地我们也可以在人的头发上模拟（比动物毛发小的）毛髓，得到更真实更亮的头发。</p>
+<p>同样用玻璃柱模拟毛髓，这就是更好的双玻璃柱模型。</p>
+<h3 id="颗粒材质（granular-material）"><a href="#颗粒材质（granular-material）" class="headerlink" title="颗粒材质（granular material）"></a>颗粒材质（granular material）</h3><p>一粒一粒的，例如盐、香料、沙子……</p>
+<p>可以将其视为一个个单元；然后再分析成分、渲染。</p>
+<p>非常耗时间，应用不多。</p>
+<h3 id="透光材质（Translucent）"><a href="#透光材质（Translucent）" class="headerlink" title="透光材质（Translucent）"></a>透光材质（Translucent）</h3><blockquote>
+<p>透光（Translucent）往往被翻译成半透明，但<strong>并不是半透明</strong>。这种性质的原理在于散射，使得光能透过，但是并不能由此看到什么。</p>
+<p>例如捂住手电筒的手附近、玉、水母</p>
+</blockquote>
+<p>为此我们引入次表面散射（BSSRDF）的概念，这是对 BRDF 概念的拓展，从一个点一个方向进入的光可以从另外一个点另外一个方向出去，记 $S(x_i,\omega_i,x_o,\omega_o)$。</p>
+<p>Dipole 近似：在发生 BSSRDF 表面的地方上下加入两个光源，从而用 BRDF 近似 BSSRDF。</p>
+<p>人的皮肤、大理石等等都会发生散射，因此使用 BSSRDF 都会得到更好的效果。</p>
+<h3 id="布料材质"><a href="#布料材质" class="headerlink" title="布料材质"></a>布料材质</h3><p>纤维（fiber）绕成一股股（Ply），股再缠绕形成线（yarn），最后被织成布料。</p>
+<p>渲染：BRDF 面；当成微小的体积单元，根据编织性质确定吸收和散射，向散射介质一样渲染（好，但是计算量大）；更暴力地，像头发一样渲染纤维。</p>
+<h3 id="细节外观"><a href="#细节外观" class="headerlink" title="细节外观"></a>细节外观</h3><p>现实世界不是绝对完美的，有各种细节上的瑕疵，这反而使得我们的渲染结果不够真实。</p>
+<p>如果我们使用的法线贴图（normal map）是完美线性的，就不够真实，如果每个法线既符合整体规律又有自己的特点，就更真实。</p>
+<p>这样的微表面渲染非常困难，因为表面太小有太多无法从光源命中摄像机的路径。解决的办法是我们可以把一个像素覆盖的微表面找出来，计算这个像素在各个方向的 BRDF。如果覆盖像素多，则有总体的效果，覆盖的少，就有个体的性质。</p>
+<p>如果表面极小，小到接近光波，那么就会需要考虑波动光学来计算 BRDF。</p>
+<h2 id="程序化生成的外观"><a href="#程序化生成的外观" class="headerlink" title="程序化生成的外观"></a>程序化生成的外观</h2><p>如果我们存储三维空间的纹理，那就太复杂，太占空间了。我们可以用噪声函数，不存储，只在需要用的时候算出来该点的值即可。</p>
+<p>一些噪声函数的应用：地形生成、水面生成、木头内外的年轮纹理等等。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/GAMES/" rel="tag"># GAMES</a>
+              <a href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag"># 笔记</a>
+              <a href="/tags/GAMES101/" rel="tag"># GAMES101</a>
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/" rel="tag"># 计算机图形学</a>
+              <a href="/tags/%E6%9D%90%E8%B4%A8/" rel="tag"># 材质</a>
+              <a href="/tags/%E6%B8%B2%E6%9F%93/" rel="tag"># 渲染</a>
+              <a href="/tags/%E5%85%89%E7%BA%BF%E4%BC%A0%E6%92%AD/" rel="tag"># 光线传播</a>
+              <a href="/tags/%E7%A8%8B%E5%BA%8F%E5%8C%96%E7%94%9F%E6%88%90/" rel="tag"># 程序化生成</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/08/09/GAMES101/GAMES101-15/" rel="prev" title="GAMES101-17：基于物理的材质（BRDF）">
+      <i class="fa fa-chevron-left"></i> GAMES101-17：基于物理的材质（BRDF）
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/08/12/GAMES101/GAMES101-17/" rel="next" title="GAMES101-19：摄像机、透镜、光场">
+      GAMES101-19：摄像机、透镜、光场 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AB%98%E7%BA%A7%E5%85%89%E7%BA%BF%E4%BC%A0%E6%92%AD"><span class="nav-number">2.</span> <span class="nav-text">高级光线传播</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%8C%E5%90%91%E8%B7%AF%E5%BE%84%E8%BF%BD%E8%B8%AA-BDPT"><span class="nav-number">2.1.</span> <span class="nav-text">双向路径追踪 BDPT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Metropolis-%E5%85%89%E7%BA%BF%E4%BC%A0%E6%92%AD%EF%BC%8CMetropolis-Light-Transport%EF%BC%8CMLT"><span class="nav-number">2.2.</span> <span class="nav-text">Metropolis 光线传播，Metropolis Light Transport，MLT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%89%E5%AD%90%E6%98%A0%E5%B0%84"><span class="nav-number">2.3.</span> <span class="nav-text">光子映射</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VCM%EF%BC%88%E9%A1%B6%E7%82%B9%E8%BF%9E%E6%8E%A5%E4%B8%8E%E6%89%A9%E5%B1%95%EF%BC%89"><span class="nav-number">2.4.</span> <span class="nav-text">VCM（顶点连接与扩展）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E6%97%B6%E8%BE%90%E5%B0%84%E5%BA%A6-Instant-Radiosity"><span class="nav-number">2.5.</span> <span class="nav-text">实时辐射度 Instant Radiosity</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AB%98%E7%BA%A7%E5%A4%96%E8%A7%82%EF%BC%88Appearance%EF%BC%89%E6%A8%A1%E5%9E%8B"><span class="nav-number">3.</span> <span class="nav-text">高级外观（Appearance）模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%A3%E5%B0%84%E4%BB%8B%E8%B4%A8"><span class="nav-number">3.1.</span> <span class="nav-text">散射介质</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AF%9B%E5%8F%91%E5%A4%96%E8%A7%82"><span class="nav-number">3.2.</span> <span class="nav-text">毛发外观</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%BA%E5%A4%B4%E5%8F%91"><span class="nav-number">3.2.1.</span> <span class="nav-text">人头发</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%A8%E7%89%A9%E6%AF%9B%E5%8F%91"><span class="nav-number">3.2.2.</span> <span class="nav-text">动物毛发</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%97%E7%B2%92%E6%9D%90%E8%B4%A8%EF%BC%88granular-material%EF%BC%89"><span class="nav-number">3.3.</span> <span class="nav-text">颗粒材质（granular material）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%8F%E5%85%89%E6%9D%90%E8%B4%A8%EF%BC%88Translucent%EF%BC%89"><span class="nav-number">3.4.</span> <span class="nav-text">透光材质（Translucent）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%83%E6%96%99%E6%9D%90%E8%B4%A8"><span class="nav-number">3.5.</span> <span class="nav-text">布料材质</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%86%E8%8A%82%E5%A4%96%E8%A7%82"><span class="nav-number">3.6.</span> <span class="nav-text">细节外观</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E5%8C%96%E7%94%9F%E6%88%90%E7%9A%84%E5%A4%96%E8%A7%82"><span class="nav-number">4.</span> <span class="nav-text">程序化生成的外观</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="LeeKa"
+      src="https://s2.loli.net/2022/03/24/zcq6l9KENbRJtDi.jpg">
+  <p class="site-author-name" itemprop="name">LeeKa</p>
+  <div class="site-description" itemprop="description">代码、音乐和游戏，一起来聊聊吧</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">127</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/KXAND" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;KXAND" rel="noopener" target="_blank">GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:leeka.Pub@outlook.com" title="E-Mail → mailto:leeka.Pub@outlook.com" rel="noopener" target="_blank">E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/QuiXand" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;QuiXand" rel="noopener" target="_blank">Twitter</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://hawa130.com/" title="https:&#x2F;&#x2F;hawa130.com" rel="noopener" target="_blank">Hanwan Space</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LeeKa</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='255,55,55' opacity='1' zIndex='-1' count='399' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
