@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="前言GAMES101-22:单粒子的运动的模拟方法（欧拉与其各种改进）、刚体模拟、流体模拟、网格法与质点法处理大量物体的移动问题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GAMES101-22：动画2">
+<meta property="og:url" content="http://example.com/2023/08/14/GAMES101/GAMES101-20/index.html">
+<meta property="og:site_name" content="LeeKa 的酒馆">
+<meta property="og:description" content="前言GAMES101-22:单粒子的运动的模拟方法（欧拉与其各种改进）、刚体模拟、流体模拟、网格法与质点法处理大量物体的移动问题">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-08-14T15:41:16.000Z">
+<meta property="article:modified_time" content="2023-08-16T15:25:10.875Z">
+<meta property="article:author" content="LeeKa">
+<meta property="article:tag" content="GAMES">
+<meta property="article:tag" content="笔记">
+<meta property="article:tag" content="GAMES101">
+<meta property="article:tag" content="计算机图形学">
+<meta property="article:tag" content="物理模拟">
+<meta property="article:tag" content="动画">
+<meta property="article:tag" content="粒子">
+<meta property="article:tag" content="刚体">
+<meta property="article:tag" content="流体">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2023/08/14/GAMES101/GAMES101-20/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>GAMES101-22：动画2 | LeeKa 的酒馆</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">LeeKa 的酒馆</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">欢迎，旅人！坐下来享受一下暖烘烘的炉火吧。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/KXAND" class="github-corner" title="me on GitHub" aria-label="me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/08/14/GAMES101/GAMES101-20/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://s2.loli.net/2022/03/24/zcq6l9KENbRJtDi.jpg">
+      <meta itemprop="name" content="LeeKa">
+      <meta itemprop="description" content="代码、音乐和游戏，一起来聊聊吧">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LeeKa 的酒馆">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          GAMES101-22：动画2
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-08-14 23:41:16" itemprop="dateCreated datePublished" datetime="2023-08-14T23:41:16+08:00">2023-08-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-08-16 23:25:10" itemprop="dateModified" datetime="2023-08-16T23:25:10+08:00">2023-08-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/GAMES101/" itemprop="url" rel="index"><span itemprop="name">GAMES101</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1X7411F744/?p=22">GAMES101-22</a>:单粒子的运动的模拟方法（欧拉与其各种改进）、刚体模拟、流体模拟、网格法与质点法处理大量物体的移动问题 <span id="more"></span></p>
+<h2 id="单粒子模拟"><a href="#单粒子模拟" class="headerlink" title="单粒子模拟"></a>单粒子模拟</h2><p>考虑一个粒子在速度场中速度随着时间的变化的模拟。即算常微分方程 $\dot{x} = v(x,t)$</p>
+<p>简单而基础的方法：（前向）<strong>欧拉方法</strong></p>
+<p>$$<br>x^{t+\Delta t} = x^t + \Delta t \dot{x}^t \<br>\dot{x}^{t+\Delta t} = \dot{x}^t + \Delta t \ddot{x}^t<br>$$</p>
+<p>其中右上角只是标记，不是指数；而一个点表示一次求导（即速度）。这种方式用上一帧的数据计算下一帧的数据。其问题在于：</p>
+<ul>
+<li>不准确：步长（即两帧之间的间隔 $\Delta t$）越大，结果越不准；</li>
+<li>不稳定：对于圆周运动的情况，会变成螺旋形飞出去；</li>
+</ul>
+<p>不准确在 CG 中往往可以理解容忍，但是不稳定、无论如何都得不到准确的结果是难以接受的。这种不稳定现象是<strong>欧拉方法试图用数值方法解微分方程</strong>的必然结果。</p>
+<p>下面是一些解决了不稳定性的方法。</p>
+<h3 id="中点法"><a href="#中点法" class="headerlink" title="中点法"></a>中点法</h3><ul>
+<li>使用欧拉方法计算出在 o 点的粒子 p 下一步长所在的位置 a；</li>
+<li>取 oa 中点 b 的速度场方向；</li>
+<li>对（依然在 o 点的 p）应用 b 点的速度计算欧拉方法，得到实际到达的位置 c。</li>
+</ul>
+<p>这样，中点法取了一个中间、更能代表平均运动方向的速度。</p>
+<p>如果我们将中点法的公式推出来，那么，我们会发现中点法更准确的原因在于它引入了二阶导，而不是普通欧拉的一阶导。</p>
+<h3 id="自适应步长"><a href="#自适应步长" class="headerlink" title="自适应步长"></a>自适应步长</h3><ul>
+<li>使用欧拉方法计算出在 o 点的粒子 p 下一步长所在的位置 a；</li>
+<li>使用欧拉方法计算出在 oa 中点的粒子下一步长所在的位置 b；</li>
+<li>如果 a、b 距离甚远，那么说明步长过大，缩小步长重新计算；</li>
+<li>如果 a、b 距离不大，那么说明步长已经缩得够小，取一个作为结果；</li>
+</ul>
+<p>这种办法步长可变，所以能模拟得很好。</p>
+<h3 id="隐式-后向的欧拉方法"><a href="#隐式-后向的欧拉方法" class="headerlink" title="隐式/后向的欧拉方法"></a>隐式/后向的欧拉方法</h3><p>使用下一帧的速度而不是上一帧的速度。</p>
+<p>$$<br>x^{t+\Delta t} = x^t + \Delta t \dot{x}^{t+\Delta t} \<br>\dot{x}^{t+\Delta t} = \dot{x}^t + \Delta t \ddot{x}^{t+\Delta t}<br>$$</p>
+<p>在实际情况中速度和加速度之间的关系往往并不是那么好直接解出。往往可能需要求根公式等导致速度会比显示慢得多————当然，也变得稳定得多。</p>
+<h3 id="龙格-库塔方法"><a href="#龙格-库塔方法" class="headerlink" title="龙格-库塔方法"></a>龙格-库塔方法</h3><p>通过中点法我们已经知道阶数越高效果越好。而龙格-库塔方法是一系列解常微分方程的很好的方法（同样基于欧拉），其中四阶的龙格库塔方法（RK4）最常用，它形如</p>
+<p>$$<br>x_{n+1} = x_n + \frac{1}{6}h(k_1 + 2k_2 + 2k_3 + 4k_4) \<br>t_{n+1} = t_n + h<br>$$</p>
+<p>其中四个 k 是四个关于 x、t 的函数，懒得记了，用到再说。</p>
+<blockquote>
+<p>对推导感兴趣的话请学习数值分析。</p>
+</blockquote>
+<h3 id="不基于物理的方法（Position-based-Verlet-Intergration）"><a href="#不基于物理的方法（Position-based-Verlet-Intergration）" class="headerlink" title="不基于物理的方法（Position-based / Verlet Intergration）"></a>不基于物理的方法（Position-based / Verlet Intergration）</h3><p>不基于物理的方法难以保证能量守恒，但是又快又简单。</p>
+<p>参见作业 8.</p>
+<h3 id="衡量稳定性"><a href="#衡量稳定性" class="headerlink" title="衡量稳定性"></a>衡量稳定性</h3><p>通常我们不关心单步的误差（局部误差）和整体误差的值是多少，但是会关心它们和步长之间的关系。</p>
+<p>以隐式欧拉为例，步长为 h，整体误差是 $O(h)$，局部误差是 $O(h^2)$，即如果步长减少一半，那么可以期望整体误差变为原来的一半，而局部误差可以期望变为原来的四分之一。</p>
+<h2 id="刚体模拟"><a href="#刚体模拟" class="headerlink" title="刚体模拟"></a>刚体模拟</h2><p>刚体即不可变形的物体，刚体的模拟本质上就是一个大单体粒子的模拟。当然我们还需要考虑一些其他的属性，例如：</p>
+<ol>
+<li>角度、角速度（一阶导，F/M）、角加速度（二阶导）</li>
+<li>位置、速度、加速度</li>
+</ol>
+<h2 id="流体模拟"><a href="#流体模拟" class="headerlink" title="流体模拟"></a>流体模拟</h2><p>我们通过模拟小的刚体球（粒子）近似水体；并且认为水的密度是不变的，如果某处的密度改变了，那么就通过修正粒子的位置来进行修正。</p>
+<blockquote>
+<p>物理模拟和渲染是有前后的两步，所以近似为小球不影响渲染。</p>
+</blockquote>
+<p>每个粒子都可以对空间中的任意一点的密度产生影响。因此，为了达到“改变粒子的位置使得此处的密度降低”的目的，我们就需要知道密度对于所有粒子的位置的导数梯度。然后应用梯度下降法即可。（即改变对此处密度影响最大的粒子的位置）</p>
+<blockquote>
+<p>以防万一：梯度是导数下降最快的方向。</p>
+</blockquote>
+<p>这种模拟是不基于物理的，例如我们直接改了粒子的位置。当然为了避免水的运动停不下来，我们也可以加入能量衰减的公式。</p>
+<h2 id="大量物体的模拟方法（视角）：质点法与网格法"><a href="#大量物体的模拟方法（视角）：质点法与网格法" class="headerlink" title="大量物体的模拟方法（视角）：质点法与网格法"></a>大量物体的模拟方法（视角）：质点法与网格法</h2><ul>
+<li>质点法：又称拉格朗日法，以质点为主体，研究观察质点的位置变化情况；</li>
+<li>网格法：又称欧拉法，以空间网格为主体，研究观察一个空间中的固定位置的密度等信息（类似盯着那种大颗粒 LED 滚动屏的单个珠子看）。</li>
+<li>材质点法：混合网格质点的方法，例如用粒子记录材质信息，然后用网格计算粒子的变迁，最后写回粒子里。</li>
+</ul>
+<h2 id="尾声"><a href="#尾声" class="headerlink" title="尾声"></a>尾声</h2><p>见笔记1。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/GAMES/" rel="tag"># GAMES</a>
+              <a href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag"># 笔记</a>
+              <a href="/tags/GAMES101/" rel="tag"># GAMES101</a>
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/" rel="tag"># 计算机图形学</a>
+              <a href="/tags/%E7%89%A9%E7%90%86%E6%A8%A1%E6%8B%9F/" rel="tag"># 物理模拟</a>
+              <a href="/tags/%E5%8A%A8%E7%94%BB/" rel="tag"># 动画</a>
+              <a href="/tags/%E7%B2%92%E5%AD%90/" rel="tag"># 粒子</a>
+              <a href="/tags/%E5%88%9A%E4%BD%93/" rel="tag"># 刚体</a>
+              <a href="/tags/%E6%B5%81%E4%BD%93/" rel="tag"># 流体</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/08/13/GAMES101/GAMES101-19/" rel="prev" title="GAMES101-21：计算机动画">
+      <i class="fa fa-chevron-left"></i> GAMES101-21：计算机动画
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/08/16/GAMES101/GAMES101-1/" rel="next" title="GAMES101-1：课程总览与笔记导航">
+      GAMES101-1：课程总览与笔记导航 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%95%E7%B2%92%E5%AD%90%E6%A8%A1%E6%8B%9F"><span class="nav-number">2.</span> <span class="nav-text">单粒子模拟</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%AD%E7%82%B9%E6%B3%95"><span class="nav-number">2.1.</span> <span class="nav-text">中点法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E9%80%82%E5%BA%94%E6%AD%A5%E9%95%BF"><span class="nav-number">2.2.</span> <span class="nav-text">自适应步长</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9A%90%E5%BC%8F-%E5%90%8E%E5%90%91%E7%9A%84%E6%AC%A7%E6%8B%89%E6%96%B9%E6%B3%95"><span class="nav-number">2.3.</span> <span class="nav-text">隐式&#x2F;后向的欧拉方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%BE%99%E6%A0%BC-%E5%BA%93%E5%A1%94%E6%96%B9%E6%B3%95"><span class="nav-number">2.4.</span> <span class="nav-text">龙格-库塔方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8D%E5%9F%BA%E4%BA%8E%E7%89%A9%E7%90%86%E7%9A%84%E6%96%B9%E6%B3%95%EF%BC%88Position-based-Verlet-Intergration%EF%BC%89"><span class="nav-number">2.5.</span> <span class="nav-text">不基于物理的方法（Position-based &#x2F; Verlet Intergration）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%A1%E9%87%8F%E7%A8%B3%E5%AE%9A%E6%80%A7"><span class="nav-number">2.6.</span> <span class="nav-text">衡量稳定性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9A%E4%BD%93%E6%A8%A1%E6%8B%9F"><span class="nav-number">3.</span> <span class="nav-text">刚体模拟</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%81%E4%BD%93%E6%A8%A1%E6%8B%9F"><span class="nav-number">4.</span> <span class="nav-text">流体模拟</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%A7%E9%87%8F%E7%89%A9%E4%BD%93%E7%9A%84%E6%A8%A1%E6%8B%9F%E6%96%B9%E6%B3%95%EF%BC%88%E8%A7%86%E8%A7%92%EF%BC%89%EF%BC%9A%E8%B4%A8%E7%82%B9%E6%B3%95%E4%B8%8E%E7%BD%91%E6%A0%BC%E6%B3%95"><span class="nav-number">5.</span> <span class="nav-text">大量物体的模拟方法（视角）：质点法与网格法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%BE%E5%A3%B0"><span class="nav-number">6.</span> <span class="nav-text">尾声</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="LeeKa"
+      src="https://s2.loli.net/2022/03/24/zcq6l9KENbRJtDi.jpg">
+  <p class="site-author-name" itemprop="name">LeeKa</p>
+  <div class="site-description" itemprop="description">代码、音乐和游戏，一起来聊聊吧</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">46</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">131</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/KXAND" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;KXAND" rel="noopener" target="_blank">GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:leeka.Pub@outlook.com" title="E-Mail → mailto:leeka.Pub@outlook.com" rel="noopener" target="_blank">E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/QuiXand" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;QuiXand" rel="noopener" target="_blank">Twitter</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://hawa130.com/" title="https:&#x2F;&#x2F;hawa130.com" rel="noopener" target="_blank">Hanwan Space</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LeeKa</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='255,55,55' opacity='1' zIndex='-1' count='399' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
