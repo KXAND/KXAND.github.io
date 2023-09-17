@@ -20,16 +20,16 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="前言GAMES101-14:  AABB 包围盒的加速方法：均匀网格、KD-Tree 划分、BVH 划分">
+  <meta name="description" content="前言 GAMES101-14:  AABB 包围盒的加速方法：均匀网格、KD-Tree 划分、BVH 划分">
 <meta property="og:type" content="article">
 <meta property="og:title" content="GAMES101-14：Whitted-Style 光线追踪(2) 包围盒求交的速度优化">
 <meta property="og:url" content="http://example.com/2023/08/02/GAMES101/GAMES101-12/index.html">
 <meta property="og:site_name" content="LeeKa 的酒馆">
-<meta property="og:description" content="前言GAMES101-14:  AABB 包围盒的加速方法：均匀网格、KD-Tree 划分、BVH 划分">
+<meta property="og:description" content="前言 GAMES101-14:  AABB 包围盒的加速方法：均匀网格、KD-Tree 划分、BVH 划分">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/2023/08/02/assets/101-spatialpartition.png">
 <meta property="article:published_time" content="2023-08-01T16:56:18.000Z">
-<meta property="article:modified_time" content="2023-08-04T15:19:55.033Z">
+<meta property="article:modified_time" content="2023-09-15T08:11:57.057Z">
 <meta property="article:author" content="LeeKa">
 <meta property="article:tag" content="GAMES">
 <meta property="article:tag" content="笔记">
@@ -217,7 +217,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-08-04 23:19:55" itemprop="dateModified" datetime="2023-08-04T23:19:55+08:00">2023-08-04</time>
+                <time title="修改时间：2023-09-15 16:11:57" itemprop="dateModified" datetime="2023-09-15T16:11:57+08:00">2023-09-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -240,14 +240,19 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1X7411F744/?p=14">GAMES101-14</a>:  AABB 包围盒的加速方法：均匀网格、KD-Tree 划分、BVH 划分 <span id="more"></span></p>
-<h2 id="均匀网格（Uniform-Grid）-均匀空间划分"><a href="#均匀网格（Uniform-Grid）-均匀空间划分" class="headerlink" title="均匀网格（Uniform Grid）/均匀空间划分"></a>均匀网格（Uniform Grid）/均匀空间划分</h2><p>思想/步骤：</p>
+        <h2 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h2>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1X7411F744/?p=14">GAMES101-14</a>:  AABB 包围盒的加速方法：均匀网格、KD-Tree 划分、BVH 划分 <span id="more"></span></p>
+<h2 id="均匀网格uniform-grid均匀空间划分"><a class="markdownIt-Anchor" href="#均匀网格uniform-grid均匀空间划分"></a> 均匀网格（Uniform Grid）/均匀空间划分</h2>
+<p>思想/步骤：</p>
 <ol>
-<li><p>建立一个大的 AABB 包围盒包围对空间中的所有物体，包围盒划分成均匀的若干立方网格；</p>
+<li>
+<p>建立一个大的 AABB 包围盒包围对空间中的所有物体，包围盒划分成均匀的若干立方网格；</p>
 </li>
-<li><p>每个网格判断与物体（的表面）是否相交并记录；</p>
+<li>
+<p>每个网格判断与物体（的表面）是否相交并记录；</p>
 </li>
-<li><p>光线穿过空间中的若干网格，如果穿过的网格是一个与物体有交点的网格，那么光线与物体就有可能有交点。此时，对物体进行求交操作；否则，不进行求交。</p>
+<li>
+<p>光线穿过空间中的若干网格，如果穿过的网格是一个与物体有交点的网格，那么光线与物体就有可能有交点。此时，对物体进行求交操作；否则，不进行求交。</p>
 <blockquote>
 <p>光线穿过网格的算法和光栅化中的扫描线算法是类似的</p>
 </blockquote>
@@ -260,11 +265,13 @@
 <li>（三维空间）合适的格子数：约等于 27 * 物体数。</li>
 </ul>
 <p>网格划分思想<strong>适用于</strong>大量尺度接近的物体均匀分布在空间中的情况，不适用于空间分布很不均匀的情况（局部引起太稀疏的问题）</p>
-<h2 id="空间划分（Spatial-Partition）"><a href="#空间划分（Spatial-Partition）" class="headerlink" title="空间划分（Spatial Partition）"></a>空间划分（Spatial Partition）</h2><p>均匀空间划分的明显问题在于：如果空间分布疏密不一，在大块空的地方做了许多没有必要的划分。如果对空间进行不均匀的划分那么性能就会更好。</p>
+<h2 id="空间划分spatial-partition"><a class="markdownIt-Anchor" href="#空间划分spatial-partition"></a> 空间划分（Spatial Partition）</h2>
+<p>均匀空间划分的明显问题在于：如果空间分布疏密不一，在大块空的地方做了许多没有必要的划分。如果对空间进行不均匀的划分那么性能就会更好。</p>
 <p>下面例举三种划分结构：</p>
-<p><img src="./../../assets/101-spatialpartition.png" alt="空间划分图"></p>
+<p><img src="./../../assets/101-spatialpartition.png" alt="空间划分图" /></p>
 <ul>
-<li>Oct-Tree（八叉树）：把三维空间划分为八份（二维则是四份），如果一块中有物体，则尝试划分得更小，否则就停下这一块的继续划分。<blockquote>
+<li>Oct-Tree（八叉树）：把三维空间划分为八份（二维则是四份），如果一块中有物体，则尝试划分得更小，否则就停下这一块的继续划分。
+<blockquote>
 <p>这种划分方式的问题在于，划分数量与空间维度有关，不同维度的空间会形成了不同的数据结构。</p>
 </blockquote>
 </li>
@@ -274,9 +281,11 @@
 <blockquote>
 <p>这一部分与多媒体数据课在向量空间归类的思想很相似</p>
 </blockquote>
-<h3 id="KD-Tree"><a href="#KD-Tree" class="headerlink" title="KD-Tree"></a>KD-Tree</h3><p>为树设计的数据结构应该：</p>
+<h3 id="kd-tree"><a class="markdownIt-Anchor" href="#kd-tree"></a> KD-Tree</h3>
+<p>为树设计的数据结构应该：</p>
 <ul>
-<li>在内部节点上：<ul>
+<li>在内部节点上：
+<ul>
 <li>划分轴：此结点应该被哪个轴划分</li>
 <li>划分位置：轴在哪个位置坐标划分</li>
 <li>子结点指针</li>
@@ -287,7 +296,8 @@
 </ul>
 <p>当光线进入一个空间划分区：</p>
 <ul>
-<li>如果该区域有交点，那么检查是否是叶子结点<ul>
+<li>如果该区域有交点，那么检查是否是叶子结点
+<ul>
 <li>是：检查是否与内部物体有交点</li>
 <li>否：检查与哪个子划分有交点</li>
 </ul>
@@ -299,12 +309,17 @@
 <li>难以判断三角形与空间盒的相交情况：例如一个小盒子，三个顶点都在盒子外但是面与盒子有交集的情况。</li>
 <li>一个物体可能会被划分到多个盒子里，多次检测。</li>
 </ul>
-<h2 id="物体划分：BVH（Bounding-Volume-Hierarchy）"><a href="#物体划分：BVH（Bounding-Volume-Hierarchy）" class="headerlink" title="物体划分：BVH（Bounding Volume Hierarchy）"></a>物体划分：BVH（Bounding Volume Hierarchy）</h2><p>BVH 的特点在于是按物体而非空间进行划分，对于一个包围盒，递归地将其划分为子空间并计算子空间的子包围盒的边界。重复这个过程，直到盒子足够小（例如大致都有 x 个 物体）即可。数据结构上，同样是叶子结点存物体的树。</p>
+<h2 id="物体划分bvhbounding-volume-hierarchy"><a class="markdownIt-Anchor" href="#物体划分bvhbounding-volume-hierarchy"></a> 物体划分：BVH（Bounding Volume Hierarchy）</h2>
+<p>BVH 的特点在于是按物体而非空间进行划分，对于一个包围盒，递归地将其划分为子空间并计算子空间的子包围盒的边界。重复这个过程，直到盒子足够小（例如大致都有 x 个 物体）即可。数据结构上，同样是叶子结点存物体的树。</p>
 <p>划分维度上可以有许多技巧，例如类似 KD-Tree 的依次轮换维度，或者每次从盒子最长的维度划分；抑或着每次从中间物体的位置划分。总之，应该尽量让空间划分均匀。</p>
 <blockquote>
 <p>存在O（N）算法找到中位数，快速选择算法。</p>
 </blockquote>
 <p>需要注意，由于是按物体进行划分，从空间上来说，包围盒之间可以相交。</p>
+<h2 id="跳转"><a class="markdownIt-Anchor" href="#跳转"></a> 跳转</h2>
+<p>Home:<a target="_blank" rel="noopener" href="https://blog.leeka.pub/2023/08/16/GAMES101/GAMES101-1/">GAMES101-1：课程总览与笔记导航 | LeeKa 的酒馆</a></p>
+<p>Prev:<a target="_blank" rel="noopener" href="https://blog.leeka.pub/2023/08/01/GAMES101/GAMES101-11/">GAMES101-12&amp;13：Whitted-Style 光线追踪（1） | LeeKa 的酒馆</a></p>
+<p>Next：<a target="_blank" rel="noopener" href="https://blog.leeka.pub/2023/08/04/GAMES101/GAMES101-13/">GAMES101-14&amp;15：辐射度量学 | LeeKa 的酒馆</a></p>
 
     </div>
 
@@ -394,7 +409,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9D%87%E5%8C%80%E7%BD%91%E6%A0%BC%EF%BC%88Uniform-Grid%EF%BC%89-%E5%9D%87%E5%8C%80%E7%A9%BA%E9%97%B4%E5%88%92%E5%88%86"><span class="nav-number">2.</span> <span class="nav-text">均匀网格（Uniform Grid）&#x2F;均匀空间划分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A9%BA%E9%97%B4%E5%88%92%E5%88%86%EF%BC%88Spatial-Partition%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">空间划分（Spatial Partition）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#KD-Tree"><span class="nav-number">3.1.</span> <span class="nav-text">KD-Tree</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%A9%E4%BD%93%E5%88%92%E5%88%86%EF%BC%9ABVH%EF%BC%88Bounding-Volume-Hierarchy%EF%BC%89"><span class="nav-number">4.</span> <span class="nav-text">物体划分：BVH（Bounding Volume Hierarchy）</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text"> 前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9D%87%E5%8C%80%E7%BD%91%E6%A0%BCuniform-grid%E5%9D%87%E5%8C%80%E7%A9%BA%E9%97%B4%E5%88%92%E5%88%86"><span class="nav-number">2.</span> <span class="nav-text"> 均匀网格（Uniform Grid）&#x2F;均匀空间划分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A9%BA%E9%97%B4%E5%88%92%E5%88%86spatial-partition"><span class="nav-number">3.</span> <span class="nav-text"> 空间划分（Spatial Partition）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#kd-tree"><span class="nav-number">3.1.</span> <span class="nav-text"> KD-Tree</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%A9%E4%BD%93%E5%88%92%E5%88%86bvhbounding-volume-hierarchy"><span class="nav-number">4.</span> <span class="nav-text"> 物体划分：BVH（Bounding Volume Hierarchy）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B7%B3%E8%BD%AC"><span class="nav-number">5.</span> <span class="nav-text"> 跳转</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -410,20 +425,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">46</span>
+          <span class="site-state-item-count">48</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">17</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">131</span>
+        <span class="site-state-item-count">134</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

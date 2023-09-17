@@ -20,16 +20,16 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="前言 GAMES101-21:动画的历史、关键帧、物理模拟、刚体、正向与逆向运动学、Rigging、动捕">
+  <meta name="description" content="前言GAMES101-21:动画的历史、关键帧、物理模拟、刚体、正向与逆向运动学、Rigging、动捕">
 <meta property="og:type" content="article">
 <meta property="og:title" content="GAMES101-21：计算机动画">
 <meta property="og:url" content="http://example.com/2023/08/13/GAMES101/GAMES101-19/index.html">
 <meta property="og:site_name" content="LeeKa 的酒馆">
-<meta property="og:description" content="前言 GAMES101-21:动画的历史、关键帧、物理模拟、刚体、正向与逆向运动学、Rigging、动捕">
+<meta property="og:description" content="前言GAMES101-21:动画的历史、关键帧、物理模拟、刚体、正向与逆向运动学、Rigging、动捕">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/2023/08/13/assets/101-springsStructures.png">
 <meta property="article:published_time" content="2023-08-13T14:40:02.000Z">
-<meta property="article:modified_time" content="2023-08-13T17:49:01.691Z">
+<meta property="article:modified_time" content="2023-09-15T08:24:24.698Z">
 <meta property="article:author" content="LeeKa">
 <meta property="article:tag" content="GAMES">
 <meta property="article:tag" content="笔记">
@@ -220,7 +220,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-08-14 01:49:01" itemprop="dateModified" datetime="2023-08-14T01:49:01+08:00">2023-08-14</time>
+                <time title="修改时间：2023-09-15 16:24:24" itemprop="dateModified" datetime="2023-09-15T16:24:24+08:00">2023-09-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -243,121 +243,26 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h2>
-<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1X7411F744/?p=21">GAMES101-21</a>:动画的历史、关键帧、物理模拟、刚体、正向与逆向运动学、Rigging、动捕 <span id="more"></span></p>
-<h2 id="动画"><a class="markdownIt-Anchor" href="#动画"></a> 动画</h2>
-<p>动画：给物体带来生命，一种交流工具。在计算机时代，我们可以认为动画就是不断连续输出模型随时间的变化的帧。</p>
-<h3 id="动画的历史"><a class="markdownIt-Anchor" href="#动画的历史"></a> 动画的历史</h3>
-<p>1963 年，就有了计算机动画：sketchPad 中的动画。</p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1X7411F744/?p=21">GAMES101-21</a>:动画的历史、关键帧、物理模拟、刚体、正向与逆向运动学、Rigging、动捕 <span id="more"></span></p>
+<h2 id="动画"><a href="#动画" class="headerlink" title="动画"></a>动画</h2><p>动画：给物体带来生命，一种交流工具。在计算机时代，我们可以认为动画就是不断连续输出模型随时间的变化的帧。</p>
+<h3 id="动画的历史"><a href="#动画的历史" class="headerlink" title="动画的历史"></a>动画的历史</h3><p>1963 年，就有了计算机动画：sketchPad 中的动画。</p>
 <p>Pixar 的《玩具总动员》是一个里程碑式的作品：整个全长电影都是计算机渲染出来的。</p>
-<h3 id="关键帧"><a class="markdownIt-Anchor" href="#关键帧"></a> 关键帧</h3>
-<p>这个关键帧就是 PR 等中的<strong>关键帧</strong>。</p>
+<h3 id="关键帧"><a href="#关键帧" class="headerlink" title="关键帧"></a>关键帧</h3><p>这个关键帧就是 PR 等中的<strong>关键帧</strong>。</p>
 <p>以前的艺术家，会画出关键帧，然后由助手画中间的帧。</p>
 <p>现在，我们希望计算机可以插值出中间的帧。当然，插值有许多的方式，不一定是线性插值。我们还可以期待例如 C1 连续的插值等。</p>
-<h3 id="基于物理的动画物理模拟"><a class="markdownIt-Anchor" href="#基于物理的动画物理模拟"></a> 基于物理的动画（物理模拟）</h3>
-<p>如果例如我们给出正确的力学公式和正确的力学模型，当然就可以更新模型的动作变化，即物理模拟。</p>
+<h3 id="基于物理的动画（物理模拟）"><a href="#基于物理的动画（物理模拟）" class="headerlink" title="基于物理的动画（物理模拟）"></a>基于物理的动画（物理模拟）</h3><p>如果例如我们给出正确的力学公式和正确的力学模型，当然就可以更新模型的动作变化，即物理模拟。</p>
 <p>其中很重要也很困难的一部分是流体模拟。</p>
 <p>质点弹簧系统（Mass Spring System）：通过一系列的质点和连接的弹簧来进行模拟。</p>
 <p>在 a，b两个质点之间用 l 长度的弹簧连接。弹簧现在被拉开，因此 a 受到向 b 的力，有应用胡克定律简单有</p>
-<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>f</mi><mrow><mi>a</mi><mo>→</mo><mi>b</mi></mrow></msub><mo>=</mo><msub><mi>k</mi><mi>s</mi></msub><mfrac><mrow><mover accent="true"><mi>b</mi><mo>⃗</mo></mover><mo>−</mo><mover accent="true"><mi>a</mi><mo>⃗</mo></mover></mrow><mrow><mi mathvariant="normal">∥</mi><mover accent="true"><mi>b</mi><mo>⃗</mo></mover><mo>−</mo><mover accent="true"><mi>a</mi><mo>⃗</mo></mover><mi mathvariant="normal">∥</mi></mrow></mfrac><mo stretchy="false">(</mo><mi mathvariant="normal">∥</mi><mover accent="true"><mi>b</mi><mo>⃗</mo></mover><mo>−</mo><mover accent="true"><mi>a</mi><mo>⃗</mo></mover><mi mathvariant="normal">∥</mi><mo>−</mo><mi>l</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">f_{a \rarr b} = k_s\frac{\vec{b}-\vec{a}}{\| \vec{b} - \vec{a} \|}(\| \vec{b} - \vec{a} \|-l)
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">a</span><span class="mrel mtight">→</span><span class="mord mathnormal mtight">b</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.7718799999999995em;vertical-align:-1.1174399999999998em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.03148em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">s</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.6544399999999997em;"><span style="top:-2.1325600000000002em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">∥</span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9774399999999999em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">b</span></span></span><span style="top:-3.26344em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.2355em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width='0.471em' height='0.714em' style='width:0.471em' viewBox='0 0 471 714' preserveAspectRatio='xMinYMin'><path d='M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
-3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
-10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
--1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
--7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
-H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
-c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.714em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">a</span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.2355em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width='0.471em' height='0.714em' style='width:0.471em' viewBox='0 0 471 714' preserveAspectRatio='xMinYMin'><path d='M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
-3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
-10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
--1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
--7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
-H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
-c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></span><span class="mord">∥</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9774399999999999em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">b</span></span></span><span style="top:-3.26344em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.2355em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width='0.471em' height='0.714em' style='width:0.471em' viewBox='0 0 471 714' preserveAspectRatio='xMinYMin'><path d='M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
-3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
-10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
--1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
--7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
-H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
-c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.714em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">a</span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.2355em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width='0.471em' height='0.714em' style='width:0.471em' viewBox='0 0 471 714' preserveAspectRatio='xMinYMin'><path d='M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
-3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
-10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
--1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
--7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
-H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
-c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.1174399999999998em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mopen">(</span><span class="mord">∥</span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9774399999999999em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">b</span></span></span><span style="top:-3.26344em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.2355em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width='0.471em' height='0.714em' style='width:0.471em' viewBox='0 0 471 714' preserveAspectRatio='xMinYMin'><path d='M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
-3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
-10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
--1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
--7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
-H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
-c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.714em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">a</span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.2355em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width='0.471em' height='0.714em' style='width:0.471em' viewBox='0 0 471 714' preserveAspectRatio='xMinYMin'><path d='M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
-3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
-10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
--1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
--7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
-H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
-c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></span><span class="mord">∥</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mclose">)</span></span></span></span></span></p>
+<p>$$<br>f_{a \rarr b} = k_s\frac{\vec{b}-\vec{a}}{| \vec{b} - \vec{a} |}(| \vec{b} - \vec{a} |-l)<br>$$</p>
 <p>仅仅应用上面的模型是不够的，因为能量守恒，要让弹簧停下来我们就需要加入摩擦力。摩擦力有这么几点特点</p>
 <ol>
 <li>它与 a、b 之间的相对速度有关，而且是沿弹簧方向的相对速度。</li>
 <li>与弹簧的力的方向相反。</li>
 </ol>
 <p>基于此我们给出阻力公式（以 b 为例）</p>
-<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>f</mi><mi>b</mi></msub><mo>=</mo><mo>−</mo><msub><mi>k</mi><mi>d</mi></msub><mfrac><mrow><mover accent="true"><mi>b</mi><mo>⃗</mo></mover><mo>−</mo><mover accent="true"><mi>a</mi><mo>⃗</mo></mover></mrow><mrow><mi mathvariant="normal">∥</mi><mover accent="true"><mi>b</mi><mo>⃗</mo></mover><mo>−</mo><mover accent="true"><mi>a</mi><mo>⃗</mo></mover><mi mathvariant="normal">∥</mi></mrow></mfrac><mo>⋅</mo><mo stretchy="false">(</mo><mi><mover accent="true"><mi mathvariant="bold-italic">b</mi><mo>˙</mo></mover></mi><mo>−</mo><mi><mover accent="true"><mi mathvariant="bold-italic">a</mi><mo>˙</mo></mover></mi><mo stretchy="false">)</mo><mo>⋅</mo><mfrac><mrow><mover accent="true"><mi>b</mi><mo>⃗</mo></mover><mo>−</mo><mover accent="true"><mi>a</mi><mo>⃗</mo></mover></mrow><mrow><mi mathvariant="normal">∥</mi><mover accent="true"><mi>b</mi><mo>⃗</mo></mover><mo>−</mo><mover accent="true"><mi>a</mi><mo>⃗</mo></mover><mi mathvariant="normal">∥</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">f_b = -k_d \frac{\vec{b}-\vec{a}}{\| \vec{b} - \vec{a} \|}
-\cdot
-(\boldsymbol{\dot{b}}-\boldsymbol{\dot{a}})
-\cdot
-\frac{\vec{b}-\vec{a}}{\| \vec{b} - \vec{a} \|}
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">b</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.7718799999999995em;vertical-align:-1.1174399999999998em;"></span><span class="mord">−</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.03148em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">d</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.6544399999999997em;"><span style="top:-2.1325600000000002em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">∥</span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9774399999999999em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">b</span></span></span><span style="top:-3.26344em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.2355em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width='0.471em' height='0.714em' style='width:0.471em' viewBox='0 0 471 714' preserveAspectRatio='xMinYMin'><path d='M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
-3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
-10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
--1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
--7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
-H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
-c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.714em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">a</span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.2355em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width='0.471em' height='0.714em' style='width:0.471em' viewBox='0 0 471 714' preserveAspectRatio='xMinYMin'><path d='M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
-3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
-10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
--1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
--7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
-H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
-c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></span><span class="mord">∥</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9774399999999999em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">b</span></span></span><span style="top:-3.26344em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.2355em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width='0.471em' height='0.714em' style='width:0.471em' viewBox='0 0 471 714' preserveAspectRatio='xMinYMin'><path d='M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
-3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
-10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
--1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
--7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
-H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
-c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.714em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">a</span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.2355em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width='0.471em' height='0.714em' style='width:0.471em' viewBox='0 0 471 714' preserveAspectRatio='xMinYMin'><path d='M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
-3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
-10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
--1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
--7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
-H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
-c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.1174399999999998em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.2078799999999998em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord"><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9578799999999998em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord boldsymbol">b</span></span></span><span style="top:-3.26344em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.15972em;"><span class="mord mathbf">˙</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord"><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.70788em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord boldsymbol">a</span></span></span><span style="top:-3.01344em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.15972em;"><span class="mord mathbf">˙</span></span></span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:2.7718799999999995em;vertical-align:-1.1174399999999998em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.6544399999999997em;"><span style="top:-2.1325600000000002em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">∥</span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9774399999999999em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">b</span></span></span><span style="top:-3.26344em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.2355em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width='0.471em' height='0.714em' style='width:0.471em' viewBox='0 0 471 714' preserveAspectRatio='xMinYMin'><path d='M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
-3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
-10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
--1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
--7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
-H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
-c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.714em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">a</span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.2355em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width='0.471em' height='0.714em' style='width:0.471em' viewBox='0 0 471 714' preserveAspectRatio='xMinYMin'><path d='M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
-3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
-10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
--1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
--7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
-H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
-c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></span><span class="mord">∥</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9774399999999999em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">b</span></span></span><span style="top:-3.26344em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.2355em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width='0.471em' height='0.714em' style='width:0.471em' viewBox='0 0 471 714' preserveAspectRatio='xMinYMin'><path d='M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
-3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
-10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
--1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
--7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
-H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
-c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.714em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">a</span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.2355em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width='0.471em' height='0.714em' style='width:0.471em' viewBox='0 0 471 714' preserveAspectRatio='xMinYMin'><path d='M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
-3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
-10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
--1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
--7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
-H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
-c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.1174399999999998em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
-<p>其中 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi><mover accent="true"><mi mathvariant="bold-italic">b</mi><mo>˙</mo></mover></mi><mo>−</mo><mi><mover accent="true"><mi mathvariant="bold-italic">a</mi><mo>˙</mo></mover></mi></mrow><annotation encoding="application/x-tex">\boldsymbol{\dot{b}}-\boldsymbol{\dot{a}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0412099999999997em;vertical-align:-0.08333em;"></span><span class="mord"><span class="mord"><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9578799999999998em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord boldsymbol">b</span></span></span><span style="top:-3.26344em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.15972em;"><span class="mord mathbf">˙</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.70788em;vertical-align:0em;"></span><span class="mord"><span class="mord"><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.70788em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord boldsymbol">a</span></span></span><span style="top:-3.01344em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.15972em;"><span class="mord mathbf">˙</span></span></span></span></span></span></span></span></span></span></span></span> 中一个点表示一阶导，即这个方向上的速度。</p>
+<p>$$<br>f_b = -k_d \frac{\vec{b}-\vec{a}}{| \vec{b} - \vec{a} |}<br>\cdot<br>(\boldsymbol{\dot{b}}-\boldsymbol{\dot{a}})<br>\cdot<br>\frac{\vec{b}-\vec{a}}{| \vec{b} - \vec{a} |}<br>$$</p>
+<p>其中 $\boldsymbol{\dot{b}}-\boldsymbol{\dot{a}}$ 中一个点表示一阶导，即这个方向上的速度。</p>
 <p>我们这么理解这个公式：b 的向 a 方向的相对速度经过一个点乘投影到弹簧方向上，再经过一个点乘变成该方向的速度，最后乘以阻力系数并取反得到阻碍 b 向 a方向收缩的阻力的大小和方向。</p>
 <p>应用这些力学公式，我们将点之间用弹簧按方格的形式连接起来，似乎就可以简单地表示一块布了。但实际上还有一些问题：</p>
 <ul>
@@ -365,27 +270,23 @@ c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></spa
 <li>不能抵抗非平面弯曲：即如果把布折起来，我们不应该能将它折叠成一个平面。为此，我们将一个点与和它上下左右隔了一个点的点连起来，提供一个很弱的力。</li>
 </ul>
 <p>于是结构长这样：</p>
-<p><img src="./../../assets/101-springsStructures.png" alt="springsStructures" /></p>
+<p><img src="./../../assets/101-springsStructures.png" alt="springsStructures"></p>
 <blockquote>
 <p>切变可复习第三课的基本变换矩阵部分。</p>
 </blockquote>
 <p>其他的模拟方法，</p>
 <ul>
 <li>有限元方法 FEM：用一种扩散的方式像热一样看力，适用于汽车碰撞的模拟。</li>
-<li>粒子系统：用许多的粒子来模拟，粒子移动受一系列力的作用。这种方式的优点是易于理解、实现和规模可伸缩，挑战则是需要计算许多的粒子，计算需要考虑如何加速。<br />
-粒子的本质就是“描述个体与群体之间的关系”，因此实际上我们不仅仅可以用粒子来描述烟、雾、水等等，也可以用它来描述鸟群、蜜蜂、星系等等……例如，一个鸟“粒子”既会跟随鸟群中心移动方向移动，不希望离中心太远，也不会希望和其它鸟太近。</li>
+<li>粒子系统：用许多的粒子来模拟，粒子移动受一系列力的作用。这种方式的优点是易于理解、实现和规模可伸缩，挑战则是需要计算许多的粒子，计算需要考虑如何加速。<br>粒子的本质就是“描述个体与群体之间的关系”，因此实际上我们不仅仅可以用粒子来描述烟、雾、水等等，也可以用它来描述鸟群、蜜蜂、星系等等……例如，一个鸟“粒子”既会跟随鸟群中心移动方向移动，不希望离中心太远，也不会希望和其它鸟太近。</li>
 </ul>
-<h2 id="运动学kinematics"><a class="markdownIt-Anchor" href="#运动学kinematics"></a> 运动学（Kinematics））</h2>
-<h3 id="正向运动学forward-kinematics"><a class="markdownIt-Anchor" href="#正向运动学forward-kinematics"></a> 正向运动学（Forward Kinematics）</h3>
-<p>骨骼系统：描述关节之间的拓扑关系，本身形成了一种树形结构。关节有三种类型：</p>
+<h2 id="运动学（Kinematics））"><a href="#运动学（Kinematics））" class="headerlink" title="运动学（Kinematics））"></a>运动学（Kinematics））</h2><h3 id="正向运动学（Forward-Kinematics）"><a href="#正向运动学（Forward-Kinematics）" class="headerlink" title="正向运动学（Forward Kinematics）"></a>正向运动学（Forward Kinematics）</h3><p>骨骼系统：描述关节之间的拓扑关系，本身形成了一种树形结构。关节有三种类型：</p>
 <ul>
 <li>Pin：只能在一个点上旋转（一维旋转）</li>
 <li>Ball：可以在二维平面内旋转（二维的旋转）</li>
 <li>Prismatic：可以拉伸</li>
 </ul>
 <p>正向运动学只要我们传入好每个关节的角度等参数，就可以告诉我们运动的结果，关节停在了哪儿。这种方式简单而直接，但是并不方便艺术家的使用：显然我们不希望调整关节的方式是不断地挨个输入角度看什么时候调得合适。为此我们需要逆运动学。</p>
-<h3 id="逆运动学"><a class="markdownIt-Anchor" href="#逆运动学"></a> 逆运动学</h3>
-<p>逆运动学即我们调整关节的位置，计算机自动给出其他的关节应该如何随着变化。</p>
+<h3 id="逆运动学"><a href="#逆运动学" class="headerlink" title="逆运动学"></a>逆运动学</h3><p>逆运动学即我们调整关节的位置，计算机自动给出其他的关节应该如何随着变化。</p>
 <p>逆运动学的一些挑战：</p>
 <ul>
 <li>计算会比正向运动学复杂很多</li>
@@ -393,18 +294,19 @@ c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></spa
 <li>无解情况</li>
 </ul>
 <p>现在用的一些优化方法：用梯度下降的方法而非解数学公式。</p>
-<h2 id="rigging"><a class="markdownIt-Anchor" href="#rigging"></a> Rigging</h2>
-<p>Rigging 是对物体形状的控制，就如木偶上的提线，让角色做出不同的动作造型。</p>
+<h2 id="Rigging"><a href="#Rigging" class="headerlink" title="Rigging"></a>Rigging</h2><p>Rigging 是对物体形状的控制，就如木偶上的提线，让角色做出不同的动作造型。</p>
 <blockquote>
 <p>Google Bard 将它翻译成了骨骼系统，不无道理可以参考但是骨骼感觉不能代表所有 Rigging。</p>
 </blockquote>
 <p>这有些像三维世界的（贝塞尔）曲线调整，我们调节一些点使得样条变成我们想要的样子。</p>
-<h2 id="动作捕捉"><a class="markdownIt-Anchor" href="#动作捕捉"></a> 动作捕捉</h2>
-<p>干脆建立一个真人到虚拟人的控制点的映射，然后让人去做动作。</p>
+<h2 id="动作捕捉"><a href="#动作捕捉" class="headerlink" title="动作捕捉"></a>动作捕捉</h2><p>干脆建立一个真人到虚拟人的控制点的映射，然后让人去做动作。</p>
 <p>好处在于：真实度高、数据获取快（不用艺术家去一点一点调）；</p>
 <p>缺点在于：准备工作非常多而复杂（例如穿控制点的衣服等等）、不一定能获取到需要的数据（非真实风的、控制点难以捕捉的）。控制点有很多办法来记录，例如穿绿幕衣服用摄像机 + CV 算法的方式，或者连接机器等等。</p>
 <p>阿凡达的里程碑效应在于，其大量使用了面捕技术。</p>
 <p>动画的生产管线：原画-&gt;模型-&gt;生产吧啦吧啦……</p>
+<h2 id="跳转"><a href="#跳转" class="headerlink" title="跳转"></a>跳转</h2><p>Home：<a target="_blank" rel="noopener" href="https://blog.leeka.pub/2023/08/16/GAMES101/GAMES101-1/">GAMES101-1：课程总览与笔记导航 | LeeKa 的酒馆</a></p>
+<p>Prev：<a target="_blank" rel="noopener" href="https://blog.leeka.pub/2023/08/13/GAMES101/GAMES101-18/">GAMES101-20：颜色与感知 | LeeKa 的酒馆</a></p>
+<p>Next：<a target="_blank" rel="noopener" href="https://blog.leeka.pub/2023/08/14/GAMES101/GAMES101-20/">GAMES101-22：动画2 | LeeKa 的酒馆</a></p>
 
     </div>
 
@@ -497,7 +399,7 @@ c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></spa
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text"> 前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A8%E7%94%BB"><span class="nav-number">2.</span> <span class="nav-text"> 动画</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E7%94%BB%E7%9A%84%E5%8E%86%E5%8F%B2"><span class="nav-number">2.1.</span> <span class="nav-text"> 动画的历史</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E5%B8%A7"><span class="nav-number">2.2.</span> <span class="nav-text"> 关键帧</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E7%89%A9%E7%90%86%E7%9A%84%E5%8A%A8%E7%94%BB%E7%89%A9%E7%90%86%E6%A8%A1%E6%8B%9F"><span class="nav-number">2.3.</span> <span class="nav-text"> 基于物理的动画（物理模拟）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E5%8A%A8%E5%AD%A6kinematics"><span class="nav-number">3.</span> <span class="nav-text"> 运动学（Kinematics））</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A3%E5%90%91%E8%BF%90%E5%8A%A8%E5%AD%A6forward-kinematics"><span class="nav-number">3.1.</span> <span class="nav-text"> 正向运动学（Forward Kinematics）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%86%E8%BF%90%E5%8A%A8%E5%AD%A6"><span class="nav-number">3.2.</span> <span class="nav-text"> 逆运动学</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rigging"><span class="nav-number">4.</span> <span class="nav-text"> Rigging</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A8%E4%BD%9C%E6%8D%95%E6%8D%89"><span class="nav-number">5.</span> <span class="nav-text"> 动作捕捉</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A8%E7%94%BB"><span class="nav-number">2.</span> <span class="nav-text">动画</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E7%94%BB%E7%9A%84%E5%8E%86%E5%8F%B2"><span class="nav-number">2.1.</span> <span class="nav-text">动画的历史</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E5%B8%A7"><span class="nav-number">2.2.</span> <span class="nav-text">关键帧</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E7%89%A9%E7%90%86%E7%9A%84%E5%8A%A8%E7%94%BB%EF%BC%88%E7%89%A9%E7%90%86%E6%A8%A1%E6%8B%9F%EF%BC%89"><span class="nav-number">2.3.</span> <span class="nav-text">基于物理的动画（物理模拟）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E5%8A%A8%E5%AD%A6%EF%BC%88Kinematics%EF%BC%89%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">运动学（Kinematics））</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A3%E5%90%91%E8%BF%90%E5%8A%A8%E5%AD%A6%EF%BC%88Forward-Kinematics%EF%BC%89"><span class="nav-number">3.1.</span> <span class="nav-text">正向运动学（Forward Kinematics）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%86%E8%BF%90%E5%8A%A8%E5%AD%A6"><span class="nav-number">3.2.</span> <span class="nav-text">逆运动学</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Rigging"><span class="nav-number">4.</span> <span class="nav-text">Rigging</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A8%E4%BD%9C%E6%8D%95%E6%8D%89"><span class="nav-number">5.</span> <span class="nav-text">动作捕捉</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B7%B3%E8%BD%AC"><span class="nav-number">6.</span> <span class="nav-text">跳转</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -513,20 +415,20 @@ c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></spa
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">46</span>
+          <span class="site-state-item-count">48</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">17</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">131</span>
+        <span class="site-state-item-count">134</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

@@ -20,20 +20,19 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="前言2022 年参加 Seed 训练营的笔记，另附 Seed 训练营感想。">
+  <meta name="description" content="前言 2022 年参加 Seed 训练营的笔记，另附 Seed 训练营感想。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="2022 Seed 训练营笔记收录">
 <meta property="og:url" content="http://example.com/2023/03/24/Seed%E8%AE%AD%E7%BB%83%E8%90%A5%E7%AC%94%E8%AE%B0%E6%94%B6%E7%BA%B3/index.html">
 <meta property="og:site_name" content="LeeKa 的酒馆">
-<meta property="og:description" content="前言2022 年参加 Seed 训练营的笔记，另附 Seed 训练营感想。">
+<meta property="og:description" content="前言 2022 年参加 Seed 训练营的笔记，另附 Seed 训练营感想。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-03-24T14:47:43.000Z">
-<meta property="article:modified_time" content="2023-08-16T15:19:54.949Z">
+<meta property="article:modified_time" content="2023-09-14T15:00:06.089Z">
 <meta property="article:author" content="LeeKa">
 <meta property="article:tag" content="笔记">
 <meta property="article:tag" content="实习">
 <meta property="article:tag" content="Seed 训练营">
-<meta property="article:tag" content="拾遗">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://example.com/2023/03/24/Seed%E8%AE%AD%E7%BB%83%E8%90%A5%E7%AC%94%E8%AE%B0%E6%94%B6%E7%BA%B3/">
@@ -212,7 +211,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-08-16 23:19:54" itemprop="dateModified" datetime="2023-08-16T23:19:54+08:00">2023-08-16</time>
+                <time title="修改时间：2023-09-14 23:00:06" itemprop="dateModified" datetime="2023-09-14T23:00:06+08:00">2023-09-14</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -235,47 +234,59 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>2022 年参加 Seed 训练营的笔记，另附 Seed 训练营感想。 <span id="more"></span></p>
-<h2 id="开发系列课"><a href="#开发系列课" class="headerlink" title="开发系列课"></a>开发系列课</h2><h3 id="1-架构"><a href="#1-架构" class="headerlink" title="1.架构"></a>1.架构</h3><ul>
-<li>架构的意义是什么？<ul>
-<li>划定边界<ul>
+        <h2 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h2>
+<p>2022 年参加 Seed 训练营的笔记，另附 Seed 训练营感想。 <span id="more"></span></p>
+<h2 id="开发系列课"><a class="markdownIt-Anchor" href="#开发系列课"></a> 开发系列课</h2>
+<h3 id="1架构"><a class="markdownIt-Anchor" href="#1架构"></a> 1.架构</h3>
+<ul>
+<li>架构的意义是什么？
+<ul>
+<li>划定边界
+<ul>
 <li>生物属于动物，但是哪些东西能判定一个生物是动物？</li>
 <li>玩家操作player，玩家不能操作NPC，Bot属于NPC还是player？其他玩家属于player还是NPC？</li>
 </ul>
 </li>
-<li>只有划定边界才能解决这个问题<ul>
+<li>只有划定边界才能解决这个问题
+<ul>
 <li>设计就是不断的重新划定边界</li>
 </ul>
 </li>
 </ul>
 </li>
-<li>例子：建筑师需要定义规格<ul>
+<li>例子：建筑师需要定义规格
+<ul>
 <li>建筑师的设计需要有极多的国家规范</li>
 </ul>
 </li>
-<li>软件项目也需要规格，设计者就是一种建筑师<ul>
+<li>软件项目也需要规格，设计者就是一种建筑师
+<ul>
 <li>例如player设计可能有三米高，但是建模只能允许两米以下的player进入</li>
 <li>只有严格的物理计算参数才能有和谐的演示效果</li>
 </ul>
 </li>
-<li>设计可能存在的问题<ul>
+<li>设计可能存在的问题
+<ul>
 <li>性能的过度冗余：明明只有1000的在线，却考虑1000K的在线性能</li>
 <li>功能的过度冗余：明明只需要打电话，却也考虑了打游戏的功能。</li>
 </ul>
 </li>
 <li>讨论架构需要画图</li>
 </ul>
-<h3 id="1-5-实现架构"><a href="#1-5-实现架构" class="headerlink" title="1.5.实现架构"></a>1.5.实现架构</h3><ul>
+<h3 id="15实现架构"><a class="markdownIt-Anchor" href="#15实现架构"></a> 1.5.实现架构</h3>
+<ul>
 <li>抄</li>
 <li>面向项目内代码编程</li>
 <li>面向GitHub/Stack overflow编程</li>
 <li>依葫芦画瓢</li>
 </ul>
-<h3 id="2-模块的基本目标"><a href="#2-模块的基本目标" class="headerlink" title="2.模块的基本目标"></a>2.模块的基本目标</h3><ul>
+<h3 id="2模块的基本目标"><a class="markdownIt-Anchor" href="#2模块的基本目标"></a> 2.模块的基本目标</h3>
+<ul>
 <li>问题：区分边界：这个函数该在这个模块还是那个？</li>
 <li>要求：用词准确：没有二义性、也不过于繁琐失去宏观性。</li>
 <li>困难：语言本身却存在模糊性</li>
-<li>解决方案：<ul>
+<li>解决方案：
+<ul>
 <li>减少词的二义性：</li>
 <li>形成团队共识</li>
 <li>使用最基本的共识：自从词语最基本最字面的意思来使用。</li>
@@ -285,16 +296,19 @@
 <li>注意：如果一个模块囊括了太多不同的功能，模块也就失去了它的意义（state controller）</li>
 <li><strong>反复绕来绕去的逻辑是bug的温床</strong></li>
 </ul>
-<h3 id="2-5模块间的关系"><a href="#2-5模块间的关系" class="headerlink" title="2.5模块间的关系"></a>2.5模块间的关系</h3><ul>
+<h3 id="25模块间的关系"><a class="markdownIt-Anchor" href="#25模块间的关系"></a> 2.5模块间的关系</h3>
+<ul>
 <li>关系A：关联、泛化、细化、依赖</li>
 <li>关系B：聚合、组合</li>
 <li>模块之间相互用到信息或服务</li>
 </ul>
 <p>脚本可能是一个模块，模块和模块之间还可能构成一个更大的模块。不能忽视后者的存在。（如玩家移动模块和玩家背包模块可能同时构成玩家模块）</p>
 <p>如果一个模块已经被聚合了，对外界应该是一个统一的模块。这就是说，外界应该统一从一个地方调用模块内部接口，而非在深入了解后从各自的地方调用。这样可以避免同步的问题等等。</p>
-<h3 id="3-Debug"><a href="#3-Debug" class="headerlink" title="3. Debug"></a>3. Debug</h3><p>bug的三步走</p>
+<h3 id="3-debug"><a class="markdownIt-Anchor" href="#3-debug"></a> 3. Debug</h3>
+<p>bug的三步走</p>
 <ol>
-<li>重现bug<ol>
+<li>重现bug
+<ol>
 <li>打断点是最快最方便的定位方法</li>
 <li>有时过多断点需要通过条件过滤断点</li>
 </ol>
@@ -305,7 +319,8 @@
 <p>避免不<strong>一致的设计</strong></p>
 <p>如果闻到“<strong>bad smell</strong>”那一定有什么不对劲</p>
 <p><strong>内部用户的易用性</strong>也是非常重要的，即使改动非常小</p>
-<h3 id="4-项目程序规范"><a href="#4-项目程序规范" class="headerlink" title="4. 项目程序规范"></a>4. 项目程序规范</h3><ul>
+<h3 id="4-项目程序规范"><a class="markdownIt-Anchor" href="#4-项目程序规范"></a> 4. 项目程序规范</h3>
+<ul>
 <li>不提交无关的文件</li>
 <li>删除调试代码</li>
 <li>一次提交一个bug</li>
@@ -315,74 +330,104 @@
 <li>命名规范</li>
 <li>代码风格</li>
 </ul>
-<h2 id="其他内容"><a href="#其他内容" class="headerlink" title="其他内容"></a>其他内容</h2><h3 id="创意与原型：创意部分"><a href="#创意与原型：创意部分" class="headerlink" title="创意与原型：创意部分"></a>创意与原型：创意部分</h3><h4 id="A-困惑"><a href="#A-困惑" class="headerlink" title="A.困惑"></a>A.困惑</h4><ul>
+<h2 id="其他内容"><a class="markdownIt-Anchor" href="#其他内容"></a> 其他内容</h2>
+<h3 id="创意与原型创意部分"><a class="markdownIt-Anchor" href="#创意与原型创意部分"></a> 创意与原型：创意部分</h3>
+<h4 id="a困惑"><a class="markdownIt-Anchor" href="#a困惑"></a> A.困惑</h4>
+<ul>
 <li>如何快速产生大量创意？</li>
 <li>如何清晰快速有感觉的展示？</li>
 <li>如何判断创意是否靠谱？</li>
 </ul>
-<h4 id="B-发现创意"><a href="#B-发现创意" class="headerlink" title="B.发现创意"></a>B.发现创意</h4><h5 id="step1：一个主题-三个词"><a href="#step1：一个主题-三个词" class="headerlink" title="step1：一个主题+三个词"></a>step1：一个主题+三个词</h5><p>标准：使用名词或动词,<strong>不</strong>使用形容词。因为每个人对形容词的感受是不一致的。</p>
-<h5 id="step2：一个名字-三句话"><a href="#step2：一个名字-三句话" class="headerlink" title="step2：一个名字+三句话"></a>step2：一个名字+三句话</h5><p>用三句话写明短中长期的玩家历程体验</p>
-<h5 id="step3：图文一页展示"><a href="#step3：图文一页展示" class="headerlink" title="step3：图文一页展示"></a>step3：图文一页展示</h5><ul>
+<h4 id="b发现创意"><a class="markdownIt-Anchor" href="#b发现创意"></a> B.发现创意</h4>
+<h5 id="step1一个主题三个词"><a class="markdownIt-Anchor" href="#step1一个主题三个词"></a> step1：一个主题+三个词</h5>
+<p>标准：使用名词或动词,<strong>不</strong>使用形容词。因为每个人对形容词的感受是不一致的。</p>
+<h5 id="step2一个名字三句话"><a class="markdownIt-Anchor" href="#step2一个名字三句话"></a> step2：一个名字+三句话</h5>
+<p>用三句话写明短中长期的玩家历程体验</p>
+<h5 id="step3图文一页展示"><a class="markdownIt-Anchor" href="#step3图文一页展示"></a> step3：图文一页展示</h5>
+<ul>
 <li>找图片：要求贴合三句话、画风一致、符合自己的想法（包括对画风的想法）</li>
 <li>排版等</li>
 </ul>
-<h5 id="step4：电梯演说概述游戏"><a href="#step4：电梯演说概述游戏" class="headerlink" title="step4：电梯演说概述游戏"></a>step4：电梯演说概述游戏</h5><p><strong>电梯演说</strong>：高效地表达自己的想法<br>提高演说力：乔布斯的模拟演讲<br>e.g:“我想做一个野炊式画风崩坏式战斗的弱联机开放世界…“</p>
-<h4 id="C-设定Box"><a href="#C-设定Box" class="headerlink" title="C.设定Box"></a>C.设定Box</h4><p>划出你的边界，游戏创意不能超出这个边界<br>如何设定box？</p>
+<h5 id="step4电梯演说概述游戏"><a class="markdownIt-Anchor" href="#step4电梯演说概述游戏"></a> step4：电梯演说概述游戏</h5>
+<p><strong>电梯演说</strong>：高效地表达自己的想法
+提高演说力：乔布斯的模拟演讲
+e.g:“我想做一个野炊式画风崩坏式战斗的弱联机开放世界…“</p>
+<h4 id="c设定box"><a class="markdownIt-Anchor" href="#c设定box"></a> C.设定Box</h4>
+<p>划出你的边界，游戏创意不能超出这个边界
+如何设定box？</p>
 <ol>
 <li>从自己出发:兴趣、擅长</li>
 <li>从市场出发:行业数据、市场调研</li>
 </ol>
-<h3 id="创意与原型：原型部分"><a href="#创意与原型：原型部分" class="headerlink" title="创意与原型：原型部分"></a>创意与原型：原型部分</h3><p>原型不等于游戏：它只是解答问题、验证想法的游戏的<strong>部分模拟</strong>。</p>
+<h3 id="创意与原型原型部分"><a class="markdownIt-Anchor" href="#创意与原型原型部分"></a> 创意与原型：原型部分</h3>
+<p>原型不等于游戏：它只是解答问题、验证想法的游戏的<strong>部分模拟</strong>。</p>
 <p>游戏demo又或者纸面原型。</p>
-<h4 id="A-明确问题"><a href="#A-明确问题" class="headerlink" title="A.明确问题"></a>A.明确问题</h4><p>例如</p>
+<h4 id="a明确问题"><a class="markdownIt-Anchor" href="#a明确问题"></a> A.明确问题</h4>
+<p>例如</p>
 <ul>
 <li>sf4中，什么是玩家需要抉择的？</li>
 <li>皇室战争中，玩家会如何搭建自己的卡组？</li>
 <li>PUBG，玩家会如何选择开局？带来什么体验？</li>
 </ul>
-<h5 id="头脑风暴"><a href="#头脑风暴" class="headerlink" title="头脑风暴"></a>头脑风暴</h5><p>rules：</p>
+<h5 id="头脑风暴"><a class="markdownIt-Anchor" href="#头脑风暴"></a> 头脑风暴</h5>
+<p>rules：</p>
 <ol>
-<li>头脑风暴不管对错，不做评价<ol>
+<li>头脑风暴不管对错，不做评价
+<ol>
 <li>头脑风暴时，点子越多越好</li>
 <li>即使有人讲错了，只需要往最终的方向带就行</li>
 <li>需要存在一个主持人</li>
 </ol>
 </li>
-<li>原型头脑风暴只为最终体验服务<ol>
+<li>原型头脑风暴只为最终体验服务
+<ol>
 <li>不同类型的交通工具消耗成本、运载容量等<strong>数据</strong>固然重要，究竟是摩托车还是电瓶车却是更直观<strong>具象的游戏体验</strong>。</li>
 </ol>
 </li>
 <li>头脑风暴为游戏提供所需的元素</li>
 </ol>
-<h4 id="B-明确范围"><a href="#B-明确范围" class="headerlink" title="B.明确范围"></a>B.明确范围</h4><p>以SF4为例：</p>
+<h4 id="b明确范围"><a class="markdownIt-Anchor" href="#b明确范围"></a> B.明确范围</h4>
+<p>以SF4为例：</p>
 <ul>
 <li>时长：模拟的是一个回合的瞬间？还是一个回合？还是若干回合？</li>
 <li>时期：模拟游戏早期？末期？</li>
 </ul>
-<h4 id="C-明确形式"><a href="#C-明确形式" class="headerlink" title="C.明确形式"></a>C.明确形式</h4><p>原型准备：</p>
+<h4 id="c明确形式"><a class="markdownIt-Anchor" href="#c明确形式"></a> C.明确形式</h4>
+<p>原型准备：</p>
 <ul>
-<li>玩家输入<ul>
+<li>玩家输入
+<ul>
 <li>接单、过单…</li>
 </ul>
 </li>
-<li>系统输出<br>-出单、奖励……</li>
+<li>系统输出
+-出单、奖励……</li>
 <li>桌游</li>
 <li>开票</li>
 <li>跑团</li>
 </ul>
-<h4 id="玩"><a href="#玩" class="headerlink" title="玩"></a>玩</h4><ul>
+<h4 id="玩"><a class="markdownIt-Anchor" href="#玩"></a> 玩</h4>
+<ul>
 <li>自己和自己</li>
 <li>和策划</li>
 </ul>
-<h3 id="设计师眼中的游戏"><a href="#设计师眼中的游戏" class="headerlink" title="设计师眼中的游戏"></a>设计师眼中的游戏</h3><h4 id="1-游戏是构建体验的系统"><a href="#1-游戏是构建体验的系统" class="headerlink" title="1.游戏是构建体验的系统"></a>1.游戏是构建体验的系统</h4><h5 id="为什么游戏是构建体验的系统"><a href="#为什么游戏是构建体验的系统" class="headerlink" title="为什么游戏是构建体验的系统"></a>为什么游戏是构建体验的系统</h5><p>最核心的目标就是构建体验，但是为什么是游戏？</p>
+<h3 id="设计师眼中的游戏"><a class="markdownIt-Anchor" href="#设计师眼中的游戏"></a> 设计师眼中的游戏</h3>
+<h4 id="1游戏是构建体验的系统"><a class="markdownIt-Anchor" href="#1游戏是构建体验的系统"></a> 1.游戏是构建体验的系统</h4>
+<h5 id="为什么游戏是构建体验的系统"><a class="markdownIt-Anchor" href="#为什么游戏是构建体验的系统"></a> 为什么游戏是构建体验的系统</h5>
+<p>最核心的目标就是构建体验，但是为什么是游戏？</p>
 <ul>
 <li>游戏的互动性</li>
 <li><strong>体验大于玩法，玩法服务于体验。</strong> 同样的玩法，换一个设定，也许吸引的人就完全不一样。</li>
 </ul>
-<h5 id="构建体验的四要素"><a href="#构建体验的四要素" class="headerlink" title="构建体验的四要素"></a>构建体验的四要素</h5><p>机制、设定、美学、技术</p>
-<h4 id="2-体验从理解人类开始"><a href="#2-体验从理解人类开始" class="headerlink" title="2. 体验从理解人类开始"></a>2. 体验从理解人类开始</h4><h5 id="A-理解用户"><a href="#A-理解用户" class="headerlink" title="A.理解用户"></a>A.理解用户</h5><ul>
+<h5 id="构建体验的四要素"><a class="markdownIt-Anchor" href="#构建体验的四要素"></a> 构建体验的四要素</h5>
+<p>机制、设定、美学、技术</p>
+<h4 id="2-体验从理解人类开始"><a class="markdownIt-Anchor" href="#2-体验从理解人类开始"></a> 2. 体验从理解人类开始</h4>
+<h5 id="a理解用户"><a class="markdownIt-Anchor" href="#a理解用户"></a> A.理解用户</h5>
+<ul>
 <li>人的注意力是有限的</li>
-<li>模式认知：人脑会自动识别抽象。<br>￮ 容易认知模式<br>￮ 不容易掌握</li>
+<li>模式认知：人脑会自动识别抽象。
+￮ 容易认知模式
+￮ 不容易掌握</li>
 <li>对比产生美</li>
 <li>可塑的大脑：越练习，越熟练</li>
 <li>情感黑盒：吊桥效应</li>
@@ -392,18 +437,23 @@
 <p>男女差异、MBTI、职业、游戏经历……</p>
 <p>用户的动机</p>
 <p>quanticfoundry的玩家动机理论，九种玩家</p>
-<h5 id="B-理解市场"><a href="#B-理解市场" class="headerlink" title="B.理解市场"></a>B.理解市场</h5><p>市场是多变的，也是可预测的</p>
+<h5 id="b理解市场"><a class="markdownIt-Anchor" href="#b理解市场"></a> B.理解市场</h5>
+<p>市场是多变的，也是可预测的</p>
 <p>市场的特点：</p>
 <ol>
-<li>市场竞争<ul>
-<li>游戏是非竞争性商品<ul>
+<li>市场竞争
+<ul>
+<li>游戏是非竞争性商品
+<ul>
 <li>游戏可以被轻易的复制，不会因为我玩别人就没办法玩</li>
 </ul>
 </li>
 </ul>
 </li>
-<li>马太效应<br>强者恒强，强力的游戏可以轻易吸走冷门游戏的用户</li>
-<li>创新者的困境<ul>
+<li>马太效应
+强者恒强，强力的游戏可以轻易吸走冷门游戏的用户</li>
+<li>创新者的困境
+<ul>
 <li>巫师三让市场对2077有过高期待</li>
 <li>英雄联盟让拳头难以花时间精力推出新的游戏</li>
 <li>船大难调头</li>
@@ -412,11 +462,15 @@
 </ol>
 <p>细分市场：细分市场是信息流转充分发达情况下的必然结果：适合大部分人的 80 分产品也许吸引不了大部分人，适合小部分人的 95 分产品却很有可能吸引小部分人中的大部分人。</p>
 <p>未被开发的细分市场就是<strong>蓝海市场</strong>。</p>
-<h5 id="B-市场定位（竞争）"><a href="#B-市场定位（竞争）" class="headerlink" title="B.市场定位（竞争）"></a>B.市场定位（竞争）</h5><ul>
-<li>自我定位<ul>
-<li>在细分市场的定位<ul>
+<h5 id="b市场定位竞争"><a class="markdownIt-Anchor" href="#b市场定位竞争"></a> B.市场定位（竞争）</h5>
+<ul>
+<li>自我定位
+<ul>
+<li>在细分市场的定位
+<ul>
 <li>蓝海？还是红海？</li>
-<li>竞品？<ul>
+<li>竞品？
+<ul>
 <li>自己在和什么游戏对比？</li>
 <li>市场会拿来和什么游戏对比？</li>
 <li>哪些地方更好了？哪些地方可以被放弃?</li>
@@ -427,26 +481,33 @@
 </ul>
 </li>
 </ul>
-<h4 id="3-什么是好的游戏"><a href="#3-什么是好的游戏" class="headerlink" title="3. 什么是好的游戏"></a>3. 什么是好的游戏</h4><h5 id="A-好的体验"><a href="#A-好的体验" class="headerlink" title="A.好的体验"></a>A.好的体验</h5><p>强烈的情感体验：高光时刻</p>
+<h4 id="3-什么是好的游戏"><a class="markdownIt-Anchor" href="#3-什么是好的游戏"></a> 3. 什么是好的游戏</h4>
+<h5 id="a好的体验"><a class="markdownIt-Anchor" href="#a好的体验"></a> A.好的体验</h5>
+<p>强烈的情感体验：高光时刻</p>
 <p>心流体验：这个玩家太难，那个玩家也许太简单</p>
 <p>沉浸：</p>
-<h5 id="B-可持续发展"><a href="#B-可持续发展" class="headerlink" title="B.可持续发展"></a>B.可持续发展</h5><ul>
+<h5 id="b可持续发展"><a class="markdownIt-Anchor" href="#b可持续发展"></a> B.可持续发展</h5>
+<ul>
 <li>利润=营收-开发成本-营销成本</li>
 <li>营收=用户规模*用户付费</li>
 <li>营销也是产品设计的一部分：广告、买量、主播直播、黑魂是数值不平衡的垃圾游戏还是有挑战性的硬核游戏？（hook成本）</li>
 <li>积累=提升质量、降低成本</li>
 </ul>
-<h3 id="作品管理入门（以三周的-Seed-项目为例）"><a href="#作品管理入门（以三周的-Seed-项目为例）" class="headerlink" title="作品管理入门（以三周的 Seed 项目为例）"></a>作品管理入门（以三周的 Seed 项目为例）</h3><ol>
-<li>如何把想法落地？<ul>
+<h3 id="作品管理入门以三周的-seed-项目为例"><a class="markdownIt-Anchor" href="#作品管理入门以三周的-seed-项目为例"></a> 作品管理入门（以三周的 Seed 项目为例）</h3>
+<ol>
+<li>如何把想法落地？
+<ul>
 <li>排期表</li>
 </ul>
 </li>
 <li>开发流程前决定谁是 PM</li>
-<li>玩法验证<ul>
+<li>玩法验证
+<ul>
 <li>不要复合验证，不要着眼于验证中新产生的想法</li>
 </ul>
 </li>
-<li>开发过程注意<ol>
+<li>开发过程注意
+<ol>
 <li>完整流程与工作项的 mapping</li>
 <li>优先交付高价值的部分</li>
 <li>敏捷开发</li>
@@ -456,9 +517,12 @@
 </ol>
 </li>
 </ol>
-<h4 id="情感表现"><a href="#情感表现" class="headerlink" title="情感表现"></a>情感表现</h4><p>好的剧本可以拍出好的电影，但是好的剧本不一定能拍好电影<br>同样的事情，想要传达不同的情感会深刻改变游戏的：</p>
+<h4 id="情感表现"><a class="markdownIt-Anchor" href="#情感表现"></a> 情感表现</h4>
+<p>好的剧本可以拍出好的电影，但是好的剧本不一定能拍好电影
+同样的事情，想要传达不同的情感会深刻改变游戏的：</p>
 <ul>
-<li>场景调度<ul>
+<li>场景调度
+<ul>
 <li>隐喻：破案感、发现穿帮镜头的兴奋感</li>
 </ul>
 </li>
@@ -467,51 +531,68 @@
 <li>灯光：主光辅光轮廓光的软度硬度</li>
 <li>转场</li>
 </ul>
-<h3 id="设计流程"><a href="#设计流程" class="headerlink" title="设计流程"></a>设计流程</h3><h4 id="学会根据需求预估工作量"><a href="#学会根据需求预估工作量" class="headerlink" title="学会根据需求预估工作量"></a>学会根据需求预估工作量</h4><ul>
+<h3 id="设计流程"><a class="markdownIt-Anchor" href="#设计流程"></a> 设计流程</h3>
+<h4 id="学会根据需求预估工作量"><a class="markdownIt-Anchor" href="#学会根据需求预估工作量"></a> 学会根据需求预估工作量</h4>
+<ul>
 <li>多少模块？</li>
 <li>多长时间？</li>
 <li>多少行代码？</li>
 </ul>
-<h4 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h4><p>理解、分析、注意约束</p>
+<h4 id="需求分析"><a class="markdownIt-Anchor" href="#需求分析"></a> 需求分析</h4>
+<p>理解、分析、注意约束</p>
 <ul>
 <li>未表达的要求</li>
 <li>潜在的限定</li>
 <li>未来可能的发展变化</li>
 </ul>
-<h4 id="系统责任和对外交互"><a href="#系统责任和对外交互" class="headerlink" title="系统责任和对外交互"></a>系统责任和对外交互</h4><p>逐个完成模块设计，然后汇合</p>
-<p>需要的话，画状态图和（或）流程图辅助代码设计—-“盖大楼”的“脚手架”</p>
-<h4 id="可能的设计方向"><a href="#可能的设计方向" class="headerlink" title="可能的设计方向"></a>可能的设计方向</h4><ul>
+<h4 id="系统责任和对外交互"><a class="markdownIt-Anchor" href="#系统责任和对外交互"></a> 系统责任和对外交互</h4>
+<p>逐个完成模块设计，然后汇合</p>
+<p>需要的话，画状态图和（或）流程图辅助代码设计----“盖大楼”的“脚手架”</p>
+<h4 id="可能的设计方向"><a class="markdownIt-Anchor" href="#可能的设计方向"></a> 可能的设计方向</h4>
+<ul>
 <li>以点带面（最常见）</li>
 <li>自顶向下（技术要求高）</li>
 <li>自顶向上，逐步拼装</li>
 <li>自中向下，在逐步拼中为大</li>
 </ul>
 <p>要达到更高的技术要求，就要有从“以点带面”向“自中而下”靠拢的行动力。</p>
-<h2 id="不太重要的"><a href="#不太重要的" class="headerlink" title="不太重要的"></a>不太重要的</h2><p>不太重要，或者说我没太记的一些笔记。</p>
-<h3 id="音频"><a href="#音频" class="headerlink" title="音频"></a>音频</h3><h4 id="游戏中音乐类型"><a href="#游戏中音乐类型" class="headerlink" title="游戏中音乐类型"></a>游戏中音乐类型</h4><p>音效与音乐</p>
-<h4 id="音乐功能设计"><a href="#音乐功能设计" class="headerlink" title="音乐功能设计"></a>音乐功能设计</h4><p>氛围营造：</p>
+<h2 id="不太重要的"><a class="markdownIt-Anchor" href="#不太重要的"></a> 不太重要的</h2>
+<p>不太重要，或者说我没太记的一些笔记。</p>
+<h3 id="音频"><a class="markdownIt-Anchor" href="#音频"></a> 音频</h3>
+<h4 id="游戏中音乐类型"><a class="markdownIt-Anchor" href="#游戏中音乐类型"></a> 游戏中音乐类型</h4>
+<p>音效与音乐</p>
+<h4 id="音乐功能设计"><a class="markdownIt-Anchor" href="#音乐功能设计"></a> 音乐功能设计</h4>
+<p>氛围营造：</p>
 <ul>
 <li>闪避效果：人声压背景</li>
 <li>分轨设计：转阶段后不断叠加分轨音乐细节更加丰富</li>
-<li>反馈信息：<ul>
+<li>反馈信息：
+<ul>
 <li>RTPC：实时根据游戏参数反馈改变音乐</li>
 <li>娱乐效果：</li>
 </ul>
 </li>
 </ul>
-<h4 id="游戏音乐内容制作"><a href="#游戏音乐内容制作" class="headerlink" title="游戏音乐内容制作"></a>游戏音乐内容制作</h4><p>主流中间件：Wwise，Criware…</p>
-<h4 id="快捷制作"><a href="#快捷制作" class="headerlink" title="快捷制作"></a>快捷制作</h4><p>audio editor插件</p>
-<h3 id="心理"><a href="#心理" class="headerlink" title="心理"></a>心理</h3><p>情绪曲线</p>
+<h4 id="游戏音乐内容制作"><a class="markdownIt-Anchor" href="#游戏音乐内容制作"></a> 游戏音乐内容制作</h4>
+<p>主流中间件：Wwise，Criware…</p>
+<h4 id="快捷制作"><a class="markdownIt-Anchor" href="#快捷制作"></a> 快捷制作</h4>
+<p>audio editor插件</p>
+<h3 id="心理"><a class="markdownIt-Anchor" href="#心理"></a> 心理</h3>
+<p>情绪曲线</p>
 <p>心理需求</p>
-<h4 id="丰富的体验"><a href="#丰富的体验" class="headerlink" title="丰富的体验"></a>丰富的体验</h4><p>消极情绪+积极情绪</p>
+<h4 id="丰富的体验"><a class="markdownIt-Anchor" href="#丰富的体验"></a> 丰富的体验</h4>
+<p>消极情绪+积极情绪</p>
 <p>消极情绪的作用：快速参与代入、高强度的代入</p>
-<h4 id="推荐"><a href="#推荐" class="headerlink" title="推荐"></a>推荐</h4><p>心理学家的面相术</p>
+<h4 id="推荐"><a class="markdownIt-Anchor" href="#推荐"></a> 推荐</h4>
+<p>心理学家的面相术</p>
 <p>情绪（蓝色粉笔字封面）</p>
 <p>emotionpolygon</p>
-<h3 id="游戏数据"><a href="#游戏数据" class="headerlink" title="游戏数据"></a>游戏数据</h3><p>制作是不断优化选择的过程</p>
+<h3 id="游戏数据"><a class="markdownIt-Anchor" href="#游戏数据"></a> 游戏数据</h3>
+<p>制作是不断优化选择的过程</p>
 <p>手上有多少东西可以选？</p>
 <p>游戏源自生活</p>
-<h3 id="电影和游戏"><a href="#电影和游戏" class="headerlink" title="电影和游戏"></a>电影和游戏</h3><p>电影：剧本</p>
+<h3 id="电影和游戏"><a class="markdownIt-Anchor" href="#电影和游戏"></a> 电影和游戏</h3>
+<p>电影：剧本</p>
 <p>游戏：机制+剧本</p>
 <p>游戏：</p>
 <ul>
@@ -531,7 +612,6 @@
               <a href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag"># 笔记</a>
               <a href="/tags/%E5%AE%9E%E4%B9%A0/" rel="tag"># 实习</a>
               <a href="/tags/Seed-%E8%AE%AD%E7%BB%83%E8%90%A5/" rel="tag"># Seed 训练营</a>
-              <a href="/tags/%E6%8B%BE%E9%81%97/" rel="tag"># 拾遗</a>
           </div>
 
         
@@ -540,8 +620,8 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2023/03/18/GAMES101/GAMES101-4/" rel="prev" title="GAMES101-4：视图和投影变换">
-      <i class="fa fa-chevron-left"></i> GAMES101-4：视图和投影变换
+    <a href="/2023/03/24/%E7%BB%B4%E5%A1%94%E5%A3%AB%E5%AE%9E%E4%B9%A0%E5%9B%9E%E9%A1%BE/" rel="prev" title="2022 Seed 训练营笔记收录">
+      <i class="fa fa-chevron-left"></i> 2022 Seed 训练营笔记收录
     </a></div>
       <div class="post-nav-item">
     <a href="/2023/04/06/%E8%AF%BE%E7%A8%8B%E6%8A%A5%E5%91%8A/%E5%A4%9A%E5%AA%92%E4%BD%93%E5%AE%9E%E9%AA%8C1%E7%AE%97%E6%9C%AF%E7%BC%96%E7%A0%81/" rel="next" title="多媒体实验1：算术编码的 python 实现">
@@ -605,7 +685,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E5%8F%91%E7%B3%BB%E5%88%97%E8%AF%BE"><span class="nav-number">2.</span> <span class="nav-text">开发系列课</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%9E%B6%E6%9E%84"><span class="nav-number">2.1.</span> <span class="nav-text">1.架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-%E5%AE%9E%E7%8E%B0%E6%9E%B6%E6%9E%84"><span class="nav-number">2.2.</span> <span class="nav-text">1.5.实现架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%A8%A1%E5%9D%97%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%9B%AE%E6%A0%87"><span class="nav-number">2.3.</span> <span class="nav-text">2.模块的基本目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5%E6%A8%A1%E5%9D%97%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">2.4.</span> <span class="nav-text">2.5模块间的关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Debug"><span class="nav-number">2.5.</span> <span class="nav-text">3. Debug</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E9%A1%B9%E7%9B%AE%E7%A8%8B%E5%BA%8F%E8%A7%84%E8%8C%83"><span class="nav-number">2.6.</span> <span class="nav-text">4. 项目程序规范</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E5%86%85%E5%AE%B9"><span class="nav-number">3.</span> <span class="nav-text">其他内容</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E6%84%8F%E4%B8%8E%E5%8E%9F%E5%9E%8B%EF%BC%9A%E5%88%9B%E6%84%8F%E9%83%A8%E5%88%86"><span class="nav-number">3.1.</span> <span class="nav-text">创意与原型：创意部分</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#A-%E5%9B%B0%E6%83%91"><span class="nav-number">3.1.1.</span> <span class="nav-text">A.困惑</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#B-%E5%8F%91%E7%8E%B0%E5%88%9B%E6%84%8F"><span class="nav-number">3.1.2.</span> <span class="nav-text">B.发现创意</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#step1%EF%BC%9A%E4%B8%80%E4%B8%AA%E4%B8%BB%E9%A2%98-%E4%B8%89%E4%B8%AA%E8%AF%8D"><span class="nav-number">3.1.2.1.</span> <span class="nav-text">step1：一个主题+三个词</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#step2%EF%BC%9A%E4%B8%80%E4%B8%AA%E5%90%8D%E5%AD%97-%E4%B8%89%E5%8F%A5%E8%AF%9D"><span class="nav-number">3.1.2.2.</span> <span class="nav-text">step2：一个名字+三句话</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#step3%EF%BC%9A%E5%9B%BE%E6%96%87%E4%B8%80%E9%A1%B5%E5%B1%95%E7%A4%BA"><span class="nav-number">3.1.2.3.</span> <span class="nav-text">step3：图文一页展示</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#step4%EF%BC%9A%E7%94%B5%E6%A2%AF%E6%BC%94%E8%AF%B4%E6%A6%82%E8%BF%B0%E6%B8%B8%E6%88%8F"><span class="nav-number">3.1.2.4.</span> <span class="nav-text">step4：电梯演说概述游戏</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#C-%E8%AE%BE%E5%AE%9ABox"><span class="nav-number">3.1.3.</span> <span class="nav-text">C.设定Box</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E6%84%8F%E4%B8%8E%E5%8E%9F%E5%9E%8B%EF%BC%9A%E5%8E%9F%E5%9E%8B%E9%83%A8%E5%88%86"><span class="nav-number">3.2.</span> <span class="nav-text">创意与原型：原型部分</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#A-%E6%98%8E%E7%A1%AE%E9%97%AE%E9%A2%98"><span class="nav-number">3.2.1.</span> <span class="nav-text">A.明确问题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A4%B4%E8%84%91%E9%A3%8E%E6%9A%B4"><span class="nav-number">3.2.1.1.</span> <span class="nav-text">头脑风暴</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#B-%E6%98%8E%E7%A1%AE%E8%8C%83%E5%9B%B4"><span class="nav-number">3.2.2.</span> <span class="nav-text">B.明确范围</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#C-%E6%98%8E%E7%A1%AE%E5%BD%A2%E5%BC%8F"><span class="nav-number">3.2.3.</span> <span class="nav-text">C.明确形式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%8E%A9"><span class="nav-number">3.2.4.</span> <span class="nav-text">玩</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E5%B8%88%E7%9C%BC%E4%B8%AD%E7%9A%84%E6%B8%B8%E6%88%8F"><span class="nav-number">3.3.</span> <span class="nav-text">设计师眼中的游戏</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E6%B8%B8%E6%88%8F%E6%98%AF%E6%9E%84%E5%BB%BA%E4%BD%93%E9%AA%8C%E7%9A%84%E7%B3%BB%E7%BB%9F"><span class="nav-number">3.3.1.</span> <span class="nav-text">1.游戏是构建体验的系统</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E6%B8%B8%E6%88%8F%E6%98%AF%E6%9E%84%E5%BB%BA%E4%BD%93%E9%AA%8C%E7%9A%84%E7%B3%BB%E7%BB%9F"><span class="nav-number">3.3.1.1.</span> <span class="nav-text">为什么游戏是构建体验的系统</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9E%84%E5%BB%BA%E4%BD%93%E9%AA%8C%E7%9A%84%E5%9B%9B%E8%A6%81%E7%B4%A0"><span class="nav-number">3.3.1.2.</span> <span class="nav-text">构建体验的四要素</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E4%BD%93%E9%AA%8C%E4%BB%8E%E7%90%86%E8%A7%A3%E4%BA%BA%E7%B1%BB%E5%BC%80%E5%A7%8B"><span class="nav-number">3.3.2.</span> <span class="nav-text">2. 体验从理解人类开始</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#A-%E7%90%86%E8%A7%A3%E7%94%A8%E6%88%B7"><span class="nav-number">3.3.2.1.</span> <span class="nav-text">A.理解用户</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#B-%E7%90%86%E8%A7%A3%E5%B8%82%E5%9C%BA"><span class="nav-number">3.3.2.2.</span> <span class="nav-text">B.理解市场</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#B-%E5%B8%82%E5%9C%BA%E5%AE%9A%E4%BD%8D%EF%BC%88%E7%AB%9E%E4%BA%89%EF%BC%89"><span class="nav-number">3.3.2.3.</span> <span class="nav-text">B.市场定位（竞争）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E4%BB%80%E4%B9%88%E6%98%AF%E5%A5%BD%E7%9A%84%E6%B8%B8%E6%88%8F"><span class="nav-number">3.3.3.</span> <span class="nav-text">3. 什么是好的游戏</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#A-%E5%A5%BD%E7%9A%84%E4%BD%93%E9%AA%8C"><span class="nav-number">3.3.3.1.</span> <span class="nav-text">A.好的体验</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#B-%E5%8F%AF%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B1%95"><span class="nav-number">3.3.3.2.</span> <span class="nav-text">B.可持续发展</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%9C%E5%93%81%E7%AE%A1%E7%90%86%E5%85%A5%E9%97%A8%EF%BC%88%E4%BB%A5%E4%B8%89%E5%91%A8%E7%9A%84-Seed-%E9%A1%B9%E7%9B%AE%E4%B8%BA%E4%BE%8B%EF%BC%89"><span class="nav-number">3.4.</span> <span class="nav-text">作品管理入门（以三周的 Seed 项目为例）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%83%85%E6%84%9F%E8%A1%A8%E7%8E%B0"><span class="nav-number">3.4.1.</span> <span class="nav-text">情感表现</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E6%B5%81%E7%A8%8B"><span class="nav-number">3.5.</span> <span class="nav-text">设计流程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AD%A6%E4%BC%9A%E6%A0%B9%E6%8D%AE%E9%9C%80%E6%B1%82%E9%A2%84%E4%BC%B0%E5%B7%A5%E4%BD%9C%E9%87%8F"><span class="nav-number">3.5.1.</span> <span class="nav-text">学会根据需求预估工作量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90"><span class="nav-number">3.5.2.</span> <span class="nav-text">需求分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E8%B4%A3%E4%BB%BB%E5%92%8C%E5%AF%B9%E5%A4%96%E4%BA%A4%E4%BA%92"><span class="nav-number">3.5.3.</span> <span class="nav-text">系统责任和对外交互</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%AF%E8%83%BD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%96%B9%E5%90%91"><span class="nav-number">3.5.4.</span> <span class="nav-text">可能的设计方向</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8D%E5%A4%AA%E9%87%8D%E8%A6%81%E7%9A%84"><span class="nav-number">4.</span> <span class="nav-text">不太重要的</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9F%B3%E9%A2%91"><span class="nav-number">4.1.</span> <span class="nav-text">音频</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B8%B8%E6%88%8F%E4%B8%AD%E9%9F%B3%E4%B9%90%E7%B1%BB%E5%9E%8B"><span class="nav-number">4.1.1.</span> <span class="nav-text">游戏中音乐类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9F%B3%E4%B9%90%E5%8A%9F%E8%83%BD%E8%AE%BE%E8%AE%A1"><span class="nav-number">4.1.2.</span> <span class="nav-text">音乐功能设计</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B8%B8%E6%88%8F%E9%9F%B3%E4%B9%90%E5%86%85%E5%AE%B9%E5%88%B6%E4%BD%9C"><span class="nav-number">4.1.3.</span> <span class="nav-text">游戏音乐内容制作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BF%AB%E6%8D%B7%E5%88%B6%E4%BD%9C"><span class="nav-number">4.1.4.</span> <span class="nav-text">快捷制作</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BF%83%E7%90%86"><span class="nav-number">4.2.</span> <span class="nav-text">心理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%B0%E5%AF%8C%E7%9A%84%E4%BD%93%E9%AA%8C"><span class="nav-number">4.2.1.</span> <span class="nav-text">丰富的体验</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8E%A8%E8%8D%90"><span class="nav-number">4.2.2.</span> <span class="nav-text">推荐</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B8%B8%E6%88%8F%E6%95%B0%E6%8D%AE"><span class="nav-number">4.3.</span> <span class="nav-text">游戏数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%B5%E5%BD%B1%E5%92%8C%E6%B8%B8%E6%88%8F"><span class="nav-number">4.4.</span> <span class="nav-text">电影和游戏</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text"> 前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E5%8F%91%E7%B3%BB%E5%88%97%E8%AF%BE"><span class="nav-number">2.</span> <span class="nav-text"> 开发系列课</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E6%9E%B6%E6%9E%84"><span class="nav-number">2.1.</span> <span class="nav-text"> 1.架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#15%E5%AE%9E%E7%8E%B0%E6%9E%B6%E6%9E%84"><span class="nav-number">2.2.</span> <span class="nav-text"> 1.5.实现架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E6%A8%A1%E5%9D%97%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%9B%AE%E6%A0%87"><span class="nav-number">2.3.</span> <span class="nav-text"> 2.模块的基本目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#25%E6%A8%A1%E5%9D%97%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">2.4.</span> <span class="nav-text"> 2.5模块间的关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-debug"><span class="nav-number">2.5.</span> <span class="nav-text"> 3. Debug</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E9%A1%B9%E7%9B%AE%E7%A8%8B%E5%BA%8F%E8%A7%84%E8%8C%83"><span class="nav-number">2.6.</span> <span class="nav-text"> 4. 项目程序规范</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E5%86%85%E5%AE%B9"><span class="nav-number">3.</span> <span class="nav-text"> 其他内容</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E6%84%8F%E4%B8%8E%E5%8E%9F%E5%9E%8B%E5%88%9B%E6%84%8F%E9%83%A8%E5%88%86"><span class="nav-number">3.1.</span> <span class="nav-text"> 创意与原型：创意部分</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#a%E5%9B%B0%E6%83%91"><span class="nav-number">3.1.1.</span> <span class="nav-text"> A.困惑</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#b%E5%8F%91%E7%8E%B0%E5%88%9B%E6%84%8F"><span class="nav-number">3.1.2.</span> <span class="nav-text"> B.发现创意</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#step1%E4%B8%80%E4%B8%AA%E4%B8%BB%E9%A2%98%E4%B8%89%E4%B8%AA%E8%AF%8D"><span class="nav-number">3.1.2.1.</span> <span class="nav-text"> step1：一个主题+三个词</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#step2%E4%B8%80%E4%B8%AA%E5%90%8D%E5%AD%97%E4%B8%89%E5%8F%A5%E8%AF%9D"><span class="nav-number">3.1.2.2.</span> <span class="nav-text"> step2：一个名字+三句话</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#step3%E5%9B%BE%E6%96%87%E4%B8%80%E9%A1%B5%E5%B1%95%E7%A4%BA"><span class="nav-number">3.1.2.3.</span> <span class="nav-text"> step3：图文一页展示</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#step4%E7%94%B5%E6%A2%AF%E6%BC%94%E8%AF%B4%E6%A6%82%E8%BF%B0%E6%B8%B8%E6%88%8F"><span class="nav-number">3.1.2.4.</span> <span class="nav-text"> step4：电梯演说概述游戏</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#c%E8%AE%BE%E5%AE%9Abox"><span class="nav-number">3.1.3.</span> <span class="nav-text"> C.设定Box</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E6%84%8F%E4%B8%8E%E5%8E%9F%E5%9E%8B%E5%8E%9F%E5%9E%8B%E9%83%A8%E5%88%86"><span class="nav-number">3.2.</span> <span class="nav-text"> 创意与原型：原型部分</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#a%E6%98%8E%E7%A1%AE%E9%97%AE%E9%A2%98"><span class="nav-number">3.2.1.</span> <span class="nav-text"> A.明确问题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A4%B4%E8%84%91%E9%A3%8E%E6%9A%B4"><span class="nav-number">3.2.1.1.</span> <span class="nav-text"> 头脑风暴</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#b%E6%98%8E%E7%A1%AE%E8%8C%83%E5%9B%B4"><span class="nav-number">3.2.2.</span> <span class="nav-text"> B.明确范围</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#c%E6%98%8E%E7%A1%AE%E5%BD%A2%E5%BC%8F"><span class="nav-number">3.2.3.</span> <span class="nav-text"> C.明确形式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%8E%A9"><span class="nav-number">3.2.4.</span> <span class="nav-text"> 玩</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E5%B8%88%E7%9C%BC%E4%B8%AD%E7%9A%84%E6%B8%B8%E6%88%8F"><span class="nav-number">3.3.</span> <span class="nav-text"> 设计师眼中的游戏</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E6%B8%B8%E6%88%8F%E6%98%AF%E6%9E%84%E5%BB%BA%E4%BD%93%E9%AA%8C%E7%9A%84%E7%B3%BB%E7%BB%9F"><span class="nav-number">3.3.1.</span> <span class="nav-text"> 1.游戏是构建体验的系统</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E6%B8%B8%E6%88%8F%E6%98%AF%E6%9E%84%E5%BB%BA%E4%BD%93%E9%AA%8C%E7%9A%84%E7%B3%BB%E7%BB%9F"><span class="nav-number">3.3.1.1.</span> <span class="nav-text"> 为什么游戏是构建体验的系统</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9E%84%E5%BB%BA%E4%BD%93%E9%AA%8C%E7%9A%84%E5%9B%9B%E8%A6%81%E7%B4%A0"><span class="nav-number">3.3.1.2.</span> <span class="nav-text"> 构建体验的四要素</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E4%BD%93%E9%AA%8C%E4%BB%8E%E7%90%86%E8%A7%A3%E4%BA%BA%E7%B1%BB%E5%BC%80%E5%A7%8B"><span class="nav-number">3.3.2.</span> <span class="nav-text"> 2. 体验从理解人类开始</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#a%E7%90%86%E8%A7%A3%E7%94%A8%E6%88%B7"><span class="nav-number">3.3.2.1.</span> <span class="nav-text"> A.理解用户</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#b%E7%90%86%E8%A7%A3%E5%B8%82%E5%9C%BA"><span class="nav-number">3.3.2.2.</span> <span class="nav-text"> B.理解市场</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#b%E5%B8%82%E5%9C%BA%E5%AE%9A%E4%BD%8D%E7%AB%9E%E4%BA%89"><span class="nav-number">3.3.2.3.</span> <span class="nav-text"> B.市场定位（竞争）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E4%BB%80%E4%B9%88%E6%98%AF%E5%A5%BD%E7%9A%84%E6%B8%B8%E6%88%8F"><span class="nav-number">3.3.3.</span> <span class="nav-text"> 3. 什么是好的游戏</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#a%E5%A5%BD%E7%9A%84%E4%BD%93%E9%AA%8C"><span class="nav-number">3.3.3.1.</span> <span class="nav-text"> A.好的体验</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#b%E5%8F%AF%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B1%95"><span class="nav-number">3.3.3.2.</span> <span class="nav-text"> B.可持续发展</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%9C%E5%93%81%E7%AE%A1%E7%90%86%E5%85%A5%E9%97%A8%E4%BB%A5%E4%B8%89%E5%91%A8%E7%9A%84-seed-%E9%A1%B9%E7%9B%AE%E4%B8%BA%E4%BE%8B"><span class="nav-number">3.4.</span> <span class="nav-text"> 作品管理入门（以三周的 Seed 项目为例）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%83%85%E6%84%9F%E8%A1%A8%E7%8E%B0"><span class="nav-number">3.4.1.</span> <span class="nav-text"> 情感表现</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E6%B5%81%E7%A8%8B"><span class="nav-number">3.5.</span> <span class="nav-text"> 设计流程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AD%A6%E4%BC%9A%E6%A0%B9%E6%8D%AE%E9%9C%80%E6%B1%82%E9%A2%84%E4%BC%B0%E5%B7%A5%E4%BD%9C%E9%87%8F"><span class="nav-number">3.5.1.</span> <span class="nav-text"> 学会根据需求预估工作量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90"><span class="nav-number">3.5.2.</span> <span class="nav-text"> 需求分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E8%B4%A3%E4%BB%BB%E5%92%8C%E5%AF%B9%E5%A4%96%E4%BA%A4%E4%BA%92"><span class="nav-number">3.5.3.</span> <span class="nav-text"> 系统责任和对外交互</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%AF%E8%83%BD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%96%B9%E5%90%91"><span class="nav-number">3.5.4.</span> <span class="nav-text"> 可能的设计方向</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8D%E5%A4%AA%E9%87%8D%E8%A6%81%E7%9A%84"><span class="nav-number">4.</span> <span class="nav-text"> 不太重要的</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9F%B3%E9%A2%91"><span class="nav-number">4.1.</span> <span class="nav-text"> 音频</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B8%B8%E6%88%8F%E4%B8%AD%E9%9F%B3%E4%B9%90%E7%B1%BB%E5%9E%8B"><span class="nav-number">4.1.1.</span> <span class="nav-text"> 游戏中音乐类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9F%B3%E4%B9%90%E5%8A%9F%E8%83%BD%E8%AE%BE%E8%AE%A1"><span class="nav-number">4.1.2.</span> <span class="nav-text"> 音乐功能设计</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B8%B8%E6%88%8F%E9%9F%B3%E4%B9%90%E5%86%85%E5%AE%B9%E5%88%B6%E4%BD%9C"><span class="nav-number">4.1.3.</span> <span class="nav-text"> 游戏音乐内容制作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BF%AB%E6%8D%B7%E5%88%B6%E4%BD%9C"><span class="nav-number">4.1.4.</span> <span class="nav-text"> 快捷制作</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BF%83%E7%90%86"><span class="nav-number">4.2.</span> <span class="nav-text"> 心理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%B0%E5%AF%8C%E7%9A%84%E4%BD%93%E9%AA%8C"><span class="nav-number">4.2.1.</span> <span class="nav-text"> 丰富的体验</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8E%A8%E8%8D%90"><span class="nav-number">4.2.2.</span> <span class="nav-text"> 推荐</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B8%B8%E6%88%8F%E6%95%B0%E6%8D%AE"><span class="nav-number">4.3.</span> <span class="nav-text"> 游戏数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%B5%E5%BD%B1%E5%92%8C%E6%B8%B8%E6%88%8F"><span class="nav-number">4.4.</span> <span class="nav-text"> 电影和游戏</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -621,20 +701,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">46</span>
+          <span class="site-state-item-count">48</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">17</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">131</span>
+        <span class="site-state-item-count">134</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

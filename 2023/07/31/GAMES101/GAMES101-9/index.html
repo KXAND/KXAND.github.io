@@ -20,16 +20,16 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="前言GAMES101-10:隐式几何">
+  <meta name="description" content="前言 GAMES101-10:隐式几何">
 <meta property="og:type" content="article">
 <meta property="og:title" content="GAMES101-10&amp;11：隐式几何与显式几何">
 <meta property="og:url" content="http://example.com/2023/07/31/GAMES101/GAMES101-9/index.html">
 <meta property="og:site_name" content="LeeKa 的酒馆">
-<meta property="og:description" content="前言GAMES101-10:隐式几何">
+<meta property="og:description" content="前言 GAMES101-10:隐式几何">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/2023/07/31/assets/101-distancefunc.png">
 <meta property="article:published_time" content="2023-07-30T16:24:59.000Z">
-<meta property="article:modified_time" content="2023-08-01T04:29:37.911Z">
+<meta property="article:modified_time" content="2023-09-15T08:09:33.527Z">
 <meta property="article:author" content="LeeKa">
 <meta property="article:tag" content="GAMES">
 <meta property="article:tag" content="笔记">
@@ -218,7 +218,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-08-01 12:29:37" itemprop="dateModified" datetime="2023-08-01T12:29:37+08:00">2023-08-01</time>
+                <time title="修改时间：2023-09-15 16:09:33" itemprop="dateModified" datetime="2023-09-15T16:09:33+08:00">2023-09-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -241,31 +241,40 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1X7411F744/?p=10">GAMES101-10</a>:隐式几何   <span id="more"></span><br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1X7411F744/?p=11">GAMES101-11</a>:显式几何</p>
+        <h2 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h2>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1X7411F744/?p=10">GAMES101-10</a>:隐式几何   <span id="more"></span>
+<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1X7411F744/?p=11">GAMES101-11</a>:显式几何</p>
 <p>用三角形面并不能很好的面对所有的情形，例如：庞大的城市如何简化远景、狗身上繁复细密的毛发、轻薄半透的纱衣……</p>
 <p>CG 中将几何分为隐式几何与显式几何。下面分别讨论。</p>
-<h2 id="隐式几何"><a href="#隐式几何" class="headerlink" title="隐式几何"></a>隐式几何</h2><p>隐式几何：不指明点的位置，但是指明点的关系。例如 $x^2+y^2+z^2=1$。更通用地，隐式几何指明 $f(x,y,z)=0$。</p>
+<h2 id="隐式几何"><a class="markdownIt-Anchor" href="#隐式几何"></a> 隐式几何</h2>
+<p>隐式几何：不指明点的位置，但是指明点的关系。例如 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><msup><mi>y</mi><mn>2</mn></msup><mo>+</mo><msup><mi>z</mi><mn>2</mn></msup><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">x^2+y^2+z^2=1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.008548em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>。更通用地，隐式几何指明 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false">(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo separator="true">,</mo><mi>z</mi><mo stretchy="false">)</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">f(x,y,z)=0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>。</p>
 <p>隐式几何很难判断有满足条件的点都有哪些，但是很容易知道指定的一个点是否满足条件（在几何面上）。</p>
 <p>在简单的几何情况下，我们容易写出f（x），但是几何体过于复杂时，虽然也可以找到合适的函数（傅里叶？），但是我们可以采用<strong>构造实体几何</strong>（CSG）的办法：</p>
 <p>构造实体几何：对基本的隐式几何体进行基本的布尔运算（交并补等）得到复杂的几何（参考工图作业图）。</p>
 <p>此外对于隐式几何我们还可以用<strong>距离函数</strong>：</p>
 <p>距离函数：对任意一个点定义与几何体的，例如在面上距离为 0，面外为正，面内为负。</p>
 <p>通过距离函数我们可以实现两个图形相融合的效果（空间中的点同时受到两个面的距离的拉扯），例如</p>
-<p><img src="./../../assets/101-distancefunc.png" alt="融合几何体"></p>
+<p><img src="./../../assets/101-distancefunc.png" alt="融合几何体" /></p>
 <p>空间中的一个点在图形 AB 的距离分别是 a，b，那么最后距离为 a+b，最后找出 a+b = 0 的地方就是融合后的新面上的地方。</p>
 <p>为了表示好复杂情况下的等距离点的集合，我们应用水平集这个概念表示同一个水平线的点的集合，类似等高线。</p>
 <p>如果定义在三维，存储为纹理图，那么我们就可以找到一个有同一特征的面形成纹理。</p>
 <p>隐式几何我们还可以很方便的表示<strong>分形图形</strong>。</p>
-<h2 id="显式几何"><a href="#显式几何" class="headerlink" title="显式几何"></a>显式几何</h2><p>显示几何的定义方法是<strong>直接给出</strong>（例如前面章节提到的三角形面）或<strong>参数映射</strong>（例如每个 （u，v）都能映射到一个（x，y，z））。</p>
+<h2 id="显式几何"><a class="markdownIt-Anchor" href="#显式几何"></a> 显式几何</h2>
+<p>显示几何的定义方法是<strong>直接给出</strong>（例如前面章节提到的三角形面）或<strong>参数映射</strong>（例如每个 （u，v）都能映射到一个（x，y，z））。</p>
 <p>相对地，显式几何难以判断点是否在几何面上。</p>
 <p>显式几何的一些例子：</p>
 <ul>
 <li>点云：用一堆点表示面，可以表示任何图形，通常会被转化成多边形面。</li>
-<li>多边形面：用多个三角形面拼接成图形<ul>
+<li>多边形面：用多个三角形面拼接成图形
+<ul>
 <li>obj格式：一种存储模型的格式，存储用点和点的联系关系。</li>
 </ul>
 </li>
 </ul>
+<h2 id="跳转"><a class="markdownIt-Anchor" href="#跳转"></a> 跳转</h2>
+<p>Home：<a target="_blank" rel="noopener" href="https://blog.leeka.pub/2023/08/16/GAMES101/GAMES101-1/">GAMES101-1：课程总览与笔记导航 | LeeKa 的酒馆</a></p>
+<p>Prev：<a target="_blank" rel="noopener" href="https://blog.leeka.pub/2023/07/29/GAMES101/GAMES101-8/">GAMES101-9&amp;10：纹理映射的具体内容 | LeeKa 的酒馆</a></p>
+<p>Next：<a target="_blank" rel="noopener" href="https://blog.leeka.pub/2023/07/31/GAMES101/GAMES101-10/">GAMES101-11&amp;12：曲线与面 | LeeKa 的酒馆</a></p>
 
     </div>
 
@@ -356,7 +365,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9A%90%E5%BC%8F%E5%87%A0%E4%BD%95"><span class="nav-number">2.</span> <span class="nav-text">隐式几何</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%98%BE%E5%BC%8F%E5%87%A0%E4%BD%95"><span class="nav-number">3.</span> <span class="nav-text">显式几何</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text"> 前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9A%90%E5%BC%8F%E5%87%A0%E4%BD%95"><span class="nav-number">2.</span> <span class="nav-text"> 隐式几何</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%98%BE%E5%BC%8F%E5%87%A0%E4%BD%95"><span class="nav-number">3.</span> <span class="nav-text"> 显式几何</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B7%B3%E8%BD%AC"><span class="nav-number">4.</span> <span class="nav-text"> 跳转</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -372,20 +381,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">46</span>
+          <span class="site-state-item-count">48</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">17</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">131</span>
+        <span class="site-state-item-count">134</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
