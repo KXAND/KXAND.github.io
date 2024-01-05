@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.0.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/white/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"default"},"fold":{"enable":true,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="前言 阿里云服务器 + docker + self-hosted Sync 插件给 Obsidian 搭建实时同步服务。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="给Obsidian搭建自己的云同步服务">
+<meta property="og:url" content="http://example.com/post/20231203173312.html">
+<meta property="og:site_name" content="LeeKa 的酒馆">
+<meta property="og:description" content="前言 阿里云服务器 + docker + self-hosted Sync 插件给 Obsidian 搭建实时同步服务。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-12-03T09:33:12.000Z">
+<meta property="article:modified_time" content="2024-01-04T08:28:56.051Z">
+<meta property="article:author" content="LeeKa">
+<meta property="article:tag" content="Obsidian">
+<meta property="article:tag" content="云服务器">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/post/20231203173312.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/post/20231203173312.html","path":"post/20231203173312.html","title":"给Obsidian搭建自己的云同步服务"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>给Obsidian搭建自己的云同步服务 | LeeKa 的酒馆</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">LeeKa 的酒馆</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">欢迎，旅人！坐下来享受一下暖烘烘的炉火吧。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li><li class="menu-item menu-item-commonweal"><a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text"> 前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">2.</span> <span class="nav-text"> 配置服务器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8%E7%BD%91%E9%A1%B5%E7%AB%AF%E5%88%9B%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">2.1.</span> <span class="nav-text"> 在网页端创建数据库</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-obsidian"><span class="nav-number">3.</span> <span class="nav-text"> 配置 Obsidian</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E7%AC%AC%E4%BA%8C%E5%8F%B0%E8%AE%BE%E5%A4%87"><span class="nav-number">4.</span> <span class="nav-text"> 配置第二台设备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E5%92%8C%E6%8E%A8%E8%8D%90%E9%98%85%E8%AF%BB"><span class="nav-number">5.</span> <span class="nav-text"> 参考和推荐阅读</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="LeeKa"
+      src="https://s2.loli.net/2022/03/24/zcq6l9KENbRJtDi.jpg">
+  <p class="site-author-name" itemprop="name">LeeKa</p>
+  <div class="site-description" itemprop="description">代码、音乐和游戏，一起来聊聊吧</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">54</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">153</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/KXAND" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;KXAND" rel="noopener me" target="_blank">GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:leeka.Pub@outlook.com" title="E-Mail → mailto:leeka.Pub@outlook.com" rel="noopener me" target="_blank">E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/QuiXand" title="X → https:&#x2F;&#x2F;twitter.com&#x2F;QuiXand" rel="noopener me" target="_blank">X</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/big/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/post/20231203173312.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://s2.loli.net/2022/03/24/zcq6l9KENbRJtDi.jpg">
+      <meta itemprop="name" content="LeeKa">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LeeKa 的酒馆">
+      <meta itemprop="description" content="代码、音乐和游戏，一起来聊聊吧">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="给Obsidian搭建自己的云同步服务 | LeeKa 的酒馆">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          给Obsidian搭建自己的云同步服务<a href="https://github.com/KXAND/BlogSource/edit/source/_posts/%E7%BB%99Obsidian%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E4%BA%91%E5%90%8C%E6%AD%A5%E6%9C%8D%E5%8A%A1.md" class="post-edit-link" title="编辑" rel="noopener" target="_blank"><i class="fa fa-pen-nib"></i></a>
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-12-03 17:33:12" itemprop="dateCreated datePublished" datetime="2023-12-03T17:33:12+08:00">2023-12-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-01-04 16:28:56" itemprop="dateModified" datetime="2024-01-04T16:28:56+08:00">2024-01-04</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.1k</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h2>
+<p>阿里云服务器 + docker + self-hosted Sync 插件给 Obsidian 搭建实时同步服务。  <span id="more"></span></p>
+<p>前几天准备给自己的武汉之旅写一篇很————长————的回忆记，但是这篇后来发现超过 5000 字的文章要是用手机码就麻烦了。原先 Obsidian 在我手里的定位就是手机便签加强版，根本没有考虑过同步的功能，现在为了写这个游记，只好开始想办法进行同步了。于是最后我就找到了博主&quot;吕楪&quot;的这一篇：<a href="https://irithys.com/p/obsidian-livesync/">Obsidian免费的实时同步服务</a>。</p>
+<p>很不幸，由于 <a href="http://fly.io">fly.io</a> 的政策改动，现在（2023年12月3日）它必须要求你有一个信用卡（而且非双币卡我怀疑不能认可），而且根据评论区消息，他们需要 $2/月 购买 IPv4 地址才能提供服务。既然如此，那么就不如自己在国内搞一个服务器了。</p>
+<p>阿里云的学生福利允许通过任务最高领取 7 个月的免费 2 核 2G 服务器，即使不是学生，现在（2023年12月3日）腾讯云和阿里云也都有 100 元左右的 2 核 2G 服务器可以优惠购买。尽管这个价格和官方服务是差不多价格的，但是同步服务占用不大，因此性价比会比官方服务高很多。毕竟还可以跑其他的小东西玩呢。因此，我最后决定使用阿里云的云服务器部署同步服务，实现了 Windows + 安卓的实时同步功能。</p>
+<p>下面正式开始论述步骤。</p>
+<blockquote>
+<p>在开始配置同步前，最好将其它的同步插件（含官方插件），以及 Onedrive 等同步方式关闭，避免冲突问题。</p>
+</blockquote>
+<h2 id="配置服务器"><a class="markdownIt-Anchor" href="#配置服务器"></a> 配置服务器</h2>
+<p>我们的目标是在服务器上运行一个 CouchDB 数据库。</p>
+<p>CouchDB 是 Apache 开发的一个开源 NoSQL 数据库，它使用 JSON 文档存储数据，通过 web 访问，使用JavaScript查询、合并和转换文档。</p>
+<p>首先，你需要有一个服务器。我的意思是，像腾讯云 Cloudbase 云开发这样的 Serverless 产品，后台是腾讯云内建的数据库，需要通过 API 读写，就应该是不行的。<s>（为什么我会知道这个呢）</s></p>
+<p>参考云服务器的官方文档（可参见文末参考部分），连接到服务器，我这里使用的是 Workbench，主要是这个连接方式支持复制粘贴并且无需下载客户端。</p>
+<p>随后参考另一篇云服务器官方文档（下述文档等均可参见文末参考部分），安装 Docker 和 docker-compose。</p>
+<blockquote>
+<p>在 livesync 的官方文档中说道，“设置 CouchDB 的最简单方法是使用 CouchDB docker image”，并且推荐使用同时启动 Caddy 和 CouchDB 的另一方法。因此，这里安装了 Docker 和 docker-compose。</p>
+</blockquote>
+<p>在服务器上，使用 <code>mkdir</code> 命令在合适的地方创建一个文件作为 CouchDB 容器的数据文件夹。在该文件夹下，使用 <code>touch</code> 命令创建一个名为 <code>local.ini</code> 的文件，这是要修改数据库以让它可以用于 Self-hosted LiveSync。使用 vim 或任何其他编辑器打开并粘贴以下内容：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[couchdb]</span></span><br><span class="line"><span class="attr">single_node</span>=<span class="literal">true</span></span><br><span class="line"><span class="attr">max_document_size</span> = <span class="number">50000000</span></span><br><span class="line"></span><br><span class="line"><span class="section">[chttpd]</span></span><br><span class="line"><span class="attr">require_valid_user</span> = <span class="literal">true</span></span><br><span class="line"><span class="attr">max_http_request_size</span> = <span class="number">4294967296</span></span><br><span class="line"></span><br><span class="line"><span class="section">[chttpd_auth]</span></span><br><span class="line"><span class="attr">require_valid_user</span> = <span class="literal">true</span></span><br><span class="line"><span class="attr">authentication_redirect</span> = /_utils/session.html</span><br><span class="line"></span><br><span class="line"><span class="section">[httpd]</span></span><br><span class="line"><span class="attr">WWW-Authenticate</span> = Basic realm=<span class="string">&quot;couchdb&quot;</span></span><br><span class="line"><span class="attr">enable_cors</span> = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="section">[cors]</span></span><br><span class="line"><span class="attr">origins</span> = app://obsidian.md,capacitor://localhost,http://localhost</span><br><span class="line"><span class="attr">credentials</span> = <span class="literal">true</span></span><br><span class="line"><span class="attr">headers</span> = accept, authorization, content-type, origin, referer</span><br><span class="line"><span class="attr">methods</span> = GET, PUT, POST, HEAD, DELETE</span><br><span class="line"><span class="attr">max_age</span> = <span class="number">3600</span></span><br></pre></td></tr></table></figure>
+<p>再在该文件夹下创建一个 <code>docker-compose.yml</code> 文件，打开，贴入以下内容</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&quot;2.1&quot;</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">couchdb:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">couchdb</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">obsidian-livesync</span></span><br><span class="line">    <span class="attr">user:</span> <span class="number">1000</span><span class="string">:1000</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">COUCHDB_USER=admin</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">COUCHDB_PASSWORD=password</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./data:/opt/couchdb/data</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./local.ini:/opt/couchdb/etc/local.ini</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">5984</span><span class="string">:5984</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">unless-stopped</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>❗请根据需要修改文中 <code>./local.ini</code> 、<code>environment</code> 以及 <code>container_name</code> ，的值。</p>
+</blockquote>
+<p>运行下面这个命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker compose up -d</span><br></pre></td></tr></table></figure>
+<p>docker 就会自动拉取 couchDB 镜像并配置好。</p>
+<p>运行下面这个命令，检查容器是否已经开始运行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps</span><br></pre></td></tr></table></figure>
+<p>如果看到了前面设置的 <code>container_name</code> ，那么容器已经在运行了。由于服务器没有图形化窗口，这里需要转到阿里云的实例的安全组中， 给“入方向”添加 5984 端口，允许外界访问服务器的 5984 端口。</p>
+<p>下面转到本地操作。</p>
+<h3 id="在网页端创建数据库"><a class="markdownIt-Anchor" href="#在网页端创建数据库"></a> 在网页端创建数据库</h3>
+<p>在 PC 上访问 <code>http://[你的服务器公网IP]:5984/_utils</code>。你应该就能看见图形化界面了。</p>
+<blockquote>
+<p>如果拒绝访问，你可能需要写成这种形式<code>http://[你的用户名]:[你的密码]@[你的服务器公网IP]:5984/_utils</code>。这里的用户名和密码都是前面的 <code>docker-compose.yml</code> 中设置的。</p>
+</blockquote>
+<p>点击网页右上角的 <code>Create Database</code>，创建一个数据库，其中 <code>Database name</code> 为数据库名字，<code>Partitioned</code> 不应该被勾选，然后点 <code>Create</code> 创建。</p>
+<p>接着点开图标为扳手🔧的 <code>Setup</code> 选项卡，依次填入上述配置的管理员姓名和密码凭据，<code>Bind address</code> 一栏应保持为 <code>0.0.0.0</code> 才能允许所有的 IP 访问，最后，端口写 5984。</p>
+<p>最后，点开齿轮⚙️图标的 <code>Config</code> 选项卡，点选 CORS，启用，允许直接从浏览器连接到远程服务器并与 CouchDB 对话以加载数据。</p>
+<blockquote>
+<p>页面可能会提示报错，你需要刷新页面检查确实是启用并设置为 <code>All domains</code> 的就可以。</p>
+</blockquote>
+<h2 id="配置-obsidian"><a class="markdownIt-Anchor" href="#配置-obsidian"></a> 配置 Obsidian</h2>
+<p>在 Obsidian 本体软件中关闭安全模式，安装插件 <code>Self-hosted LiveSync</code> 并启用。</p>
+<p>打开卫星图标🛰️的 <code>Remote Database configuration</code> 选项卡。输入自己的数据库网址、用户名、密码与数据库名。数据库网址形如：<code>http://[你的服务器IP地址]:5984</code>，用户名、密码与数据库名都是在上一节数据库网页设定的。</p>
+<p>点击 <code>Test Database Connection</code>，若连接成功，则会提示 <code>connected</code>，否则，会提示那些步骤存在问题，按描述检查即可。</p>
+<p>打开循环图标🔁的 <code>Sync Settings</code> 选项卡，将 <code>Sync Mode</code> 调整为 <code>Live Sync</code>，这样就是实时的同步，而非定时或定节点的保存。</p>
+<blockquote>
+<p>一些建议设置：</p>
+<ul>
+<li>在 <code>Sync Settings</code> 选项卡中启用 <code>Use Trash for deleted files</code>，启用回收站而非直接删除；</li>
+<li>在齿轮图标⚙️的 <code>General Settings</code>中，检查启用 <code>Show staus inside editor</code>
+<ul>
+<li>💤：表示目前一切就绪</li>
+<li>⚡：表示正在同步</li>
+<li>⚠️：同步出现错误</li>
+<li>↑和↓：表示本次启动以来上传和下载了多少数据</li>
+<li>其它的图标感觉都不大容易碰到，这里略过。</li>
+</ul>
+</li>
+<li>在卫星图标🛰️的 <code>Remote Database configuration</code> 选项卡中的 <code>Confidentiality</code> 启用端到端加密和路径混淆（Path Obfuscation）并配置加密密码，保护数据。（可能会导致重建数据库）</li>
+</ul>
+</blockquote>
+<h2 id="配置第二台设备"><a class="markdownIt-Anchor" href="#配置第二台设备"></a> 配置第二台设备</h2>
+<p>继续在上述已经配好的设备的 LiveSync插件上，点选魔法师图标的🧙 <code>Setup Wizard</code>选项卡，点选<code>Copy Setup URI</code>，输入一个加密密码，生成口令。将其发送到我们需要设置的另一设备。</p>
+<p>在第二台设备（例如安卓手机）上，打开同样的选项卡，点击<code>Open Setup URI</code>，依次输入口令和加密码进行解密。选择“将其设置为第二或后续设备”，最后同样点击 <code>Test Database Connection</code> 检查确实已经连接成功即可。</p>
+<p>接下来就可以通过创建文件，打几段话试试同步效果，最后继续写作之旅了。</p>
+<h2 id="参考和推荐阅读"><a class="markdownIt-Anchor" href="#参考和推荐阅读"></a> 参考和推荐阅读</h2>
+<ol>
+<li>本文的主要参考对象，吕楪的博客，有一些细节比本文更丰富（毕竟中译中就没意思了）：<a href="https://irithys.com/p/obsidian-livesync/#%E4%BF%AE%E5%A4%8D%E8%BF%9E%E6%8E%A5">Obsidian 免费的实时同步服务</a></li>
+<li>插件官方提供的设置 CouchDB 教程（顺便一提官方的其它中文文档也值得一看）：<a href="https://github.com/vrtmrz/obsidian-livesync/blob/main/docs/setup_own_server_cn.md">obsidian-livesync/docs/setup_own_server_cn.md at main · vrtmrz/obsidian-livesync</a></li>
+<li>如果你想了解其它的同步方式，同样是吕楪大佬的：<a href="https://irithys.com/p/obsidian-%E5%90%84%E7%A7%8D%E5%90%8C%E6%AD%A5%E6%96%B9%E5%BC%8F%E4%BD%93%E9%AA%8C/#android%E7%AB%AF%E6%93%8D%E4%BD%9C">Obsidian 各种同步方式体验</a></li>
+<li>另一篇关于 Obsidian 不同同步方式的文章：<a href="https://zhuanlan.zhihu.com/p/531516583">Obsidian 免费同步方案 - 知乎</a></li>
+<li>了解如何连接到服务器（阿里云）：<a href="https://help.aliyun.com/zh/ecs/user-guide/connection-methods#concept-tmr-pgx-wdb">云服务器ECS连接方式介绍与对比_云服务器 ECS-阿里云帮助中心</a></li>
+<li>在阿里云（CentOS 或 Alibaba Cloud Linux）云服务器上安装 Docker：<a href="https://help.aliyun.com/zh/ecs/use-cases/deploy-and-use-docker-on-alibaba-cloud-linux-2-instances">安装Docker并使用_云服务器 ECS-阿里云帮助中心</a></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Obsidian/" rel="tag"><i class="fa fa-tag"></i> Obsidian</a>
+              <a href="/tags/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag"><i class="fa fa-tag"></i> 云服务器</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/post/20231112181307.html" rel="prev" title="数据库大作业：公交管理系统">
+                  <i class="fa fa-angle-left"></i> 数据库大作业：公交管理系统
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/post/20231210174037.html" rel="next" title="配置 WSL 与 WSA">
+                  配置 WSL 与 WSA <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2020 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">LeeKa</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">92k</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css" integrity="sha256-UF1fgpAiu3tPJN/uCqEUHNe7pnr+QR0SQDNfgglgtcM=" crossorigin="anonymous">
+
+
+
+</body>
+</html>

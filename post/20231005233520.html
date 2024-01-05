@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.0.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/white/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"default"},"fold":{"enable":true,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="前言 A 测实验报告，实现一个根据湿度控制电机转动的简单嵌入式系统的仿真。此前没有接触过嵌入式，这也是我对嵌入式的初步认识。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="A 测实验：湿度测控系统仿真 &#x2F; 嵌入式">
+<meta property="og:url" content="http://example.com/post/20231005233520.html">
+<meta property="og:site_name" content="LeeKa 的酒馆">
+<meta property="og:description" content="前言 A 测实验报告，实现一个根据湿度控制电机转动的简单嵌入式系统的仿真。此前没有接触过嵌入式，这也是我对嵌入式的初步认识。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/assets/A-Framework.png">
+<meta property="og:image" content="http://example.com/assets/A-VSPD.jpg">
+<meta property="og:image" content="http://example.com/assets/A-XCOM1.jpg">
+<meta property="og:image" content="http://example.com/assets/A-codes.jpg">
+<meta property="og:image" content="http://example.com/assets/A-U1.jpg">
+<meta property="og:image" content="http://example.com/assets/A-begin.jpg">
+<meta property="og:image" content="http://example.com/assets/A-high.jpg">
+<meta property="og:image" content="http://example.com/assets/A-XCOM2.jpg">
+<meta property="og:image" content="http://example.com/assets/A-Low.jpg">
+<meta property="article:published_time" content="2023-10-05T15:35:20.000Z">
+<meta property="article:modified_time" content="2024-01-03T17:08:04.652Z">
+<meta property="article:author" content="LeeKa">
+<meta property="article:tag" content="实验报告">
+<meta property="article:tag" content="嵌入式">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/assets/A-Framework.png">
+
+
+<link rel="canonical" href="http://example.com/post/20231005233520.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/post/20231005233520.html","path":"post/20231005233520.html","title":"A 测实验：湿度测控系统仿真 / 嵌入式"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>A 测实验：湿度测控系统仿真 / 嵌入式 | LeeKa 的酒馆</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">LeeKa 的酒馆</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">欢迎，旅人！坐下来享受一下暖烘烘的炉火吧。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li><li class="menu-item menu-item-commonweal"><a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text"> 前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E8%A6%81%E6%B1%82"><span class="nav-number">2.</span> <span class="nav-text"> 实验要求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83"><span class="nav-number">3.</span> <span class="nav-text"> 实验环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E6%AD%A5%E9%AA%A4"><span class="nav-number">4.</span> <span class="nav-text"> 操作步骤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%BF%E7%9C%9F%E7%BB%93%E6%9E%9C"><span class="nav-number">5.</span> <span class="nav-text"> 仿真结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E4%BB%A3%E7%A0%81"><span class="nav-number">6.</span> <span class="nav-text"> 程序代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">7.</span> <span class="nav-text"> 参考</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="LeeKa"
+      src="https://s2.loli.net/2022/03/24/zcq6l9KENbRJtDi.jpg">
+  <p class="site-author-name" itemprop="name">LeeKa</p>
+  <div class="site-description" itemprop="description">代码、音乐和游戏，一起来聊聊吧</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">54</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">153</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/KXAND" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;KXAND" rel="noopener me" target="_blank">GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:leeka.Pub@outlook.com" title="E-Mail → mailto:leeka.Pub@outlook.com" rel="noopener me" target="_blank">E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/QuiXand" title="X → https:&#x2F;&#x2F;twitter.com&#x2F;QuiXand" rel="noopener me" target="_blank">X</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/big/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/post/20231005233520.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://s2.loli.net/2022/03/24/zcq6l9KENbRJtDi.jpg">
+      <meta itemprop="name" content="LeeKa">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LeeKa 的酒馆">
+      <meta itemprop="description" content="代码、音乐和游戏，一起来聊聊吧">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="A 测实验：湿度测控系统仿真 / 嵌入式 | LeeKa 的酒馆">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          A 测实验：湿度测控系统仿真 / 嵌入式<a href="https://github.com/KXAND/BlogSource/edit/source/_posts/%E8%AF%BE%E7%A8%8B%E6%8A%A5%E5%91%8A/A%E6%B5%8B%EF%BC%9A%E6%B9%BF%E5%BA%A6%E6%B5%8B%E6%8E%A7%E4%BB%BF%E7%9C%9F.md" class="post-edit-link" title="编辑" rel="noopener" target="_blank"><i class="fa fa-pen-nib"></i></a>
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-10-05 23:35:20" itemprop="dateCreated datePublished" datetime="2023-10-05T23:35:20+08:00">2023-10-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-01-04 01:08:04" itemprop="dateModified" datetime="2024-01-04T01:08:04+08:00">2024-01-04</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.3k</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h2>
+<p>A 测实验报告，实现一个根据湿度控制电机转动的简单嵌入式系统的仿真。此前没有接触过嵌入式，这也是我对嵌入式的初步认识。 <span id="more"></span></p>
+<h2 id="实验要求"><a class="markdownIt-Anchor" href="#实验要求"></a> 实验要求</h2>
+<p>使用 Arduino UNO 微控制器，搭建一个 PC 上位机远程湿度检测控制系统。</p>
+<p>具体来说功能可以分为如下两部分：</p>
+<ul>
+<li>
+<p>通信：串口和 Arduino UNO 系统双工通信。我们操作通过串口向仿真系统发送学号。同时，我们还可以从串口读取当前湿度。</p>
+</li>
+<li>
+<p>反馈：当环境湿度低于等于预定的湿度时， Arduino UNO 启动直流电机转动；当环境湿度高于预定的湿度时，直流电机停止转动。 Arduino UNO 还会在 LCD 屏上显示之前输入的学号和湿度。</p>
+</li>
+</ul>
+<p>上述预定湿度的值为百分之“30+学号末位数”。</p>
+<p>软件环境：推荐采用 Proteus 8.9 SP2 及以上仿真软件，Arduino IDE，串口调试助手软件，虚拟串口驱动软件 Virtual Serial Port Driver（VSPD）。</p>
+<p>所谓微控制器，是一个高度集成的芯片，内部有 CPU 、内存等等，对外则提供各类接口，单片机也是一种微控制器，而 Arduino UNO 微控制器的核心是一个 Atmega328P 单片机。 Arduino 平台也有对应的软件开发工具，例如官方的 Arduino IDE。采用 VSC 等当然也可以，不过我们只是做一次作业，也就不花心思在如何配环境了。总之，透过这些软件，我们可以编写代码输送到开发板（此处是 Arduino UNO）中去执行。</p>
+<p>而上述提到的串口则是“串行端口”的意思，具体来说，我们这里指的是 COM 口，即 Commuinication Port。串口通信较为简单而稳定。</p>
+<p>整体系统框图如下：</p>
+<p><img src="../../assets/A-Framework.png" alt="系统框图" /></p>
+<h2 id="实验环境"><a class="markdownIt-Anchor" href="#实验环境"></a> 实验环境</h2>
+<ul>
+<li>Windows 11 个人电脑</li>
+<li>Proteus 8.9 SP2：仿真软件，老师提供的电路就是 Proteus 工程文件。</li>
+<li>XCOM 2.0：用来在串口上进行通信的；</li>
+<li>VSPD 7.2.308：Virtual Serial Port Dirver，用来创建虚拟一对端口的，因为我们的微控制器是虚拟的，所以与之通信的串口也是虚拟的；</li>
+<li>Arduino 1.8.19：给 Arduino 开发板编写程序的 IDE；这里需要注意版本问题，官网的 2.x 版本似乎是无法看到 VSPD 创建的虚拟端口的；</li>
+<li>DHT 11 库：DHT 11 数字温湿度传感器配套的库，因为我们是在 Arduino 平台进行开发，因此需要对应的在 Arduino 平台的库，在这里我采用的是 Github 上找的 <a href="https://github.com/adidax/dht11">adidax/dht11: DHT11 library for Arduino</a>。</li>
+</ul>
+<h2 id="操作步骤"><a class="markdownIt-Anchor" href="#操作步骤"></a> 操作步骤</h2>
+<ol>
+<li>环境配置，安装上述软件，并将 DHT 11 库添加到 Arduino IDE 中。其中 Proteus 需要安装在 C 盘根目录下，不然会识别不到库。</li>
+<li>通过 VSPD 添加一对虚拟串口 COM1 和 COM2 进行虚拟串联。
+<img src="../../assets/A-VSPD.jpg" alt="VSPD" /></li>
+<li>XCOM 设置波特率为 9600，测试虚拟端口之间能否正常通信；并保持 COM1 为打开状态。
+<img src="../../assets/A-XCOM1.jpg" alt="XCOM" /></li>
+<li>我们没有可以上传的真实开发板，而验证本身并不会传到开发板中，所以我们设置 Arduino IDE 的首选项（Preference），将编译和上传勾选。随后在 Arduino IDE 内编写程序并&quot;验证&quot;（程序代码见后文）。控制台会告诉我们在appdata 下的一个文件下下生成了编译文件，其中该目录下的 *.ino.hex 就是验证后编译生成的机器码文件，它就是我们要的。（注意这是临时文件，每次验证目录都会变化）。
+<img src="../../assets/A-codes.jpg" alt="codes" /></li>
+<li>在 Proteus U1 里指定编译生成的 .HEX 文件，P1 指定端口为 COM1。
+<img src="../../assets/A-U1.jpg" alt="U1" /></li>
+<li>运行仿真工程，输入学号，调节湿度，观察电机状态和 LCD 显示信息。</li>
+</ol>
+<h2 id="仿真结果"><a class="markdownIt-Anchor" href="#仿真结果"></a> 仿真结果</h2>
+<p>我的学号尾号为2，因此预定的湿度值是 32%。
+初始状态只显示湿度值：
+<img src="../../assets/A-begin.jpg" alt="U1" />
+此时通过 XCOM（COM2） 发送学号，可以看到 LCD 显示屏上成功显示学号，并且 PC 机接收到湿度值。注意 XCOM 使用的 COM 2 而且应该处于打开状态，因为与之配对的 COM1 在模拟开发板上，我们无法通过 COM1 给COM1 自己发消息。
+<img src="../../assets/A-high.jpg" alt="U1" />
+<img src="../../assets/A-XCOM2.jpg" alt="XCOM" />
+将设定湿度改到 32%，此时电机开始转动：
+<img src="../../assets/A-Low.jpg" alt="XCOM" /></p>
+<h2 id="程序代码"><a class="markdownIt-Anchor" href="#程序代码"></a> 程序代码</h2>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># <span class="keyword">include</span> <span class="string">&lt;Wire.h&gt;</span></span></span><br><span class="line"><span class="meta"># <span class="keyword">include</span> <span class="string">&lt;dht11.h&gt;</span> </span></span><br><span class="line"><span class="meta"># <span class="keyword">include</span> <span class="string">&lt;LiquidCrystal.h&gt;</span> </span></span><br><span class="line"> </span><br><span class="line"><span class="meta"># <span class="keyword">define</span> DHT11PIN 6</span></span><br><span class="line"><span class="meta"># <span class="keyword">define</span> EMPIN 7</span></span><br><span class="line"> </span><br><span class="line"><span class="function">LiquidCrystal <span class="title">lcd</span><span class="params">(<span class="number">12</span>, <span class="number">11</span>, <span class="number">5</span>, <span class="number">4</span>, <span class="number">3</span>, <span class="number">2</span>)</span></span>; <span class="comment">// 初始化LCD</span></span><br><span class="line">dht11 DHT11;</span><br><span class="line">String stuID = <span class="string">&quot;&quot;</span>; </span><br><span class="line"><span class="type">int</span> len, lastNumNum = <span class="number">0</span>;</span><br><span class="line"><span class="type">int</span> setHumidity, realHumidity = <span class="number">0</span>;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">setup</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  Serial.<span class="built_in">begin</span>(<span class="number">9600</span>); <span class="comment">// 初始化串口波特率为9600</span></span><br><span class="line">  lcd.<span class="built_in">begin</span>(<span class="number">16</span>, <span class="number">2</span>);</span><br><span class="line">  <span class="built_in">pinMode</span>(EMPIN, OUTPUT); <span class="comment">// 设置连接直流电机引脚工作模式</span></span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">loop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  DHT11.<span class="built_in">read</span>(DHT11PIN);</span><br><span class="line">  realHumidity = (<span class="type">int</span>)DHT11.humidity;</span><br><span class="line">  lcd.<span class="built_in">print</span>(<span class="string">&quot;ID:&quot;</span>);</span><br><span class="line"> </span><br><span class="line">  <span class="keyword">if</span> (Serial.<span class="built_in">available</span>() &gt; <span class="number">0</span>) &#123; <span class="comment">// 串口接收到数据</span></span><br><span class="line">    <span class="keyword">while</span> (Serial.<span class="built_in">available</span>() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">      stuID += (<span class="type">char</span>)Serial.<span class="built_in">read</span>();</span><br><span class="line">      <span class="built_in">delay</span>(<span class="number">10</span>); </span><br><span class="line">    &#125;</span><br><span class="line">    lcd.<span class="built_in">println</span>(stuID);</span><br><span class="line">    </span><br><span class="line">    len = stuID.<span class="built_in">length</span>();</span><br><span class="line">    lastNum = stuID.<span class="built_in">substring</span>(len - <span class="number">3</span>, len - <span class="number">2</span>).<span class="built_in">toInt</span>(); <span class="comment">// 取末尾数字</span></span><br><span class="line">    setHumidity = <span class="number">30</span> + lastNum;</span><br><span class="line">    </span><br><span class="line">    stuID = <span class="string">&quot;&quot;</span>;</span><br><span class="line">    len = <span class="number">0</span>;</span><br><span class="line">    lastNum = <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// LCD 输出 RH</span></span><br><span class="line">  lcd.<span class="built_in">setCursor</span>(<span class="number">0</span>, <span class="number">1</span>); <span class="comment">// 将光标定位在第0列，第1行（即下一列）</span></span><br><span class="line">  lcd.<span class="built_in">print</span>(<span class="string">&quot;RH:&quot;</span>);</span><br><span class="line">  lcd.<span class="built_in">print</span>(realHumidity);</span><br><span class="line">  lcd.<span class="built_in">println</span>(<span class="string">&quot;%&quot;</span>);</span><br><span class="line">  lcd.<span class="built_in">home</span>(); <span class="comment">// 光标返回左上角</span></span><br><span class="line">    </span><br><span class="line">  <span class="comment">// 串口输出 RH</span></span><br><span class="line">  Serial.<span class="built_in">print</span>(<span class="string">&quot;Humidity:&quot;</span>);</span><br><span class="line">  Serial.<span class="built_in">print</span>(realHumidity); </span><br><span class="line">  Serial.<span class="built_in">println</span>(<span class="string">&quot;%&quot;</span>);</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span> (realHumidity &lt;= setHumidity) &#123;</span><br><span class="line">    <span class="built_in">digitalWrite</span>(EMPIN, HIGH); <span class="comment">// 电机转动</span></span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">digitalWrite</span>(EMPIN, LOW);</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">  <span class="built_in">delay</span>(<span class="number">1000</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="参考"><a class="markdownIt-Anchor" href="#参考"></a> 参考</h2>
+<ol>
+<li><a href="https://blog.csdn.net/weixin_58243145/article/details/133042452">2023西电A测：湿度测控仿真系统-CSDN博客</a></li>
+<li><a href="https://blog.csdn.net/flovst/article/details/126812241">西电A测：串口通信仿真-CSDN博客</a></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/" rel="tag"><i class="fa fa-tag"></i> 实验报告</a>
+              <a href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/" rel="tag"><i class="fa fa-tag"></i> 嵌入式</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/post/20230819181332.html" rel="prev" title="C++ STL 容器与容器适配器">
+                  <i class="fa fa-angle-left"></i> C++ STL 容器与容器适配器
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/post/20231112181307.html" rel="next" title="数据库大作业：公交管理系统">
+                  数据库大作业：公交管理系统 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2020 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">LeeKa</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">92k</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css" integrity="sha256-UF1fgpAiu3tPJN/uCqEUHNe7pnr+QR0SQDNfgglgtcM=" crossorigin="anonymous">
+
+
+
+</body>
+</html>

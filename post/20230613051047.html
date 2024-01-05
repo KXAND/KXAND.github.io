@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.0.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/white/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"default"},"fold":{"enable":true,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="前言 BOF算法是一种通过特征来实现图像检索或分类的算法。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="多媒体实验3：基于 BOF 进行相似图片搜索">
+<meta property="og:url" content="http://example.com/post/20230613051047.html">
+<meta property="og:site_name" content="LeeKa 的酒馆">
+<meta property="og:description" content="前言 BOF算法是一种通过特征来实现图像检索或分类的算法。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-06-12T21:10:47.000Z">
+<meta property="article:modified_time" content="2023-07-04T10:20:55.014Z">
+<meta property="article:author" content="LeeKa">
+<meta property="article:tag" content="多媒体数据处理">
+<meta property="article:tag" content="实验报告">
+<meta property="article:tag" content="课程">
+<meta property="article:tag" content="BOF">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/post/20230613051047.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/post/20230613051047.html","path":"post/20230613051047.html","title":"多媒体实验3：基于 BOF 进行相似图片搜索"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>多媒体实验3：基于 BOF 进行相似图片搜索 | LeeKa 的酒馆</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">LeeKa 的酒馆</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">欢迎，旅人！坐下来享受一下暖烘烘的炉火吧。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li><li class="menu-item menu-item-commonweal"><a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text"> 前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%AE%E7%9A%84%E8%A6%81%E6%B1%82"><span class="nav-number">2.</span> <span class="nav-text"> 目的&#x2F;要求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFbof"><span class="nav-number">3.</span> <span class="nav-text"> 什么是BOF</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ti-idf"><span class="nav-number">4.</span> <span class="nav-text"> TI-IDF</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84"><span class="nav-number">5.</span> <span class="nav-text"> 程序的基本结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B0%8F%E7%82%B9"><span class="nav-number">5.1.</span> <span class="nav-text"> 程序中的一些小点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BA%90%E4%BB%A3%E7%A0%81"><span class="nav-number">6.</span> <span class="nav-text"> 源代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">7.</span> <span class="nav-text"> 参考资料</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="LeeKa"
+      src="https://s2.loli.net/2022/03/24/zcq6l9KENbRJtDi.jpg">
+  <p class="site-author-name" itemprop="name">LeeKa</p>
+  <div class="site-description" itemprop="description">代码、音乐和游戏，一起来聊聊吧</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">54</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">153</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/KXAND" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;KXAND" rel="noopener me" target="_blank">GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:leeka.Pub@outlook.com" title="E-Mail → mailto:leeka.Pub@outlook.com" rel="noopener me" target="_blank">E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/QuiXand" title="X → https:&#x2F;&#x2F;twitter.com&#x2F;QuiXand" rel="noopener me" target="_blank">X</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/big/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/post/20230613051047.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://s2.loli.net/2022/03/24/zcq6l9KENbRJtDi.jpg">
+      <meta itemprop="name" content="LeeKa">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LeeKa 的酒馆">
+      <meta itemprop="description" content="代码、音乐和游戏，一起来聊聊吧">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="多媒体实验3：基于 BOF 进行相似图片搜索 | LeeKa 的酒馆">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          多媒体实验3：基于 BOF 进行相似图片搜索<a href="https://github.com/KXAND/BlogSource/edit/source/_posts/%E8%AF%BE%E7%A8%8B%E6%8A%A5%E5%91%8A/%E5%A4%9A%E5%AA%92%E4%BD%93%E5%AE%9E%E9%AA%8C3%E5%9B%BE%E7%89%87%E6%90%9C%E7%B4%A2.md" class="post-edit-link" title="编辑" rel="noopener" target="_blank"><i class="fa fa-pen-nib"></i></a>
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-06-13 05:10:47" itemprop="dateCreated datePublished" datetime="2023-06-13T05:10:47+08:00">2023-06-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-07-04 18:20:55" itemprop="dateModified" datetime="2023-07-04T18:20:55+08:00">2023-07-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%A4%9A%E5%AA%92%E4%BD%93%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E5%AE%9E%E9%AA%8C/" itemprop="url" rel="index"><span itemprop="name">多媒体数据处理实验</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.1k</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h2>
+<p>BOF算法是一种通过特征来实现图像检索或分类的算法。 <span id="more"></span></p>
+<h2 id="目的要求"><a class="markdownIt-Anchor" href="#目的要求"></a> 目的/要求</h2>
+<p>使用BOF算法，在数据集上实现以图搜图：即输入数据集中某一张图，在剩下的999张图里搜索最邻近的10张图。数据集是按文件夹放好的 10 * 100 张 jpg 图片。</p>
+<h2 id="什么是bof"><a class="markdownIt-Anchor" href="#什么是bof"></a> 什么是BOF</h2>
+<p>BOF，bag of features 是由自然语言处理领域的 BOW（bag of words）引申而来的。BOW，用一个袋子装起了一个个词，顾名思义就是用（关键）词为单位去处理文章句子。引申到图像领域，就用特征（feature）代替了关键词（words），即通过处理特征来处理图像。</p>
+<p>具体地说，BOF的思想是这样的：每个图像的特征多少不一而足，我们将这些特征进行归类，就可以把一个的图像转化“有多少个xx”类特征这样的表述，从而方便计算和表述。这个过程就像是把图像的特征扔进一个个袋子里分类，即 bag of features。</p>
+<p>而这就有了三个子问题：1.特征哪来？2.袋子哪儿来？3.咋扔？</p>
+<p>特征的来源很多，我们可以使 SIFT 特征，但是使用其他的特征也并非不可，例如 HOG 等。</p>
+<p>袋子哪儿来？袋子并不是凭空出现的。而是根据数据集中的特征进行归类归出来的。这是一个把数据归类的问题，我们可以使用 KMeans 聚类算法把所有的数据归为人指定的 K 类。（K的值可能需要不断调整到最佳值）</p>
+<p>扔进袋就是给一个查询点，将其放到最近的袋子中。我们可以使用 scipy 中 vq 来完成这一步。</p>
+<p>这样，我们就完成了对一个数据集的初步 BOF 处理。</p>
+<p>不过，为了更准确地进行搜索，我们还引入了 TD-IDF 对“单词”进行加权。</p>
+<h2 id="ti-idf"><a class="markdownIt-Anchor" href="#ti-idf"></a> TI-IDF</h2>
+<p>想象一下下面两种情况：</p>
+<ol>
+<li>在国际新闻中以“美国”为关键词进行搜索：搜索结果数量纷繁。</li>
+<li>在国际新闻中以“贸易战”为关键词进行搜索：搜索的结果基本都和近年“中美贸易战”密切相关。</li>
+</ol>
+<p>如果我们的目标是查询“2018年中美贸易战”有关的新闻报道，那么“贸易战”是比“美国”更重要的关键词。这是因为“美国”在几乎所有的文章中都频繁出现，而“贸易战”只在贸易战有关的新闻中频繁出现。</p>
+<p>为此我们使用 TI-IDF进行评估。TF(term frequency)是某一个词语在一个文件中出现的频率，即词频。IDF（inverse document frequency，逆向文件频率）则衡量一个词语在所有文档中出现的频率。TF-IDF计算方法为：</p>
+<ol>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mi>F</mi><mo>=</mo><mfrac><mtext>文档中该词数量</mtext><mtext>文档总词数</mtext></mfrac></mrow><annotation encoding="application/x-tex">TF=\frac{文档中该词数量}{文档总词数}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mord mathnormal" style="margin-right:0.13889em;">F</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.217331em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.872331em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord cjk_fallback mtight">文</span><span class="mord cjk_fallback mtight">档</span><span class="mord cjk_fallback mtight">总</span><span class="mord cjk_fallback mtight">词</span><span class="mord cjk_fallback mtight">数</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord cjk_fallback mtight">文</span><span class="mord cjk_fallback mtight">档</span><span class="mord cjk_fallback mtight">中</span><span class="mord cjk_fallback mtight">该</span><span class="mord cjk_fallback mtight">词</span><span class="mord cjk_fallback mtight">数</span><span class="mord cjk_fallback mtight">量</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>I</mi><mi>D</mi><mi>F</mi><mo>=</mo><mi>l</mi><mi>g</mi><mfrac><mtext>文档总数</mtext><mtext>包含该词的文档数</mtext></mfrac></mrow><annotation encoding="application/x-tex">IDF= lg\frac{文档总数}{包含该词的文档数}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="mord mathnormal" style="margin-right:0.13889em;">F</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.217331em;vertical-align:-0.345em;"></span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.872331em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord cjk_fallback mtight">包</span><span class="mord cjk_fallback mtight">含</span><span class="mord cjk_fallback mtight">该</span><span class="mord cjk_fallback mtight">词</span><span class="mord cjk_fallback mtight">的</span><span class="mord cjk_fallback mtight">文</span><span class="mord cjk_fallback mtight">档</span><span class="mord cjk_fallback mtight">数</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord cjk_fallback mtight">文</span><span class="mord cjk_fallback mtight">档</span><span class="mord cjk_fallback mtight">总</span><span class="mord cjk_fallback mtight">数</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></li>
+<li>$TFIDF= TF\times IDF $</li>
+</ol>
+<p>只有在特定文件中高，但是在整体文件中低的词语，才能取得较高的TF-IDF值。</p>
+<p>我们使用 TF-IDF 加权以后的特征来进行搜索以提高准确率。</p>
+<h2 id="程序的基本结构"><a class="markdownIt-Anchor" href="#程序的基本结构"></a> 程序的基本结构</h2>
+<p>有关功能基均有库可调，下面简单叙述我的程序中的各个函数。</p>
+<ol>
+<li>get_dictionary()，读入图片，用 opencv 计算 SIFT特征。取特征的描述子使用 sklearn 中 KMeans 聚类，取聚类中心代表类。完成这一步，就相当于我们已经造好了“袋子”并找到了“词”。</li>
+<li>corel_bof()：遍历前面保存的词，判断各个词最近的袋子是什么。并把结果存入一个 numpy.histogram 直方图中。这就相当于我们已经把词扔进了袋子，以后就可以用直方图代表此图片了。</li>
+<li>tf_idf()：使用 sklearn 对直方图进行 TF-IDF 加权。</li>
+</ol>
+<p>以上的步骤耗时较长，而且一经处理不再变动。因此可以将其导出为 JSON 或其他文件，方便后续使用。
+搜索时则：</p>
+<ol>
+<li>search_similar()：对搜索图片同样进行上述三步处理。得到结果使用 sklearn 中 cosine_similarity计算其与我们的数据集的 TI-IDF 的余弦相似度。对其排序后返回最相近结果的前 K+1 个。因为我们的图片均来自数据集，因此最像的肯定是自己。</li>
+<li>show_result：使用 pillow 显示最像的前 K 个图片。</li>
+</ol>
+<h3 id="程序中的一些小点"><a class="markdownIt-Anchor" href="#程序中的一些小点"></a> 程序中的一些小点</h3>
+<ol>
+<li>读入图片可以使用 glob.glob() 递归查找文件目录下的所有图片。</li>
+<li>SIFT 的结果只要其中的描述子，这是因为关键点仅包含坐标信息，描述子才真正的表示了一个特征。我们所有的操作都是对描述子进行的。</li>
+<li>cv2.imread 默认读入彩图是 BGR 格式，这会导致图片泛蓝。搜索和计算时这并不怎么影响，但是输出时就需要转为 RGB 格式或者直接用 pillow 的 Image.open()。</li>
+<li>各个函数的格式要求不一，所以能见到反复转格式。特别是导出为 JSON 时需要转 NDArray 为 list。因为 JSON 是内置的库，但是 numpy 可不是。</li>
+<li>试着使用了# region 来折叠代码，不过这不同于 C#，这并不是 python 本身提供的支持。我仅在 VScode 上验证可用。</li>
+</ol>
+<h2 id="源代码"><a class="markdownIt-Anchor" href="#源代码"></a> 源代码</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"><span class="keyword">import</span> glob</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"><span class="keyword">from</span> scipy.cluster.vq <span class="keyword">import</span> vq</span><br><span class="line"><span class="keyword">from</span> sklearn.cluster <span class="keyword">import</span> KMeans</span><br><span class="line"><span class="keyword">from</span> sklearn.metrics.pairwise <span class="keyword">import</span> cosine_similarity</span><br><span class="line"><span class="keyword">from</span> sklearn.feature_extraction.text <span class="keyword">import</span> TfidfTransformer</span><br><span class="line"></span><br><span class="line"><span class="comment"># debug</span></span><br><span class="line">corel_path = <span class="string">&#x27;./multi/corel/&#x27;</span></span><br><span class="line">query_img_path = <span class="string">&#x27;./multi/query.jpg&#x27;</span></span><br><span class="line">dict_file_path = <span class="string">&quot;./multi/dictionary.json&quot;</span></span><br><span class="line">bof_file_path = <span class="string">&quot;./multi/bof.json&quot;</span></span><br><span class="line">tfidf_file_path = <span class="string">&quot;./multi/tf-idf.json&quot;</span></span><br><span class="line"></span><br><span class="line">bag_of_features = []</span><br><span class="line">features = []</span><br><span class="line">tfidf_feature = []</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># region preProcess</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_dictionary</span>(<span class="params">mode</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot; 根据图像生成特征字典：一共有这么多的特征。\\</span></span><br><span class="line"><span class="string">        包含SIFT和KMeans两步</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">if</span> (mode == <span class="string">&quot;load&quot;</span>):</span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(dict_file_path, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">            dictionary = np.array(json.load(f))</span><br><span class="line">        <span class="keyword">return</span> dictionary</span><br><span class="line"></span><br><span class="line">    progress = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> imgpath <span class="keyword">in</span> glob.glob(corel_path+<span class="string">&#x27;*/*.jpg&#x27;</span>):</span><br><span class="line">        img = cv2.imread(imgpath)</span><br><span class="line">        <span class="comment"># 显示进度</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;load a pic success:&quot;</span>+(progress+<span class="number">1</span>).__str__()+<span class="string">&quot;/&quot;</span>+<span class="string">&quot;100&quot;</span>)</span><br><span class="line">        progress += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 获取img的所有描述子,不需要关键点</span></span><br><span class="line">        _, des = cv2.SIFT_create().detectAndCompute(img, <span class="literal">None</span>)</span><br><span class="line"></span><br><span class="line">        features.append(des)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># vertical stack,垂直堆叠二维数组</span></span><br><span class="line">    all_features = np.vstack(features)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># KMeans对象对 all_features 聚类</span></span><br><span class="line">    k = <span class="number">64</span></span><br><span class="line">    kmeans = KMeans(n_clusters=k, max_iter=<span class="number">300</span>, n_init=<span class="number">10</span>)</span><br><span class="line">    kmeans.fit(all_features)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 词典即聚类中心</span></span><br><span class="line">    <span class="comment"># k*128的二维数组</span></span><br><span class="line">    dictionary = kmeans.cluster_centers_</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (mode == <span class="string">&quot;save&quot;</span>):</span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(dict_file_path, <span class="string">&#x27;w&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">            <span class="comment"># ndarray不能直接输出为json</span></span><br><span class="line">            json.dump(dictionary.tolist(), f)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> dictionary</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">corel_bof</span>(<span class="params">dictionary, mode</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot; 表示出每个图片包含特征字典中的哪些特征&quot;&quot;&quot;</span></span><br><span class="line">    bag_of_features = []</span><br><span class="line">    <span class="keyword">if</span> (mode == <span class="string">&#x27;load&#x27;</span>):</span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(bof_file_path, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">            bag_of_features = np.array(json.load(f))</span><br><span class="line">        <span class="keyword">return</span> bag_of_features</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 遍历所有描述子</span></span><br><span class="line">    <span class="keyword">for</span> des <span class="keyword">in</span> features:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;gennerated a des\n&quot;</span>)</span><br><span class="line">        <span class="comment"># 使用vq获得图片每个描述子最近的聚类中心（属于哪个聚类中心）</span></span><br><span class="line">        code, _ = vq(des, dictionary)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 生成到直方图并归一化</span></span><br><span class="line">        <span class="comment"># .shape[0]聚类中心的数量</span></span><br><span class="line">        hist, _ = np.histogram(code, bins=<span class="built_in">range</span>(dictionary.shape[<span class="number">0</span>]+<span class="number">1</span>))</span><br><span class="line">        hist = hist/np.<span class="built_in">sum</span>(hist)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 添加到列表中1000*64维</span></span><br><span class="line">        bag_of_features.append(hist)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (mode == <span class="string">&quot;save&quot;</span>):</span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(bof_file_path, <span class="string">&#x27;w&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">            json.dump([arr.tolist() <span class="keyword">for</span> arr <span class="keyword">in</span> bag_of_features], f)</span><br><span class="line">    <span class="keyword">return</span> bag_of_features</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">tf_idf</span>():</span><br><span class="line">    <span class="string">&quot;&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    计算TF-IDF\\</span></span><br><span class="line"><span class="string">    TF值 = 词在文档中出现的次数 / 文档总词数\\</span></span><br><span class="line"><span class="string">    逆向文件频率：IDF值 = log（语料库中包含某个词的文档总数 / 语料库中文档总数）\\</span></span><br><span class="line"><span class="string">    每个词在每篇文档中的TF-IDF值：TF值*IDF\\</span></span><br><span class="line"><span class="string">    在这篇“文章”中出现得多的且其他文章出现得少的“词”，才是能标明它身份的“词”\\</span></span><br><span class="line"><span class="string">    大部分人都有的特征不算\\</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># list[NDArray]-&gt;NDArray-&gt;稀疏矩阵-&gt;NDArray-&gt;list</span></span><br><span class="line">    <span class="comment"># 通过NDArray转化为list以输出</span></span><br><span class="line">    tfidf_feature = TfidfTransformer().fit_transform(</span><br><span class="line">        np.array(bag_of_features)).toarray().tolist()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(tfidf_file_path, <span class="string">&#x27;w&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        json.dump(tfidf_feature, f)</span><br><span class="line">    <span class="keyword">return</span> tfidf_feature</span><br><span class="line"></span><br><span class="line"><span class="comment"># endregion</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">searchSimilar</span>(<span class="params">queryIMG, dictionary</span>):</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 对单个图像的ti-idf处理</span></span><br><span class="line">    _, m_des = cv2.SIFT_create().detectAndCompute(queryIMG, <span class="literal">None</span>)</span><br><span class="line">    query_code, _ = vq(m_des, <span class="built_in">dict</span>)</span><br><span class="line">    query_hist, _ = np.histogram(query_code, bins=<span class="built_in">range</span>(dictionary.shape[<span class="number">0</span>]+<span class="number">1</span>))</span><br><span class="line">    query_hist = query_hist/np.<span class="built_in">sum</span>(query_hist)</span><br><span class="line">    query_hist = np.array(query_hist).reshape(<span class="number">1</span>, -<span class="number">1</span>)</span><br><span class="line">    query_tfidf = TfidfTransformer()</span><br><span class="line">    query_tfidf = query_tfidf.fit_transform(query_hist).toarray()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># reshape(1, -1)：转化为长度为一行的二维数组</span></span><br><span class="line">    <span class="comment"># 返回1*1000的二维矩阵similarity</span></span><br><span class="line">    similarity = cosine_similarity(query_tfidf.reshape(<span class="number">1</span>, -<span class="number">1</span>), tfidf_feature)</span><br><span class="line">    top10_indices = np.argsort(similarity[<span class="number">0</span>])[-<span class="number">11</span>:][::-<span class="number">1</span>]</span><br><span class="line">    <span class="built_in">print</span>(top10_indices)</span><br><span class="line">    <span class="keyword">return</span> top10_indices</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">show_result</span>(<span class="params">result_array</span>):</span><br><span class="line">    imgs = []</span><br><span class="line">    total_width = <span class="number">0</span></span><br><span class="line">    max_height = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> idx <span class="keyword">in</span> result_array:</span><br><span class="line">        img_path = corel_path+<span class="built_in">str</span>(idx//<span class="number">100</span>)+<span class="string">&quot;/&quot;</span>+<span class="built_in">str</span>(idx)+<span class="string">&quot;.jpg&quot;</span></span><br><span class="line">        img = Image.<span class="built_in">open</span>(img_path)</span><br><span class="line">        imgs.append(img)</span><br><span class="line">        total_width += img.width</span><br><span class="line">        max_height = <span class="built_in">max</span>(max_height, img.height)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 创建拼接后的图像</span></span><br><span class="line">    result_image = Image.new(<span class="string">&#x27;RGB&#x27;</span>, (total_width, max_height))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 拼接所有图像</span></span><br><span class="line">    x_offset = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> image <span class="keyword">in</span> imgs:</span><br><span class="line">        result_image.paste(image, (x_offset, <span class="number">0</span>))</span><br><span class="line">        x_offset += image.size[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 显示拼接后的图像</span></span><br><span class="line">    result_image.show()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line"></span><br><span class="line">    <span class="comment"># load or save</span></span><br><span class="line">    file_op = <span class="string">&quot;load&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 字典、bof和tf-idf的获取</span></span><br><span class="line">    <span class="built_in">dict</span> = get_dictionary(mode=file_op)</span><br><span class="line">    bag_of_features = corel_bof(<span class="built_in">dict</span>, mode=file_op)</span><br><span class="line">    tfidf_feature = tf_idf()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 查询</span></span><br><span class="line">    query = cv2.imread(query_img_path, cv2.IMREAD_COLOR)</span><br><span class="line">    result = searchSimilar(query, <span class="built_in">dict</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 结果</span></span><br><span class="line">    show_result(result)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h2>
+<ul>
+<li><s>new bing 你是我爹</s></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%A4%9A%E5%AA%92%E4%BD%93%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/" rel="tag"><i class="fa fa-tag"></i> 多媒体数据处理</a>
+              <a href="/tags/%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/" rel="tag"><i class="fa fa-tag"></i> 实验报告</a>
+              <a href="/tags/%E8%AF%BE%E7%A8%8B/" rel="tag"><i class="fa fa-tag"></i> 课程</a>
+              <a href="/tags/BOF/" rel="tag"><i class="fa fa-tag"></i> BOF</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/post/20230523190056.html" rel="prev" title="云计算实验：在 Windows 平台搭建 Hadoop">
+                  <i class="fa fa-angle-left"></i> 云计算实验：在 Windows 平台搭建 Hadoop
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/post/20230614114713.html" rel="next" title="多媒体实验4：LSH局部敏感哈希">
+                  多媒体实验4：LSH局部敏感哈希 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2020 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">LeeKa</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">92k</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css" integrity="sha256-UF1fgpAiu3tPJN/uCqEUHNe7pnr+QR0SQDNfgglgtcM=" crossorigin="anonymous">
+
+
+
+</body>
+</html>

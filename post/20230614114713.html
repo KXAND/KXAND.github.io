@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.0.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/white/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"default"},"fold":{"enable":true,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="前言 KNN 问题是指求一个空间内一个点的 K 个最近邻的问题。DB 局部敏感哈希是 KNN 问题的一个快速求取方案，但是它的结果不能保证绝对准确。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="多媒体实验4：LSH局部敏感哈希">
+<meta property="og:url" content="http://example.com/post/20230614114713.html">
+<meta property="og:site_name" content="LeeKa 的酒馆">
+<meta property="og:description" content="前言 KNN 问题是指求一个空间内一个点的 K 个最近邻的问题。DB 局部敏感哈希是 KNN 问题的一个快速求取方案，但是它的结果不能保证绝对准确。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-06-14T03:47:13.000Z">
+<meta property="article:modified_time" content="2023-06-30T15:12:31.512Z">
+<meta property="article:author" content="LeeKa">
+<meta property="article:tag" content="多媒体数据处理">
+<meta property="article:tag" content="实验报告">
+<meta property="article:tag" content="课程">
+<meta property="article:tag" content="KNN 问题">
+<meta property="article:tag" content="局部敏感哈希">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/post/20230614114713.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/post/20230614114713.html","path":"post/20230614114713.html","title":"多媒体实验4：LSH局部敏感哈希"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>多媒体实验4：LSH局部敏感哈希 | LeeKa 的酒馆</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">LeeKa 的酒馆</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">欢迎，旅人！坐下来享受一下暖烘烘的炉火吧。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li><li class="menu-item menu-item-commonweal"><a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text"> 前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%AE%E7%9A%84"><span class="nav-number">2.</span> <span class="nav-text"> 目的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B1%80%E9%83%A8%E6%95%8F%E6%84%9F%E5%93%88%E5%B8%8C%E7%9A%84%E6%80%9D%E6%83%B3"><span class="nav-number">3.</span> <span class="nav-text"> 局部敏感哈希的思想</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%A7%E8%83%BD%E8%AF%84%E4%BC%B0%E5%87%86%E7%A1%AE%E7%8E%87-%E7%B2%BE%E7%A1%AE%E7%8E%87-%E5%8F%AC%E5%9B%9E%E7%8E%87"><span class="nav-number">4.</span> <span class="nav-text"> 性能评估：准确率、精确率、召回率</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84"><span class="nav-number">5.</span> <span class="nav-text"> 程序的基本结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BA%90%E4%BB%A3%E7%A0%81"><span class="nav-number">6.</span> <span class="nav-text"> 源代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%86%E7%A1%AE%E7%8E%87%E4%B8%8E%E5%8F%82%E6%95%B0%E5%8F%82%E8%80%83"><span class="nav-number">7.</span> <span class="nav-text"> 准确率与参数参考</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">8.</span> <span class="nav-text"> 参考</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="LeeKa"
+      src="https://s2.loli.net/2022/03/24/zcq6l9KENbRJtDi.jpg">
+  <p class="site-author-name" itemprop="name">LeeKa</p>
+  <div class="site-description" itemprop="description">代码、音乐和游戏，一起来聊聊吧</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">54</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">153</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/KXAND" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;KXAND" rel="noopener me" target="_blank">GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:leeka.Pub@outlook.com" title="E-Mail → mailto:leeka.Pub@outlook.com" rel="noopener me" target="_blank">E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/QuiXand" title="X → https:&#x2F;&#x2F;twitter.com&#x2F;QuiXand" rel="noopener me" target="_blank">X</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/big/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/post/20230614114713.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://s2.loli.net/2022/03/24/zcq6l9KENbRJtDi.jpg">
+      <meta itemprop="name" content="LeeKa">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LeeKa 的酒馆">
+      <meta itemprop="description" content="代码、音乐和游戏，一起来聊聊吧">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="多媒体实验4：LSH局部敏感哈希 | LeeKa 的酒馆">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          多媒体实验4：LSH局部敏感哈希<a href="https://github.com/KXAND/BlogSource/edit/source/_posts/%E8%AF%BE%E7%A8%8B%E6%8A%A5%E5%91%8A/%E5%A4%9A%E5%AA%92%E4%BD%93%E5%AE%9E%E9%AA%8C4LSH.md" class="post-edit-link" title="编辑" rel="noopener" target="_blank"><i class="fa fa-pen-nib"></i></a>
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-06-14 11:47:13" itemprop="dateCreated datePublished" datetime="2023-06-14T11:47:13+08:00">2023-06-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-06-30 23:12:31" itemprop="dateModified" datetime="2023-06-30T23:12:31+08:00">2023-06-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%A4%9A%E5%AA%92%E4%BD%93%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E5%AE%9E%E9%AA%8C/" itemprop="url" rel="index"><span itemprop="name">多媒体数据处理实验</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3k</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h2>
+<p>KNN 问题是指求一个空间内一个点的 K 个最近邻的问题。DB 局部敏感哈希是 KNN 问题的一个快速求取方案，但是它的结果不能保证绝对准确。 <span id="more"></span></p>
+<h2 id="目的"><a class="markdownIt-Anchor" href="#目的"></a> 目的</h2>
+<p>在corel数据集上实现LSH索引并分别进行近邻搜索，查询数据集前1000点的前10个最近邻，并统计搜索算法的性能(召回率，准确率，时间)。</p>
+<h2 id="局部敏感哈希的思想"><a class="markdownIt-Anchor" href="#局部敏感哈希的思想"></a> 局部敏感哈希的思想</h2>
+<p>常规的哈希思想是通过算法将被哈希后的值作为键去索引原来的值，由于根据值是可以算出键的，所以这就给我们的查找带来了方便。通过哈希，我们可以把一个稀疏矩阵紧密存放，但是又不损失索引的速度。</p>
+<p>不过哈希函数也有别的用法，例如密码学哈希函数。这类特别的哈希算法旨在用哈希函数实现加密，因此其哈希值难以推出原值，而且对输入敏感，稍加变动就会彻底改变哈希值。此外，其对抗碰撞的要求也很高，因为碰撞意味着加密的不安全。</p>
+<p>而局部敏感哈希则反其道而行之，其非常容易发生碰撞。实际上，这种哈希函数的目的是使邻近的值在经过哈希以后依然邻近，或者说干脆就相等了（这一步可以通过把处理后的值取整实现）。因此，通过局部敏感哈希，我们就相当于对数据集中的数进行了一次分类，这样以后需要搜索 KNN 时，我们就不需要搜索整个数据空间而只对与查询值具有相同哈希值的那些点进行计算即可。</p>
+<p>当然，哈希函数不能保证所有被映射到一起的值均是邻近的值，因此 LSH 只能是 KNN 的近似算法，不能保证准确。</p>
+<blockquote>
+<p>一个简单的例子是：
+令哈希函数为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo stretchy="false">(</mo><mo stretchy="false">(</mo><mi>x</mi><mtext>，</mtext><mi>y</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo><mo>=</mo><mi>x</mi></mrow><annotation encoding="application/x-tex">h((x，y))= x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">h</span><span class="mopen">(</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mord cjk_fallback">，</span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mclose">)</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">x</span></span></span></span> ，即 x 轴值。那么 y 轴方向上距离很大的点依然会被错误的认为是邻近点</p>
+</blockquote>
+<p>为了提高准确性，我们可以试着改变哈希算法的一些参数，使得更多的点映射在一起，相当于扩大了“邻近”的范围从而匹配到更多的点。另一方面，我们也可以采用另外一个不同的哈希函数进行运算，看看结果是否会不同。对于多次哈希的结果，我们可以取邻近点的交集，也可以取邻近点的并集，只要参数适当，都可以取得还不错的结果。事实上，由于处理的数据往往维数很大，所以我们都需要采取多个哈希函数。</p>
+<blockquote>
+<p>例如对于上面的例子，我们采用<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo stretchy="false">(</mo><mo stretchy="false">(</mo><mi>x</mi><mtext>，</mtext><mi>y</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo><mo>=</mo><mi>y</mi></mrow><annotation encoding="application/x-tex">h((x，y))= y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">h</span><span class="mopen">(</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mord cjk_fallback">，</span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mclose">)</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span></span></span> 作为第二个哈希函数算法，并且认为只有两次哈希结果均邻近才能算邻近值（取交集），那么 y 轴方向上距离很大的点就不会被认为是邻近点。</p>
+</blockquote>
+<p>前人们已经总结出了许多的哈希函数，针对不同的要求，例如求的是点的什么距离，我们可以采取不同的哈希方法。因此我们可以不自己构造哈希函数。</p>
+<p>总结一下，LSH 思想就是：通过构造哈希函数将相邻近的点映射到一起，用多次哈希提高精确度，用查找哈希值索引到可能的最邻近点并计算距离得出近似最邻近点。当参数取得合适，我们就可以保证 LSH 找到 KNN 的准确性可以接受。</p>
+<h2 id="性能评估准确率-精确率-召回率"><a class="markdownIt-Anchor" href="#性能评估准确率-精确率-召回率"></a> 性能评估：准确率、精确率、召回率</h2>
+<p>准确率、精确率、召回率是三个容易混淆的概念。</p>
+<p>假设我们的问题是在所有样本中找出所有为真的样本。那么对于机器给出的结果，就有“机器判断正确/错误”和“机器判断是真/假”的组合共计四种情况，记前者为 True/False，后者为 Positive/Negative，并简记为TFPN。那么机器就将样本分为了 TN、TP、FN、FP 四种类别。于是：</p>
+<ol>
+<li>准确率（accuracy）指机器对多少样本的判断是正确的，即 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mi>T</mi><mi>P</mi><mo>+</mo><mi>T</mi><mi>N</mi></mrow><mrow><mi>T</mi><mi>P</mi><mo>+</mo><mi>T</mi><mi>N</mi><mo>+</mo><mi>F</mi><mi>P</mi><mo>+</mo><mi>F</mi><mi>N</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">\frac{TP+TN}{TP+TN+FP+FN}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.275662em;vertical-align:-0.403331em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.872331em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em;">T</span><span class="mord mathnormal mtight" style="margin-right:0.13889em;">P</span><span class="mbin mtight">+</span><span class="mord mathnormal mtight" style="margin-right:0.13889em;">T</span><span class="mord mathnormal mtight" style="margin-right:0.10903em;">N</span><span class="mbin mtight">+</span><span class="mord mathnormal mtight" style="margin-right:0.13889em;">F</span><span class="mord mathnormal mtight" style="margin-right:0.13889em;">P</span><span class="mbin mtight">+</span><span class="mord mathnormal mtight" style="margin-right:0.13889em;">F</span><span class="mord mathnormal mtight" style="margin-right:0.10903em;">N</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em;">T</span><span class="mord mathnormal mtight" style="margin-right:0.13889em;">P</span><span class="mbin mtight">+</span><span class="mord mathnormal mtight" style="margin-right:0.13889em;">T</span><span class="mord mathnormal mtight" style="margin-right:0.10903em;">N</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.403331em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span>。准确率只在乎判断得对不对;</li>
+<li>精确率/查准率（precision）指预测为真的样本中有多少判断是正确的，也就是 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mi>T</mi><mi>P</mi></mrow><mrow><mi>T</mi><mi>P</mi><mo>+</mo><mi>F</mi><mi>P</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">\frac{TP}{TP+FP}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.275662em;vertical-align:-0.403331em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.872331em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em;">T</span><span class="mord mathnormal mtight" style="margin-right:0.13889em;">P</span><span class="mbin mtight">+</span><span class="mord mathnormal mtight" style="margin-right:0.13889em;">F</span><span class="mord mathnormal mtight" style="margin-right:0.13889em;">P</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em;">T</span><span class="mord mathnormal mtight" style="margin-right:0.13889em;">P</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.403331em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span>，精确率要求没有找到错误的真点，不关心有没有漏找;</li>
+<li>召回率/查全率（recall）指实际为真的样本中有多少判断是正确的，也就是究竟找（召）回了多少为真的样本，即<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mi>T</mi><mi>P</mi></mrow><mrow><mi>T</mi><mi>P</mi><mo>+</mo><mi>F</mi><mi>N</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">\frac{TP}{TP+FN}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.275662em;vertical-align:-0.403331em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.872331em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em;">T</span><span class="mord mathnormal mtight" style="margin-right:0.13889em;">P</span><span class="mbin mtight">+</span><span class="mord mathnormal mtight" style="margin-right:0.13889em;">F</span><span class="mord mathnormal mtight" style="margin-right:0.10903em;">N</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em;">T</span><span class="mord mathnormal mtight" style="margin-right:0.13889em;">P</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.403331em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span>，召回率只关心有没有找全真点，不关心有没有错误的点。</li>
+</ol>
+<p>在灾害预报中，我们应该关心召回率，因为每一次没有预测到灾害都会给社会带来巨大损失；但是如果是人脸识别，那么就应该关心精确率，因为无法识别人脸用户可以使用其他方式继续，但是如果错误识别则可能给用户带来损失。</p>
+<p>也可以用语言的角度进行理解，准确无疑是指我们判断对了没有，精确则是判读对了多少。因此前者关心整体的判断，而后者只关心预测为真的样本中的判断。</p>
+<h2 id="程序的基本结构"><a class="markdownIt-Anchor" href="#程序的基本结构"></a> 程序的基本结构</h2>
+<p>在这里，我采取的是计算欧几里得距离，这样，我们的哈希函数就可以形如</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>H</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mi>f</mi><mi>l</mi><mi>o</mi><mi>o</mi><mi>r</mi><mo stretchy="false">(</mo><mfrac><mrow><mo stretchy="false">(</mo><mover accent="true"><mi>r</mi><mo>⃗</mo></mover><mo>⋅</mo><mover accent="true"><mi>p</mi><mo>⃗</mo></mover><mo stretchy="false">)</mo><mo>+</mo><mi>b</mi></mrow><msub><mi>H</mi><mrow><mi>s</mi><mi>i</mi><mi>z</mi><mi>e</mi></mrow></msub></mfrac><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">H(x) = floor(\frac{(\vec{r}\cdot\vec{p})+b}{H_{size}})
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.08125em;">H</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.263em;vertical-align:-0.8360000000000001em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mopen">(</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.427em;"><span style="top:-2.3139999999999996em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.08125em;">H</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.08125em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">s</span><span class="mord mathnormal mtight">i</span><span class="mord mathnormal mtight" style="margin-right:0.04398em;">z</span><span class="mord mathnormal mtight">e</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mopen">(</span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.714em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.17994em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width='0.471em' height='0.714em' style='width:0.471em' viewBox='0 0 471 714' preserveAspectRatio='xMinYMin'><path d='M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
+3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
+10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
+-1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
+-7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
+H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
+c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.714em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">p</span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.15216em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width='0.471em' height='0.714em' style='width:0.471em' viewBox='0 0 471 714' preserveAspectRatio='xMinYMin'><path d='M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
+3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
+10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
+-1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
+-7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
+H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
+c-16-25.333-24-45-24-59z'/></svg></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.19444em;"><span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathnormal">b</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.8360000000000001em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose">)</span></span></span></span></span></p>
+<p>其中 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mrow><mi>s</mi><mi>i</mi><mi>z</mi><mi>e</mi></mrow></msub></mrow><annotation encoding="application/x-tex">H_{size}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.08125em;">H</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.08125em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">s</span><span class="mord mathnormal mtight">i</span><span class="mord mathnormal mtight" style="margin-right:0.04398em;">z</span><span class="mord mathnormal mtight">e</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> 是提前指定的值，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>p</mi><mo>⃗</mo></mover></mrow><annotation encoding="application/x-tex">\vec{p}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9084399999999999em;vertical-align:-0.19444em;"></span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.714em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">p</span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.15216em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width='0.471em' height='0.714em' style='width:0.471em' viewBox='0 0 471 714' preserveAspectRatio='xMinYMin'><path d='M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
+3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
+10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
+-1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
+-7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
+H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
+c-16-25.333-24-45-24-59z'/></svg></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.19444em;"><span></span></span></span></span></span></span></span></span> 是输入点的向量形式，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi></mrow><annotation encoding="application/x-tex">b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal">b</span></span></span></span> 和 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>r</mi><mo>⃗</mo></mover></mrow><annotation encoding="application/x-tex">\vec{r}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.714em;vertical-align:0em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.714em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.17994em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width='0.471em' height='0.714em' style='width:0.471em' viewBox='0 0 471 714' preserveAspectRatio='xMinYMin'><path d='M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
+3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
+10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
+-1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
+-7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
+H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
+c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></span></span></span></span> 是哈希函数中的随机偏移量和随机向量，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi></mrow><annotation encoding="application/x-tex">b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal">b</span></span></span></span> 的取值范围在 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>0</mn><mo separator="true">,</mo><msub><mi>H</mi><mrow><mi>s</mi><mi>i</mi><mi>z</mi><mi>e</mi></mrow></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(0,H_{size})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.08125em;">H</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.08125em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">s</span><span class="mord mathnormal mtight">i</span><span class="mord mathnormal mtight" style="margin-right:0.04398em;">z</span><span class="mord mathnormal mtight">e</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span> 间。向下取整的 floor 函数负责将邻近的值舍入到一起。</p>
+<p>在程序的一开始，我们根据需要的哈希数量和 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mrow><mi>s</mi><mi>i</mi><mi>z</mi><mi>e</mi></mrow></msub></mrow><annotation encoding="application/x-tex">H_{size}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.08125em;">H</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.08125em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">s</span><span class="mord mathnormal mtight">i</span><span class="mord mathnormal mtight" style="margin-right:0.04398em;">z</span><span class="mord mathnormal mtight">e</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> 的值随机生成 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi></mrow><annotation encoding="application/x-tex">b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal">b</span></span></span></span> 和 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>r</mi><mo>⃗</mo></mover></mrow><annotation encoding="application/x-tex">\vec{r}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.714em;vertical-align:0em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.714em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.17994em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width='0.471em' height='0.714em' style='width:0.471em' viewBox='0 0 471 714' preserveAspectRatio='xMinYMin'><path d='M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
+3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
+10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
+-1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
+-7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
+H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
+c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></span></span></span></span>。由于矩阵的性质，我们可以直接将前者生成为一维数组，后者为每列一个 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>r</mi><mo>⃗</mo></mover></mrow><annotation encoding="application/x-tex">\vec{r}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.714em;vertical-align:0em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.714em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.17994em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width='0.471em' height='0.714em' style='width:0.471em' viewBox='0 0 471 714' preserveAspectRatio='xMinYMin'><path d='M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
+3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
+10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
+-1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
+-7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
+H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
+c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></span></span></span></span> 的矩阵。然后对点进行计算。</p>
+<p>得出计算结果后，我们使用字典列表按哈希值进行分类保存。这样索引就算建立完毕了。</p>
+<p>搜索时，首先计算待查询值的哈希值，然后查询索引获得候选最邻近点。对不同哈希给出的候选集可以使用并集的方法，也可以采取交集的方法。最后对给出的所有候选点计算欧几里得距离，排序后选出最近的前 K 个点即可。选择并集或者交集需要适当的修改参数，不过总的来说，并集的效果好一些（见后面结果）。</p>
+<p>在本例中，主要可以修改的参数是 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mrow><mi>s</mi><mi>i</mi><mi>z</mi><mi>e</mi></mrow></msub></mrow><annotation encoding="application/x-tex">H_{size}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.08125em;">H</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.08125em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">s</span><span class="mord mathnormal mtight">i</span><span class="mord mathnormal mtight" style="margin-right:0.04398em;">z</span><span class="mord mathnormal mtight">e</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> 是哈希函数的数量。前者决定了对计算结果的区分度， <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mrow><mi>s</mi><mi>i</mi><mi>z</mi><mi>e</mi></mrow></msub></mrow><annotation encoding="application/x-tex">H_{size}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.08125em;">H</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.08125em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">s</span><span class="mord mathnormal mtight">i</span><span class="mord mathnormal mtight" style="margin-right:0.04398em;">z</span><span class="mord mathnormal mtight">e</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> 越大，被哈希到一起的邻近点就越多,速度就越慢，但是精确度相应提升。后者则可以从不同方向来判断邻近点，哈希函数越多，邻近点就越多，但是速度也同样会变慢。</p>
+<p>为了判断精确度和用时，我们还需要构造一份正确答案。可以采取暴力计算的方式进行。将结果作为 JSON 文件存储于磁盘内，就可以加速在判断 LSH 准确性时的速度。</p>
+<h2 id="源代码"><a class="markdownIt-Anchor" href="#源代码"></a> 源代码</h2>
+<p>LSH:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="comment"># region functions</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_hash_para</span>(<span class="params">BUKET_SIZE</span>):</span><br><span class="line">    offsets = np.random.uniform(<span class="number">0</span>, BUKET_SIZE, [<span class="number">1</span>, BUCKET_NUM])</span><br><span class="line">    vectors = np.random.random([<span class="number">32</span>, BUCKET_NUM])</span><br><span class="line">    <span class="keyword">return</span> offsets, vectors</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">calc_LSH_indexes</span>(<span class="params">data, bucket_num</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;&quot; </span></span><br><span class="line"><span class="string">    进行哈希计算并分配到哈希“桶”中\\</span></span><br><span class="line"><span class="string">    哈希公式 H = （（dot（v·r）+b)）/BUCKET_SIZE）\\ </span></span><br><span class="line"><span class="string">        其中r是向量，b是一个数</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    buckets = [&#123;&#125;<span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(bucket_num)]</span><br><span class="line">    <span class="comment"># 结果是68040*15，每个向量在每个桶内映射为一个哈希值</span></span><br><span class="line">    mapped_indexes = np.floor(</span><br><span class="line">        (np.dot(data, hash_vectors)+hash_offsets)/BUCKET_SIZE)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 由（数据向量值的）索引对应的一串桶中的哈希值，转变为桶中的哈希值对应的索引</span></span><br><span class="line">    <span class="comment"># 方便由哈希值找索引</span></span><br><span class="line">    <span class="keyword">for</span> index, hash_keys <span class="keyword">in</span> <span class="built_in">enumerate</span>(mapped_indexes):</span><br><span class="line">        <span class="keyword">for</span> j, hash_key <span class="keyword">in</span> <span class="built_in">enumerate</span>(hash_keys):</span><br><span class="line">            buckets[j].setdefault(hash_key, []).append(index)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> buckets</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_distance</span>(<span class="params">a, b</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;&quot;获得欧几里得距离&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">return</span> np.sqrt(np.<span class="built_in">sum</span>((a-b)**<span class="number">2</span>))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">search</span>(<span class="params">query, k</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;&quot;搜索点query的K最邻近&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 对该点哈希</span></span><br><span class="line">    <span class="comment"># 1*【桶数】</span></span><br><span class="line">    query_hash_set = np.floor(</span><br><span class="line">        (np.dot(query, hash_vectors)+hash_offsets)/BUCKET_SIZE)</span><br><span class="line">    query_hash_set = query_hash_set[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># get哈希值相同的点：候选点</span></span><br><span class="line">    <span class="keyword">for</span> i, query_hash <span class="keyword">in</span> <span class="built_in">enumerate</span>(query_hash_set):</span><br><span class="line">        <span class="keyword">if</span> i == <span class="number">0</span>:</span><br><span class="line">            candidate_set = <span class="built_in">set</span>(buckets[i][query_hash])</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            candidate_set = candidate_set.union(</span><br><span class="line">                buckets[i][query_hash])</span><br><span class="line">    candidate_set = <span class="built_in">list</span>(candidate_set)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 计算排序候选点距离</span></span><br><span class="line">    distance = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> candidate_set:</span><br><span class="line">        distance.append(get_distance(query, data[i]))</span><br><span class="line"></span><br><span class="line">    indexes_set = np.argsort(distance)[<span class="number">1</span>:k+<span class="number">1</span>]</span><br><span class="line">    res = [candidate_set[i] <span class="keyword">for</span> i <span class="keyword">in</span> indexes_set]</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">search_with_intersection</span>(<span class="params">query, k</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;&quot;搜索点query的K最邻近,交集&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 对该点哈希</span></span><br><span class="line">    <span class="comment"># 1*【桶数】</span></span><br><span class="line">    query_hash_set = np.floor(</span><br><span class="line">        (np.dot(query, hash_vectors)+hash_offsets)/BUCKET_SIZE)</span><br><span class="line">    query_hash_set = query_hash_set[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># get哈希值相同的点：候选点</span></span><br><span class="line">    <span class="keyword">for</span> i, query_hash <span class="keyword">in</span> <span class="built_in">enumerate</span>(query_hash_set):</span><br><span class="line">        <span class="keyword">if</span> i == <span class="number">0</span>:</span><br><span class="line">            candidate_set = <span class="built_in">set</span>(buckets[i][query_hash])</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            candidate_set = candidate_set.intersection(</span><br><span class="line">                buckets[i][query_hash])</span><br><span class="line">    candidate_set = <span class="built_in">list</span>(candidate_set)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 计算排序候选点距离</span></span><br><span class="line">    distance = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> candidate_set:</span><br><span class="line">        distance.append(get_distance(query, data[i]))</span><br><span class="line"></span><br><span class="line">    indexes_set = np.argsort(distance)[<span class="number">1</span>:k+<span class="number">1</span>]</span><br><span class="line">    res = [candidate_set[i] <span class="keyword">for</span> i <span class="keyword">in</span> indexes_set]</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">check_accuracy</span>(<span class="params">chk_res, crrt_res</span>):</span><br><span class="line">    <span class="comment"># 如果check-res中的元素在correct-res则append一个ture</span></span><br><span class="line">    correct_num = <span class="built_in">sum</span>([i <span class="keyword">in</span> crrt_res <span class="keyword">for</span> i <span class="keyword">in</span> chk_res])</span><br><span class="line">    TP = correct_num</span><br><span class="line">    FP = K - correct_num</span><br><span class="line">    FN = K - correct_num</span><br><span class="line">    TN = (<span class="number">68040</span> - K) - FN</span><br><span class="line"></span><br><span class="line">    accuracy = (TP+TN)/(TP+TN+FP+FN)</span><br><span class="line"></span><br><span class="line">    precision = (TP)/(TP+FP)</span><br><span class="line">    recall = (TP)/(TP+FN)</span><br><span class="line">    <span class="keyword">return</span> accuracy, precision, recall</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># endregion</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 变量</span></span><br><span class="line">    COREL_PATH = <span class="string">&#x27;./multi/4.corel&#x27;</span></span><br><span class="line">    CRRCT_RES_PATH = <span class="string">&#x27;./multi/4.10NN.json&#x27;</span></span><br><span class="line">    BUCKET_NUM = <span class="number">5</span>    <span class="comment"># 提高哈希量：增加准确性降低速度，时间的增加是几乎线性的</span></span><br><span class="line">    BUCKET_SIZE = <span class="number">1.5</span>  <span class="comment"># （降低数值）提高区分度：降低准确性增加速度</span></span><br><span class="line">    K = <span class="number">10</span></span><br><span class="line">    buckets = []</span><br><span class="line"></span><br><span class="line">    mean_precision = <span class="number">0</span></span><br><span class="line">    mean_recall = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    total_hash_time = -<span class="number">1</span></span><br><span class="line">    total_bf_time = -<span class="number">1</span>  </span><br><span class="line">    total_pre_time = -<span class="number">1</span>  </span><br><span class="line"></span><br><span class="line">    <span class="comment"># 文件读取</span></span><br><span class="line">    data = np.loadtxt(COREL_PATH, usecols=<span class="built_in">range</span>(<span class="number">1</span>, <span class="number">33</span>))</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(CRRCT_RES_PATH, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        correct_res_set = json.load(f)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 预处理</span></span><br><span class="line">    pre_start_time = time.time()</span><br><span class="line"></span><br><span class="line">    hash_offsets, hash_vectors = get_hash_para(BUCKET_SIZE)</span><br><span class="line">    buckets = calc_LSH_indexes(data,  BUCKET_NUM)</span><br><span class="line"></span><br><span class="line">    total_pre_time = time.time()-pre_start_time</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 查询</span></span><br><span class="line">    hash_start_time = time.time()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> query <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="number">1000</span>):</span><br><span class="line">        <span class="comment"># hash</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;query index:&#x27;</span>, query)</span><br><span class="line"></span><br><span class="line">        res = search_with_intersection(data[query], K)</span><br><span class="line"></span><br><span class="line">        hash_end_time = time.time()</span><br><span class="line"></span><br><span class="line">        <span class="comment"># bf</span></span><br><span class="line">        bf_res = correct_res_set[<span class="built_in">str</span>(query)]</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 评估</span></span><br><span class="line">        _, precision, recall = check_accuracy(</span><br><span class="line">            chk_res=res, crrt_res=bf_res)</span><br><span class="line">        mean_precision += precision</span><br><span class="line">        mean_recall += recall</span><br><span class="line"></span><br><span class="line">    total_hash_time += time.time()-hash_start_time + <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 结果</span></span><br><span class="line">    mean_precision /= <span class="number">1000</span></span><br><span class="line">    mean_recall /= <span class="number">1000</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;hash used time:&#x27;</span>, total_hash_time,</span><br><span class="line">          <span class="string">&#x27;hash preprocess time &#x27;</span>, total_pre_time,</span><br><span class="line">          <span class="string">&#x27; bf used time:&#x27;</span>, total_bf_time)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;precision:&#x27;</span>, mean_precision, <span class="string">&#x27;recall:&#x27;</span>, mean_recall)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>暴力：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> sklearn.cluster <span class="keyword">import</span> KMeans</span><br><span class="line"><span class="keyword">from</span> scipy.cluster.vq <span class="keyword">import</span> vq</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> sklearn.metrics.pairwise <span class="keyword">import</span> cosine_similarity</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># region functions</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_distance</span>(<span class="params">a, b</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;&quot;获得欧几里得距离&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">return</span> np.sqrt(np.<span class="built_in">sum</span>((a-b)**<span class="number">2</span>))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">check_accuracy</span>(<span class="params">check_res, correct_res</span>):</span><br><span class="line">    accurate_num = <span class="built_in">sum</span>([i <span class="keyword">in</span> correct_res <span class="keyword">for</span> i <span class="keyword">in</span> check_res])</span><br><span class="line">    <span class="comment"># false_num = K - accurate_num</span></span><br><span class="line">    TP = accurate_num</span><br><span class="line">    FP = K - accurate_num</span><br><span class="line">    FN = K - accurate_num</span><br><span class="line">    TN = (<span class="number">68040</span> - K) - FN</span><br><span class="line"></span><br><span class="line">    accuracy = (TP+TN)/(TP+TN+FP+FN)</span><br><span class="line">    precision = (TP)/(TP+FP)</span><br><span class="line">    recall = (TP)/(TP+FN)</span><br><span class="line">    <span class="keyword">return</span> accuracy, precision, recall</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># endregion</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line"></span><br><span class="line">    <span class="comment"># variables</span></span><br><span class="line">    COREL_PATH = <span class="string">&#x27;./multi/4.corel&#x27;</span></span><br><span class="line">    CRRCT_PATH = <span class="string">&#x27;./multi/4.10NN.json&#x27;</span></span><br><span class="line">    K = <span class="number">10</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 预处理</span></span><br><span class="line">    hash_pre_time = time.time()</span><br><span class="line"></span><br><span class="line">    data = np.loadtxt(COREL_PATH, usecols=<span class="built_in">range</span>(<span class="number">1</span>, <span class="number">33</span>))</span><br><span class="line"></span><br><span class="line">    hash_pre_used_time = time.time()-hash_pre_time</span><br><span class="line">    <span class="comment"># 查询</span></span><br><span class="line">    mean_accuracy = <span class="number">0</span></span><br><span class="line">    mean_precision = <span class="number">0</span></span><br><span class="line">    mean_recall = <span class="number">0</span></span><br><span class="line">    total_hash_time = <span class="number">0</span></span><br><span class="line">    total_bf_time = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    bf_res_set = &#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> query_index <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="number">1000</span>):</span><br><span class="line">        bf_res = [get_distance(data[i], data[query_index])</span><br><span class="line">                  <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(data.shape[<span class="number">0</span>])]</span><br><span class="line">        bf_res = np.argsort(bf_res)[<span class="number">1</span>: <span class="number">11</span>].tolist()</span><br><span class="line">        bf_res_set[query_index] = bf_res</span><br><span class="line">        <span class="built_in">print</span>(query_index)</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(CRRCT_PATH, <span class="string">&#x27;w&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        f.write(<span class="string">&#x27;&#123;\n&#x27;</span>)</span><br><span class="line">        <span class="keyword">for</span> i, (key, value) <span class="keyword">in</span> <span class="built_in">enumerate</span>(bf_res_set.items()):</span><br><span class="line">            f.write(<span class="string">f&#x27;    &quot;<span class="subst">&#123;key&#125;</span>&quot;: <span class="subst">&#123;json.dumps(value)&#125;</span>&#x27;</span>)</span><br><span class="line">            <span class="keyword">if</span> i &lt; <span class="built_in">len</span>(bf_res_set) - <span class="number">1</span>:</span><br><span class="line">                f.write(<span class="string">&#x27;,&#x27;</span>)</span><br><span class="line">            f.write(<span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">        f.write(<span class="string">&#x27;&#125;\n&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="准确率与参数参考"><a class="markdownIt-Anchor" href="#准确率与参数参考"></a> 准确率与参数参考</h2>
+<p>需要说明是，准确性和时间受随机与性能的影响很大，因此以下结果仅作参考。</p>
+<p>候选点交集：</p>
+<blockquote>
+<p>交集
+num：5 size = 1.5 search_time : 350   preicision: 0.94
+num：5 size = 1.1 search_time : 168   preicision: 0.84
+num：5 size = 1.0 search_time : 247   preicision: 0.91
+num：5 size = 1.0 search_time : 119   preicision: 0.84 //这一步可以看到随机对结果和性能的影响
+num：5 size = 0.5 search_time : 146   preicision: 0.77
+num：5 size = 0.5 search_time : 100   preicision: 0.77
+num：5 size = 0.2 search_time : 11    preicision: 0.53
+num：5 size = 0.1 search_time : 3.39  preicision: 0.25</p>
+</blockquote>
+<p>取并集：</p>
+<blockquote>
+<p>并集
+哈希一次
+num：1 size = 0.02   search_time : 18     preicision:0.25
+num：1 size = 0.05   search_time : 46     preicision:0.50
+num：1 size = 0.10   search_time : 90     preicision:0.74
+num：1 size = 0.20   search_time : 169    preicision:0.87
+哈希三次
+num： 3 size = 0.02   search_time : 58     preicision:0.60
+num： 3 size = 0.05   search_time : 153    preicision:0.96
+num： 3 size = 0.10   search_time : 230    preicision:0.97
+哈希五次：
+num： 5 size = 0.01   search_time : 47     preicision:0.49
+num： 5 size = 0.02   search_time : 86     preicision:0.72
+num： 5 size = 0.05   search_time : 189    preicision:0.96
+num： 5 size = 0.10   search_time : 290    preicision:0.997</p>
+</blockquote>
+<h2 id="参考"><a class="markdownIt-Anchor" href="#参考"></a> 参考</h2>
+<ul>
+<li><a href="https://github.com/silence-tang/xducs/blob/main/%E5%A4%9A%E5%AA%92%E4%BD%93%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/LSH.ipynb">xducs/多媒体数据处理/LSH.ipynb at main · silence-tang/xducs · GitHub</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/93107394">一文看懂机器学习指标：准确率、精准率、召回率、F1、ROC曲线、AUC曲线 - 知乎</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%A4%9A%E5%AA%92%E4%BD%93%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/" rel="tag"><i class="fa fa-tag"></i> 多媒体数据处理</a>
+              <a href="/tags/%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/" rel="tag"><i class="fa fa-tag"></i> 实验报告</a>
+              <a href="/tags/%E8%AF%BE%E7%A8%8B/" rel="tag"><i class="fa fa-tag"></i> 课程</a>
+              <a href="/tags/KNN-%E9%97%AE%E9%A2%98/" rel="tag"><i class="fa fa-tag"></i> KNN 问题</a>
+              <a href="/tags/%E5%B1%80%E9%83%A8%E6%95%8F%E6%84%9F%E5%93%88%E5%B8%8C/" rel="tag"><i class="fa fa-tag"></i> 局部敏感哈希</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/post/20230613051047.html" rel="prev" title="多媒体实验3：基于 BOF 进行相似图片搜索">
+                  <i class="fa fa-angle-left"></i> 多媒体实验3：基于 BOF 进行相似图片搜索
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/post/20230625224714.html" rel="next" title="B 树、B+树、二叉搜索树与红黑树">
+                  B 树、B+树、二叉搜索树与红黑树 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2020 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">LeeKa</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">92k</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css" integrity="sha256-UF1fgpAiu3tPJN/uCqEUHNe7pnr+QR0SQDNfgglgtcM=" crossorigin="anonymous">
+
+
+
+</body>
+</html>
