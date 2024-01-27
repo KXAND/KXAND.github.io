@@ -1785,7 +1785,7 @@ clean.bat</p>
       </categories>
       <tags>
         <tag>批处理脚本</tag>
-        <tag>hexo</tag>
+        <tag>Hexo</tag>
       </tags>
   </entry>
   <entry>
@@ -4661,175 +4661,6 @@ c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></spa
       </tags>
   </entry>
   <entry>
-    <title>搭建个人博客 || 二、域名跳转和写博客</title>
-    <url>/post/20210118191730.html</url>
-    <content><![CDATA[<p>提要：如何把域名解析到自己的网址和输出内容<span id="more"></span></p>
-<h2 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h2>
-<p>首先声明，把域名解析到自己的网址不是必要的，扔在 GitHub 就挺好。不过为了简洁好记和个（耍）性（帅），而且手上“恰好”有一个域名，那干嘛不折腾一下呢？<s>并不是因为重新入坑所以把后期内容提上来了</s></p>
-<p>确实还有很多事想做的！换背景、加音乐、换主题……但是内容永远是第一位的。所以，我们先讨论如何写博客。</p>
-<h1 id="写博文"><a class="markdownIt-Anchor" href="#写博文"></a> 写博文</h1>
-<h2 id="关于markdown"><a class="markdownIt-Anchor" href="#关于markdown"></a> 关于Markdown</h2>
-<p>hexo 下博文以 Markdown 格式存储于本地，也就是 part 1 中我们一开始新建的文件下。因此，我们需要一款 Markdown 文本编辑器。目前我的 Typora 使用手感尚好。够简洁优雅，” 所见即所得 “ 的特性对萌新也够友好。你可以从官网下载到它。</p>
-<p>至于 Markdown 的语法，建议花五分钟在百度上，然后熟能生巧即可。额外一提的是，hawa130 那学到的在字母数字前后空一个空格的习惯很棒，建议养成。</p>
-<h2 id="文章的模板"><a class="markdownIt-Anchor" href="#文章的模板"></a> 文章的模板</h2>
-<p>你一定注意到，正如这篇博文，有创建日期、标签和目录等信息，这些非正文内容存在于文章的开头，形式如下：</p>
-<p><img src="https://sm.ms/image/o1rgXdWwNfsL8Fj" alt="源代码模式下" /></p>
-<p>这一部分由 hexo 生成，在 Git Bash 中使用 hexo new postname 生成一篇名为 postname 的新博文 。</p>
-<p>而其模板在博客根目录\scaffolds\post.md 文件中。推荐添上 categories 和并在正文中写下““<!-- more -->””文章在此处折叠）。</p>
-<p>当然，此处还有 draft 和 page 两个模板，由于本人目前写文章是写好一篇更新一次，所以 draft 等没有用上。目测 draft 是上传至 GitHub 但不发表，page 则不知道由什么用。</p>
-<p>写好以后，打上合适的 tags 和 categories ，再重新部署（hexo d）一下，就可以在博客上看到自己的新文章了！（顺便一提，多 tag 的格式如图哦）</p>
-<h1 id="域名解析"><a class="markdownIt-Anchor" href="#域名解析"></a> 域名解析</h1>
-]]></content>
-      <categories>
-        <category>搭建博客</category>
-      </categories>
-      <tags>
-        <tag>Code</tag>
-        <tag>静态博客教程</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>搭建个人博客 || 一、在本地搭好博客</title>
-    <url>/post/20201027003719.html</url>
-    <content><![CDATA[<h2 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h2>
-<p>本博客搭建于大一 2020，同时写的教程，已于 2023 年重新编辑。<span id="more"></span></p>
-<h2 id="介绍"><a class="markdownIt-Anchor" href="#介绍"></a> 介绍</h2>
-<p>关于这个博客：本博文的目的，与本博客本身，是一个托管于 Github Pages，基于 Hexo 的静态博客网，主要参考资料是本文末中的第一个<a href="https://www.bilibili.com/video/BV1Yb411a7ty/">视频</a>。搭建时的主要目的是完成 MSC Web组的初面。</p>
-<p>关于这篇文章：本文首次发布于 2020 年 10 月，初衷是为了回顾厘清懵懵懂懂、混混沌沌的搭建过程。<s>而且那会还幻想着会有人来看</s>（<s>当然也不能说现在没有在幻想</s>）。现在回过头来看不免觉得很多地方由于本身的理解不到位而表达含混甚至错误、还有一些刚刚搭建好博客带来的自我意识过剩，而且最后还烂尾了。因此近期终于感觉有时间和足够的理解后决定重新编辑并补完，但是<strong>我的目标仍然是尽力将其写成完全小白向的风格</strong>。</p>
-<h2 id="配置-hexo-环境"><a class="markdownIt-Anchor" href="#配置-hexo-环境"></a> 配置 hexo 环境</h2>
-<p>OS：Windows 10
-生成：Node.js + hexo
-托管：GitHub</p>
-<ol>
-<li>
-<p>Node.js</p>
-<p>在官网下载安装即可。安装完成后，在控制台（例如 cmd 和 PowerShell ）运行<code>node -v</code>和<code>npm -v</code>应当可以看到 node.js 和 npm 的版本号。（关于控制台、终端和shell，可以参见【占位符】）</p>
-<p>Node.js 是一个开源的 Javascript 运行环境，它由 OpenJS 基金会维护和持有。所谓运行环境，可以说成是前置条件或者说充分条件，一个更好理解的例子是 C 的环境：一个文本编辑器（写代码）和一个编译器（把 C 代码转换为机器语言）。我们使用 Node.js 运行 JS 脚本。
-NPM 是 Node.js 的包管理器。大概可以理解为“插件管理器”，类似的包管理器还有 python 中的 pip 和Linux 下的 apt。在控制台（ cmd 和 PowerShell ）运行<code>node -v</code>和<code>npm -v</code>应当可以看到 node.js 和 npm 的版本号。</p>
-</li>
-<li>
-<p>Git</p>
-<p>官网下载。使用 <code>git -v</code> 检查是否安装成功与安装版本。</p>
-<p>Git 是一个分布式版本控制软件。关于通过使用版本控制来管理博文，可以参见后续的文章【占位符】。在这里，我们的主要目的是通过 git 将我们的文章推送到远端 GitHub 仓库。</p>
-</li>
-<li>
-<p>cnpm 与 npm</p>
-<p>Node.js 是由 OpenJS 基金会持有的软件，但其附带的包管理器 npm 则属于 npm 公司（已被 Github 收购）。npm 的默认下载源是从 npm 公司的公开下载源：<code>https://registry.npmjs.org/</code> 进行下载（下载源的官方用词是 <code>registry</code>，注册表）。它收录 npm 账户用户公开发布的包。如果好奇关于注册表和在 npm 上发布包的问题，可以参见下面的官方文档：</p>
-<ul>
-<li><a href="https://docs.npmjs.com/cli/v6/using-npm/registry">registry | npm Docs</a></li>
-<li><a href="https://docs.npmjs.com/creating-and-publishing-scoped-public-packages">Creating and publishing scoped public packages | npm Docs</a></li>
-</ul>
-<p>不过这就离题太远，就此打住。</p>
-<p>普适地说，直接使用 npm 就可以下载安装 hexo 了。不过在国内使用默认注册表通常都会存在下载速度的问题。常见的解决方法有配置 Node 的代理（配置方法网络上很多，这里不叙）和更换下载源。许多组织会维护官方镜像站，他们同步官方站点。这样如果不便访问官方站点，就可以把下载源换为镜像站的源。</p>
-<p>更换下载源的三种方式(第二类中所有方式我都没有尝试)</p>
-<ol>
-<li>临时切换：<code>npm install your-package --registry http://your.registry.source</code></li>
-<li>长期切换：
-<ol>
-<li>命令行：<code>npm config set registry http://your.registry.source</code>;</li>
-<li>环境变量：<code>NPM_CONFIG_REGISTRY</code>中写入<code>https://registry.npmmirror.com</code>;</li>
-<li><code>.npmrc</code>文件中写入：<code>registry=https://registry.npmmirror.com</code>。</li>
-</ol>
-</li>
-<li>使用cnpm：这是我们采取的方式。</li>
-</ol>
-<blockquote>
-<p>需要注意的是<strong>长期切换</strong>中的所有方法我都<strong>没有用过</strong>，仅是作为一个简单记录。</p>
-</blockquote>
-<p>cnpm 是阿里云推出的的另一个 npm 客户端，它和 npm 的功能完全一致，只是没有 <code>publish</code> 功能。使用 cnpm 的优点在于可以使用 cnpm 的默认国内源进行下载，同时在需要使用官方源的时候不用修改下载源。
-在命令行界面下，键入<code>npm install -g cnpm --registry=https://registry.npm.taobao.org</code>，从<code>https://registry.npm.taobao.org</code> 安装 cnpm。</p>
-<p>使用 <code>npm config get registry</code> 检查 npm 的下载源，<code>cnpm config get registry</code>检查 cnpm 的下载源。可以发现 npm 的默认下载源没有改变，cnpm 的默认下载源不同于 npm。</p>
-</li>
-<li>
-<p>hexo</p>
-<p>cnpm 安装完成后，使用 <code>cnpm install -g hexo-cli</code> 安装 hexo。（如果没有使用 <code>cnpm</code> 是把 <code>cnpm</code> 换为 <code>npm</code>）。</p>
-<p>运行<code>hexo -v</code>检查版本和安装是否成功。</p>
-</li>
-</ol>
-<h2 id="配置博客"><a class="markdownIt-Anchor" href="#配置博客"></a> 配置博客</h2>
-<p>我们先简单阐述本博客中 hexo + Github 的工作原理，然后再详述具体步骤：</p>
-<p>hexo 是一个使用 Markdown 写作的静态博客框架。这句话的意思是，我们使用 Markdown 编写文章，编写完成后，hexo 将文章渲染为网页，具体来说就是 html、CSS、Javascript 三大件，hexo 在这一步用到了 Node.js。在这一步完成后，我们就可以在本地启动一个服务器，然后在本地浏览博客了。当然我们的目的是在公网访问，因此我们需要将生成后的文件托管到远端。我们采用 Github Pages，GitHub Pages 是 GitHub 推出的静态站点托管服务，其可以将你托管到 GitHub 特定仓库的网页文件渲染成网页。我们用 Git 将生成的内容推送到 GitHub 远端仓库，然后让 Github Pages 充当远端服务器，将文件渲染成网站。这样我们就可以随时随地访问到我们的网站了。</p>
-<h3 id="初始化一个博客"><a class="markdownIt-Anchor" href="#初始化一个博客"></a> 初始化一个博客</h3>
-<p>在合适的地方新建文件夹，此文件夹是博客的<code>本地仓库</code>，后续所有的操作都会是在此文件夹进行。</p>
-<blockquote>
-<p>可以考虑建立一个专门存放各类文章/代码的文件夹，将 hexo 文件夹放在此文件夹内。通过 Windows 文件管理器左侧的“快速访问栏”快速抵达。</p>
-</blockquote>
-<p>在此文件夹内启动终端 Shell：</p>
-<ul>
-<li>在文件夹内右键选择 <code>Git Bash Here</code></li>
-<li>在其他地方启动 cmd、power shell、git bash，然后跳转到此文件夹。</li>
-<li>如果你是 Windows 11，右键选择在终端中打开（Windows 10 需要在应用商店下载）。</li>
-</ul>
-<p>在 Shell 中输入<code>hexo init</code>将此文件夹初始化（initialize）为 hexo 博客（如果建在一些特殊的地方，可能需要命令前加上<code>sudo</code>使用管理员权限）。</p>
-<h3 id="本地访问"><a class="markdownIt-Anchor" href="#本地访问"></a> 本地访问</h3>
-<p>hexo 初始化的博客是包含有默认文章的生成网页的，因此继续输入<code>hexo s</code>（s：server ）启动一个本地服务器，就可以通过端口 4000 <a href="http://localhost:4000/">localhost:4000</a> 访问网页了。</p>
-<h3 id="github-pages托管"><a class="markdownIt-Anchor" href="#github-pages托管"></a> Github Pages托管</h3>
-<p>当然存在其他的托管服务，例如国内的 gitee pages 托管。<s>不过国内公开仓库都要先审核的环境嘛……emmmm</s>。下面阐述步骤：</p>
-<ul>
-<li>
-<p>首先需要一个 GitHub 账号。</p>
-</li>
-<li>
-<p>新建仓库：GitHub 的政策是每个账户只能拥有一个 GitHub Pages 站点，且站点文件必须存储在格式为 <code>YourGithubAccountName.github.io</code> 的仓库（Repository）内。因此，点选网站上 Repository 边的 New 新建一个库。</p>
-</li>
-<li>
-<p>安装 Git 部署插件：回到命令行，在博客目录下输入<code>cnmp install hexo-deployer-git</code>安装部署插件。这一步的目的是使得我们可以将把博客部署（推送）到远端的服务器上，就本例而言，即 Github 仓库上</p>
-</li>
-</ul>
-<blockquote>
-<p>Note1：大一的时候我只能混沌地意识到 Git 与 Github 的不同但是说不清楚。建议读者可以先单独地使用一下 Git 和 GitHub 以更好地理清二者关系。</p>
-<p>Note2：参考视频给的命令是<code>cnmp install --save hexo-deployer-git</code>，多出来的<code>--save</code>含义是安装好此插件后将其自动作为依赖（dependencies）添加到我们的 hexo 博客目录下的<code>packages.json</code>文件中。但是在 2017 年 5 月的 npm 5.0 后，不用写此选项也会自动添加了。因此这一选项可以删去了。</p>
-</blockquote>
-<ul>
-<li>
-<p>修改配置文件：在博客目录下找到 _config.yml 用任意文本编辑器打开 。滑到最低端找到 deploy 。把 type 后面引号中写入 git 。然后换行写上：<code>repo： YourGIthubRepoAddress</code>，再换行写上<code>branch: master</code> 。</p>
-<blockquote>
-<p>这一步的目的是指定 hexo 的部署方式是使用 git，部署地址是我们指定的 git 远端仓库的 master 分支（主分支）。</p>
-</blockquote>
-</li>
-<li>
-<p>编写博文：以前面说的 hexo 目录为根目录（<code>./</code>目录）下的<code>./source/_posts</code>文件夹下新建 Markdown 文件，使用 Markdown 编写（测试）博文。</p>
-</li>
-<li>
-<p>部署：用<code>hexo g</code>将写好的博客生成（generate）对应的网页文件（HTML、JS、CSS），配置 Git 身份，键入<code>hexo d</code> 来部署（deploy）到远端。下面详述配置 Git 用户身份：</p>
-<blockquote>
-<p>Git 是一个版本管理工具。因此每一次上传都要求可追溯。上传前需要配置用户名和邮箱。这样协作者（对于开源项目，可能是陌生人）就可以联系到你并直到如何称呼你。
-GitHub 使用你 Git 上传的邮箱来确定用户，所以这里我们应该保证邮箱以及用户名与 GitHub 账户一致，避免造成混乱。
-如果只有一个GitHub 账户，可以将用户身份配置为全局的：<code>git config --global user.email &quot;YourGithubAccountEmail&quot;</code>和<code>git config --global user.name &quot;YourGithubAccountName&quot;</code>这样就不必每个项目推送到远端时都重新配置用户身份了。
-但是我有多个账户，因此我的习惯是删去上述命令中的<code>--global</code>选项，不配置全局身份，这样，每个项目的第一次提交前必须要配置一个身份。</p>
-</blockquote>
-<p>显然，我们在 Git 中配置的身份只是“宣称”我们是谁———— Git 可没有账户密码系统。因此远端托管网站会要求输入你在其网站的账户密码以验证你是否有权限访问你想要读写的远端仓库。因此下一步是在弹出的窗口中输入 Github 账户密码。</p>
-</li>
-<li>
-<p>核验 Github 账户：有多种验证 GitHub 身份的方式。</p>
-<ul>
-<li>Token：一共需要输入两次密码。第一次的时候，你应该输入你的 GitHub 账号和密码，第二次的则须如下获取。
-首先GitHub网页点击头像 -&gt; Settings -&gt; Developer Settings -&gt;Personal access tokens -&gt;Generate new token。创建一个新的 token ，设定其权限和名字，随后 GitHub 会分配给它一个 password 。这里的名字和密码才是第二次所需输入的。需要注意的是，你只有<strong>一次</strong>看到密码的机会，所以一定要保存好。以防日后用到。</li>
-</ul>
-</li>
-</ul>
-<p>检验成功后，Github 就会将文章上传到远端仓库，并使用 Github Actions 将其交给 Github Pages 静态站点渲染为一个网页。以后，访问 <code>YourGithubAccountName.github.io</code> 即可看到和 <code>hexo s</code> 一样的网站页面了。</p>
-<h3 id="后言和一些感想"><a class="markdownIt-Anchor" href="#后言和一些感想"></a> 后言和一些感想</h3>
-<p>总结一下，本文阐述了如何完全从零：甚至没有 Git 和 Node.js 的前提下如何安装 Git、Node.js 等软件，并利用 Hexo 框架搭建一个静态博客，最后将其部署到 Github Pages 远端的过程。</p>
-<p>如果你照着我的、或者别人的教程搭好了这样一个小小的静态博客。首先，相信和我 一样是充满成就感的，Hello World 两个单词仿佛是一个广阔的新世界你面前缓缓展开。其次，你也一定会注意到它是简单的，流程并不复杂，而且我们不曾敲过一行代码，那些真正麻烦的工作，hexo 给我们静静地办好了。无论如何，博客是我们的，我们可以自由的享用它了。</p>
-<p>2023：如今回过头来才发现那些当时觉得困难无比的操作如今都稀疏平常。那个时候一个 npm 的下载问题都能要了我老命，什么时候是在用 GitHub、什么时候是在用 Git都晕晕乎乎难以明了。一方面，这大概是出于这并不是一个困难的问题反而导致有很多小白会对其感兴趣（这些人日常并不用 Git 和/或 Node.js 日常干些什么），于是讲解就必须要琐碎、细致且不关心为什么这么做。另一方面，国内的生态环境也就是如此，如果搜索“npm 默认下载源地址”那么大概率搜出来的都是教你如何更换下载源，却少有文章告诉你是哪儿。而使用英语，我们很轻松就可以找到本文上述有关部分给出的那两个官方参考地址。其他各种问题往往也能有各类文档与论坛（如 StackOverflow）解释。这多少有些悲哀。</p>
-<p>我现在的博客当然不是默认样式，我们会在之后的系列文章中进一步的优化写作环境点击链接跳转到下一篇文章了解如何优雅地写博文。</p>
-<h2 id="感谢与参考"><a class="markdownIt-Anchor" href="#感谢与参考"></a> 感谢与参考</h2>
-<ul>
-<li><a href="https://www.bilibili.com/video/BV1Yb411a7ty/">手把手教你从0开始搭建自己的个人博客 |无坑版视频教程| hexo bilibili</a>, UP: codesheep</li>
-<li>hawa同学。身边有有个大佬真好用。</li>
-<li>newBing：在我重写此博客时提供了一些参考信息。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>搭建博客</category>
-      </categories>
-      <tags>
-        <tag>Code</tag>
-        <tag>静态博客教程</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Beautiful Times个人翻译</title>
     <url>/post/20230711083712.html</url>
     <content><![CDATA[<h2 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h2>
@@ -6619,6 +6450,312 @@ Computation, vol. 39, no. 159, pp. 225-234, July 1982.</li>
         <tag>渲染</tag>
         <tag>光线传播</tag>
         <tag>程序化生成</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>较为优雅的静态博客之旅（一）：建站</title>
+    <url>//Hexo-1.html</url>
+    <content><![CDATA[<h2 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h2>
+<p>本博客搭建于大一（2020）。当时，作为一个“萌新”，给自己的坎坎坷坷的博客搭建历程写下了些许文字，原名为《搭建个人博客 || 一、在本地搭好博客》。2023 年末，我回过头重新审查文章，重新编辑了一些说的不严谨的地方。</p>
+<p>现在（2024 年 1 月），我自觉对使用博客有了一套自己的连贯的流程，故在原文基础上重新编辑完善如下。希望能给你一点帮助。🩷 <span id="more"></span></p>
+<h2 id="介绍"><a class="markdownIt-Anchor" href="#介绍"></a> 介绍</h2>
+<h3 id="基本情况我们要做什么"><a class="markdownIt-Anchor" href="#基本情况我们要做什么"></a> 基本情况：我们要做什么？</h3>
+<p>本文的目的是记录——或者说教授——搭建一个 Hexo 静态博客，配置主题（此处是 NexT）进行美化，并建立一个我认为较为合理的博客写作工作流的过程。</p>
+<p>本文预设的阅读对象是对本文提到的一系列工具、网站、平台（包括 Github）都不甚了解的单纯新大一，亦即曾经的自己。</p>
+<p>基于上面的原因，我会花很长的篇幅阐述一些较为基础的概念，对于非预设对象以外的读者，可能会略显冗长。确实如此，我写起来也是这样的感受，然而，一想到大一配此博客时知其然而不知其所以然的情况，我认为进行详细的讲解依然是有必要的。因为很多东西东西并不仅仅是适用于此，而是可以扩展到更广泛的层面，并有益于学习成长的。不过，我会将<strong>每一部分需要做的操作写在最开头</strong>，这样，如果你已经理解了有关概念，就可以通过侧边栏直接跳到下一届了。</p>
+<p>本博客与本博客教程的结果，是一个托管于 <code>Github Pages</code>，基于 Hexo 博客引擎，NexT 主题的静态博客网，可以使用包括 VSCode 在内的任意 Markdown 编辑器进行写作。</p>
+<p>本文的第一版，主要参考对象是 @CodeSheep 的 <a href="https://www.bilibili.com/video/BV1Yb411a7ty/">手把手教你从0开始搭建自己的个人博客 |无坑版视频教程| hexo_哔哩哔哩_bilibili</a>。这篇视频存在一定谬误，并且时间已经比较久了（2019），但是总体上对小白是有益的，并且视频可能对一些操作展现得更加清晰。</p>
+<blockquote>
+<p>但是可以不难理解，视频的信息传送速度必然是比文字低的。因此视频并不应该一直是你的主要学习方式。</p>
+</blockquote>
+<h3 id="动机为什么要选择这种方案"><a class="markdownIt-Anchor" href="#动机为什么要选择这种方案"></a> 动机：为什么要选择这种方案？</h3>
+<ol>
+<li>
+<p>为什么要搭建自己的博客？我认为有以下几点原因：</p>
+<ol>
+<li>自己的网站，很酷！</li>
+<li>总结，学习，回忆：世界上的知识太多了，很难保证做过、学过的东西你就能永远记得，如果有个博客可以辅助你有朝一日重新上手，或者回忆自己的过往点滴，那是一件很好的事。即博客可以作为你的日志、笔记、日记。</li>
+<li>招聘亮点：如果你在简历上写上博客地址，面试官会去看你写了些什么。</li>
+<li>学习：搭建博客的过程本身也是一种学习，其中的很多东西并不仅仅是搭建博客才能用。</li>
+</ol>
+</li>
+<li>
+<p>什么是静态博客？
+静态博客即使用静态网页搭起来的博客，而静态网页即网页事先已经生成好了。</p>
+<p>基本上所有的网页都是由 <code>HTML</code>、<code>CSS</code>、<code>JavaScript</code> 组成。HTML 写清楚了网页的标题是什么，段落写了什么，哪些文字有指向哪儿的超链接，插入了什么图片视频等等；而 CSS 则将这些文字按合理的方式进行排版，组成丰富多样的美观界面；最后 JavaScript 则提供了一些交互和动态元素，例如，这个站点的一键返回顶部、一些博客网站会有的被鼠标吸引的粒子等等。换句话说，静态博客并不意味着博客毫无互动性。</p>
+<p>但是，所有的这些互动性都是已经写好的，网站的浏览者无法改变。反之，例如同样是 B 站首页，不同的人登录后看到的消息通知、推送视频乃至个性化装扮都不尽相同。这是因为网页是 B 站的服务器根据登录的用户不同返回了不同的内容，直接改变了网页信息。同时，用户在网页上也可以直接和 B 站服务器打交道，改变 B 站服务器数据库中（自己的）数据。这就是动态网页。而静态站点，浏览者无法改变网站数据库的任何信息。</p>
+</li>
+<li>
+<p>为什么使用静态博客而非动态博客？</p>
+<ol>
+<li>静态博客安全：你的数据不会因为各类漏洞被黑客劫持。实际上，所有的数据都有本地备份，因此你的数据更安全。</li>
+<li>静态博客维护方便，维护一个动态博客很可能需要你有一定的数据库和网络基础，学习量大于静态博客。</li>
+<li>静态博客廉价：很多网站都可以免费托管你的静态博客（即你实际上访问的托管网站的服务器），而动态网页需要你有服务器。</li>
+<li>静态博客让你专注于文字本身：减少对网站的关注，就是增加对文字的关注，把重心放到博文——我们的初心上。</li>
+<li>看看别人怎么说：<a href="https://www.v2ex.com/t/812106">静态博客的优点是什么 - V2EX</a>。</li>
+</ol>
+</li>
+<li>
+<p>什么是博客引擎（框架）？为什么使用 <code>Hexo</code> 搭建静态博客？
+我们前面提到了网站使用 HTML 等组成，但是我们使用的是更简单的一些格式来写作，例如 Markdown。因此我们需要一些工具将文章转换成对应的 HTML等。此外一些和写作不太相关但是又需要的功能，例如通过标签分类文章等等，也可以通过 Hexo 这样的博客引擎办到，这就让搭建博客变得轻松了。而说到 Hexo 的优势则在于：</p>
+<ol>
+<li>Hexo 用户众多：这既证明了 Hexo 是一个优秀的博客引擎，也代表你遇到问题更容易找到答案。</li>
+<li>Hexo 命令简单，一般来说，你只需要记住三个命令就可以畅快地写作了。</li>
+<li>Hexo 迁移方便，你可以使用 Markdown 写作文章，而 Markdown 是一个广受支持的写作格式，因此你的文章可以轻松迁移到其它博客引擎上。</li>
+<li><s>我用的就是 Hexo。</s></li>
+</ol>
+</li>
+<li>
+<p>什么是 Markdown，为什么要使用 Markdown？</p>
+<ol>
+<li>
+<p>某种意义上来说 Markdown 和 HTML 差不多，都是标记语言。也就是说，你写了一篇文章，可以用一些符号标明哪里是一级标题，哪里是二级标题，哪里是引用的别人的话等等。例如</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="section"># 一级标题</span></span><br><span class="line">随便写一段话。</span><br><span class="line"></span><br><span class="line">第二段再写一段话，并且引用 Linus 的名言</span><br><span class="line"></span><br><span class="line"><span class="quote">&gt; Fuck you, nVidia --Linus</span></span><br><span class="line"></span><br><span class="line"><span class="section">## 二级标题</span></span><br><span class="line"></span><br><span class="line">其它的话。</span><br></pre></td></tr></table></figure>
+<p>它的效果是：</p>
+<blockquote>
+<h3 id="三级标题"><a class="markdownIt-Anchor" href="#三级标题"></a> 三级标题</h3>
+<p>随便写一段话。</p>
+<p>第二段再写一段话，并且引用 Linus 的名言</p>
+<blockquote>
+<p>Fuck you, nVidia --Linus</p>
+</blockquote>
+<h4 id="四级标题"><a class="markdownIt-Anchor" href="#四级标题"></a> 四级标题</h4>
+<p>其它的话。</p>
+</blockquote>
+</li>
+<li>
+<p>Markdown 格式简单：这可以从上面的例子看出来。具体学习此处不赘述，互联网上有很多教程，而且你可能只需要 5 分钟就能基本掌握 Markdown 的主要写法。</p>
+</li>
+<li>
+<p>Markdown 用途广：从飞书云文档到 Notion 再到这个博客网站，很多地方都支持你使用 Markdown 进行写作。</p>
+</li>
+<li>
+<p>Markdown 让你专注写作：正如前面所说，花在其它地方的时间越少，花在文字上的时间就越多。Markdown 让你可以不用太关注排版之内的问题，你可以把注意力集中到内容本身上。</p>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="hexo-的运行环境nodejs-和-git"><a class="markdownIt-Anchor" href="#hexo-的运行环境nodejs-和-git"></a> Hexo 的运行环境：Node.js 和 Git</h2>
+<p>我在 Windows 10 和 Windows 11 上运行 Hexo。不过，你使用什么系统并不重要，重要的是运行 Hexo 需要先安装下面两个软件：</p>
+<ol>
+<li><a href="https://nodejs.org/en">Node.js</a>：下载安装 LTS （长期技术支持）版本即可。安装程序只需要全部保持默认即可。同时，Node.js 会附带安装 <code>NPM</code>。</li>
+<li><a href="https://git-scm.com/">Git</a>：下载最新版本并安装即可。</li>
+</ol>
+<p>在你的终端（例如 PowerShell）等运行 <code>node -v</code> 和 <code>git -v</code> 查看 Node.js 的版本号和 git 的版本号。如果没有报错就说明安装成功了。</p>
+<blockquote>
+<p>如果你仍然使用 Windows 10，非常建议你在应用商店下载 <code>Windows Terminal</code> 这个官方应用，它可以管理包括 PowerShell 和 CMD 在内的各种 Shell 。Shell 和终端严格来说不是一个概念，但是可以不做区分。</p>
+</blockquote>
+<p>下面是一些对 Node.js 和 Git 的功能的介绍。</p>
+<h3 id="nodejs-和-npm"><a class="markdownIt-Anchor" href="#nodejs-和-npm"></a> Node.js 和 NPM</h3>
+<p>官方定义中 Node.js 是一个开源、跨平台的 JavaScript 运行时环境，由 OpenJS 基金会维护和持有。这个话很抽象，这是因为你可能并不清楚什么叫“JavaScript 运行时环境”，也并不清楚这和 Hexo 有什么关系。我们可以（粗略地）理解：JavaScript 是一个编程语言，正如 C 语言一样，要 C 语言代码变成可以运行的程序需要有编译器，而要 JavaScript 代码能运行起来，我们就可以通过 Node.js。换言之，要运行 JS 就需要 Node.js 作为“环境”。这就是运行时环境的含义。而 Hexo 正是通过 JavaScript 编写的，因此其运行自然就需要 Node.js。</p>
+<blockquote>
+<p>👉：</p>
+<ol>
+<li>你可以在 GitHub 找到 <a href="https://github.com/hexojs/hexo/tree/master">hexojs/hexo</a> 的源代码，界面右侧的 language 标明了其使用什么语言。其中 TypeScript 就是对类型检查更严格的 JavaScript。</li>
+<li>浏览器也可以运行 JavaScript，但是很显然并没有那么适合去开发什么工具。</li>
+</ol>
+</blockquote>
+<p>当你安装 Node.js 时，你还会自动安装一个叫 <code>NPM</code> 的软件，NPM 可以认为是 <code>Node Package Manager</code> 的缩写，即 Node.js 的（默认）包管理器。当开发者开始开发什么东西的时候，通常会依赖一些前人的代码成果，即所谓&quot;包&quot;。而这些包又有自己依赖的包，同时，被依赖的包也在不断的变化改进中，版本过高或者过低都未必有用……要解决这样问题，使用包管理器就很有用了。它不仅能从受维护的可靠渠道下载你需要的包的正确版本，同时还可以将其依赖的其它包一并下载下来并且版本符合需要，当你卸载包时，其依赖的包如果不需要了也会被卸载。而安装、卸载更新这些包都只需要你敲一行命令。</p>
+<p>NPM 由 NPM 公司维护，你可以在他们的<a href="https://www.npmjs.com/">官网</a>搜到你下载的那些包的信息。</p>
+<p>默认情况下使用 NPM 下载很慢，这是因为 NPM 的源的服务器在海外。你可以给 NPM 设置代理，也可以更换 NPM 下载源（例如淘宝源）。如果你有代理，那么设置方法可以参考在终端中输入：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm config set proxy http://127.0.0.1:7890</span><br><span class="line">npm config set https-proxy http://127.0.0.1:7890</span><br></pre></td></tr></table></figure>
+<p>如果你由于各种原因无法使用代理，不仅可以换源为国内源，另一种解决办法是使用 <code>cnpm</code>，这是一个由阿里云推出的的 <code>npm</code> 客户端，可以说它和 <code>npm</code> 在下载方面的功能完全一致。使用 <code>cnpm</code> 的优点在于默认就是国内源进行下载，安装 <code>cnmp</code> 的具体方法可以自行搜索解决。由于我并没采用这种方法，此处就并不展开了。</p>
+<blockquote>
+<p>👉：</p>
+<ol>
+<li>当我们说从 NPM 源下载包时，实际上就是从 <code>https://registry.npmjs.org/</code> 进行下载。当我们说换源时，实际上就是更改这个下载地址。</li>
+<li>NPM 并不是唯一的包管理器，还有其它的很多包管理器，例如 Yarn。</li>
+</ol>
+</blockquote>
+<h3 id="git-和-github"><a class="markdownIt-Anchor" href="#git-和-github"></a> Git 和 GitHub</h3>
+<p>即使没有通过 Git，你也很有可能听说过 GitHub 这个所谓&quot;程序员都会上&quot;的网站。Git 和 GitHub 并没有什么必然联系，但是 GitHub 中的 <code>Git</code> 确实就是指的软件 Git。下面我们通过一个简单的例子了解 Git 的作用。</p>
+<blockquote>
+<p>假设你正在和朋友开发一个软件，你写好了一个功能 A  后，继续开发新的功能，这个时候，你不由得希望可以 <code>保存现在的项目状态</code> 以防止后面开发出现问题时，连原本的功能 A 也用不了了。此时，朋友告知你，他添加了新的功能 B 还优化了功能 A ，问你“我们要怎么把 <code>这台电脑上的修改同步到那台电脑上</code>？”，同步了两台电脑的改动后，你们一起开发功能 C，不料代码出了 bug ，debug 时，你不由得想知道，<code>现在的代码和之前的代码究竟有什么区别</code>？</p>
+</blockquote>
+<p>也就是说，Git 是一个开源的版本控制软件。正如 RPG 游戏中我们需要时不时存档，Git 可以在需要的时候存档文件，保证我们不会因为误操作而损失数据。同时，如果多个人一起开发，我们还可以区分究竟是谁改了哪一行文本。Git 既可以保证我们不会把好好的代码改坏，也可以轻松和别人合作修改同一个文件最后合并在一起，诸如此类的许多优点让它风靡全球。</p>
+<p>如果我们需要和世界其它地方的人一起开发，那么我们就需要一个 <code>仓库</code> 存储代码，就好像通过网盘给别人分享文件一样。只不过这个 <code>仓库</code> 需要有一个版本控制软件，这样我们就可以查看它的历史版本，也可以一起协作修改，亦或者撤回曾经的修改。提供这种帮你在远端保管代码平台有很多，其中最有名的正是 GitHub，它使用 Git 来进行版本控制。</p>
+<blockquote>
+<p>Git 和 GitHub 都是强大的工具，感到后悔或犹豫的时候就使用 Git 给代码 “存档” 吧。</p>
+</blockquote>
+<p>关于 Git 和 GitHub 的介绍到此为止，我们现在关心的是：为什么 Hexo 的安装需要 Git ？</p>
+<p>为此我们需要简单介绍一下 Hexo 的工作流程。</p>
+<p>前面提到，当我们写好文章，Hexo 就可以根据它们生成对应的 HTML 等网页文件。但是如果文件只是在本地，那么就没有人可以访问它。你需要将它们上传到一个服务器，并且服务器会将你给它的文件组合在一起形成网页，这样我们通过网址访问就能看到美观的网页了。好在你不需要花钱购买自己的服务器或云服务器，很多平台可以免费将你上传的文件显示成网页提供访问。例如 GitHub 提供的 <code>GitHub Pages</code>。GitHub 将用户设定的特定仓库里的文件视为你上传的网页文件，然后使用 <code>GitHub Pages</code> 将它们作为网页呈现出来这样，你的博客就算上线了。</p>
+<p>所以简单来说，Hexo 需要使用 Git，是因为它使用将生成的网页传到显示网页的仓库中去。</p>
+<blockquote>
+<p>使用 Git 仓库存储托管的静态网页是一种很常见的做法，并不是只有 GitHub 这么做（虽然 GitHub 确实应该是最大的服务商）。例如，国内就有 Gitee 等同样使用 Git 管理托管的代码的平台。我们会在后面托管时细谈。</p>
+</blockquote>
+<h2 id="安装-hexo-并建立站点"><a class="markdownIt-Anchor" href="#安装-hexo-并建立站点"></a> 安装 Hexo 并建立站点</h2>
+<p>在安装完成 Node.js 后，我们就可以用包管理器 NPM 安装 Hexo 了。只需要打开终端，输入</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+<blockquote>
+<ol>
+<li>
+<p>这句话的意思是适用 NPM 全局安装 Hexo 的命令行接口（command line, cli）。即当我们输入（指定的）命令时，<code>hexo-cli</code> 可以调起 <code>hexo</code> 的对应功能。</p>
+</li>
+<li>
+<p>推荐使用全局安装是因为可以不在乎输入命令时终端地址在哪。</p>
+</li>
+</ol>
+</blockquote>
+<p>打开终端，输入 <code>hexo -v</code> 就可以检查 Hexo 是否正常安装以及安装版本是多少了。</p>
+<p>选择适合的地方建立文件夹，这个文件夹会存储博客的所有数据，因此建议使用清晰简洁的英文进行命名。</p>
+<blockquote>
+<p>👉：</p>
+<p>推荐为此文件夹创建快捷入口。例如 Windows 系统下，将此文件夹固定到 <code>快速访问</code> 或 <code>开始菜单</code> 中。</p>
+</blockquote>
+<p>在这个空文件夹中打开终端，或者说将终端地址跳转到此文件夹，输入</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hexo init</span><br></pre></td></tr></table></figure>
+<p>即对此文件夹进行初始设置（initialization）。Hexo 会自动下载创建一些必要的文件。当命令执行完毕，博客的搭建数据就算创建完成了。我们可以通过下面的命令检查一下</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hexo server</span><br></pre></td></tr></table></figure>
+<p>这个命令会在本机启动一个服务程序，即把这台计算机自己看做服务器。这个时候我们可以在浏览器中通过访问网址 <code>localhost：4000</code> 访问 Hexo 这个&quot;远端&quot;的服务程序。</p>
+<p>如果可以看到网页被加载出来，那么说明我们博客已经建立起来了。</p>
+<h2 id="将网站托管给远端服务器github-pages"><a class="markdownIt-Anchor" href="#将网站托管给远端服务器github-pages"></a> 将网站托管给远端服务器（Github Pages）</h2>
+<p>仅仅建立站点是不够的。因为我们希望我们可以 <code>任意时候</code>、<code>任意地方</code>、<code>任意设备</code> 都能访问我们的网站——就像任意一个正常的网站一样。而我们在上一步中启动的不过是一个本机局域网中服务器而已，既不能在其它设备上访问，也无法保证我们永不关机。而比起自己买一个服务器，更简单的方式是直接使用一些网站提供的免费静态网页托管服务。</p>
+<p>在这里，我们推荐使用 GitHub 提供的 <code>GitHub Pages</code>。尽管存在其它的同类服务提供商，但是 GitHub 作为最大的代码托管网站，使用其服务更典型、主流。同时，Gitee 要求审核后再公开仓库的做法不仅麻烦，还让人不由得怀疑其后续是否存在其它更严格的各类手续要求。</p>
+<blockquote>
+<p>当然，在国内存在一定的访问问题，这个需要自己想办法解决。</p>
+</blockquote>
+<p>下面阐述其步骤：</p>
+<ol>
+<li>
+<p>首先，创建一个 GitHub 账号。</p>
+</li>
+<li>
+<p>新建仓库（Repository）：每个 GitHub 账号有一个对应的 <code>&lt;Github 用户名&gt;.github.io</code> 域名，如果你希望部署到这个域名下，仓库名就同样设为 <code>&lt;Github 用户名&gt;.github.io</code>。或者你也可以任意取仓库名，这样你最终部署到域名将是 <code>&lt;Github 用户名&gt;.github.io/&lt;你的仓库名&gt;</code>。</p>
+</li>
+<li>
+<p>回到博客目录启动终端，运行 <code>npm install hexo-deployer-git</code> 安装 <a href="https://github.com/hexojs/hexo-deployer-git">Hexo-deployer-git</a>。这是 Hexo 官方提供的部署工具，使用它可以一行命令把文件推送到远端。</p>
+</li>
+<li>
+<p>打开博客根目录下的 <code>_config.yml</code> 文件（使用 VSCode 或任意其它编辑器均可），在最后粘贴并修改有关信息：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">deploy:</span>  </span><br><span class="line"><span class="attr">type:</span> <span class="string">git</span>  </span><br><span class="line"><span class="attr">repo:</span> <span class="string">&lt;前面建立的仓库地址&gt;</span> <span class="comment"># 例如 https://github.com/foobar/foobar.github.io  </span></span><br><span class="line"><span class="attr">branch:</span> [<span class="string">仓库分支</span>] <span class="comment"># 通常来说是main，也可以查看你的仓库进行确定</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>回到命令行，执行下列命令设定全局的 Git 用户名：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git config --global user.email &quot;你的名字或者昵称&quot;  </span><br><span class="line">git config --global user.name &quot;你的邮箱地址&quot;</span><br></pre></td></tr></table></figure>
+<p>我们提到 Git 是一个可以多人合作的版本控制软件，因此，Git 需要记录究竟是谁在提交，这样协作者（对于开源项目，可能是陌生人）就可以联系到你并直到如何称呼你。其中 <code>--global</code> 表示的是在此电脑上的所有 Git 仓库都默认使用这个设置。通常，我们只用一个用户名即可。</p>
+<blockquote>
+<p>推荐将用户名和邮件地址与 GitHub 账号保持一致。因为 GitHub 使用你 Git 中设置的邮箱来确定是哪个用户进行了提交。</p>
+</blockquote>
+</li>
+<li>
+<p>执行 <code>hexo deploy</code>（deploy 可以简写为 d）命令推送到 GitHub 仓库，你还需要根据提示输入 GitHub 用户名和密码。Git 设置的“用户名”仅仅是一个标记而已。如果想要写入仓库，GitHub 显然需要检查你的权限。因此你需要在这里输入密码。</p>
+<blockquote>
+<p>每次都输入密码是一件麻烦事，你可以使用 <code>令牌（Token）</code> 或 <code>SSH认证</code> 来避免这件事。</p>
+</blockquote>
+</li>
+<li>
+<p>当 <code>hexo d</code> 没有报错的成功执行完成，那么一切就算大功告成了。稍等片刻，GitHub 会通过 <code>GitHub Action</code> 服务将你传送的修改信息同步到网页。当看到分支下面的最后提交记录右侧显示绿色的对勾✔️时，就说明更改已经完成了。</p>
+<blockquote>
+<p>请注意，<code>hexo d</code> 会直接<strong>覆盖</strong>仓库里的所有文件，因此不要在这个仓库的这个分支放入任何其它数据。</p>
+</blockquote>
+</li>
+<li>
+<p>访问网页，查看你的崭新上线的博客！</p>
+</li>
+</ol>
+<h2 id="总结与下一步"><a class="markdownIt-Anchor" href="#总结与下一步"></a> 总结与下一步</h2>
+<p>总结一下，本节论述了一下操作。如何安装 Hexo 博客的两个前置软件：Node.js 和 Git，以及使用 NPM 安装 Hexo 和 Hexo 的部署插件，最后，使用命令在本地创建一个 Hexo 博客并将它通过 Git 推送到 GitHub。特别地，我们还介绍了一些加速 NPM 下载的方法。</p>
+<p>尽管这些操作并不复杂，但是为了面向和大一的我一样完全没有任何知识的朋友，本文还较为详细的阐述了 Node.js 、NPM 、Git 、GitHub 等软件和网站作用，命令的含义等。因此篇幅拉得比较长。我认为这是有必要的：以本文原始参考对象为代表的众多博客文章和视频中，作者往往不愿或者不能对其中的细节进行阐述。当然，我们不应该寄希望于作者认为读者应该知道的知识总是为读者所知，<strong>一个合格的读者应该学会使用搜索引擎</strong>。但是，我们总是应该对小白留出更多的耐心，并传达出&quot;知其然且知其所以然&quot;的学习观念，我希望这篇文章做到了。</p>
+<p>在下一节中，我们介绍如何简单地自定义博客，包括更换主题（以 NexT 为例），并对其进行详细地自定义。</p>
+<h2 id="拓展阅读"><a class="markdownIt-Anchor" href="#拓展阅读"></a> 拓展阅读</h2>
+<h2 id="感谢与参考"><a class="markdownIt-Anchor" href="#感谢与参考"></a> 感谢与参考</h2>
+<ul>
+<li><a href="https://www.bilibili.com/video/BV1Yb411a7ty/">手把手教你从0开始搭建自己的个人博客 |无坑版视频教程| hexo_哔哩哔哩_bilibili</a>，这是本文的最初参考对象。尽管本文并非&quot;无坑视频&quot;（他甚至没有介绍安装 Git，没有 Git 是无法初始化博客的），使用 Vim 的做法对初学者也不算友好，但是依然对本站的建立起到了很大的帮助。</li>
+<li><a href="https://hexo.io/zh-cn/docs/">文档 | Hexo</a>：Hexo 的官方文档。尽管曾经备受吐槽，但是我认为现在【开始使用】部分的章节写得相当不错。如果嫌本文啰嗦，可以查阅 【开始使用】部分的《概述》、《建站》、《配置》和《命令》四个章节。此外，<strong>查阅官方文档绝大部分时候都会是最高效的问题解决方案</strong>。</li>
+<li>你还可以查阅其它搜索引擎上的文章，不过它们很有可能充满谬误（因为作者是刚刚建站的小白）或者时间久远，需要自行甄别。</li>
+<li>本站的建立还得到了 hawa130 的指导，欢迎访问他的博客：<a href="https://hawa130.com/">Hanwan Space</a>。</li>
+<li>你还可以就具体问题询问搜索引擎和通用聊天 AI（如 ChatGPT 等）的意见。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>搭建博客</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>静态博客</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>较为优雅的静态博客之旅（二）：更换主题与域名</title>
+    <url>//Hexo-2.html</url>
+    <content><![CDATA[<h2 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h2>
+<p>本文承接前文，以 NexT 主题为例，讲述如何更换主题并对其进行配置。<span id="more"></span></p>
+<h2 id="安装"><a class="markdownIt-Anchor" href="#安装"></a> 安装</h2>
+<p>Hexo 支持添加主题。不同的主题可以将博客渲染成各式各样的美观样式，还能对你的博客添加额外功能提供助力。NexT 是一个知名度极高并且至今仍在维护的主题，我们以它为例讲解如何安装主题。在此之前，你应该已经安装好 Hexo 并建立了自己的博客。</p>
+<blockquote>
+<p>NexT 历史版本有多个库，我们将以最新版本进行讲解。</p>
+</blockquote>
+<p>回到博客根目录，在此路径启动终端。输入</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install hexo-theme-next@latest</span><br></pre></td></tr></table></figure>
+<p>安装 NexT。传统的方式是将下载的主题放到 <code>HexoSite-&gt;themes</code> 文件夹下，但是这种方式对版本升级并不友好。因此我们使用 NPM 进行安装，安装后，NexT 主题的路径是 <code>HexoSite\node_modules\hexo-theme-next</code> 。以后，我们就可以使用 NPM 命令管理升级了。</p>
+<p>安装完成后，打开 NexT 主题目录，可以看到 Hexo 根目录下和 NexT 主题的路径下都有名为 <code>_config.yml</code> 的配置文件。为了避免混淆，我们在后面称它们为 <code>Hexo 配置文件</code>和 <code>NexT 配置文件</code>。本节后续的主要工作主要都在其中进行。</p>
+<blockquote>
+<p>这两个文件使用一种名为 YAML 的标记语言。Hexo 和 NexT 通过 YAML，以键值对（即先写一个设置项的名字，再写其被设置的值）的形式存储自定义设置。在这里我们不需要太在乎其语法，只需要知道形式是 <code>key: value</code>（中间空格不可省略），且缩进和大小写都很敏感即可。</p>
+</blockquote>
+<h2 id="启用主题和配置-hexo"><a class="markdownIt-Anchor" href="#启用主题和配置-hexo"></a> 启用主题和配置 Hexo</h2>
+<h3 id="hexo-的设置"><a class="markdownIt-Anchor" href="#hexo-的设置"></a> Hexo 的设置</h3>
+<p>在之前 <a href="Hexo-1.html#%E9%83%A8%E7%BD%B2">部署</a> 一节我们实际上就设置过 Hexo 配置文件，现在我们更详细地对其进行配置。
+文件的开头，可以写下网站的名字、侧栏的欢迎语以及作者等。如本站的配置为：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Site</span></span><br><span class="line"></span><br><span class="line"><span class="attr">title:</span> <span class="string">&#x27;LeeKa 的酒馆&#x27;</span></span><br><span class="line"><span class="attr">subtitle:</span> <span class="string">&#x27;欢迎，旅人！坐下来享受一下暖烘烘的炉火吧。&#x27;</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">&#x27;代码、音乐和游戏，一起来聊聊吧&#x27;</span></span><br><span class="line"><span class="attr">keywords:</span> <span class="string">sample</span> <span class="string">keywaord</span></span><br><span class="line"><span class="attr">author:</span> <span class="string">LeeKa</span></span><br><span class="line"><span class="string">......</span></span><br></pre></td></tr></table></figure>
+<p>我们现在启用主题。将查找  <code>theme</code>，将其值替换为 <code>next</code>：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">theme:</span> <span class="string">next</span></span><br></pre></td></tr></table></figure>
+<p>此时我们 <code>hexo s</code> 启动本地服务，可以看到网页布局发生了改变。</p>
+<p>其余 Hexo 原生配置可以查阅文档进行。接下来我们对 NexT 主题进行设置。</p>
+<h3 id="next-主题的设置"><a class="markdownIt-Anchor" href="#next-主题的设置"></a> NexT 主题的设置</h3>
+<p>如果我们直接修改 NexT 配置文件，那么升级 NexT 时，这些自定义设置就会被覆盖而丢失。因此更好的做法是<a href="https://hexo.io/zh-cn/docs/configuration.html#%E4%BD%BF%E7%94%A8%E4%BB%A3%E6%9B%BF%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6">使用代替配置文件</a>。这是 Hexo 官方支持的一种功能，具体来说，我们<strong>不修改 NexT 配置文件</strong>，而将这些<strong>配置写在 Hexo 配置文件</strong>中。这有点像 VSCode 中的默认设置和工作区设置的关系，后者会覆盖前者设置的值。这样就不会因为升级而丢失设置了，因为这些设置写在 NexT 主题文件之外。</p>
+<p>更详细地来说，我们要这么做：</p>
+<p>假设这是我们需要修改的配置：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># NexT 配置文件</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Schemes</span></span><br><span class="line"><span class="comment"># scheme: Muse</span></span><br><span class="line"><span class="comment"># scheme: Mist</span></span><br><span class="line"><span class="attr">scheme:</span> <span class="string">Pisces</span></span><br><span class="line"><span class="comment"># scheme: Gemini</span></span><br></pre></td></tr></table></figure>
+<p>我们并不直接修改它而是：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Hexo 配置文件</span></span><br><span class="line"></span><br><span class="line"><span class="attr">theme_config:</span></span><br><span class="line">  <span class="comment"># Schemes</span></span><br><span class="line">  <span class="comment"># scheme: Muse</span></span><br><span class="line">  <span class="comment"># scheme: Mist</span></span><br><span class="line">  <span class="attr">scheme:</span> <span class="string">Pisces</span></span><br><span class="line">  <span class="comment"># scheme: Gemini</span></span><br><span class="line">  <span class="comment"># 所有的配置信息都在theme_config的基础上缩进了相同的空格数</span></span><br></pre></td></tr></table></figure>
+<p>下面是我建议进行配置的功能和对应的条目名：</p>
+<ul>
+<li>选择喜欢的布局方案：<code>scheme</code></li>
+<li>设置你的头像：<code>avatar</code> 下 <code>url</code>。推荐将头像上传至图床，使用图床的链接。</li>
+<li>设置你的其它网络账号的跳转链接：<code>social</code> 下按需设置</li>
+<li>设置喜欢的代码高亮风格和复制按钮：<code>codeblock</code> 下的 <code>theme</code> 、 <code>copy_button</code> 中的 <code>enable</code>
+下面是一些需要详细阐述的设置</li>
+</ul>
+<h4 id="评论"><a class="markdownIt-Anchor" href="#评论"></a> 评论</h4>
+<p>我使用 <code>Disqus</code> 支持的评论功能，优点是无需备案，缺点是评论者需要注册 <code>Disqus</code> 账号，且国内网络不友好。要使用此功能，需要先注册账号，并选择喜欢的 <code>Shortname</code>（推荐与网站保持一致）。你无需选择 <code>What platform is your site on?</code>，选择最下方的&quot;我的平台不在列表中跳过即可&quot;。</p>
+<p>随后，回到配置文件中，在 <code>comments</code> 的 <code>active</code> 项中写为 <code>disqus</code>，并在下面的 <code>disqus</code> 中启用它。即</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">theme_config:</span></span><br><span class="line">  <span class="comment"># …………其它的设置</span></span><br><span class="line">  <span class="comment"># Multiple Comment System Support</span></span><br><span class="line">  <span class="attr">comments:</span></span><br><span class="line">    <span class="comment"># Available values: tabs | buttons</span></span><br><span class="line">    <span class="attr">style:</span> <span class="string">tabs</span></span><br><span class="line">    <span class="comment"># Choose a comment system to be displayed by default.</span></span><br><span class="line">    <span class="comment"># Available values: disqus | disqusjs | changyan | livere | gitalk | utterances</span></span><br><span class="line">    <span class="attr">active:</span> <span class="string">disqus</span></span><br><span class="line">    <span class="comment"># Setting `true` means remembering the comment system selected by the visitor.</span></span><br><span class="line">    <span class="attr">storage:</span> <span class="literal">true</span></span><br><span class="line">    <span class="comment"># Lazyload all comment systems.</span></span><br><span class="line">    <span class="attr">lazyload:</span> <span class="literal">false</span></span><br><span class="line">    <span class="comment"># Modify texts or order for any naves, here are some examples.</span></span><br><span class="line">    <span class="attr">nav:</span></span><br><span class="line">      <span class="attr">disqus:</span></span><br><span class="line">       <span class="attr">text:</span> <span class="string">Load</span> <span class="string">Disqus</span></span><br><span class="line">       <span class="attr">order:</span> <span class="number">-1</span></span><br><span class="line">      <span class="comment">#gitalk:</span></span><br><span class="line">      <span class="comment">#  order: -2</span></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">  <span class="comment"># Disqus</span></span><br><span class="line">  <span class="comment"># For more information: https://disqus.com</span></span><br><span class="line">  <span class="attr">disqus:</span></span><br><span class="line">    <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">shortname:</span> <span class="comment"># 填入你在 Disqus 填写的shortname</span></span><br><span class="line">    <span class="attr">count:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<h4 id="站内搜索"><a class="markdownIt-Anchor" href="#站内搜索"></a> 站内搜索</h4>
+<p>安装对应插件（由 NexT 团队支持）</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install hexo-generator-searchdb</span><br></pre></td></tr></table></figure>
+<p>在 Hexo 配置文件的 NexT 的 <code>代替配置文件</code> 条目中：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Local search</span></span><br><span class="line"><span class="comment"># Dependencies: https://github.com/next-theme/hexo-generator-searchdb</span></span><br><span class="line"><span class="attr">local_search:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="comment"># If auto, trigger search by changing input.</span></span><br><span class="line">  <span class="comment"># If manual, trigger search by pressing enter key or search button.</span></span><br><span class="line">  <span class="attr">trigger:</span> <span class="string">auto</span></span><br><span class="line">  <span class="comment"># Show top n results per article, show all results by setting to -1</span></span><br><span class="line">  <span class="attr">top_n_per_article:</span> <span class="number">1</span></span><br><span class="line">  <span class="comment"># Unescape html strings to the readable one.</span></span><br><span class="line">  <span class="attr">unescape:</span> <span class="literal">false</span></span><br><span class="line">  <span class="comment"># Preload the search data when the page loads.</span></span><br><span class="line">  <span class="attr">preload:</span> <span class="literal">false</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="字数统计"><a class="markdownIt-Anchor" href="#字数统计"></a> 字数统计</h4>
+<p>安装对应插件（由 NexT 团队支持）</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install hexo-word-counter</span><br></pre></td></tr></table></figure>
+<p>在 Hexo 配置文件的 NexT 的 <code>代替配置文件</code> 条目中：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">symbols_count_time:</span></span><br><span class="line">  <span class="attr">separated_meta:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<h4 id="latex-数学公式支持"><a class="markdownIt-Anchor" href="#latex-数学公式支持"></a> LaTeX 数学公式支持</h4>
+<p>如果我们需要在 Markdown 中写一些数学公式，那么一个简单的办法就是左右各用一个或者两个美元符号包裹 LaTeX 代码实现行内公式或者公式块。</p>
+<blockquote>
+<p>LaTeX 数学公式语法这里不做讲解，搜索时注意它不是 LaTeX 语法即可。</p>
+</blockquote>
+<p>但是 Hexo 自带的渲染器（渲染器即将 Markdown 转化为对应的网页代码的模块）对于 LaTeX 支持并不好。我们需要换用其它的渲染器。Hexo 有若干的渲染器，它们使用的渲染引擎大体上有两个：MathJax 和 Katex。简单来说，MathJax 支持的格式更全，但是渲染速度更慢；KaTeX 支持的格式更少但是速度更快。</p>
+<p>鉴于 VSCode 的 Markdown 预览默认采用的就是 KaTeX，我倾向于使用 KaTeX ，这样在后续 VSCode 中预览时，所得到的渲染信息能够更加符合晚点实际渲染结果。于是我们可以选择的渲染器主要是 <a href="https://github.com/CHENXCHEN/hexo-renderer-markdown-it-plus">hexo-renderer-markdown-it-plus</a> 和 <a href="https://github.com/hexojs/hexo-renderer-markdown-it">hexo-renderer-markdown-it</a> 。后者需要自行安装 <code>markdown-it-katex</code> 插件，不推荐，我们使用 <code>markdown-it-plus</code>。</p>
+<p>在 Hexo 目录下终端运行下列命令</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm un hexo-renderer-marked</span><br><span class="line">npm i hexo-renderer-markdown-it</span><br></pre></td></tr></table></figure>
+<p>这表示卸载 Hexo 原生的渲染器 <code>hexo-renderer-marked </code> 并安装新的渲染器 <code>hexo-renderer-markdown-it</code>。</p>
+<p>在 Hexo 配置文件中，NexT 的<code>代替配置文件条目</code>下修改为</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">katex:</span>  </span><br><span class="line">    <span class="comment"># See: https://github.com/KaTeX/KaTeX/tree/master/contrib/copy-tex  </span></span><br><span class="line">    <span class="attr">copy_tex:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<p>在不是 <code>代替配置文件条目</code> 的地方，添加</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">LaTeX fomula</span></span><br><span class="line"></span><br><span class="line">markdown_it_plus:</span><br><span class="line">  highlight: true</span><br><span class="line">  html: true</span><br><span class="line">  xhtmlOut: true</span><br><span class="line">  breaks: false</span><br><span class="line">  langPrefix:</span><br><span class="line">  linkify: true</span><br><span class="line">  typographer: false</span><br><span class="line">  quotes:</span><br><span class="line">  plugins:</span><br><span class="line">    - plugin:</span><br><span class="line">        name: markdown-it-mark</span><br><span class="line">        enable: false</span><br></pre></td></tr></table></figure>
+<p>运行 <code>hexo clean</code> 清理数据，<code>hexo s</code> 检查重新生成的渲染信息。</p>
+<blockquote>
+<p>目前还是有不支持 <code>equation</code> 等格式的问题，怀疑是插件使用的版本较老。</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>搭建博客</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>静态博客</tag>
       </tags>
   </entry>
 </search>

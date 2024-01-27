@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.0.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/white/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"default"},"fold":{"enable":true,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":{"disqus":{"text":"Load Disqus","order":-1}},"activeClass":"disqus"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="前言 本博客搭建于大一（2020）。当时，作为一个“萌新”，给自己的坎坎坷坷的博客搭建历程写下了些许文字，原名为《搭建个人博客 || 一、在本地搭好博客》。2023 年末，我回过头重新审查文章，重新编辑了一些说的不严谨的地方。 现在（2024 年 1 月），我自觉对使用博客有了一套自己的连贯的流程，故在原文基础上重新编辑完善如下。希望能给你一点帮助。🩷">
+<meta property="og:type" content="article">
+<meta property="og:title" content="较为优雅的静态博客之旅（一）：建站">
+<meta property="og:url" content="http://example.com/Hexo-1.html">
+<meta property="og:site_name" content="LeeKa 的酒馆">
+<meta property="og:description" content="前言 本博客搭建于大一（2020）。当时，作为一个“萌新”，给自己的坎坎坷坷的博客搭建历程写下了些许文字，原名为《搭建个人博客 || 一、在本地搭好博客》。2023 年末，我回过头重新审查文章，重新编辑了一些说的不严谨的地方。 现在（2024 年 1 月），我自觉对使用博客有了一套自己的连贯的流程，故在原文基础上重新编辑完善如下。希望能给你一点帮助。🩷">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-10-26T16:37:19.000Z">
+<meta property="article:modified_time" content="2024-01-14T09:58:38.845Z">
+<meta property="article:author" content="LeeKa">
+<meta property="article:tag" content="Hexo">
+<meta property="article:tag" content="静态博客">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/Hexo-1.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/Hexo-1.html","path":"/Hexo-1.html","title":"较为优雅的静态博客之旅（一）：建站"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>较为优雅的静态博客之旅（一）：建站 | LeeKa 的酒馆</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">LeeKa 的酒馆</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">欢迎，旅人！坐下来享受一下暖烘烘的炉火吧。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-links"><a href="/links/" rel="section"><i class="fa-solid fa-link fa-fw"></i>友链</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text"> 前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D"><span class="nav-number">2.</span> <span class="nav-text"> 介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%83%85%E5%86%B5%E6%88%91%E4%BB%AC%E8%A6%81%E5%81%9A%E4%BB%80%E4%B9%88"><span class="nav-number">2.1.</span> <span class="nav-text"> 基本情况：我们要做什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E6%9C%BA%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E9%80%89%E6%8B%A9%E8%BF%99%E7%A7%8D%E6%96%B9%E6%A1%88"><span class="nav-number">2.2.</span> <span class="nav-text"> 动机：为什么要选择这种方案？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E7%BA%A7%E6%A0%87%E9%A2%98"><span class="nav-number">2.3.</span> <span class="nav-text"> 三级标题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%9B%E7%BA%A7%E6%A0%87%E9%A2%98"><span class="nav-number">2.3.1.</span> <span class="nav-text"> 四级标题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hexo-%E7%9A%84%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83nodejs-%E5%92%8C-git"><span class="nav-number">3.</span> <span class="nav-text"> Hexo 的运行环境：Node.js 和 Git</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#nodejs-%E5%92%8C-npm"><span class="nav-number">3.1.</span> <span class="nav-text"> Node.js 和 NPM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-%E5%92%8C-github"><span class="nav-number">3.2.</span> <span class="nav-text"> Git 和 GitHub</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-hexo-%E5%B9%B6%E5%BB%BA%E7%AB%8B%E7%AB%99%E7%82%B9"><span class="nav-number">4.</span> <span class="nav-text"> 安装 Hexo 并建立站点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%86%E7%BD%91%E7%AB%99%E6%89%98%E7%AE%A1%E7%BB%99%E8%BF%9C%E7%AB%AF%E6%9C%8D%E5%8A%A1%E5%99%A8github-pages"><span class="nav-number">5.</span> <span class="nav-text"> 将网站托管给远端服务器（Github Pages）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93%E4%B8%8E%E4%B8%8B%E4%B8%80%E6%AD%A5"><span class="nav-number">6.</span> <span class="nav-text"> 总结与下一步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8B%93%E5%B1%95%E9%98%85%E8%AF%BB"><span class="nav-number">7.</span> <span class="nav-text"> 拓展阅读</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%84%9F%E8%B0%A2%E4%B8%8E%E5%8F%82%E8%80%83"><span class="nav-number">8.</span> <span class="nav-text"> 感谢与参考</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="LeeKa"
+      src="https://s2.loli.net/2022/03/24/zcq6l9KENbRJtDi.jpg">
+  <p class="site-author-name" itemprop="name">LeeKa</p>
+  <div class="site-description" itemprop="description">代码、音乐和游戏，一起来聊聊吧</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">54</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">155</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/KXAND" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;KXAND" rel="noopener me" target="_blank">GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:leeka.Pub@outlook.com" title="E-Mail → mailto:leeka.Pub@outlook.com" rel="noopener me" target="_blank">E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/QuiXand" title="X → https:&#x2F;&#x2F;twitter.com&#x2F;QuiXand" rel="noopener me" target="_blank">X</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/big/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/Hexo-1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://s2.loli.net/2022/03/24/zcq6l9KENbRJtDi.jpg">
+      <meta itemprop="name" content="LeeKa">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LeeKa 的酒馆">
+      <meta itemprop="description" content="代码、音乐和游戏，一起来聊聊吧">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="较为优雅的静态博客之旅（一）：建站 | LeeKa 的酒馆">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          较为优雅的静态博客之旅（一）：建站<a href="https://github.com/KXAND/BlogSource/edit/source/_posts/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/%E8%BE%83%E4%B8%BA%E4%BC%98%E9%9B%85%E7%9A%84%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2%E4%B9%8B%E6%97%85%EF%BC%88%E4%B8%80%EF%BC%89.md" class="post-edit-link" title="编辑" rel="noopener" target="_blank"><i class="fa fa-pen-nib"></i></a>
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-10-27 00:37:19" itemprop="dateCreated datePublished" datetime="2020-10-27T00:37:19+08:00">2020-10-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-01-14 17:58:38" itemprop="dateModified" datetime="2024-01-14T17:58:38+08:00">2024-01-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/" itemprop="url" rel="index"><span itemprop="name">搭建博客</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/Hexo-1.html#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="/Hexo-1.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>6.1k</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h2>
+<p>本博客搭建于大一（2020）。当时，作为一个“萌新”，给自己的坎坎坷坷的博客搭建历程写下了些许文字，原名为《搭建个人博客 || 一、在本地搭好博客》。2023 年末，我回过头重新审查文章，重新编辑了一些说的不严谨的地方。</p>
+<p>现在（2024 年 1 月），我自觉对使用博客有了一套自己的连贯的流程，故在原文基础上重新编辑完善如下。希望能给你一点帮助。🩷 <span id="more"></span></p>
+<h2 id="介绍"><a class="markdownIt-Anchor" href="#介绍"></a> 介绍</h2>
+<h3 id="基本情况我们要做什么"><a class="markdownIt-Anchor" href="#基本情况我们要做什么"></a> 基本情况：我们要做什么？</h3>
+<p>本文的目的是记录——或者说教授——搭建一个 Hexo 静态博客，配置主题（此处是 NexT）进行美化，并建立一个我认为较为合理的博客写作工作流的过程。</p>
+<p>本文预设的阅读对象是对本文提到的一系列工具、网站、平台（包括 Github）都不甚了解的单纯新大一，亦即曾经的自己。</p>
+<p>基于上面的原因，我会花很长的篇幅阐述一些较为基础的概念，对于非预设对象以外的读者，可能会略显冗长。确实如此，我写起来也是这样的感受，然而，一想到大一配此博客时知其然而不知其所以然的情况，我认为进行详细的讲解依然是有必要的。因为很多东西东西并不仅仅是适用于此，而是可以扩展到更广泛的层面，并有益于学习成长的。不过，我会将<strong>每一部分需要做的操作写在最开头</strong>，这样，如果你已经理解了有关概念，就可以通过侧边栏直接跳到下一届了。</p>
+<p>本博客与本博客教程的结果，是一个托管于 <code>Github Pages</code>，基于 Hexo 博客引擎，NexT 主题的静态博客网，可以使用包括 VSCode 在内的任意 Markdown 编辑器进行写作。</p>
+<p>本文的第一版，主要参考对象是 @CodeSheep 的 <a href="https://www.bilibili.com/video/BV1Yb411a7ty/">手把手教你从0开始搭建自己的个人博客 |无坑版视频教程| hexo_哔哩哔哩_bilibili</a>。这篇视频存在一定谬误，并且时间已经比较久了（2019），但是总体上对小白是有益的，并且视频可能对一些操作展现得更加清晰。</p>
+<blockquote>
+<p>但是可以不难理解，视频的信息传送速度必然是比文字低的。因此视频并不应该一直是你的主要学习方式。</p>
+</blockquote>
+<h3 id="动机为什么要选择这种方案"><a class="markdownIt-Anchor" href="#动机为什么要选择这种方案"></a> 动机：为什么要选择这种方案？</h3>
+<ol>
+<li>
+<p>为什么要搭建自己的博客？我认为有以下几点原因：</p>
+<ol>
+<li>自己的网站，很酷！</li>
+<li>总结，学习，回忆：世界上的知识太多了，很难保证做过、学过的东西你就能永远记得，如果有个博客可以辅助你有朝一日重新上手，或者回忆自己的过往点滴，那是一件很好的事。即博客可以作为你的日志、笔记、日记。</li>
+<li>招聘亮点：如果你在简历上写上博客地址，面试官会去看你写了些什么。</li>
+<li>学习：搭建博客的过程本身也是一种学习，其中的很多东西并不仅仅是搭建博客才能用。</li>
+</ol>
+</li>
+<li>
+<p>什么是静态博客？
+静态博客即使用静态网页搭起来的博客，而静态网页即网页事先已经生成好了。</p>
+<p>基本上所有的网页都是由 <code>HTML</code>、<code>CSS</code>、<code>JavaScript</code> 组成。HTML 写清楚了网页的标题是什么，段落写了什么，哪些文字有指向哪儿的超链接，插入了什么图片视频等等；而 CSS 则将这些文字按合理的方式进行排版，组成丰富多样的美观界面；最后 JavaScript 则提供了一些交互和动态元素，例如，这个站点的一键返回顶部、一些博客网站会有的被鼠标吸引的粒子等等。换句话说，静态博客并不意味着博客毫无互动性。</p>
+<p>但是，所有的这些互动性都是已经写好的，网站的浏览者无法改变。反之，例如同样是 B 站首页，不同的人登录后看到的消息通知、推送视频乃至个性化装扮都不尽相同。这是因为网页是 B 站的服务器根据登录的用户不同返回了不同的内容，直接改变了网页信息。同时，用户在网页上也可以直接和 B 站服务器打交道，改变 B 站服务器数据库中（自己的）数据。这就是动态网页。而静态站点，浏览者无法改变网站数据库的任何信息。</p>
+</li>
+<li>
+<p>为什么使用静态博客而非动态博客？</p>
+<ol>
+<li>静态博客安全：你的数据不会因为各类漏洞被黑客劫持。实际上，所有的数据都有本地备份，因此你的数据更安全。</li>
+<li>静态博客维护方便，维护一个动态博客很可能需要你有一定的数据库和网络基础，学习量大于静态博客。</li>
+<li>静态博客廉价：很多网站都可以免费托管你的静态博客（即你实际上访问的托管网站的服务器），而动态网页需要你有服务器。</li>
+<li>静态博客让你专注于文字本身：减少对网站的关注，就是增加对文字的关注，把重心放到博文——我们的初心上。</li>
+<li>看看别人怎么说：<a href="https://www.v2ex.com/t/812106">静态博客的优点是什么 - V2EX</a>。</li>
+</ol>
+</li>
+<li>
+<p>什么是博客引擎（框架）？为什么使用 <code>Hexo</code> 搭建静态博客？
+我们前面提到了网站使用 HTML 等组成，但是我们使用的是更简单的一些格式来写作，例如 Markdown。因此我们需要一些工具将文章转换成对应的 HTML等。此外一些和写作不太相关但是又需要的功能，例如通过标签分类文章等等，也可以通过 Hexo 这样的博客引擎办到，这就让搭建博客变得轻松了。而说到 Hexo 的优势则在于：</p>
+<ol>
+<li>Hexo 用户众多：这既证明了 Hexo 是一个优秀的博客引擎，也代表你遇到问题更容易找到答案。</li>
+<li>Hexo 命令简单，一般来说，你只需要记住三个命令就可以畅快地写作了。</li>
+<li>Hexo 迁移方便，你可以使用 Markdown 写作文章，而 Markdown 是一个广受支持的写作格式，因此你的文章可以轻松迁移到其它博客引擎上。</li>
+<li><s>我用的就是 Hexo。</s></li>
+</ol>
+</li>
+<li>
+<p>什么是 Markdown，为什么要使用 Markdown？</p>
+<ol>
+<li>
+<p>某种意义上来说 Markdown 和 HTML 差不多，都是标记语言。也就是说，你写了一篇文章，可以用一些符号标明哪里是一级标题，哪里是二级标题，哪里是引用的别人的话等等。例如</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># 一级标题</span></span><br><span class="line">随便写一段话。</span><br><span class="line"></span><br><span class="line">第二段再写一段话，并且引用 Linus 的名言</span><br><span class="line"></span><br><span class="line"><span class="quote">&gt; Fuck you, nVidia --Linus</span></span><br><span class="line"></span><br><span class="line"><span class="section">## 二级标题</span></span><br><span class="line"></span><br><span class="line">其它的话。</span><br></pre></td></tr></table></figure>
+<p>它的效果是：</p>
+<blockquote>
+<h3 id="三级标题"><a class="markdownIt-Anchor" href="#三级标题"></a> 三级标题</h3>
+<p>随便写一段话。</p>
+<p>第二段再写一段话，并且引用 Linus 的名言</p>
+<blockquote>
+<p>Fuck you, nVidia --Linus</p>
+</blockquote>
+<h4 id="四级标题"><a class="markdownIt-Anchor" href="#四级标题"></a> 四级标题</h4>
+<p>其它的话。</p>
+</blockquote>
+</li>
+<li>
+<p>Markdown 格式简单：这可以从上面的例子看出来。具体学习此处不赘述，互联网上有很多教程，而且你可能只需要 5 分钟就能基本掌握 Markdown 的主要写法。</p>
+</li>
+<li>
+<p>Markdown 用途广：从飞书云文档到 Notion 再到这个博客网站，很多地方都支持你使用 Markdown 进行写作。</p>
+</li>
+<li>
+<p>Markdown 让你专注写作：正如前面所说，花在其它地方的时间越少，花在文字上的时间就越多。Markdown 让你可以不用太关注排版之内的问题，你可以把注意力集中到内容本身上。</p>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="hexo-的运行环境nodejs-和-git"><a class="markdownIt-Anchor" href="#hexo-的运行环境nodejs-和-git"></a> Hexo 的运行环境：Node.js 和 Git</h2>
+<p>我在 Windows 10 和 Windows 11 上运行 Hexo。不过，你使用什么系统并不重要，重要的是运行 Hexo 需要先安装下面两个软件：</p>
+<ol>
+<li><a href="https://nodejs.org/en">Node.js</a>：下载安装 LTS （长期技术支持）版本即可。安装程序只需要全部保持默认即可。同时，Node.js 会附带安装 <code>NPM</code>。</li>
+<li><a href="https://git-scm.com/">Git</a>：下载最新版本并安装即可。</li>
+</ol>
+<p>在你的终端（例如 PowerShell）等运行 <code>node -v</code> 和 <code>git -v</code> 查看 Node.js 的版本号和 git 的版本号。如果没有报错就说明安装成功了。</p>
+<blockquote>
+<p>如果你仍然使用 Windows 10，非常建议你在应用商店下载 <code>Windows Terminal</code> 这个官方应用，它可以管理包括 PowerShell 和 CMD 在内的各种 Shell 。Shell 和终端严格来说不是一个概念，但是可以不做区分。</p>
+</blockquote>
+<p>下面是一些对 Node.js 和 Git 的功能的介绍。</p>
+<h3 id="nodejs-和-npm"><a class="markdownIt-Anchor" href="#nodejs-和-npm"></a> Node.js 和 NPM</h3>
+<p>官方定义中 Node.js 是一个开源、跨平台的 JavaScript 运行时环境，由 OpenJS 基金会维护和持有。这个话很抽象，这是因为你可能并不清楚什么叫“JavaScript 运行时环境”，也并不清楚这和 Hexo 有什么关系。我们可以（粗略地）理解：JavaScript 是一个编程语言，正如 C 语言一样，要 C 语言代码变成可以运行的程序需要有编译器，而要 JavaScript 代码能运行起来，我们就可以通过 Node.js。换言之，要运行 JS 就需要 Node.js 作为“环境”。这就是运行时环境的含义。而 Hexo 正是通过 JavaScript 编写的，因此其运行自然就需要 Node.js。</p>
+<blockquote>
+<p>👉：</p>
+<ol>
+<li>你可以在 GitHub 找到 <a href="https://github.com/hexojs/hexo/tree/master">hexojs/hexo</a> 的源代码，界面右侧的 language 标明了其使用什么语言。其中 TypeScript 就是对类型检查更严格的 JavaScript。</li>
+<li>浏览器也可以运行 JavaScript，但是很显然并没有那么适合去开发什么工具。</li>
+</ol>
+</blockquote>
+<p>当你安装 Node.js 时，你还会自动安装一个叫 <code>NPM</code> 的软件，NPM 可以认为是 <code>Node Package Manager</code> 的缩写，即 Node.js 的（默认）包管理器。当开发者开始开发什么东西的时候，通常会依赖一些前人的代码成果，即所谓&quot;包&quot;。而这些包又有自己依赖的包，同时，被依赖的包也在不断的变化改进中，版本过高或者过低都未必有用……要解决这样问题，使用包管理器就很有用了。它不仅能从受维护的可靠渠道下载你需要的包的正确版本，同时还可以将其依赖的其它包一并下载下来并且版本符合需要，当你卸载包时，其依赖的包如果不需要了也会被卸载。而安装、卸载更新这些包都只需要你敲一行命令。</p>
+<p>NPM 由 NPM 公司维护，你可以在他们的<a href="https://www.npmjs.com/">官网</a>搜到你下载的那些包的信息。</p>
+<p>默认情况下使用 NPM 下载很慢，这是因为 NPM 的源的服务器在海外。你可以给 NPM 设置代理，也可以更换 NPM 下载源（例如淘宝源）。如果你有代理，那么设置方法可以参考在终端中输入：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm config set proxy http://127.0.0.1:7890</span><br><span class="line">npm config set https-proxy http://127.0.0.1:7890</span><br></pre></td></tr></table></figure>
+<p>如果你由于各种原因无法使用代理，不仅可以换源为国内源，另一种解决办法是使用 <code>cnpm</code>，这是一个由阿里云推出的的 <code>npm</code> 客户端，可以说它和 <code>npm</code> 在下载方面的功能完全一致。使用 <code>cnpm</code> 的优点在于默认就是国内源进行下载，安装 <code>cnmp</code> 的具体方法可以自行搜索解决。由于我并没采用这种方法，此处就并不展开了。</p>
+<blockquote>
+<p>👉：</p>
+<ol>
+<li>当我们说从 NPM 源下载包时，实际上就是从 <code>https://registry.npmjs.org/</code> 进行下载。当我们说换源时，实际上就是更改这个下载地址。</li>
+<li>NPM 并不是唯一的包管理器，还有其它的很多包管理器，例如 Yarn。</li>
+</ol>
+</blockquote>
+<h3 id="git-和-github"><a class="markdownIt-Anchor" href="#git-和-github"></a> Git 和 GitHub</h3>
+<p>即使没有通过 Git，你也很有可能听说过 GitHub 这个所谓&quot;程序员都会上&quot;的网站。Git 和 GitHub 并没有什么必然联系，但是 GitHub 中的 <code>Git</code> 确实就是指的软件 Git。下面我们通过一个简单的例子了解 Git 的作用。</p>
+<blockquote>
+<p>假设你正在和朋友开发一个软件，你写好了一个功能 A  后，继续开发新的功能，这个时候，你不由得希望可以 <code>保存现在的项目状态</code> 以防止后面开发出现问题时，连原本的功能 A 也用不了了。此时，朋友告知你，他添加了新的功能 B 还优化了功能 A ，问你“我们要怎么把 <code>这台电脑上的修改同步到那台电脑上</code>？”，同步了两台电脑的改动后，你们一起开发功能 C，不料代码出了 bug ，debug 时，你不由得想知道，<code>现在的代码和之前的代码究竟有什么区别</code>？</p>
+</blockquote>
+<p>也就是说，Git 是一个开源的版本控制软件。正如 RPG 游戏中我们需要时不时存档，Git 可以在需要的时候存档文件，保证我们不会因为误操作而损失数据。同时，如果多个人一起开发，我们还可以区分究竟是谁改了哪一行文本。Git 既可以保证我们不会把好好的代码改坏，也可以轻松和别人合作修改同一个文件最后合并在一起，诸如此类的许多优点让它风靡全球。</p>
+<p>如果我们需要和世界其它地方的人一起开发，那么我们就需要一个 <code>仓库</code> 存储代码，就好像通过网盘给别人分享文件一样。只不过这个 <code>仓库</code> 需要有一个版本控制软件，这样我们就可以查看它的历史版本，也可以一起协作修改，亦或者撤回曾经的修改。提供这种帮你在远端保管代码平台有很多，其中最有名的正是 GitHub，它使用 Git 来进行版本控制。</p>
+<blockquote>
+<p>Git 和 GitHub 都是强大的工具，感到后悔或犹豫的时候就使用 Git 给代码 “存档” 吧。</p>
+</blockquote>
+<p>关于 Git 和 GitHub 的介绍到此为止，我们现在关心的是：为什么 Hexo 的安装需要 Git ？</p>
+<p>为此我们需要简单介绍一下 Hexo 的工作流程。</p>
+<p>前面提到，当我们写好文章，Hexo 就可以根据它们生成对应的 HTML 等网页文件。但是如果文件只是在本地，那么就没有人可以访问它。你需要将它们上传到一个服务器，并且服务器会将你给它的文件组合在一起形成网页，这样我们通过网址访问就能看到美观的网页了。好在你不需要花钱购买自己的服务器或云服务器，很多平台可以免费将你上传的文件显示成网页提供访问。例如 GitHub 提供的 <code>GitHub Pages</code>。GitHub 将用户设定的特定仓库里的文件视为你上传的网页文件，然后使用 <code>GitHub Pages</code> 将它们作为网页呈现出来这样，你的博客就算上线了。</p>
+<p>所以简单来说，Hexo 需要使用 Git，是因为它使用将生成的网页传到显示网页的仓库中去。</p>
+<blockquote>
+<p>使用 Git 仓库存储托管的静态网页是一种很常见的做法，并不是只有 GitHub 这么做（虽然 GitHub 确实应该是最大的服务商）。例如，国内就有 Gitee 等同样使用 Git 管理托管的代码的平台。我们会在后面托管时细谈。</p>
+</blockquote>
+<h2 id="安装-hexo-并建立站点"><a class="markdownIt-Anchor" href="#安装-hexo-并建立站点"></a> 安装 Hexo 并建立站点</h2>
+<p>在安装完成 Node.js 后，我们就可以用包管理器 NPM 安装 Hexo 了。只需要打开终端，输入</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+<blockquote>
+<ol>
+<li>
+<p>这句话的意思是适用 NPM 全局安装 Hexo 的命令行接口（command line, cli）。即当我们输入（指定的）命令时，<code>hexo-cli</code> 可以调起 <code>hexo</code> 的对应功能。</p>
+</li>
+<li>
+<p>推荐使用全局安装是因为可以不在乎输入命令时终端地址在哪。</p>
+</li>
+</ol>
+</blockquote>
+<p>打开终端，输入 <code>hexo -v</code> 就可以检查 Hexo 是否正常安装以及安装版本是多少了。</p>
+<p>选择适合的地方建立文件夹，这个文件夹会存储博客的所有数据，因此建议使用清晰简洁的英文进行命名。</p>
+<blockquote>
+<p>👉：</p>
+<p>推荐为此文件夹创建快捷入口。例如 Windows 系统下，将此文件夹固定到 <code>快速访问</code> 或 <code>开始菜单</code> 中。</p>
+</blockquote>
+<p>在这个空文件夹中打开终端，或者说将终端地址跳转到此文件夹，输入</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init</span><br></pre></td></tr></table></figure>
+<p>即对此文件夹进行初始设置（initialization）。Hexo 会自动下载创建一些必要的文件。当命令执行完毕，博客的搭建数据就算创建完成了。我们可以通过下面的命令检查一下</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo server</span><br></pre></td></tr></table></figure>
+<p>这个命令会在本机启动一个服务程序，即把这台计算机自己看做服务器。这个时候我们可以在浏览器中通过访问网址 <code>localhost：4000</code> 访问 Hexo 这个&quot;远端&quot;的服务程序。</p>
+<p>如果可以看到网页被加载出来，那么说明我们博客已经建立起来了。</p>
+<h2 id="将网站托管给远端服务器github-pages"><a class="markdownIt-Anchor" href="#将网站托管给远端服务器github-pages"></a> 将网站托管给远端服务器（Github Pages）</h2>
+<p>仅仅建立站点是不够的。因为我们希望我们可以 <code>任意时候</code>、<code>任意地方</code>、<code>任意设备</code> 都能访问我们的网站——就像任意一个正常的网站一样。而我们在上一步中启动的不过是一个本机局域网中服务器而已，既不能在其它设备上访问，也无法保证我们永不关机。而比起自己买一个服务器，更简单的方式是直接使用一些网站提供的免费静态网页托管服务。</p>
+<p>在这里，我们推荐使用 GitHub 提供的 <code>GitHub Pages</code>。尽管存在其它的同类服务提供商，但是 GitHub 作为最大的代码托管网站，使用其服务更典型、主流。同时，Gitee 要求审核后再公开仓库的做法不仅麻烦，还让人不由得怀疑其后续是否存在其它更严格的各类手续要求。</p>
+<blockquote>
+<p>当然，在国内存在一定的访问问题，这个需要自己想办法解决。</p>
+</blockquote>
+<p>下面阐述其步骤：</p>
+<ol>
+<li>
+<p>首先，创建一个 GitHub 账号。</p>
+</li>
+<li>
+<p>新建仓库（Repository）：每个 GitHub 账号有一个对应的 <code>&lt;Github 用户名&gt;.github.io</code> 域名，如果你希望部署到这个域名下，仓库名就同样设为 <code>&lt;Github 用户名&gt;.github.io</code>。或者你也可以任意取仓库名，这样你最终部署到域名将是 <code>&lt;Github 用户名&gt;.github.io/&lt;你的仓库名&gt;</code>。</p>
+</li>
+<li>
+<p>回到博客目录启动终端，运行 <code>npm install hexo-deployer-git</code> 安装 <a href="https://github.com/hexojs/hexo-deployer-git">Hexo-deployer-git</a>。这是 Hexo 官方提供的部署工具，使用它可以一行命令把文件推送到远端。</p>
+</li>
+<li>
+<p>打开博客根目录下的 <code>_config.yml</code> 文件（使用 VSCode 或任意其它编辑器均可），在最后粘贴并修改有关信息：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span>  </span><br><span class="line"><span class="attr">type:</span> <span class="string">git</span>  </span><br><span class="line"><span class="attr">repo:</span> <span class="string">&lt;前面建立的仓库地址&gt;</span> <span class="comment"># 例如 https://github.com/foobar/foobar.github.io  </span></span><br><span class="line"><span class="attr">branch:</span> [<span class="string">仓库分支</span>] <span class="comment"># 通常来说是main，也可以查看你的仓库进行确定</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>回到命令行，执行下列命令设定全局的 Git 用户名：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.email &quot;你的名字或者昵称&quot;  </span><br><span class="line">git config --global user.name &quot;你的邮箱地址&quot;</span><br></pre></td></tr></table></figure>
+<p>我们提到 Git 是一个可以多人合作的版本控制软件，因此，Git 需要记录究竟是谁在提交，这样协作者（对于开源项目，可能是陌生人）就可以联系到你并直到如何称呼你。其中 <code>--global</code> 表示的是在此电脑上的所有 Git 仓库都默认使用这个设置。通常，我们只用一个用户名即可。</p>
+<blockquote>
+<p>推荐将用户名和邮件地址与 GitHub 账号保持一致。因为 GitHub 使用你 Git 中设置的邮箱来确定是哪个用户进行了提交。</p>
+</blockquote>
+</li>
+<li>
+<p>执行 <code>hexo deploy</code>（deploy 可以简写为 d）命令推送到 GitHub 仓库，你还需要根据提示输入 GitHub 用户名和密码。Git 设置的“用户名”仅仅是一个标记而已。如果想要写入仓库，GitHub 显然需要检查你的权限。因此你需要在这里输入密码。</p>
+<blockquote>
+<p>每次都输入密码是一件麻烦事，你可以使用 <code>令牌（Token）</code> 或 <code>SSH认证</code> 来避免这件事。</p>
+</blockquote>
+</li>
+<li>
+<p>当 <code>hexo d</code> 没有报错的成功执行完成，那么一切就算大功告成了。稍等片刻，GitHub 会通过 <code>GitHub Action</code> 服务将你传送的修改信息同步到网页。当看到分支下面的最后提交记录右侧显示绿色的对勾✔️时，就说明更改已经完成了。</p>
+<blockquote>
+<p>请注意，<code>hexo d</code> 会直接<strong>覆盖</strong>仓库里的所有文件，因此不要在这个仓库的这个分支放入任何其它数据。</p>
+</blockquote>
+</li>
+<li>
+<p>访问网页，查看你的崭新上线的博客！</p>
+</li>
+</ol>
+<h2 id="总结与下一步"><a class="markdownIt-Anchor" href="#总结与下一步"></a> 总结与下一步</h2>
+<p>总结一下，本节论述了一下操作。如何安装 Hexo 博客的两个前置软件：Node.js 和 Git，以及使用 NPM 安装 Hexo 和 Hexo 的部署插件，最后，使用命令在本地创建一个 Hexo 博客并将它通过 Git 推送到 GitHub。特别地，我们还介绍了一些加速 NPM 下载的方法。</p>
+<p>尽管这些操作并不复杂，但是为了面向和大一的我一样完全没有任何知识的朋友，本文还较为详细的阐述了 Node.js 、NPM 、Git 、GitHub 等软件和网站作用，命令的含义等。因此篇幅拉得比较长。我认为这是有必要的：以本文原始参考对象为代表的众多博客文章和视频中，作者往往不愿或者不能对其中的细节进行阐述。当然，我们不应该寄希望于作者认为读者应该知道的知识总是为读者所知，<strong>一个合格的读者应该学会使用搜索引擎</strong>。但是，我们总是应该对小白留出更多的耐心，并传达出&quot;知其然且知其所以然&quot;的学习观念，我希望这篇文章做到了。</p>
+<p>在下一节中，我们介绍如何简单地自定义博客，包括更换主题（以 NexT 为例），并对其进行详细地自定义。</p>
+<h2 id="拓展阅读"><a class="markdownIt-Anchor" href="#拓展阅读"></a> 拓展阅读</h2>
+<h2 id="感谢与参考"><a class="markdownIt-Anchor" href="#感谢与参考"></a> 感谢与参考</h2>
+<ul>
+<li><a href="https://www.bilibili.com/video/BV1Yb411a7ty/">手把手教你从0开始搭建自己的个人博客 |无坑版视频教程| hexo_哔哩哔哩_bilibili</a>，这是本文的最初参考对象。尽管本文并非&quot;无坑视频&quot;（他甚至没有介绍安装 Git，没有 Git 是无法初始化博客的），使用 Vim 的做法对初学者也不算友好，但是依然对本站的建立起到了很大的帮助。</li>
+<li><a href="https://hexo.io/zh-cn/docs/">文档 | Hexo</a>：Hexo 的官方文档。尽管曾经备受吐槽，但是我认为现在【开始使用】部分的章节写得相当不错。如果嫌本文啰嗦，可以查阅 【开始使用】部分的《概述》、《建站》、《配置》和《命令》四个章节。此外，<strong>查阅官方文档绝大部分时候都会是最高效的问题解决方案</strong>。</li>
+<li>你还可以查阅其它搜索引擎上的文章，不过它们很有可能充满谬误（因为作者是刚刚建站的小白）或者时间久远，需要自行甄别。</li>
+<li>本站的建立还得到了 hawa130 的指导，欢迎访问他的博客：<a href="https://hawa130.com/">Hanwan Space</a>。</li>
+<li>你还可以就具体问题询问搜索引擎和通用聊天 AI（如 ChatGPT 等）的意见。</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Hexo/" rel="tag"><i class="fa fa-tag"></i> Hexo</a>
+              <a href="/tags/%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/" rel="tag"><i class="fa fa-tag"></i> 静态博客</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+            </div>
+            <div class="post-nav-item">
+                <a href="/Hexo-2.html" rel="next" title="较为优雅的静态博客之旅（二）：更换主题与域名">
+                  较为优雅的静态博客之旅（二）：更换主题与域名 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2020 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">LeeKa</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">96k</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css" integrity="sha256-UF1fgpAiu3tPJN/uCqEUHNe7pnr+QR0SQDNfgglgtcM=" crossorigin="anonymous">
+
+
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"leekapub","count":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+</body>
+</html>
