@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
-<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.0.0">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.2.0">
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
@@ -14,12 +14,12 @@
 
 
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/white/pace-theme-minimal.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"default"},"fold":{"enable":true,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":{"disqus":{"text":"Load Disqus","order":-1}},"activeClass":"disqus"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"default"},"fold":{"enable":true,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":{"disqus":{"text":"Load Disqus","order":-1}},"activeClass":"disqus"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
     <meta name="description" content="前言 KNN 问题是指求一个空间内一个点的 K 个最近邻的问题。DB 局部敏感哈希是 KNN 问题的一个快速求取方案，但是它的结果不能保证绝对准确。">
 <meta property="og:type" content="article">
@@ -95,7 +95,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-links"><a href="/links/" rel="section"><i class="fa-solid fa-link fa-fw"></i>友链</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-友链"><a href="/links/" rel="section"><i class="fa-solid fa-link fa-fw"></i>友链</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -172,7 +172,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">160</span>
+        <span class="site-state-item-count">158</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -304,7 +304,7 @@
 <p>而局部敏感哈希则反其道而行之，其非常容易发生碰撞。实际上，这种哈希函数的目的是使邻近的值在经过哈希以后依然邻近，或者说干脆就相等了（这一步可以通过把处理后的值取整实现）。因此，通过局部敏感哈希，我们就相当于对数据集中的数进行了一次分类，这样以后需要搜索 KNN 时，我们就不需要搜索整个数据空间而只对与查询值具有相同哈希值的那些点进行计算即可。</p>
 <p>当然，哈希函数不能保证所有被映射到一起的值均是邻近的值，因此 LSH 只能是 KNN 的近似算法，不能保证准确。</p>
 <blockquote>
-<p>一个简单的例子是：
+<p>一个简单的例子是：<br />
 令哈希函数为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo stretchy="false">(</mo><mo stretchy="false">(</mo><mi>x</mi><mtext>，</mtext><mi>y</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo><mo>=</mo><mi>x</mi></mrow><annotation encoding="application/x-tex">h((x，y))= x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">h</span><span class="mopen">(</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mord cjk_fallback">，</span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mclose">)</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">x</span></span></span></span> ，即 x 轴值。那么 y 轴方向上距离很大的点依然会被错误的认为是邻近点</p>
 </blockquote>
 <p>为了提高准确性，我们可以试着改变哈希算法的一些参数，使得更多的点映射在一起，相当于扩大了“邻近”的范围从而匹配到更多的点。另一方面，我们也可以采用另外一个不同的哈希函数进行运算，看看结果是否会不同。对于多次哈希的结果，我们可以取邻近点的交集，也可以取邻近点的并集，只要参数适当，都可以取得还不错的结果。事实上，由于处理的数据往往维数很大，所以我们都需要采取多个哈希函数。</p>
@@ -378,32 +378,32 @@ c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></spa
 <p>需要说明是，准确性和时间受随机与性能的影响很大，因此以下结果仅作参考。</p>
 <p>候选点交集：</p>
 <blockquote>
-<p>交集
-num：5 size = 1.5 search_time : 350   preicision: 0.94
-num：5 size = 1.1 search_time : 168   preicision: 0.84
-num：5 size = 1.0 search_time : 247   preicision: 0.91
-num：5 size = 1.0 search_time : 119   preicision: 0.84 //这一步可以看到随机对结果和性能的影响
-num：5 size = 0.5 search_time : 146   preicision: 0.77
-num：5 size = 0.5 search_time : 100   preicision: 0.77
-num：5 size = 0.2 search_time : 11    preicision: 0.53
+<p>交集<br />
+num：5 size = 1.5 search_time : 350   preicision: 0.94<br />
+num：5 size = 1.1 search_time : 168   preicision: 0.84<br />
+num：5 size = 1.0 search_time : 247   preicision: 0.91<br />
+num：5 size = 1.0 search_time : 119   preicision: 0.84 //这一步可以看到随机对结果和性能的影响<br />
+num：5 size = 0.5 search_time : 146   preicision: 0.77<br />
+num：5 size = 0.5 search_time : 100   preicision: 0.77<br />
+num：5 size = 0.2 search_time : 11    preicision: 0.53<br />
 num：5 size = 0.1 search_time : 3.39  preicision: 0.25</p>
 </blockquote>
 <p>取并集：</p>
 <blockquote>
-<p>并集
-哈希一次
-num：1 size = 0.02   search_time : 18     preicision:0.25
-num：1 size = 0.05   search_time : 46     preicision:0.50
-num：1 size = 0.10   search_time : 90     preicision:0.74
-num：1 size = 0.20   search_time : 169    preicision:0.87
-哈希三次
-num： 3 size = 0.02   search_time : 58     preicision:0.60
-num： 3 size = 0.05   search_time : 153    preicision:0.96
-num： 3 size = 0.10   search_time : 230    preicision:0.97
-哈希五次：
-num： 5 size = 0.01   search_time : 47     preicision:0.49
-num： 5 size = 0.02   search_time : 86     preicision:0.72
-num： 5 size = 0.05   search_time : 189    preicision:0.96
+<p>并集<br />
+哈希一次<br />
+num：1 size = 0.02   search_time : 18     preicision:0.25<br />
+num：1 size = 0.05   search_time : 46     preicision:0.50<br />
+num：1 size = 0.10   search_time : 90     preicision:0.74<br />
+num：1 size = 0.20   search_time : 169    preicision:0.87<br />
+哈希三次<br />
+num： 3 size = 0.02   search_time : 58     preicision:0.60<br />
+num： 3 size = 0.05   search_time : 153    preicision:0.96<br />
+num： 3 size = 0.10   search_time : 230    preicision:0.97<br />
+哈希五次：<br />
+num： 5 size = 0.01   search_time : 47     preicision:0.49<br />
+num： 5 size = 0.02   search_time : 86     preicision:0.72<br />
+num： 5 size = 0.05   search_time : 189    preicision:0.96<br />
 num： 5 size = 0.10   search_time : 290    preicision:0.997</p>
 </blockquote>
 <h2 id="参考"><a class="markdownIt-Anchor" href="#参考"></a> 参考</h2>
@@ -485,6 +485,12 @@ num： 5 size = 0.10   search_time : 290    preicision:0.997</p>
   </footer>
 
   
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
   <div class="back-to-top" role="button" aria-label="返回顶部">
     <i class="fa fa-arrow-up fa-lg"></i>
     <span>0%</span>
@@ -497,7 +503,7 @@ num： 5 size = 0.10   search_time : 290    preicision:0.997</p>
 
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
-<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
 <script src="/js/third-party/search/local-search.js"></script>
