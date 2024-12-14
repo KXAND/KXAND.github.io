@@ -29,7 +29,7 @@
 <meta property="og:description" content="前言 简单了解了 C# 中的 Delegate、Func、Event、Action。粗略理解：委托是一个规定了参数的函数待执行队列；Func 是只有一参一返的 Delegate；Action 是一参无返的 Delegate；Event 是?">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-07-06T13:40:05.000Z">
-<meta property="article:modified_time" content="2024-04-20T18:58:06.433Z">
+<meta property="article:modified_time" content="2024-12-14T18:02:31.173Z">
 <meta property="article:author" content="LeeKa">
 <meta property="article:tag" content="delegate">
 <meta property="article:tag" content="C#">
@@ -160,18 +160,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">60</span>
+          <span class="site-state-item-count">61</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">18</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">160</span>
+        <span class="site-state-item-count">159</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -251,7 +251,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-04-21 02:58:06" itemprop="dateModified" datetime="2024-04-21T02:58:06+08:00">2024-04-21</time>
+      <time title="修改时间：2024-12-15 02:02:31" itemprop="dateModified" datetime="2024-12-15T02:02:31+08:00">2024-12-15</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -296,10 +296,10 @@
     <div class="post-body" itemprop="articleBody"><h2 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h2>
 <p>简单了解了 C# 中的 Delegate、Func、Event、Action。粗略理解：委托是一个规定了参数的函数待执行队列；Func 是只有一参一返的 Delegate；Action 是一参无返的 Delegate；Event 是?</p>
 <span id="more"></span>
-<p>主要参考了<a href="https://www.bilibili.com/video/BV163411S7QG/">C# 的委托与事件大致是怎么一回事_哔哩哔哩_bilibili</a>，一个很好的视频。</p>
+<p>主要参考了 <a href="https://www.bilibili.com/video/BV163411S7QG/">C# 的委托与事件大致是怎么一回事_哔哩哔哩_bilibili</a>，一个很好的视频。</p>
 <h2 id="委托-delegate"><a class="markdownIt-Anchor" href="#委托-delegate"></a> 委托 Delegate</h2>
 <p>委托的底层是一种函数指针。顾名思义委托的作用就是，当一个函数“不方便做某事”的时候，“拜托”另一个函数去做。可以用于实现<strong>事件</strong>与<strong>回调</strong>。</p>
-<p>所有的委托都派生自 System.Delegate 类。</p>
+<p>所有的委托都派生自 System. Delegate 类。</p>
 <h3 id="声明一个委托"><a class="markdownIt-Anchor" href="#声明一个委托"></a> 声明一个委托</h3>
 <p>委托的声明</p>
 <figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">delegate</span> &lt;<span class="keyword">return</span> type&gt; &lt;<span class="built_in">delegate</span>-name&gt; &lt;parameter list&gt;</span><br></pre></td></tr></table></figure>
@@ -316,8 +316,8 @@
 <p><strong>Func 是委托的一种，它固定具有一个参数和一个返回值。</strong><br />
 格式如下：</p>
 <figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Func &lt;parameter_type,return_type&gt; expression;</span><br></pre></td></tr></table></figure>
-<p>expression 可以是一个 lambda 表达式，也可以是一个方法。是方法的时候，这个方法和 Func 一样必须有一个传入值和一个返回值。这样，就<strong>可以把方法作为参数进行传递</strong>，同时不必像委托一样显式的进行定义声明。</p>
-<p>lambda 表达式的举例：</p>
+<p>Expression 可以是一个 lambda 表达式，也可以是一个方法。是方法的时候，这个方法和 Func 一样必须有一个传入值和一个返回值。这样，就<strong>可以把方法作为参数进行传递</strong>，同时不必像委托一样显式的进行定义声明。</p>
+<p>Lambda 表达式的举例：</p>
 <figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Func&lt;<span class="built_in">string</span>, <span class="built_in">string</span>&gt; convert = s =&gt; s.ToUpper();</span><br><span class="line"></span><br><span class="line"><span class="built_in">string</span> name = <span class="string">&quot;Dakota&quot;</span>;</span><br><span class="line">Console.WriteLine(convert(name));</span><br></pre></td></tr></table></figure>
 <p>实例化委托方法的举例：</p>
 <figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Func&lt;<span class="built_in">string</span>, <span class="built_in">string</span>&gt; convertMethod = UppercaseString;</span><br><span class="line"><span class="built_in">string</span> name = <span class="string">&quot;Dakota&quot;</span>;</span><br><span class="line"></span><br><span class="line">Console.WriteLine(convertMethod(name));</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">UppercaseString</span>(<span class="params"><span class="built_in">string</span> inputString</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">   <span class="keyword">return</span> inputString.ToUpper();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -326,14 +326,14 @@
 <p>即： <code>Action &lt;T&gt; name</code></p>
 <p>总的来说，和 Func 差别不大。同样可以给它赋值为 lambda 表达式或方法。只要这个方法有一个参数并且没有返回值。</p>
 <h2 id="event"><a class="markdownIt-Anchor" href="#event"></a> Event</h2>
-<p>Event 是一种特殊的委托，但是其复制的权限为delegate。使用 Delegate 的时候，我们不一定想立刻为其赋值。这种情况下，我们可以考虑使用 Event。</p>
+<p>Event 是一种特殊的委托，但是其复制的权限为 delegate。使用 Delegate 的时候，我们不一定想立刻为其赋值。这种情况下，我们可以考虑使用 Event。</p>
 <p>事件的声明：</p>
 <figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> <span class="function"><span class="built_in">delegate</span> <span class="keyword">void</span> <span class="title">MyDelegate</span>()</span>;</span><br><span class="line"> <span class="keyword">event</span> MyDelegate myEvent;</span><br><span class="line"><span class="comment">//  or</span></span><br><span class="line"><span class="keyword">event</span> Action myEvent <span class="comment">//Action 的本质是 Delegate</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p>事件声明完成后就是一个实例了（类似变量）。</p>
 <p>当作为类成员的时候， event  只能在类中被调用。</p>
 <p>Event 的一种用处：让类外成员可以观测到类的私有成员发生了变化。</p>
 <blockquote>
-<p>在类中定义私有成员的 public {get;set;} 变量，set 时，invoke 类中的event；<br />
+<p>在类中定义私有成员的 public {get; set;} 变量，set 时，invoke 类中的 event；<br />
 类外事物需要观测时，在 event 中注册函数就会收到通知。</p>
 </blockquote>
 <h2 id="参考"><a class="markdownIt-Anchor" href="#参考"></a> 参考</h2>
@@ -346,7 +346,7 @@
 <h2 id="延申"><a class="markdownIt-Anchor" href="#延申"></a> 延申</h2>
 <ol>
 <li>逆变与协变类型请参考：<a href="https://learn.microsoft.com/en-us/dotnet/standard/generics/covariance-and-contravariance">Covariance and Contravariance in Generics | Microsoft Learn</a></li>
-<li>lambda 表达式部分参考：
+<li>Lambda 表达式部分参考：
 <ol>
 <li><a href="https://baike.baidu.com/item/Lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/4585794">Lambda表达式_百度百科</a></li>
 <li><a href="https://learn.microsoft.com/zh-cn/cpp/cpp/lambda-expressions-in-cpp?view=msvc-170#constexpr-lambda-expressions">C++ 中的 Lambda 表达式 | Microsoft Learn</a></li>
@@ -416,7 +416,7 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">123k</span>
+    <span title="站点总字数">124k</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
