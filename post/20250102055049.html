@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.2.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/white/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"default"},"fold":{"enable":true,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":{"disqus":{"text":"Load Disqus","order":-1}},"activeClass":"disqus"},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="前言 尝试使用 tesseract OCR 模型识别 IPA 字符，加速录入过程。失败过程记录。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微调tesseract-ocr识别IPA（失败）">
+<meta property="og:url" content="http://example.com/post/20250102055049.html">
+<meta property="og:site_name" content="LeeKa 的酒馆">
+<meta property="og:description" content="前言 尝试使用 tesseract OCR 模型识别 IPA 字符，加速录入过程。失败过程记录。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-01-01T21:50:49.000Z">
+<meta property="article:modified_time" content="2025-01-02T00:10:23.379Z">
+<meta property="article:author" content="LeeKa">
+<meta property="article:tag" content="ocr - tersseract">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/post/20250102055049.html">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/post/20250102055049.html","path":"post/20250102055049.html","title":"微调tesseract-ocr识别IPA（失败）"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>微调tesseract-ocr识别IPA（失败） | LeeKa 的酒馆</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">LeeKa 的酒馆</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">欢迎，旅人！坐下来享受一下暖烘烘的炉火吧。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-友链"><a href="/links/" rel="section"><i class="fa-solid fa-link fa-fw"></i>友链</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text"> 前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%98%E8%B5%B7"><span class="nav-number">2.</span> <span class="nav-text"> 缘起</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">3.</span> <span class="nav-text"> 安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%A5%E5%85%85%E7%B4%A0%E6%9D%90"><span class="nav-number">4.</span> <span class="nav-text"> 补充素材</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BE%AE%E8%B0%83%E7%9A%84%E4%B8%80%E8%88%AC%E6%B5%81%E7%A8%8B"><span class="nav-number"></span> <span class="nav-text"> 微调的一般流程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%88%91%E9%81%87%E5%88%B0%E7%9A%84%E5%9B%B0%E9%9A%BE%E5%92%8C%E9%BA%BB%E7%83%A6"><span class="nav-number">1.</span> <span class="nav-text"> 我遇到的困难和麻烦</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="nav-number">2.</span> <span class="nav-text"> 参考文献</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="LeeKa"
+      src="https://s2.loli.net/2022/03/24/zcq6l9KENbRJtDi.jpg">
+  <p class="site-author-name" itemprop="name">LeeKa</p>
+  <div class="site-description" itemprop="description">代码、音乐和游戏，一起来聊聊吧</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">62</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">159</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/KXAND" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;KXAND" rel="noopener me" target="_blank">GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:leeka.Pub@outlook.com" title="E-Mail → mailto:leeka.Pub@outlook.com" rel="noopener me" target="_blank">E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/QuiXand" title="X → https:&#x2F;&#x2F;twitter.com&#x2F;QuiXand" rel="noopener me" target="_blank">X</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://pinhua.leeka.pub/" title="宁远平话 → https:&#x2F;&#x2F;pinhua.leeka.pub" rel="noopener me" target="_blank">宁远平话</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/big/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/post/20250102055049.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://s2.loli.net/2022/03/24/zcq6l9KENbRJtDi.jpg">
+      <meta itemprop="name" content="LeeKa">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LeeKa 的酒馆">
+      <meta itemprop="description" content="代码、音乐和游戏，一起来聊聊吧">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="微调tesseract-ocr识别IPA（失败） | LeeKa 的酒馆">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          微调tesseract-ocr识别IPA（失败）<a href="https://github.com/KXAND/BlogSource/edit/source/_posts/%E5%BE%AE%E8%B0%83tesseract-ocr%E8%AF%86%E5%88%ABIPA.md" class="post-edit-link" title="编辑" rel="noopener" target="_blank"><i class="fa fa-pen-nib"></i></a>
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2025-01-02 05:50:49 / 修改时间：08:10:23" itemprop="dateCreated datePublished" datetime="2025-01-02T05:50:49+08:00">2025-01-02</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/post/20250102055049.html#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="post/20250102055049.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.9k</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h2>
+<p>尝试使用 tesseract OCR 模型识别 IPA 字符，加速录入过程。失败过程记录。 <span id="more"></span></p>
+<h2 id="缘起"><a class="markdownIt-Anchor" href="#缘起"></a> 缘起</h2>
+<p>如果你有看前面的文章那你应该知道我维护了一个方言网站，它的地址在<a href="https://pinghua.leeka.com">这里</a>。这个网站建设还相当不完整，因为一般的 OCR 软件实在是没法识别这些古古怪怪的 IPA 字符，例如ɕ、ø、ɛ、ə、ɔ、ã……带声调的拉丁字母和希腊字母在中文语境下已经够少见了，IPA 字符却还包括一些反写、倒写的拉丁字母，这就更难指望它们了。所以过去若干篇幅的音标，都是我一个个手动校对录入的。</p>
+<p>这样低效率的解决方案可不优雅。实际上音标中涉及的只有 5 个数字+约 30 来个字母，拢共只有十个不到的特殊字符。字符集也不算很大，似乎在别人的现有模型上进行一些微调是可行方案？</p>
+<h2 id="安装"><a class="markdownIt-Anchor" href="#安装"></a> 安装</h2>
+<p>简单的搜索之后就找到了一篇文章（参考文献 1）介绍了一个模型：tesseract-OCR。博主介绍到 tesseract-OCR 在字母识别上优于 easyOCR，这和我们的情境一致，再看 GitHub 星星也很多。于是沿着该博主给的方案前进。</p>
+<p>开始前先介绍我的环境：</p>
+<ul>
+<li>Windows 11 24 H 2</li>
+<li>WSL 2 Ubuntu 22.04<br />
+安装 tesseract OCR 可以直接通过 apt 进行 （参考文献 2）</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install tesseract-ocr</span><br><span class="line">sudo apt install libtesseract-dev</span><br></pre></td></tr></table></figure>
+<p>目前提供的是 4.0 版本，默认仅安装英语。</p>
+<p>要安装其它语言也可以直接通过 apt 搜索，需要注意所有语言都使用三个字母进行缩写（而非常见的两个）。以补充安装中文（简体）为例：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install tesseract-ocr-chi-sim</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这里是第一个错误，熬夜熬傻了，一开始拿的英文做训练，后来才意识到词表里面中文也不少，拿英文模型做训练会把汉字全识别成乱码。</p>
+</blockquote>
+<h2 id="补充素材"><a class="markdownIt-Anchor" href="#补充素材"></a> 补充素材</h2>
+<p>要补充训练需要有 TIF 格式的图片，可以下载这个叫 <a href="https://sourceforge.net/projects/vietocr/files/jTessBoxEditor/">jTessBoxEditor</a> 的工具，需要注意是下方下载列表的第二个（或者第一个也行？🤔）而非最上方的 latest。我们使用的是一个越南语 OCR 的附带小工具。</p>
+<blockquote>
+<p>看它 README 可以知道这个工具本来是针对 tesseract 2. 0 X 和 3.0 X 开发的，只可惜不支持 4.0 X。</p>
+</blockquote>
+<p>简单地在一个文本框中输入我们需要的特殊字符，然后截个图保存。打开 jTessBoxEditor，把 png 格式的图片转化为 tif 格式。</p>
+<blockquote>
+<p>打开→Tools→merge TIFF→选择文件 →选择输出路径和输出名字</p>
+</blockquote>
+<p>然后输入命令导出对应的 <code>.box</code> 文件。<code>.box</code> 文件记录了切分字符的方式。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tesseract inputfile.tif outputfile -l chi_sim --psm 7 batch.nochop makebox</span><br></pre></td></tr></table></figure>
+<p>其中</p>
+<ul>
+<li><code>inputfile.tif</code> 是前面创建的 tif 文件</li>
+<li><code>outputfile</code> 是输出的 <code>.box</code> 文件的文件名</li>
+<li><code>-l</code> 指定语言（这里是中文简体）</li>
+<li><code>--psm</code> 指定模式，这里 <code>7</code> 表示单行</li>
+</ul>
+<p>不带任何参数输出往往都能看到解释信息，因此下面就自提紧要部分了。</p>
+<p>同样打开 <code>jTessBoxEditor</code>，点击顶栏下一栏的 <code>Box Editor</code>，即可编辑表示的字符、方框坐标长宽等信息，最后保存。</p>
+<blockquote>
+<p>这个编辑器用来最后检查所有的坐标是否对齐确实有用，但是编辑体验相当糟糕。由于 box 文件实际上就是一个空格分隔的表，你可以直接记事本打开后拷贝到 excel 中进行修改。下面是几个要点：</p>
+<ul>
+<li>每行的第一列表示对应的字符</li>
+<li>接下来的四个字符表示 LDTR</li>
+<li>可以使用 Excel 通过 LD 计算 TR 值，保证宽高大体正确</li>
+</ul>
+</blockquote>
+<h1 id="微调的一般流程"><a class="markdownIt-Anchor" href="#微调的一般流程"></a> 微调的一般流程</h1>
+<p>在 <a href="https://github.com/tesseract-ocr/tessdata_best">tessdata_best</a> 上下载对应的各语言最佳效果模型。</p>
+<blockquote>
+<p>apt 安装的模型进行了其它调整，不能直接用于训练。详见官方文档。</p>
+</blockquote>
+<p>下载下来的 <code>.traineddata</code> 文件事实上整合了包括模型在内的若干文件。其中，模型是以 <code>.lstm</code> 结尾的，这是因为从 4.0 开始 tesseract 基于 lstm 深度学习算法。从中提取模型</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">combine_tessdata -e chi_sim.traineddata chi_sim.lstm</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>🎯 <code>combine_tessdata -u filename</code> 查看 <code>.traineddata</code> 中的所有文件。</p>
+</blockquote>
+<p>接着将我们的 tif 文件转化为待训练集合 <code>.ltsmf</code> 文件</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tesseract input.tif outputfile -l chi_sim --psm 7 lstm.train</span><br></pre></td></tr></table></figure>
+<p>新键一个文件写入 <code>.lstmf</code> 的路径，命名可以叫 <code>train_listfile</code>。</p>
+<p>再新键一个文件 <code>.sh</code> 写入运行训练命令（注意替换地址）</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">lstmtraining \</span><br><span class="line">--model_output=<span class="string">&quot;.../testOcr/output/&quot;</span> \</span><br><span class="line">--continue_from=<span class="string">&quot;.../testOcr/chi_sim.lstm&quot;</span> \</span><br><span class="line">--train_listfile=<span class="string">&quot;.../testOcr/chi_sim.training_files&quot;</span> \</span><br><span class="line">--traineddata=<span class="string">&quot;chi_sim.traineddata&quot;</span> \</span><br><span class="line">--debug_interval -1 \</span><br><span class="line">--max_iterations 2000 \</span><br><span class="line">--target_error_rate 0.01</span><br></pre></td></tr></table></figure>
+<p>然后运行命令。</p>
+<p>训练顺利结束，再新键一个 <code>.sh</code> 文件写下这串命令（注意替换地址）</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">lstmtraining --stop_training \</span><br><span class="line">--traineddata=<span class="string">&quot;/.../testOcr/chi_sim.traineddata&quot;</span> \</span><br><span class="line">--continue_from=<span class="string">&quot;/.../testOcr/output/_checkpoint&quot;</span> \</span><br><span class="line">--model_output=<span class="string">&quot;/.../testOcr/ipa.traineddata&quot;</span></span><br></pre></td></tr></table></figure>
+<p>其中第一项是我们拿来的基础模型，第二项是训练过程中生成的检查点文件，第三项是输出文件（注意后缀名）。</p>
+<p>最后将我们的模型拷贝到 tesseract 放模型的地址即可调用我们的模型了（输入时省略后缀名）。注意这里我和参考文献 1 给出的地址并不一致。我的是 <code>/usr/share/tesseract-ocr/4.00/tessdata/</code>，不确定的话，用 <code>find</code> 查找一下你的安装地址</p>
+<p><code>find / -name eng.traineddata</code></p>
+<h2 id="我遇到的困难和麻烦"><a class="markdownIt-Anchor" href="#我遇到的困难和麻烦"></a> 我遇到的困难和麻烦</h2>
+<p>整个过程主要是犯了两个错误，第一个就是没看书（<s>没错，网站建设摸了很久了</s>）就直接操刀，结构拿英语模型进行训练，中文直接全部变乱码了。</p>
+<p>另一个错误更麻烦一点就是直接在 <code>.box</code> 文件中写对应的特殊字符。倒不是说这样不行，但是要改就得全都改，还得要在 <code>.traindeddata</code> 文件中的 <code>.unicharset</code> 等中添加好对应的字符集信息才行。到这儿就得要去仔细地看看文档和论坛讨论了。随后还有一个就是即使添加好了字符，也得要输入足量的字符进行学习。到这儿问题就不太对了：既然如此，一些本来我就用不到的字符我直接删掉避免出现这个结果不好吗？直接重新训练一个不好吗？于是就此打住。关于一些我觉得有价值的信息，可以看参考文献 3 和参考文献 4。总之，如果直接修改 <code>.box</code> 文件，那么有下面这样的错误</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Encoding of string failed! Failure bytes:......</span><br><span class="line">Can<span class="string">&#x27;t encode transcription:...... in language &#x27;</span><span class="string">&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>（最后让它跑起来的解决方案倒也简单，并不是所有的字符都在拼音中被用到了，使用没有被用到的进行替换即可，如 b, d, z, r……）</p>
+<p>然而，成功跑起来之后发现，整体的识别成功率仍然不尽如人意。实际上不仅是字母和标声调的数字很容易识别不准，就连汉字也有若干错误。总之成功率略显感人。只能暂且放弃。</p>
+<h2 id="参考文献"><a class="markdownIt-Anchor" href="#参考文献"></a> 参考文献</h2>
+<ol>
+<li>如何训练专属的 OCR 文字识别模型_easyocr 训练自己的模型-CSDN 博客: <a href="https://blog.csdn.net/SEU_Calvin/article/details/134517629">https://blog.csdn.net/SEU_Calvin/article/details/134517629</a></li>
+<li>Introduction | tessdoc: <a href="https://tesseract-ocr.github.io/tessdoc/Installation.html">https://tesseract-ocr.github.io/tessdoc/Installation.html</a></li>
+<li>Can’t encode transcription · Issue #2695 · tesseract-ocr/tesseract: <a href="https://github.com/tesseract-ocr/tesseract/issues/2695">https://github.com/tesseract-ocr/tesseract/issues/2695</a></li>
+<li>Tesseract-OCR LSTM 模型訓練指南 - HackMD: <a href="https://hackmd.io/@garyli-wd/rJ619THsO">https://hackmd.io/@garyli-wd/rJ619THsO</a></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/ocr-tersseract/" rel="tag"><i class="fa fa-tag"></i> ocr - tersseract</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/post/20241215003130.html" rel="prev" title="更优的Obsidian云同步方案">
+                  <i class="fa fa-angle-left"></i> 更优的Obsidian云同步方案
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2020 – 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">LeeKa</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">126k</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+
+
+
+
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"leekapub","count":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+</body>
+</html>
