@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.2.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/white/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"default"},"fold":{"enable":true,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":{"disqus":{"text":"Load Disqus","order":-1}},"activeClass":"disqus"},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="前言 记录我开发 VSCode 插件 ChEER 的心路历程和一点思考（顺便测试ChEER）。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="我的第一个VScode插件：ChEER">
+<meta property="og:url" content="http://example.com/post/20250712145719.html">
+<meta property="og:site_name" content="LeeKa 的酒馆">
+<meta property="og:description" content="前言 记录我开发 VSCode 插件 ChEER 的心路历程和一点思考（顺便测试ChEER）。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-07-12T06:57:19.000Z">
+<meta property="article:modified_time" content="2025-07-12T15:01:13.432Z">
+<meta property="article:author" content="LeeKa">
+<meta property="article:tag" content="VSCode">
+<meta property="article:tag" content="ChEER">
+<meta property="article:tag" content="Typescript">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/post/20250712145719.html">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/post/20250712145719.html","path":"post/20250712145719.html","title":"我的第一个VScode插件：ChEER"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>我的第一个VScode插件：ChEER | LeeKa 的酒馆</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">LeeKa 的酒馆</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">欢迎，旅人！坐下来享受一下暖烘烘的炉火吧。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-友链"><a href="/links/" rel="section"><i class="fa-solid fa-link fa-fw"></i>友链</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text"> 前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cheer-%E6%98%AF%E4%BB%80%E4%B9%88%E4%BB%A5%E5%8F%8A%E5%AE%83%E6%98%AF%E6%80%8E%E4%B9%88%E6%9D%A5%E7%9A%84"><span class="nav-number">2.</span> <span class="nav-text"> ChEER 是什么以及它是怎么来的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cheer-%E5%BC%80%E5%8F%91%E7%9A%84%E7%BB%8F%E5%8E%86%E6%B5%81%E6%B0%B4%E8%B4%A6"><span class="nav-number">3.</span> <span class="nav-text"> ChEER 开发的经历流水账</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%84%9F%E5%8F%97"><span class="nav-number">4.</span> <span class="nav-text"> 感受</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%B4%E8%B0%A2"><span class="nav-number">5.</span> <span class="nav-text"> 致谢</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="LeeKa"
+      src="https://s2.loli.net/2022/03/24/zcq6l9KENbRJtDi.jpg">
+  <p class="site-author-name" itemprop="name">LeeKa</p>
+  <div class="site-description" itemprop="description">代码、音乐和游戏，一起来聊聊吧</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">72</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">184</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/KXAND" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;KXAND" rel="noopener me" target="_blank">GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:leeka.Pub@outlook.com" title="E-Mail → mailto:leeka.Pub@outlook.com" rel="noopener me" target="_blank">E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/QuiXand" title="X → https:&#x2F;&#x2F;twitter.com&#x2F;QuiXand" rel="noopener me" target="_blank">X</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://pinhua.leeka.pub/" title="宁远平话 → https:&#x2F;&#x2F;pinhua.leeka.pub" rel="noopener me" target="_blank">宁远平话</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/big/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/post/20250712145719.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://s2.loli.net/2022/03/24/zcq6l9KENbRJtDi.jpg">
+      <meta itemprop="name" content="LeeKa">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LeeKa 的酒馆">
+      <meta itemprop="description" content="代码、音乐和游戏，一起来聊聊吧">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="我的第一个VScode插件：ChEER | LeeKa 的酒馆">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          我的第一个VScode插件：ChEER<a href="https://github.com/KXAND/BlogSource/edit/source/_posts/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AAVScode%E6%8F%92%E4%BB%B6%EF%BC%9AChEER.md" class="post-edit-link" title="编辑" rel="noopener" target="_blank"><i class="fa fa-pen-nib"></i></a>
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2025-07-12 14:57:19 / 修改时间：23:01:13" itemprop="dateCreated datePublished" datetime="2025-07-12T14:57:19+08:00">2025-07-12</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/post/20250712145719.html#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="post/20250712145719.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.5k</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h2>
+<p>记录我开发 VSCode 插件 ChEER 的心路历程和一点思考（顺便测试ChEER）。 <span id="more"></span></p>
+<h2 id="cheer-是什么以及它是怎么来的"><a class="markdownIt-Anchor" href="#cheer-是什么以及它是怎么来的"></a> ChEER 是什么以及它是怎么来的</h2>
+<p>正如 <code>ChEER</code> 的 Readme 文档中所述，<code>ChEER</code> 启发自我最喜欢的 Obsidian 插件：<a href="https://github.com/Yaozhuwa/easy-typing-obsidian">Yaozhuwa/easy-typing-obsidian: This is a plugin of obsidian for users writing in an easy way.</a>。它是在征得原作者的同意后（尽管 <code>easy-typing</code> 似乎是 <code>MIT</code> 协议），我独立开发出来的。</p>
+<p>ChEER 这个名字是由 DeepSeek 想出来的，它的含义是 “Chinese Editing Enhancement &amp; Refinement”，即“中文编辑增强与调优”。在反映插件功能之余，拟合的单词 <code>cheer</code> 含义也很好：我希望能传达一种愉悦积极的情感，使用它，在 VS Code 上写作变成了一件更开心的事。</p>
+<blockquote>
+<p>我很喜欢的音乐人 Porter Robinson 有一首 《Cheerleader》，这也是促使我选择这个名字而非其它名字的原因。</p>
+</blockquote>
+<p>目前来说， ChEER 还谈不上有什么独占的功能，我希望并致力于的是将 <code>Easy-typing</code> 上的功能尽可能快地移植到 VS Code 中来。</p>
+<h2 id="cheer-开发的经历流水账"><a class="markdownIt-Anchor" href="#cheer-开发的经历流水账"></a> ChEER 开发的经历流水账</h2>
+<p>开发 ChEER 的想法其实很早就有了，但是由于各种原因，开发工作在写下这篇文章的几周前才正式开始。</p>
+<p>比较幸运的是，在很早之前我就搭建起来了一个最简单的 <code>Hello World</code> 插件，<s>然后就吧这事儿彻底搁置直到最近</s>。所以这次开发我主要就是参考了两个项目，一个是前面提到的 <code>easy-typing</code>，一个是<a href="https://github.com/formulahendry/vscode-auto-close-tag">formulahendry/vscode-auto-close-tag</a>。前者提供了功能上的灵感，后者则帮助我迈出了写有文字编辑功能的插件的第一步。当然，毕竟对 Typescript 和 VSCode API 不熟，我还大量参考了 AI 的方案，我主要使用了 ChatGPT-4o 和 DeepSeek R1，也用了一小会 Qwen3。</p>
+<p>实际写出一个基本框架的时间并不长。具体的时间虽然并不可考，但是应该也就一天或两天的时间就实现基本的成对匹配和删除。这个时候，成对输入的具体逻是监听<code>onDidChangeTextDocument</code>事件，如果在事先指定的 Map 中找到对应的键，就取出其值用 <code>repalce()</code>替换掉，再将光标重新指定成左右符号的中间位置即可。删除功能就更简单了，遍历所有的规则检查是否匹配，如果是就调用 <code>delete</code> 函数就可以。</p>
+<p>不过，上面的代码逻辑还是太粗糙了。首先，在处理符号包裹时（即选中一段文字，按下可以左右包裹的按键，那么将用对应符号包裹选中文字），光标需要计算到正确的位置上。而考虑到多光标的场景，我们就必须要累计一个偏移量。而且，我们还必须考虑到每个光标处由于并非都是替换状态、并不都在一行等情况，既需要计算字符偏移量，也需要处理行偏移量。为了更好的处理这种情况，我们需要定义一个 iEdit 结构。在逻辑中首先根据输入情况生成一个 iEdit 数组，然后在统一处理。这样代码可扩展性也更好：如果我们需要添加新功能，只需要在不同的功能函数之间依次传递 iEdit 就可以了。其二，我们还必须考虑到原生成对符号输入的影响。举个简单的例子，<code>&lt;&gt;</code>符号对是 VSCode 原生支持成对输入的，并且在传入的 <code>event.contentChanges</code> 数组中，它被分成了两个部分。这就意味着我们需要做额外处理，不能看到<code>&lt;</code>就直接替换为成对符号。当然，我们也不能直接只处理第一个符号或直接忽视这个符号对。我们仍然希望提供良好的多光标编辑体验，并且给予用户添加<code>&lt;&gt;</code> 的自由：毕竟，VSCode原生的成对符号体验并不总是生效。</p>
+<p>还有一个最让人头大的问题是和中文输入法之间的搏斗。简单来说，当我们用中文输入的时候，输入的文字会被输入法（input method editor，IME）接管，进入“组词”（Composition）状态，只有选中最后真正要输入的字符，才会真正插入到文本编辑器中。但是这个过程是会触发<code>onDidChangeTextDocument</code> 的！而且，VSCode并没有像 Obsidian一样暴露<code>compositionstart</code>和<code>compositionend</code>事件，这就意味我们必须要找出某种方法分辨处 composition 状态，不然，就有可能误判、干扰 IME 正常工作。下面插一段我的注释笔记：</p>
+<blockquote>
+<ul>
+<li>case1: 中文替换：
+<ul>
+<li>第一次：selections：被替换的范围，event：被替换的范围</li>
+<li>第二次：selections：被替换后光标的位置（新地址的结尾），event：是老地址到新地址范围</li>
+<li>第三次：相比于第二次没变化，但是字符已经在第二次调用后插入成功，这次是调用成功导致的</li>
+</ul>
+</li>
+<li>case2：英文替换
+<ul>
+<li>selection：被替换的范围，event：有两个，第一个是后面插入的值的坐标，第二是前面插入的值的坐标</li>
+<li>如果不是包裹而是真的替换，那么就只有一个event。event的范围是被替换的范围，也即和selection一致</li>
+</ul>
+</li>
+<li>case3：中文插入：每次键入都会发送event，如输入<code>z</code>, <code>k</code>, <code>\s</code>，那么依次会触发三次时间分别是“z”, “zao”, “赵”。
+<ul>
+<li>如果是标点符号，则会触发两次，如“《”,“《”。</li>
+<li>第一次的event位置是老地址，selection老地址;</li>
+<li>第二次selection是新地址, event是老地址到新地址范围，</li>
+</ul>
+</li>
+<li>case4：英文插入:只有一次插入，selection和event的范围是一致的</li>
+</ul>
+</blockquote>
+<p>以替换场景（case1、case2）为例，在 case1 的第一次触发时，事实上字符并没有被真正插入到文本中，还处在 composition 阶段。然而，也确实有一些操作发生了，字符已经替换了原来的包裹符号。要解决这个问题，就必须先执行一次<code>undo</code>命令。而要让undo正常工作，首先就必须区分四种case，否则就可能在不合适的时候执行<code>undo</code>，随后还需要区分不同次数，防止多次执行，最后，还要考虑到undo操作本身是异步的……</p>
+<p>和 composition 的这场搏斗持续事件非常久，最终敦促我从监听<code>onDidChangeTextDocument</code>事件替换成了劫持<code>type</code>命令。实际上，到这里的时候已经差不多一周了。</p>
+<p><code>type</code>命令相对来说要友好一点，首先，它直接响应每次用户输入，这意味着基本上我们就不用考虑文本长度了，都是 1 个字符（实际上省略号是两个）。其次，由于 type 命令发生在文本变化之前，我们就不用考虑“一次输入发生多次监听事件的区别”或者“由复制粘贴等引起的，不同行值不一样的事件”等等。此外，由于发生在事前，我们也可以直接获取正确的被包裹的字符串坐标，不用担心 undo 和下一次 event 事件之间的次序问题，不用在两个event之间传递数值。包裹选择字符串的逻辑处理起来赏心悦目。</p>
+<p>当然，这不意味着 <code>type</code> 就没有自己的坑。type的坑来自于一个我仍然难以理解的现象：由于IME的一些神秘操作，如果直接阻断type命令（即直接返回，不执行），那么IME依然可以将字符插入文本编辑器中，并且会覆盖后面的字符。而如果刚好是在行尾，可能是由于执行顺序的问题，可能即使我们争取计算得出了成对符号，它也可能只能插入左边半个。</p>
+<p>解决这个问题，又要请出我们老朋友：<code>undo</code>，首先将IME插入的IME撤回，然后再插入我们计算出的结果。</p>
+<p>然后，不出所料的，undo又作妖了： VSCode 会将连续输入的字符视作一体的，再撤销时，它们会被一起撤回。即：</p>
+<blockquote>
+<p>case1</p>
+<ul>
+<li>先打一段话,再打一段话</li>
+<li>撤销命令</li>
+<li>上述两端话均被撤销</li>
+</ul>
+<p>case2</p>
+<ul>
+<li>先打一段话,移动一下光标，再打一段话</li>
+<li>撤销命令</li>
+<li>后面一段话被撤销</li>
+</ul>
+</blockquote>
+<p>要解决这个问题，就得想办法断开两段话中间的联系。根据AI 的建议，一开始的方案是，监听到<code>onDidChangeTextDocument</code>事件后，立即插入并删除或撤销一个空字符（Type命令无法检查到输入中文的情况）。这个方案看上去蛮合理的，然而无论怎么试，第二个命令总是不执行（或者可能是执行慢了）。这样一来，尽管看上去解决了问题。但是用户按撤销和删除时，必须要连按两次，先把那个看不见的字符（例如零宽空格）删去。这就让人感觉很不舒服了。</p>
+<p>最后，也即目前的方案，则是执行一个空操作，什么都没有插入，但是利用标识符，将这个操作与前面的操作放在一个撤销单元里，并且和后面的输入完全隔绝。这样，才达到了防撤销的效果。</p>
+<h2 id="感受"><a class="markdownIt-Anchor" href="#感受"></a> 感受</h2>
+<p>这次算是比较完整并且独立地经历了开发一个项目的可用阶段（并非demo）的完整流程。时间比我预想的要慢很多。一个粗略验证想法的demo只需要花一两天，但是 ChEER 的 0.0.1 版本上线我花了两个星期。如今回首，我觉得有以下几个原因是导致时间不及预期的主要原因。</p>
+<ol>
+<li>我对 Typescript 和 VSCode API 并不熟悉。当然，严格来说这个项目也并没有用到多么艰深的知识，了解API是每个Developer早晚必走的一步。但是在没有做到之前，就是会耽误一些时间在“项目之外”，这包括去查文档或者问AI某个特定的语句为什么不合语法，也包括检查某个现象是VSCode的 feature 还是 bug。是否有人已经讨论了这个问题。例如，VSCode 实际上有一个配置文件管理了所有 VSCode 原生的成对输入、成对删除符号。然而一方面对于双字节的成对符号它不是一齐插入一齐删除的，另一方面包裹符号的设置也没有暴露API。我去检查了 VSCode 上的有关讨论才最终确定并不采用这种接近原生的处理方案。这些花费掉的时间并不都能反应到git提交记录上。（跳转一个我参与讨论了的 issues <a href="https://github.com/microsoft/vscode/issues/234149">Allow extensions to augment an existing language’s configuration, such as surroundingPairs · Issue #234149 · microsoft/vscode</a>）</li>
+<li>没有成熟的项目开发管理方案。由于时间比较闲散自由，实际开发过程是想到什么问题，测出来什么问题就解决什么问题。这也一定程度地降低了开发效率。例如，在使用<code>onDidChangeTextDocument</code>事件监听的解决办法的时候，事实上需要同时考虑四种不同的情况（上面提到了的），如果能互相先在脑中和纸上拟合好一个解决方案，再去动键盘，解决问题的速度可能还要更快一点。现在身边不常被草稿纸，有的时候就只能用“瞪眼法”来思考问题，其实对解决问题的效率还是有影响。当然，具体到这个案例，可能什么时候该放弃，该运用git 灵活的版本管理机制寻找新的方法也是需要学习的一点。这也是一个成熟的项目管理方案应该帮开发者解决的。</li>
+<li>测试的时间。测试实际上远比开发耗时。启动项目-&gt;手动调整输入测试文本-&gt;发现问题-&gt;断点到相应的位置-&gt;发现问题原因调整代码，或没发现问题原因，加入测试性语句-&gt;再次启动项目。这个反复的循环中，人容易精神疲惫是一方面，搞了半天感觉“刚刚过去的时间毫无意义”是另一方面。这一方面除了提高整体代码能力以外，感觉似乎也没有什么好的解决办法。</li>
+<li>类似上一条，写Prompt和等AI输出的时间，这就无需解释了。</li>
+<li>摸鱼的时间。无论是等AI输出，要做做二游日常，还是要吃饭，还是真的调试了半天准备休息一下，都有可能陷阱信息流里半天才拔出来。更麻烦的是，刷久了就容易中断思绪。这就又需要重新去测试或看代码等等。</li>
+</ol>
+<p>这篇文章是在 ChEER 的辅助之下完成的，最后总结一下ChEER 的使用体验吧。两个字：很爽！尽管目前还只有很基础的三个功能。但是它们也是最核心的三个功能。因此已经感受很不错了。当然，我也发现了好几个需要改进的地方了。<s>（0.0.2在路上了）</s></p>
+<h2 id="致谢"><a class="markdownIt-Anchor" href="#致谢"></a> 致谢</h2>
+<p>大部分之前的博客写到这儿就该硬编也要编几个参考文献了。不过今天这篇文章主要就是写写流水账，所以也就不存在什么参考文献了。硬要写的话，那么就是下面两个开发过程中我主要参考的项目了：</p>
+<ul>
+<li><a href="https://github.com/Yaozhuwa/easy-typing-obsidian">Yaozhuwa/easy-typing-obsidian</a></li>
+<li><a href="https://github.com/formulahendry/vscode-auto-close-tag">formulahendry/vscode-auto-close-tag</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/VSCode/" rel="tag"><i class="fa fa-tag"></i> VSCode</a>
+              <a href="/tags/ChEER/" rel="tag"><i class="fa fa-tag"></i> ChEER</a>
+              <a href="/tags/Typescript/" rel="tag"><i class="fa fa-tag"></i> Typescript</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/post/20250709131438.html" rel="prev" title="解决 VSCode 无法识别用户环境变量的问题">
+                  <i class="fa fa-angle-left"></i> 解决 VSCode 无法识别用户环境变量的问题
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2020 – 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">LeeKa</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">148k</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.0/mermaid.min.js","integrity":"sha256-G8ouPAnw4zzMbnAenHnVz6h9XpKbNdOkrqTh7AadyHs="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+
+
+
+
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"leekapub","count":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+</body>
+</html>
