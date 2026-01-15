@@ -1,0 +1,225 @@
+# Hexo Configuration
+## Docs: https://hexo.io/docs/configuration.html
+## Source: https://github.com/hexojs/hexo/
+
+# Site
+title: 'LeeKa 的酒馆'
+subtitle: '欢迎，旅人！坐下来享受一下暖烘烘的炉火吧。'
+description: '代码、音乐和游戏，一起来聊聊吧'
+keywords: sample keywaord
+author: LeeKa
+language: zh-CN
+timezone: ''
+
+# URL
+## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
+url: https://blog.leeka.pub/
+permalink: :year:month:day:hour:minute:second.html
+permalink_defaults: 
+pretty_urls:
+  trailing_index: true # Set to false to remove trailing 'index.html' from permalinks
+  trailing_html: true # Set to false to remove trailing '.html' from permalinks
+
+# Directory
+source_dir: source
+public_dir: public
+tag_dir: tags
+archive_dir: archives
+category_dir: categories
+code_dir: downloads/code
+i18n_dir: :lang
+skip_render:
+
+# Writing
+new_post_name: :title.md # File name of new posts
+default_layout: post
+titlecase: false # Transform title into titlecase
+external_link:
+  enable: true # Open external links in new tab
+  field: site # Apply to the whole site
+  exclude: ''
+filename_case: 0
+render_drafts: false
+post_asset_folder: false
+relative_link: false
+future: true
+syntax_highlighter: highlight.js
+highlight:
+  line_number: true
+  auto_detect: false
+  tab_replace: ''
+  wrap: true
+  hljs: false
+  exclude_languages:
+    - mermaid
+prismjs:
+  preprocess: true
+  line_number: true
+  tab_replace: ''
+
+# Home page setting
+# path: Root path for your blogs index page. (default = '')
+# per_page: Posts displayed per page. (0 = disable pagination)
+# order_by: Posts order. (Order by date descending by default)
+index_generator:
+  path: ''
+  per_page: 20
+  order_by: -date
+
+# Category & Tag
+default_category: uncategorized
+category_map:
+tag_map:
+
+# Metadata elements
+## https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta
+meta_generator: true
+
+# Date / Time format
+## Hexo uses Moment.js to parse and display date
+## You can customize the date format as defined in
+## http://momentjs.com/docs/#/displaying/format/
+date_format: YYYY-MM-DD
+time_format: HH:mm:ss
+## updated_option supports 'mtime', 'date', 'empty'
+updated_option: 'mtime'
+
+# Pagination
+## Set per_page to 0 to disable pagination
+per_page: 0
+pagination_dir: page
+
+# Include / Exclude file(s)
+## include:/exclude: options only apply to the 'source/' folder
+include:
+exclude:
+ignore:
+
+# Extensions
+## Plugins: https://hexo.io/plugins/
+## Themes: https://hexo.io/themes/
+theme: next
+
+# Deployment
+## Docs: https://hexo.io/docs/one-command-deployment
+deploy:
+  type: 'git'
+
+# config of hexo-renderer-pandoc
+pandoc:
+  args:
+    - --mathjax
+
+# word count
+symbols_count_time:
+  symbols: true
+  time: false
+  total_symbols: true
+  total_time: true
+  exclude_codeblock: false
+  wpm: 275
+  suffix: "mins."
+
+# Theme Settings
+theme_config:
+  # Schemes
+  # scheme: Muse
+  # scheme: Mist
+  scheme: Pisces
+  # Sidebar Avatar
+  avatar:
+    # Replace the default image and set the url here.
+    url: https://s2.loli.net/2022/03/24/zcq6l9KENbRJtDi.jpg
+    # If true, the avatar will be displayed in circle.
+    rounded: false
+    # If true, the avatar will be rotated with the cursor.
+    rotated: false
+  social:
+    GitHub: https://github.com/kxand || fab fa-github
+    E-Mail: mailto:yourname@gmail.com || fa fa-envelope
+    宁远平话: https://pinghua.leeka.pub || fa-solid fa-house-flag
+  # Local search
+  # Dependencies: https://github.com/next-theme/hexo-generator-searchdb
+  local_search:
+    enable: true
+    # If auto, trigger search by changing input.
+    # If manual, trigger search by pressing enter key or search button.
+    trigger: auto
+    # Show top n results per article, show all results by setting to -1
+    top_n_per_article: 1
+    # Unescape html strings to the readable one.
+    unescape: false
+    # Preload the search data when the page loads.
+    preload: false
+  footer:
+    # Specify the year when the site was setup. If not defined, current year will be used.
+    since: 2020
+    # Icon between year and copyright info.
+    icon:
+      # Icon name in Font Awesome. See: https://fontawesome.com/icons
+      name: fa fa-heart
+      # If you want to animate the icon, set it to true.
+      animated: false
+      # Change the color of icon, using Hex Code.
+      color: "#66ccff"
+    # Read more button
+  # If true, the read more button will be displayed in excerpt section.
+  read_more_btn: false
+
+
+  codeblock:
+    # Code Highlight theme
+    # All available themes: https://theme-next.js.org/highlight/
+    theme:
+      light: default
+      dark: stackoverflow-dark
+    prism:
+      light: prism
+      dark: prism-dark
+    # Add copy button on codeblock
+    copy_button:
+      enable: true
+      # Available values: default | flat | mac
+      style:
+    # Fold code block
+    fold:
+      enable: true
+      height: 500
+    # Display language name
+    language: false
+  math:
+    # Default (false) will load mathjax / katex script on demand.
+    # That is it only render those page which has `mathjax: true` in front-matter.
+    # If you set it to true, it will load mathjax / katex script EVERY PAGE.
+    every_page: true
+
+    mathjax:
+      enable: true
+      # Available values: none | ams | all
+      tags: ams
+
+    katex:
+      enable: false
+      # See: https://github.com/KaTeX/KaTeX/tree/master/contrib/copy-tex
+      copy_tex: false
+  menu:
+    home: / || fa fa-home
+    about: /about/ || fa fa-user
+    tags: /tags/ || fa fa-tags
+    categories: /categories/ || fa fa-th
+    archives: /archives/ || fa fa-archive
+    links: /links/ || fa fa-link
+
+  # Post wordcount display settings
+  # Dependencies: https://github.com/next-theme/hexo-word-counter
+  symbols_count_time:
+    separated_meta: true
+    item_text_total: false
+
+  # Mermaid tag
+  mermaid:
+    enable: true
+    # Available themes: default | dark | forest | neutral
+    theme:
+      light: default
+      dark: dark
