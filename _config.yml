@@ -100,13 +100,6 @@ ignore:
 ## Themes: https://hexo.io/themes/
 theme: next
 
-# Deployment
-## Docs: https://hexo.io/docs/one-command-deployment
-deploy:
-  type: git
-  repo: 'https://github.com/KXAND/KXAND.github.io'
-  branch: 'master'
-
 # config of hexo-renderer-pandoc
 pandoc:
   args:
