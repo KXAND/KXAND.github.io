@@ -22,12 +22,17 @@ jobs:
           # Examples: 20, 18.19, >=16.20.2, lts/Iron, lts/Hydrogen, *, latest, current, node
           # Ref: https://github.com/actions/setup-node#supported-version-syntax
           node-version: "24"
-          cache: "npm"
       - name: Install Dependencies # include pandoc for hexo-renderer-pandoc
         run: |  
-          npm ci
           sudo apt-get update
+          npm install
           sudo apt-get install -y pandoc 
+      - name: Cache npm
+        uses: actions/cache@v5
+        with:
+          path: ~/.npm
+          key: npm-${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: npm-${{ runner.os }}-
       - name: Build
         run: npm run build
       - name: Upload Pages artifact
