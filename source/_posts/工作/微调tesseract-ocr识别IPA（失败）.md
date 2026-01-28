@@ -2,7 +2,7 @@
 title: 微调tesseract-ocr识别IPA（失败）
 tags: 
   - tesseract
-categories: 
+categories: 工作
 date: 2025-01-02 16:49:25
 ---
 

@@ -3,7 +3,7 @@ title: 读论文 DouZero
 tags: 
   - 强化学习
   - 斗地主
-categories: 
+categories: 技术笔记
 date: 2025-04-10 18:03:50
 ---
 

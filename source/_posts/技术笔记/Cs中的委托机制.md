@@ -1,7 +1,10 @@
 ---
 title: C# 中的委托机制(delegate、action、func)
-tags: [delegate, C#,Event,视频笔记]
-categories: Unity 与 C#
+tags: 
+ - delegate
+ - C#
+ - Event
+categories: 技术笔记
 date: 2023-07-06 21:40:05
 # tags请写：来源（如课程）、体裁或用途（如笔记）并适当清晰化，如具体为（课程，图形学）
 ---

@@ -1,9 +1,11 @@
 ---
 title: 用批处理简化hexo命令操作
 tags:
-  - 批处理脚本
+  - bat
   - Hexo
-categories: 搭建博客
+categories: 
+  - 各种配环境
+  - 搭建博客
 date: 2022-03-24 00:19:24
 ---
 

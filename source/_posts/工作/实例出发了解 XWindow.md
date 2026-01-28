@@ -4,7 +4,7 @@ tags:
   - X11
   - Linux
   - XWindow
-categories:  
+categories: 工作
 date: 2024-10-03 14:51:33
 ---
 

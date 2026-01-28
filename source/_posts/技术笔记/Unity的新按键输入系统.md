@@ -1,7 +1,9 @@
 ---
 title: Unity的新按键输入系统
-tags: [Unity,输入,笔记]
-categories: 
+tags: 
+ - Unity
+ - 输入
+categories: 技术笔记
 date: 2023-07-17 23:39:53
 # tags请写：来源（如课程）、体裁或用途（如笔记）并适当清晰化，如具体为（课程，图形学）
 ---
