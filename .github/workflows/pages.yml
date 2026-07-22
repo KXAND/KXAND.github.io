@@ -16,6 +16,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           # If your repository depends on submodule, please see: https://github.com/actions/checkout
           submodules: recursive
+          fetch-depth: 0
       - name: Use Node.js 24
         uses: actions/setup-node@v6
         with:
@@ -33,6 +34,15 @@ jobs:
           path: ~/.npm
           key: npm-${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: npm-${{ runner.os }}-
+      - name: Restore post modified times from Git
+        shell: bash
+        run: |
+          while IFS= read -r -d '' file; do
+            mtime=$(git log -1 --follow --format=%ct -- "$file")
+            if [ -n "$mtime" ]; then
+              touch -d "@$mtime" "$file"
+            fi
+          done < <(find source/_posts -type f -name '*.md' -print0)
       - name: Build
         run: npm run build
       - name: Upload Pages artifact
