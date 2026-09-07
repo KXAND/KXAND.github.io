@@ -7,3 +7,9 @@ public/
 .deploy*/
 _multiconfig.yml
 .vscode/*
+
+# AI辅助检查规则
+.agents/ 
+
+# 草稿
+source/_drafts/
