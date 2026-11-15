@@ -33,7 +33,19 @@ $$\begin{aligned}P(x,y)&=\alpha A+\beta B+\gamma C\\\alpha+\beta+\gamma&=1\end{a
 
 这就是**重心坐标系**，通过重心坐标系，我们可以将三角形内的点坐标写成 $(\alpha,\beta,\gamma)$ 的形式。
 
-已知 $P$ 点的坐标，求重心坐标的办法如下：
+已知 $P$ 点的坐标，对于 $xy$ 平面内的非退化三角形，重心坐标为：
+
+$$
+\begin{aligned}
+\alpha&=\frac{(\overrightarrow{BP}\times\overrightarrow{BC})_z}{(\overrightarrow{BA}\times\overrightarrow{BC})_z}\\
+\beta&=\frac{(\overrightarrow{AP}\times\overrightarrow{AC})_z}{(\overrightarrow{AB}\times\overrightarrow{AC})_z}\\
+\gamma&=1-\alpha-\beta
+\end{aligned}
+$$
+
+这里叉乘取 $z$ 分量，$\alpha,\beta,\gamma$ 分别对应顶点 $A,B,C$。对于在三角形内线性变化的属性 $q$，就有 $q=\alpha q_A+\beta q_B+\gamma q_C$。
+
+求重心坐标的办法如下：
 
 1. 连接 $PA,PB,PC$，把 $\triangle ABC$ 分成三个小三角形 $\triangle ABP$、$\triangle APC$、$\triangle PBC$。
 2. 定义一个顶点对应的小三角形是与它不相邻的小三角形。如 $A$ 对应 $\triangle PBC$。
@@ -41,13 +53,13 @@ $$\begin{aligned}P(x,y)&=\alpha A+\beta B+\gamma C\\\alpha+\beta+\gamma&=1\end{a
 4. 由于三角形面积 $S=\frac{1}{2}l\cdot h=\frac{1}{2}|\vec{a}||\vec{b}|\sin\theta=\frac{1}{2}|\vec{a}\times \vec{b}|$，有：
    $$
    \begin{aligned}
-   \alpha&=\frac{S_{\triangle A}}{S}=\frac{(\overrightarrow{BP}\times\overrightarrow{BC})_z}{(\overrightarrow{BA}\times\overrightarrow{BC})_z}\\
-   \beta&=\frac{S_{\triangle B}}{S}=\frac{(\overrightarrow{AP}\times\overrightarrow{AC})_z}{(\overrightarrow{AB}\times\overrightarrow{AC})_z}\\
+   \alpha&=\frac{S_{\triangle A}}{S}\\
+   \beta&=\frac{S_{\triangle B}}{S}\\
    \gamma&=\frac{S_{\triangle C}}{S}=1-\alpha-\beta
    \end{aligned}
    $$
 
-这里把三角形放在 $xy$ 平面上，叉乘取 $z$ 分量。点在三角形内部时可以直接用面积比，外部则要保留符号。
+点在三角形内部时可以直接用面积比，外部则要保留符号。
 
 > 当 $\alpha\ \beta\ \gamma$ 均为 $\frac{1}{3}$ 时，该点就是三角形的重心。重心将三角形分为三个面积相等的小三角形。
 
@@ -80,6 +92,12 @@ $$q=\frac{\alpha q_A/w_A+\beta q_B/w_B+\gamma q_C/w_C}{\alpha/w_A+\beta/w_B+\gam
 1. 直接取最近的纹素：会导致多个连续像素对应同一个纹素（texel），导致马赛克。
 2. 双线性插值：综合考虑周围四个纹素的远近关系进行插值，像素过渡更自然连续。
 3. 双三次插值：综合考虑最近 16 个纹素的远近关系进行插值，像素过渡更自然连续，但是开销也比双线性更大。
+
+双线性插值的公式：
+
+$$c=(1-s)(1-t)c_{00}+s(1-t)c_{10}+(1-s)tc_{01}+stc_{11}$$
+
+其中 $c_{00},c_{10},c_{01},c_{11}$ 是周围四个纹素的值，下标分别表示左右、上下的位置；$s,t\in[0,1]$ 是采样点在这四个纹素中心围成的方格内，沿两个方向的位置比例。也就是先在两行里分别插值，再在两行结果之间插值。
 
 ![纹理放大时一个纹素对应多个像素，缩小时一个像素覆盖多个纹素](https://files.seeusercontent.com/2026/11/15/Q3qy/101-texture-sampling-scale.png)
 
