@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1060" height="380" viewBox="0 0 1060 380" role="img" aria-labelledby="title desc">
+  <title id="title">纹理放大与缩小</title>
+  <desc id="desc">左侧二乘二的纹理覆盖四乘四的屏幕区域，一个纹素对应四个屏幕像素。右侧四乘四的纹理覆盖二乘二的屏幕区域，四个纹素落入一个屏幕像素。橙色标出相应的范围。</desc>
+  <defs><marker id="arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="#687c90"/></marker></defs>
+  <style>
+    text { font-family: "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: #263746; }
+    .heading { font-size: 21px; font-weight: 700; }
+    .label { font-size: 17px; }
+    .grid { stroke: #627b91; stroke-width: 1.5; fill: none; }
+    .caption { font-family: SimHei, "Heiti SC", "Noto Sans CJK SC", sans-serif; font-size: 16px; fill: #354b61; }
+  </style>
+  <rect width="1060" height="380" fill="#fff"/>
+  <path d="M530 50V310" stroke="#e3e9ef"/>
+  <g class="heading" text-anchor="middle"><text x="265" y="35">放大：一个纹素铺到多个像素</text><text x="795" y="35">缩小：多个纹素挤进一个像素</text></g>
+  <g fill="#edf4fa"><rect x="60" y="130" width="80" height="80"/><rect x="270" y="90" width="160" height="160"/><rect x="590" y="90" width="160" height="160"/><rect x="870" y="130" width="80" height="80"/></g>
+  <g fill="#f8d6bd"><rect x="60" y="130" width="40" height="40"/><rect x="270" y="90" width="80" height="80"/><rect x="590" y="90" width="80" height="80"/><rect x="870" y="130" width="40" height="40"/></g>
+  <g class="grid"><path d="M60 130H140V210H60ZM100 130V210M60 170H140"/><path d="M270 90H430V250H270ZM310 90V250M350 90V250M390 90V250M270 130H430M270 170H430M270 210H430"/><path d="M590 90H750V250H590ZM630 90V250M670 90V250M710 90V250M590 130H750M590 170H750M590 210H750"/><path d="M870 130H950V210H870ZM910 130V210M870 170H950"/></g>
+  <g stroke="#687c90" stroke-width="2" marker-end="url(#arrow)"><path d="M170 170H235"/><path d="M785 170H850"/></g>
+  <g class="label" text-anchor="middle"><text x="100" y="110">纹理 2 × 2</text><text x="350" y="70">屏幕区域 4 × 4</text><text x="670" y="70">纹理 4 × 4</text><text x="910" y="110">屏幕区域 2 × 2</text><text x="265" y="295">1 个纹素 → 4 个屏幕像素</text><text x="795" y="295">4 个纹素 → 1 个屏幕像素</text></g>
+  <rect x="90" y="330" width="880" height="36" rx="4" fill="#f0f3f6"/>
+  <rect x="106" y="338" width="48" height="21" rx="3" fill="#354b61"/>
+  <text x="130" y="354" text-anchor="middle" style="font-family:SimHei,sans-serif;font-size:13px;fill:white">图注</text>
+  <text class="caption" x="168" y="354">橙色标出对应范围。左侧用插值让过渡更自然，右侧需要考虑一个像素覆盖的多个纹素。</text>
+</svg>

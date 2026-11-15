@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1060" height="390" viewBox="0 0 1060 390" role="img" aria-labelledby="title desc">
+  <title id="title">BRDF 与 BSSRDF 的进出位置</title>
+  <desc id="desc">左侧 BRDF 在表面同一个点记录入射与反射。右侧 BSSRDF 记录光从位置 xi 进入介质，在内部多次散射后从另一个位置 xo 离开的过程。箭头表示光实际传播的方向。</desc>
+  <defs><marker id="arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="context-stroke"/></marker></defs>
+  <style>
+    text { font-family: "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: #263746; }
+    .heading { font-size: 21px; font-weight: 700; }
+    .label { font-size: 17px; }
+    .math { font-family: "Cambria Math", "Times New Roman", serif; font-size: 23px; }
+    .ray { fill: none; stroke-width: 2.5; marker-end: url(#arrow); }
+    .caption { font-family: SimHei, "Heiti SC", "Noto Sans CJK SC", sans-serif; font-size: 16px; fill: #354b61; }
+  </style>
+  <rect width="1060" height="390" fill="#fff"/>
+  <path d="M530 55V315" stroke="#e3e9ef"/>
+  <g class="heading" text-anchor="middle"><text x="265" y="35">BRDF：同一点入射、出射</text><text x="795" y="35">BSSRDF：分别记录进出位置</text></g>
+  <rect x="65" y="180" width="400" height="130" fill="#edf4fa"/><rect x="575" y="180" width="420" height="130" fill="#edf4fa"/>
+  <path d="M65 180H465M575 180H995" stroke="#6e8395" stroke-width="2"/>
+  <path class="ray" d="M150 75L265 180" stroke="#2462a4"/>
+  <path class="ray" d="M265 180L385 75" stroke="#c54e28"/>
+  <path class="ray" d="M600 75L680 180" stroke="#2462a4"/>
+  <path class="ray" d="M680 180L705 240L765 215L805 285L885 245L870 180" stroke="#6d8c9c"/>
+  <path class="ray" d="M870 180L970 75" stroke="#c54e28"/>
+  <g fill="#263746"><circle cx="265" cy="180" r="5"/><circle cx="680" cy="180" r="5"/><circle cx="870" cy="180" r="5"/></g>
+  <g fill="#6d8c9c"><circle cx="705" cy="240" r="3"/><circle cx="765" cy="215" r="3"/><circle cx="805" cy="285" r="3"/><circle cx="885" cy="245" r="3"/></g>
+  <g class="label"><text x="110" y="115">入射光</text><text x="385" y="115">出射光</text><text x="577" y="125">入射光</text><text x="930" y="125">出射光</text><text x="78" y="169">表面</text><text x="580" y="294">介质内部</text><text x="902" y="268">散射</text></g>
+  <g class="math"><text x="257" y="211">p</text><text x="648" y="210">x<tspan baseline-shift="sub" font-size="16">i</tspan></text><text x="900" y="202">x<tspan baseline-shift="sub" font-size="16">o</tspan></text></g>
+  <rect x="90" y="340" width="880" height="36" rx="4" fill="#f0f3f6"/>
+  <rect x="106" y="348" width="48" height="21" rx="3" fill="#354b61"/>
+  <text x="130" y="364" text-anchor="middle" style="font-family:SimHei,sans-serif;font-size:13px;fill:white">图注</text>
+  <text class="caption" x="168" y="364">箭头表示光的传播方向。次表面散射时，进入和离开的位置可以相隔一段距离。</text>
+</svg>

@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1060" height="480" viewBox="0 0 1060 480" role="img" aria-labelledby="title desc">
+  <title id="title">光照强度与夹角余弦</title>
+  <desc id="desc">两个宽度与功率相同的平行光束垂直向下。左侧表面与光束垂直，覆盖面积为 S；右侧表面法线与光源方向夹角为六十度，覆盖面积增大为 S 除以 cosθ。单位面积接收到的功率因此变为原来的 cosθ 倍。n 为表面法线，l 从表面指向光源。</desc>
+  <defs><marker id="arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="context-stroke"/></marker></defs>
+  <style>
+    text { font-family: "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: #263746; }
+    .heading { font-size: 21px; font-weight: 700; }
+    .label { font-size: 17px; }
+    .math { font-family: "Cambria Math", "Times New Roman", serif; font-size: 22px; }
+    .vector { stroke-width: 2.5; marker-end: url(#arrow); }
+    .ray { stroke: #bb7720; stroke-width: 2; marker-end: url(#arrow); }
+    .caption { font-family: SimHei, "Heiti SC", "Noto Sans CJK SC", sans-serif; font-size: 16px; fill: #354b61; }
+  </style>
+  <rect width="1060" height="480" fill="#fff"/>
+  <path d="M530 55V420" stroke="#e3e9ef"/>
+  <g class="heading" text-anchor="middle"><text x="265" y="36">正对表面：θ = 0°</text><text x="795" y="36">斜照表面：θ = 60°</text></g>
+  <path d="M235 80H295V250H235Z" fill="#fff0cf"/>
+  <path d="M770 80H830V301.962L770 198.038Z" fill="#fff0cf"/>
+  <g stroke="#dca54b" stroke-width="1.5"><path d="M235 80V250M295 80V250"/><path d="M770 80V198.038M830 80V301.962"/></g>
+  <g class="ray"><path d="M242 95V150"/><path d="M288 95V150"/><path d="M777 95V150"/><path d="M823 95V150"/></g>
+  <path d="M135 250H395M720 111.436L880 388.564" stroke="#8999a6" stroke-width="5"/>
+  <path d="M235 250H295M770 198.038L830 301.962" stroke="#c54e28" stroke-width="8"/>
+  <path class="vector" d="M265 250V125" stroke="#2462a4"/>
+  <text class="math" x="305" y="140">n、l</text>
+  <path class="vector" d="M800 250L886.603 200" stroke="#2462a4"/>
+  <path class="vector" d="M800 250V125" stroke="#c54e28"/>
+  <text class="math" x="899" y="204">n</text><text class="math" x="810" y="121">l</text>
+  <path d="M800 205A45 45 0 0 1 838.971 227.5" fill="none" stroke="#5b6d7f" stroke-width="1.5"/>
+  <text class="math" x="822" y="210">θ</text>
+  <circle cx="265" cy="250" r="4" fill="#263746"/><circle cx="800" cy="250" r="4" fill="#263746"/>
+  <text class="label" x="265" y="285" text-anchor="middle">覆盖面积 S</text>
+  <text class="label" x="850" y="302">覆盖面积</text><text class="math" x="858" y="332">S / cosθ</text>
+  <text class="math" x="265" y="411" text-anchor="middle">E = Φ / S</text>
+  <text class="math" x="795" y="411" text-anchor="middle">E = Φ / (S / cosθ) = (Φ / S) cosθ</text>
+  <rect x="70" y="435" width="920" height="34" rx="4" fill="#f0f3f6"/>
+  <rect x="86" y="442" width="48" height="21" rx="3" fill="#354b61"/>
+  <text x="110" y="458" text-anchor="middle" style="font-family:SimHei,sans-serif;font-size:13px;fill:white">图注</text>
+  <text class="caption" x="148" y="458">两边光束的宽度与功率 Φ 相同；n 是法线，l 指向光源，橙色线段表示光束覆盖的范围。</text>
+</svg>

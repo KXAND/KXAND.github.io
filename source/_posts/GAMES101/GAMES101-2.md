@@ -31,7 +31,7 @@ permalink: GAMES10102.html
     - 判断向量的左右关系：二维下叉乘只看 $z$ 分量 $a_xb_y-a_yb_x$。从 $\vec a$ 看 $\vec b$，正数在左，负数在右（$x$ 向右、$y$ 向上）。
     - 判断点与三角形的内外关系：对每条边都在同一侧。沿三角形 $ABC$ 绕一圈，分别用 $\overrightarrow{AB}\times\overrightarrow{AP}$、$\overrightarrow{BC}\times\overrightarrow{BP}$、$\overrightarrow{CA}\times\overrightarrow{CP}$，结果都朝同一个方向就说明 $P$ 在三角形内。
 
-      ![点在三角形内外时，三条有向边与顶点到 P 的向量叉乘结果的对比](/assets/101-point-in-triangle.svg)
+      ![点在三角形内外时，三条有向边与顶点到 P 的向量叉乘结果的对比](https://files.seeusercontent.com/2026/11/15/Pc4f/101-point-in-triangle.png)
 
 ## 矩阵
 

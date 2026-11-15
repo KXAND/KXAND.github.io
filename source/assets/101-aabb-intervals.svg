@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1060" height="480" viewBox="0 0 1060 480" role="img" aria-labelledby="title desc">
+  <title id="title">AABB 求交是各轴区间取交集</title>
+  <desc id="desc">二维示例，射线从原点沿单位方向 (0.6,0.8) 前进，盒子的 x 范围为 1.2 到 3.6，y 范围为 2.4 到 5.6。因此 x 方向的参数区间为 2 到 6，y 方向为 3 到 7，共同区间为 3 到 6，进入时间取较大值，离开时间取较小值。</desc>
+  <defs><marker id="arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="context-stroke"/></marker></defs>
+  <style>
+    text { font-family: "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: #263746; }
+    .heading { font-size: 21px; font-weight: 700; }
+    .label { font-size: 17px; }
+    .math { font-family: "Cambria Math", "Times New Roman", serif; font-size: 21px; }
+    .caption { font-family: SimHei, "Heiti SC", "Noto Sans CJK SC", sans-serif; font-size: 16px; fill: #354b61; }
+  </style>
+  <rect width="1060" height="480" fill="#fff"/>
+  <path d="M510 55V405" stroke="#e3e9ef"/>
+  <g class="heading" text-anchor="middle"><text x="265" y="35">射线进入、离开包围盒</text><text x="795" y="35">同时落在两个区间内</text></g>
+  <rect x="180" y="65" width="120" height="300" fill="#2462a4" fill-opacity=".08"/>
+  <rect x="120" y="85" width="300" height="160" fill="#c54e28" fill-opacity=".08"/>
+  <rect x="180" y="85" width="120" height="160" fill="none" stroke="#263746" stroke-width="2"/>
+  <g stroke="#687c90" stroke-width="1.5" marker-end="url(#arrow)"><path d="M120 365H435"/><path d="M120 365V55"/></g>
+  <path d="M120 365L345 65" stroke="#354b61" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <path d="M210 245L300 125" stroke="#307c66" stroke-width="5"/>
+  <g fill="#307c66"><circle cx="210" cy="245" r="5"/><circle cx="300" cy="125" r="5"/></g>
+  <g class="label"><text x="221" y="264">进入</text><text x="313" y="128">离开</text><text x="320" y="212">包围盒</text></g>
+  <g class="math"><text x="438" y="374">x</text><text x="102" y="57">y</text><text x="96" y="386">O</text><text x="180" y="393" text-anchor="middle">x_min</text><text x="300" y="393" text-anchor="middle">x_max</text><text x="110" y="91" text-anchor="end">y_max</text><text x="110" y="251" text-anchor="end">y_min</text></g>
+  <path d="M620 110H994" stroke="#687c90" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <g stroke="#687c90" class="label" text-anchor="middle"><path d="M620104V116"/><text x="620" y="138">0</text><path d="M665104V116"/><text x="665" y="138">1</text><path d="M710104V116"/><text x="710" y="138">2</text><path d="M755104V116"/><text x="755" y="138">3</text><path d="M800104V116"/><text x="800" y="138">4</text><path d="M845104V116"/><text x="845" y="138">5</text><path d="M890104V116"/><text x="890" y="138">6</text><path d="M935104V116"/><text x="935" y="138">7</text><path d="M980104V116"/><text x="980" y="138">8</text></g>
+  <text class="math" x="1004" y="117">t</text>
+  <g stroke-linecap="round" stroke-width="10"><path d="M710 190H890" stroke="#2462a4"/><path d="M755 260H935" stroke="#c54e28"/><path d="M755 330H890" stroke="#307c66"/></g>
+  <g class="label"><text x="555" y="196">x 区间</text><text x="555" y="266">y 区间</text><text x="555" y="336">交集</text></g>
+  <path d="M755 153V353M890 153V353" stroke="#8b99a5" stroke-dasharray="4 4"/>
+  <g class="label" text-anchor="middle"><text x="755" y="380">进入：max(2,3) = 3</text><text x="890" y="408">离开：min(6,7) = 6</text></g>
+  <rect x="80" y="435" width="900" height="34" rx="4" fill="#f0f3f6"/>
+  <rect x="96" y="442" width="48" height="21" rx="3" fill="#354b61"/>
+  <text x="120" y="458" text-anchor="middle" style="font-family:SimHei,sans-serif;font-size:13px;fill:white">图注</text>
+  <text class="caption" x="158" y="458">图中以二维为例。三维时，再与 z 方向的区间取交集；绿色部分是射线处于盒内的范围。</text>
+</svg>

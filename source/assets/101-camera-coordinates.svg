@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1060" height="380" viewBox="0 0 1060 380" role="img" aria-labelledby="title desc">
+  <title id="title">相机坐标系</title>
+  <desc id="desc">相机位于原点 O。正 X 指向相机右方，正 Y 指向上方，正 Z 指向相机后方。相机的观察方向是负 Z，与正 Z 相反。三维坐标轴用斜视图表示。</desc>
+  <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="context-stroke"/></marker></defs>
+  <style>
+    text { font-family: "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: #263746; }
+    .title { font-size: 22px; font-weight: 700; }
+    .label { font-size: 19px; }
+    .axis { stroke-width: 2.5; marker-end: url(#arrow); }
+    .math { font-family: "Cambria Math", "Times New Roman", serif; font-size: 23px; }
+    .caption { font-family: SimHei, "Heiti SC", "Noto Sans CJK SC", sans-serif; font-size: 16px; fill: #354b61; }
+  </style>
+  <rect width="1060" height="380" fill="#fff"/>
+  <text class="title" x="530" y="35" text-anchor="middle">以相机为原点，朝前看是 −Z</text>
+  <path class="axis" d="M475 220H760" stroke="#2462a4"/>
+  <path class="axis" d="M475 220V65" stroke="#2462a4"/>
+  <path class="axis" d="M475 220L330 295" stroke="#687c90"/>
+  <path class="axis" d="M475 220L735 85" stroke="#c54e28"/>
+  <circle cx="475" cy="220" r="6" fill="#263746"/>
+  <text class="label" x="780" y="226">+X（右）</text>
+  <text class="label" x="495" y="80">+Y（上）</text>
+  <text class="label" x="195" y="307">+Z（后）</text>
+  <text class="label" x="750" y="91" style="fill:#c54e28">−Z（观察方向）</text>
+  <text class="math" x="449" y="244">O</text>
+  <text class="label" x="493" y="251">相机位置 (0, 0, 0)</text>
+  <rect x="130" y="330" width="800" height="36" rx="4" fill="#f0f3f6"/>
+  <rect x="146" y="338" width="48" height="21" rx="3" fill="#354b61"/>
+  <text x="170" y="354" text-anchor="middle" style="font-family:SimHei,sans-serif;font-size:13px;fill:white">图注</text>
+  <text class="caption" x="208" y="354">图中为三维坐标轴的斜视示意；相机前方的点，z 坐标为负。</text>
+</svg>

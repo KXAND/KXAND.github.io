@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1060" height="480" viewBox="0 0 1060 480" role="img" aria-labelledby="title desc">
+  <title id="title">前向欧拉在圆周运动中偏离圆周</title>
+  <desc id="desc">左图以速度场 v(x,y)=(-y,x)、步长0.4，从(1,0)计算十二步前向欧拉。灰色圆是真实轨迹，蓝色折线逐渐向外偏离。右图放大第一步：从圆上点P沿切线走到Q，半径和位移构成直角三角形，因此Q比P离圆心更远。</desc>
+  <defs>
+    <marker id="blue-arrow" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 Z" fill="#2864a0"/></marker>
+    <style>
+      .heading { font-family:"Microsoft YaHei","Noto Sans CJK SC",sans-serif; font-size:23px; font-weight:700; fill:#263746; }
+      .label { font-family:"Microsoft YaHei","Noto Sans CJK SC",sans-serif; font-size:18px; fill:#526779; }
+      .math { font-family:"Cambria Math","Times New Roman",serif; font-size:23px; font-style:italic; fill:#263746; }
+      .footnote { font-family:SimHei,"Heiti SC","Noto Sans CJK SC",sans-serif; font-size:16px; fill:#617082; }
+    </style>
+  </defs>
+  <rect width="1060" height="480" fill="white"/>
+  <text class="heading" x="260" y="36" text-anchor="middle">多走几步，逐渐向外偏离</text>
+  <text class="heading" x="790" y="36" text-anchor="middle">看第一步：沿切线走到圆外</text>
+  <path d="M 530 70 V 414" stroke="#e3e9ee" stroke-width="1.5"/>
+  <circle cx="260" cy="220" r="70" fill="#f1f4f7" stroke="#98a5b1" stroke-width="2.5"/>
+  <path d="M 260 220 H 330" stroke="#98a5b1" stroke-width="1.5" stroke-dasharray="5 5"/>
+  <polyline points="330,220 330,192 318.8,164 296.4,140.48 264.59,125.92 226.96,124.08 188.59,137.3 155.51,165.86 133.86,207.66 128.92,258.11 144.17,310.55 180.38,356.88 235.14,388.73" fill="none" stroke="#2864a0" stroke-width="2.5" marker-end="url(#blue-arrow)"/>
+  <g fill="#2864a0">
+    <circle cx="330" cy="220" r="3.4"/>
+        <circle cx="330" cy="192" r="3.4"/>
+        <circle cx="318.8" cy="164" r="3.4"/>
+        <circle cx="296.4" cy="140.48" r="3.4"/>
+        <circle cx="264.59" cy="125.92" r="3.4"/>
+        <circle cx="226.96" cy="124.08" r="3.4"/>
+        <circle cx="188.59" cy="137.3" r="3.4"/>
+        <circle cx="155.51" cy="165.86" r="3.4"/>
+        <circle cx="133.86" cy="207.66" r="3.4"/>
+        <circle cx="128.92" cy="258.11" r="3.4"/>
+        <circle cx="144.17" cy="310.55" r="3.4"/>
+        <circle cx="180.38" cy="356.88" r="3.4"/>
+        <circle cx="235.14" cy="388.73" r="3.4"/>
+  </g>
+  <circle cx="260" cy="220" r="3.5" fill="#526779"/>
+  <g class="label">
+    <text x="345" y="229">起点 (1, 0)</text>
+    <text x="223" y="260">真实圆周</text>
+    <text x="254" y="392">第 12 步</text>
+    <text x="260" y="82" text-anchor="middle">每步都用当前位置的速度</text>
+  </g>
+  <circle cx="730" cy="240" r="145" fill="#f1f4f7" stroke="#98a5b1" stroke-width="2.5"/>
+  <path d="M 730 240 H 875 L 875 182 Z" fill="#e3edf7" stroke="#526779" stroke-width="1.8"/>
+  <path d="M 875 240 V 182" stroke="#2864a0" stroke-width="3" marker-end="url(#blue-arrow)"/>
+  <path d="M 863 240 V 228 H 875" fill="none" stroke="#526779" stroke-width="1.5"/>
+  <g fill="#263746"><circle cx="730" cy="240" r="4"/><circle cx="875" cy="240" r="4"/><circle cx="875" cy="182" r="4"/></g>
+  <g class="math">
+    <text x="708" y="263">O</text><text x="884" y="263">P</text><text x="883" y="172">Q</text>
+    <text x="799" y="268">1</text><text x="894" y="218">h</text>
+  </g>
+  <text class="label" x="730" y="333" text-anchor="middle">OQ = √(1 + h²) &gt; 1</text>
+  <text class="label" x="790" y="410" text-anchor="middle">下一步又从新的位置沿切线走</text>
+  <rect x="90" y="435" width="880" height="36" rx="4" fill="#f0f3f6"/>
+  <rect x="106" y="443" width="48" height="21" rx="3" fill="#354b61"/>
+  <text x="130" y="459" text-anchor="middle" style="font-family:SimHei,sans-serif;font-size:13px;fill:white">图注</text>
+  <text class="footnote" x="174" y="459">速度场 v(x, y) = (−y, x)，步长 h = 0.4。灰色为真实轨迹，蓝色为前向欧拉的结果。</text>
+</svg>
