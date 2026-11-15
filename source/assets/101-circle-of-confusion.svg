@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1060" height="440" viewBox="0 0 1060 440" role="img" aria-labelledby="title desc">
+  <title id="title">感光面偏离成像位置时的弥散圆</title>
+  <desc id="desc">同一物点的光经过透镜后会聚到一个像点。感光面在像点前方时，光束还没有收成一点，截面形成弥散圆。相似三角形给出 C 除以 A 等于像距与感光面距离之差的绝对值除以像距。</desc>
+  <defs><marker id="arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto-start-reverse"><path d="M0 0L6 3L0 6Z" fill="context-stroke"/></marker></defs>
+  <style>
+    text { font-family: "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: #263746; }
+    .heading { font-size: 22px; font-weight: 700; }
+    .label { font-size: 17px; }
+    .math { font-family: "Cambria Math", "Times New Roman", serif; font-size: 21px; }
+    .measure { stroke: #687c90; stroke-width: 1.3; marker-start: url(#arrow); marker-end: url(#arrow); }
+    .caption { font-family: SimHei, "Heiti SC", "Noto Sans CJK SC", sans-serif; font-size: 16px; fill: #354b61; }
+  </style>
+  <rect width="1060" height="440" fill="#fff"/>
+  <text class="heading" x="530" y="35" text-anchor="middle">本该聚成一点的光，在感光面上还没有收拢</text>
+  <path d="M210 100L650 190L210 280Z" fill="#edf4fa"/>
+  <path d="M75 190H895" stroke="#8b99a5" stroke-dasharray="6 5"/>
+  <path d="M210 85Q180 190 210 295Q240 190 210 85Z" fill="#e0edf6" stroke="#7296b5" stroke-width="2"/>
+  <path d="M210 100L870 235M210 280L870 145" stroke="#c54e28" stroke-width="2" fill="none"/>
+  <path d="M510 75V305" stroke="#2462a4" stroke-width="3"/>
+  <path d="M650 75V305" stroke="#8b99a5" stroke-dasharray="5 5"/>
+  <path d="M510 161.36V218.64" stroke="#2462a4" stroke-width="9"/>
+  <circle cx="650" cy="190" r="5" fill="#c54e28"/>
+  <g class="label" text-anchor="middle"><text x="210" y="67">透镜</text><text x="510" y="67">感光面</text><text x="650" y="67">成像位置</text></g>
+  <text class="label" x="666" y="181">像点</text>
+  <path class="measure" d="M163 100V280"/>
+  <text class="math" x="135" y="197">A</text>
+  <path class="measure" d="M475 161.36V218.64"/>
+  <text class="math" x="448" y="197">C</text>
+  <path class="measure" d="M210 330H510"/>
+  <path class="measure" d="M210 363H650"/>
+  <text class="math" x="360" y="324" text-anchor="middle">z<tspan baseline-shift="sub" font-size="15">s</tspan></text>
+  <text class="math" x="430" y="357" text-anchor="middle">z<tspan baseline-shift="sub" font-size="15">i</tspan></text>
+  <g transform="translate(860 285)"><circle r="38" fill="#d7e7f5" stroke="#2462a4" stroke-width="2"/><path class="measure" d="M-35 0H35"/><text class="math" y="-8" text-anchor="middle">C</text><text class="label" y="66" text-anchor="middle">正对感光面看</text></g>
+  <rect x="80" y="390" width="900" height="36" rx="4" fill="#f0f3f6"/>
+  <rect x="96" y="398" width="48" height="21" rx="3" fill="#354b61"/>
+  <text x="120" y="414" text-anchor="middle" style="font-family:SimHei,sans-serif;font-size:13px;fill:white">图注</text>
+  <text class="caption" x="158" y="414">这里只画透镜后的光路；C 是光束在感光面上的直径。感光面在像点后方时，同样会形成圆斑。</text>
+</svg>

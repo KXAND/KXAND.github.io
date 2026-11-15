@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1060" height="360" viewBox="0 0 1060 360" role="img" aria-labelledby="title desc">
+  <title id="title">两段三次贝塞尔曲线的连续性</title>
+  <desc id="desc">左图只有位置相接；中图两侧控制边同向但长度不同，满足 G1 而不满足 C1；右图控制边同向等长，满足 C1。箭头是拼接点两侧的切向量，长度为对应控制边的三倍。</desc>
+  <defs><marker id="arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="context-stroke"/></marker></defs>
+  <style>
+    text { font-family: "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: #263746; }
+    .heading { font-size: 21px; font-weight: 700; }
+    .label { font-size: 16px; }
+    .curve { fill: none; stroke-width: 3; }
+    .handle { fill: none; stroke: #7a8996; stroke-width: 1.5; stroke-dasharray: 4 4; }
+    .tangent { stroke-width: 2.5; marker-end: url(#arrow); }
+    .point { fill: #263746; }
+    .caption { font-family: SimHei, "Heiti SC", "Noto Sans CJK SC", sans-serif; font-size: 16px; fill: #354b61; }
+  </style>
+  <rect width="1060" height="360" fill="#fff"/>
+  <path d="M353 45V275M707 45V275" stroke="#e3e9ef"/>
+  <g text-anchor="middle" class="heading"><text x="177" y="36">只有 C⁰：位置接上</text><text x="530" y="36">G¹：切向同向</text><text x="883" y="36">C¹：切向同向、等长</text></g>
+  <g>
+    <path class="curve" stroke="#2462a4" d="M45 235C85 245 157 180 177 160"/>
+    <path class="curve" stroke="#c54e28" d="M177 160C197 180 265 245 309 235"/>
+    <path class="handle" d="M157 180L177 160L197 180"/>
+    <path class="tangent" stroke="#2462a4" d="M177 160L237 100"/>
+    <path class="tangent" stroke="#c54e28" d="M177 160L237 220"/>
+    <circle class="point" cx="157" cy="180" r="3"/><circle class="point" cx="177" cy="160" r="4"/><circle class="point" cx="197" cy="180" r="3"/>
+    <text class="label" x="177" y="278" text-anchor="middle">接头处有转角</text>
+  </g>
+  <g>
+    <path class="curve" stroke="#2462a4" d="M398 235C440 235 510 160 530 160"/>
+    <path class="curve" stroke="#c54e28" d="M530 160C570 160 620 85 662 85"/>
+    <path class="handle" d="M510 160H570"/>
+    <path class="tangent" stroke="#2462a4" d="M530 205H590"/>
+    <path class="tangent" stroke="#c54e28" d="M530 230H650"/>
+    <circle class="point" cx="510" cy="160" r="3"/><circle class="point" cx="530" cy="160" r="4"/><circle class="point" cx="570" cy="160" r="3"/>
+    <text class="label" x="530" y="278" text-anchor="middle">转向接上，但速度不同</text>
+  </g>
+  <g>
+    <path class="curve" stroke="#2462a4" d="M751 235C795 235 853 160 883 160"/>
+    <path class="curve" stroke="#c54e28" d="M883 160C913 160 970 85 1015 85"/>
+    <path class="handle" d="M853 160H913"/>
+    <path class="tangent" stroke="#2462a4" d="M883 205H973"/>
+    <path class="tangent" stroke="#c54e28" d="M883 230H973"/>
+    <circle class="point" cx="853" cy="160" r="3"/><circle class="point" cx="883" cy="160" r="4"/><circle class="point" cx="913" cy="160" r="3"/>
+    <text class="label" x="883" y="278" text-anchor="middle">转向和速度都接上</text>
+  </g>
+  <rect x="80" y="306" width="900" height="38" rx="4" fill="#f0f3f6"/>
+  <rect x="96" y="315" width="48" height="21" rx="3" fill="#354b61"/>
+  <text x="120" y="331" text-anchor="middle" style="font-family:SimHei,sans-serif;font-size:13px;fill:white">图注</text>
+  <text class="caption" x="158" y="331">蓝色为前一段，橙色为后一段；中、右图的切向量平移到下方显示，参数区间均为 [0,1]。</text>
+</svg>
